@@ -1,5 +1,5 @@
 <script>
-  export let title, description
+  export let title, description = 'Lorem ipsum dolor sit comet'
 </script>
 
 <svelte:head>
