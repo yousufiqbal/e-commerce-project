@@ -31,6 +31,7 @@ import { page } from "$app/stores";
 
 <style>
   .bottom-menu {
+    background-color: #fff;
     border-top: 1px solid var(--border);
     /* border-radius: 20px; */
     display: flex;
