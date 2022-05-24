@@ -4,6 +4,7 @@
   import Container from '$lib/components/Container.svelte'
   import BottomMenu from '$lib/components/BottomMenu.svelte'
   import { page } from '$app/stores';
+import NProgress from '$lib/components/NProgress.svelte';
 
   const paths = ['/cart/checkout']
 </script>
@@ -17,3 +18,5 @@
 {#if !paths.includes($page.url.pathname)}
 <BottomMenu />
 {/if}
+
+<NProgress />

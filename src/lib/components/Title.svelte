@@ -10,7 +10,7 @@
     referrer = document.referrer
   })
 
-  export let title, back = ''
+  export let title, back = false
 </script>
 
 <div class="title">

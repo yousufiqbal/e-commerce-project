@@ -6,16 +6,16 @@
   export let href = '/product/head-and-shoulders'
 </script>
 
-<a {href} class="product">
-  <div class="image">
+<div class="product">
+  <a {href} class="image">
     <img loading="lazy" src="/product.jpg" alt="">
-  </div>
+  </a>
   <div class="info">
-    <div class="name">Head & Shoulders 250ML</div>
+    <a {href} class="name">Head & Shoulders 250ML</a>
     <div class="price">Rs. 250</div>
     <AddToCart />
   </div>
-</a>
+</div>
 
 <style>
   .product {
