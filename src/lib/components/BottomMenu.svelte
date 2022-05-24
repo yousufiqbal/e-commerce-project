@@ -49,4 +49,9 @@
   .active {
     color: var(--primary);
   }
+  @media (max-height: 500px) {
+    .bottom-menu {
+      display: none;
+    }
+  }
 </style>
