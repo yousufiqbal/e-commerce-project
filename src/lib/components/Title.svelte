@@ -15,7 +15,7 @@
 
 <div class="title">
   {#if back}
-  <a href="{back === true ? document.referrer : back}"><Icon size="2rem" icon="arrowLeft" /></a>
+  <a href="{back === true ? referrer : back}"><Icon size="2rem" icon="arrowLeft" /></a>
   {/if}
   <h1 in:fly={{ x: -20, duration: 150 }}>{title}</h1>
 </div>

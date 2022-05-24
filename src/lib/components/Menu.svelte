@@ -1,17 +1,12 @@
 <script>
-  import Badge from "$lib/components/Badge.svelte";
-import Icon from "$lib/components/Icon.svelte";
+  import Icon from "$lib/components/Icon.svelte";
 
   const Links = [
     { name: '', icon: '', badge: '', href: '' }
   ]
 
   /** @type {Links} */
-  export let links = [
-    { href: '/account/orders', name: 'Orders', icon: 'homeThree', badge: '' },
-    { href: '/account/messages', name: 'Messages', icon: 'homeThree', badge: '5 New' },
-    { href: '/account/search', name: 'Search', icon: 'searchTwo', badge: '' }
-  ]
+  export let links = []
 </script>
 
 <div class="menu">

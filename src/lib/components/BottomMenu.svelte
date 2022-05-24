@@ -1,10 +1,10 @@
 <script>
-import { page } from "$app/stores";
-
+  import { page } from "$app/stores";
   import Icon from "$lib/components/Icon.svelte";
+  import { fly } from "svelte/transition";
 </script>
 
-<div class="bottom-menu">
+<div transition:fly|local={{ y: 20, duration: 200 }} class="bottom-menu">
 
   <a class:active={$page.url.pathname == '/'} href="/">
     <Icon size="1.3rem" icon="homeThree" />
@@ -40,7 +40,7 @@ import { page } from "$app/stores";
     /* border: 1px solid red; */
   }
   a {
-    padding: 8px 0;
+    padding: 10px 0;
     flex: 1;
     display: grid;
     justify-items: center;

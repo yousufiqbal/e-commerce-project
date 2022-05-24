@@ -3,6 +3,9 @@
   import '$lib/styles/global.css'
   import Container from '$lib/components/Container.svelte'
   import BottomMenu from '$lib/components/BottomMenu.svelte'
+  import { page } from '$app/stores';
+
+  const paths = ['/cart/checkout']
 </script>
 
 <Container>
@@ -11,4 +14,6 @@
 
 <div class="mb50"></div>
 
+{#if !paths.includes($page.url.pathname)}
 <BottomMenu />
+{/if}

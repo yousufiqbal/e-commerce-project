@@ -10,7 +10,7 @@
   .button-group {
     position: fixed;
     display: grid;
-    bottom: 75px;
+    bottom: 80px;
     left: 0; right: 0;
     padding: 0 20px;
   }
