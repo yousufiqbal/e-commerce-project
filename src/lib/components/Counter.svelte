@@ -8,12 +8,13 @@
   }
 
   const decrease = () => {
+    if (counts == 0) return
     counts--
   }
 </script>
 
 <div class="counter">
-  <button on:click={decrease}><Icon size="1.3rem" icon="{counts == 1? 'deleteBin' : 'subtract'}" /></button>
+  <button on:click={decrease}><Icon size="1.3rem" icon="{counts <= 1? 'deleteBin' : 'subtract'}" /></button>
   <div class="counts">{counts}</div>
   <button on:click={increase}><Icon size="1.3rem" icon="add" /></button>
 </div>

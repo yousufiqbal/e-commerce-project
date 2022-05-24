@@ -22,7 +22,12 @@
 
 <style>
   .cart-item {
-    display: flex;;
+    display: flex;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .cart-item:last-child {
+    border-bottom: none;
   }
   .image {
     display: flex;
