@@ -1,6 +1,6 @@
 <script>
-  import Badge from "./Badge.svelte";
-import Icon from "./Icon.svelte";
+  import Badge from "$lib/components/Badge.svelte";
+import Icon from "$lib/components/Icon.svelte";
 
   const Links = [
     { name: '', icon: '', badge: '', href: '' }

@@ -21,3 +21,47 @@
   <Product />
   <Product />
 </ProductGroup>
+
+<Subtitle subtitle="New Cellphones">
+  <Link name="View All" href="/categories/cellphones?sort=newest" />
+</Subtitle>
+
+<ProductGroup>
+  <Product />
+  <Product />
+  <Product />
+  <Product />
+</ProductGroup>
+
+<Subtitle subtitle="New Cellphones">
+  <Link name="View All" href="/categories/cellphones?sort=newest" />
+</Subtitle>
+
+<ProductGroup>
+  <Product />
+  <Product />
+  <Product />
+  <Product />
+</ProductGroup>
+
+<Subtitle subtitle="New Cellphones">
+  <Link name="View All" href="/categories/cellphones?sort=newest" />
+</Subtitle>
+
+<ProductGroup>
+  <Product />
+  <Product />
+  <Product />
+  <Product />
+</ProductGroup>
+
+<Subtitle subtitle="New Cellphones">
+  <Link name="View All" href="/categories/cellphones?sort=newest" />
+</Subtitle>
+
+<ProductGroup>
+  <Product />
+  <Product />
+  <Product />
+  <Product />
+</ProductGroup>

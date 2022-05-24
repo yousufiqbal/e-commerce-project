@@ -3,10 +3,11 @@
   import Title from "$lib/components/Title.svelte";
 
   const crumbs = [
-    { name: 'Account', href: '/account' },
-    { name: 'Orders', href: '/account/orders' },
+    { name: 'Cart', href: '/cart' },
+    { name: 'Checkout', href: '/cart/checkout' },
   ]
 </script>
 
 <Breadcrumb {crumbs} />
-<Title back title="Orders" />
+
+<Title back title="Checkout" />

@@ -1,6 +1,5 @@
 <script>
-import Icon from "./Icon.svelte";
-
+  import Icon from "$lib/components/Icon.svelte";
 
   export let name, href = '', icon = null
 </script>
@@ -27,8 +26,16 @@ import Icon from "./Icon.svelte";
 
 <style>
   .button {
-    border: 1px solid red;
-    padding: var(--padding);
+    text-transform: uppercase;
+    box-shadow: var(--shadow);
+    color: white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    /* border: 1px solid red !important; */
+    padding: var(--padding-extra);
     border: var(--border);
+    background-color: rgb(0, 153, 219);
   }
 </style>

@@ -22,6 +22,7 @@
     border-radius: 5px;
     box-shadow: var(--shadow);
     padding: 10px;
+    margin-bottom: 20px;
   }
   .left, .right {
     color: gray;

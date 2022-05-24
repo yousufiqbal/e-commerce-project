@@ -1,7 +1,7 @@
 <script>
 import { page } from "$app/stores";
 
-  import Icon from "./Icon.svelte";
+  import Icon from "$lib/components/Icon.svelte";
 </script>
 
 <div class="bottom-menu">

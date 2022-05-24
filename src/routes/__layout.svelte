@@ -9,4 +9,6 @@
   <slot></slot>
 </Container>
 
+<div class="mb50"></div>
+
 <BottomMenu />

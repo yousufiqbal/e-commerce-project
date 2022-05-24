@@ -1,22 +1,39 @@
 <script>
   import Seo from "$lib/components/Seo.svelte";
+  import { onMount } from "svelte";
+  import { fly } from "svelte/transition";
+  import Icon from "./Icon.svelte";
 
-  export let title
+  let referrer
+
+  onMount(() => {
+    referrer = document.referrer
+  })
+
+  export let title, back = ''
 </script>
 
 <div class="title">
-  <h1>{title}</h1>
+  {#if back}
+  <a href="{back === true ? document.referrer : back}"><Icon size="2rem" icon="arrowLeft" /></a>
+  {/if}
+  <h1 in:fly={{ x: -20, duration: 150 }}>{title}</h1>
 </div>
 
 <Seo {title} />
 
 <style>
   .title {
-    /* border: 1px solid red; */
+    display: flex;
+    gap: 15px;
     margin-bottom: 20px;
   }
   h1 {
     font-family: var(--serif);
     font-size: 1.5rem;
+  }
+  a {
+    display: flex;
+    align-items: center;
   }
 </style>

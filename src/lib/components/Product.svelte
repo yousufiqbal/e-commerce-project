@@ -1,10 +1,12 @@
 <!-- Image, Name, Price, Button, Attractions -->
 
 <script>
-  import AddToCart from "./AddToCart.svelte";
+  import AddToCart from "$lib/components/AddToCart.svelte";
+
+  export let href = '/product/head-and-shoulders'
 </script>
 
-<div class="product">
+<a {href} class="product">
   <div class="image">
     <img loading="lazy" src="/product.jpg" alt="">
   </div>
@@ -13,7 +15,7 @@
     <div class="price">Rs. 250</div>
     <AddToCart />
   </div>
-</div>
+</a>
 
 <style>
   .product {

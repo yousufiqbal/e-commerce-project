@@ -4,6 +4,7 @@
 
 <style>
   .container {
+    position: relative;
     padding: 20px;
     margin: 0 auto;
   }

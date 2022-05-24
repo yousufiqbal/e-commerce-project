@@ -1,5 +1,5 @@
 <script>
-  import Icon from "./Icon.svelte";
+  import Icon from "$lib/components/Icon.svelte";
 
   export let counts = 0, limit = null
 

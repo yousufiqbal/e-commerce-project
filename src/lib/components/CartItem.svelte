@@ -1,5 +1,5 @@
 <script>
-  import Counter from "./Counter.svelte";
+  import Counter from "$lib/components/Counter.svelte";
 </script>
 
 <div class="cart-item">
