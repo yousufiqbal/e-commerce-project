@@ -4,6 +4,7 @@
   import { fly } from "svelte/transition";
   import Icon from "./Icon.svelte";
 
+  export let align = 'left'
   let referrer
 
   onMount(() => {
@@ -17,7 +18,7 @@
   {#if back}
   <a href="{back === true ? referrer : back}"><Icon size="2rem" icon="arrowLeft" /></a>
   {/if}
-  <h1 in:fly={{ x: -20, duration: 150 }}>{title}</h1>
+  <h1 style:text-align={align} in:fly={{ x: -20, duration: 150 }}>{title}</h1>
 </div>
 
 <Seo {title} />

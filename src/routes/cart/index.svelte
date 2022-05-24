@@ -19,5 +19,5 @@
 <CartSummary {items} />
 
 <ButtonGroup>
-  <Button name="Checkout" href="/cart/checkout" icon="shoppingBag" />
+  <Button name="Sign-In To Checkout" href="/account/sign-in?next=/cart/checkout" icon="shoppingBag" />
 </ButtonGroup>

@@ -1,12 +1,14 @@
 <script>
   import Icon from "$lib/components/Icon.svelte";
+
+  export let placeholder = ''
 </script>
 
 <div class="search-box {$$props.class || 'mb20'}">
 
   <div class="search">
     <button><Icon size="1.3rem" icon="searchTwo" /></button>
-    <input type="text">
+    <input {placeholder}>
     <button><Icon size="1.3rem" icon="close" /></button>
   </div>
 

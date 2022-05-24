@@ -14,7 +14,7 @@
   {#each items as item}
   <div class="cart-item">
 
-    <a href="/products/{item.url_name}" class="image">
+    <a href="/product/{item.url_name}" class="image">
       <img src="/product.jpg" alt="">
     </a>
   

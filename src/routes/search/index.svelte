@@ -1,7 +1,7 @@
 <script>
   import SearchBox from "$lib/components/SearchBox.svelte";
-import Title from "$lib/components/Title.svelte";
+  import Seo from "$lib/components/Seo.svelte";
 </script>
 
-<Title title="Search" />
-<SearchBox />
+<Seo title="Search" />
+<SearchBox placeholder="Search Grocery Store" />

@@ -1,6 +1,5 @@
 <script>
-import Icon from "./Icon.svelte";
-
+  import Icon from "./Icon.svelte";
 
   export let name, href, icon = 'arrowRightS'
 </script>
