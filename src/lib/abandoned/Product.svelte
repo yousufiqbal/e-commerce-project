@@ -7,14 +7,17 @@
 </script>
 
 <div class="product">
+
   <a {href} class="image">
     <img loading="lazy" src="/product.jpg" alt="">
   </a>
+
   <div class="info">
     <a {href} class="name">Head & Shoulders 250ML</a>
     <div class="price">Rs. 250</div>
     <AddToCart />
   </div>
+
 </div>
 
 <style>

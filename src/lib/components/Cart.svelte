@@ -2,7 +2,7 @@
   import Counter from "./Counter.svelte";
 
   let Items = [
-    { name: '', price: 0, counts: 0, stock: 0 },
+    { name: '', url_name: '', price: 0, counts: 0, stock: 0 },
   ]
 
   /** @type {Items} */
@@ -14,9 +14,9 @@
   {#each items as item}
   <div class="cart-item">
 
-    <div class="image">
+    <a href="/products/{item.url_name}" class="image">
       <img src="/product.jpg" alt="">
-    </div>
+    </a>
   
     <div class="info">
       <div class="name">{item.name}</div>
@@ -45,8 +45,11 @@
   .image {
     display: flex;
     padding: 5px;
-    /* border: 1px solid blue; */
+    box-shadow: var(--shadow);
+    border-radius: 5px;
+    border: 1px solid var(--border);
     width: 80px;
+    margin-right: 10px;
   }
   .info {
     flex: 1;
@@ -58,6 +61,9 @@
     display: grid;
     align-content: space-between;
     /* border: 1px solid green; */
+  }
+  .price {
+    color: green;
   }
   .total {
     font-weight: bold;
