@@ -1,5 +1,9 @@
 <script>
   import Counter from "$lib/components/Counter.svelte";
+
+  export let price = 250
+  export let counts = 1
+  export let total = price * counts
 </script>
 
 <div class="cart-item">
@@ -10,12 +14,12 @@
 
   <div class="info">
     <div class="name">Head & Shoulders 250ML</div>
-    <div class="price">Rs. 250</div>
+    <div class="price">Rs. {price}</div>
   </div>
 
   <div class="counter-total">
-    <Counter />
-    <div class="total">Rs. 750</div>
+    <Counter bind:counts />
+    <div class="total">Rs. {total}</div>
   </div>
 
 </div>

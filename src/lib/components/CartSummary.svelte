@@ -1,18 +1,22 @@
-<!-- Total, Items, Rs. Tax -->
+<script>
+  export let items = []
+</script>
 
+{#if items.length != 0}
 <div class="cart-summary">
-
+  
   <div class="left">
     <div>Total</div>
-    <div>4 Items</div>
+    <div>{items.length} Items</div>
   </div>
 
   <div class="right">
-    <div>Rs. 2250</div>
+    <div>Rs. {items.map(item => item.counts * item.price).reduce((a, b) => +a + +b, 0)}</div>
     <div>All Taxes Included</div>
   </div>
-
+  
 </div>
+{/if}
 
 <style>
   .cart-summary {

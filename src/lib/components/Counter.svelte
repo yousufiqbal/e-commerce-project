@@ -1,9 +1,10 @@
 <script>
   import Icon from "$lib/components/Icon.svelte";
 
-  export let counts = 0, limit = null
+  export let counts = 0, limit = 20
 
   const increase = () => {
+    if (counts >= limit) return
     counts++
   }
 

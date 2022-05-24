@@ -1,6 +1,8 @@
 <script>
   import { page } from "$app/stores";
 import Breadcrumb from "$lib/components/Breadcrumb.svelte";
+import Pills from "$lib/components/Pills.svelte";
+import Products from "$lib/components/Products.svelte";
   import Title from "$lib/components/Title.svelte";
   import { startCase } from 'lodash-es'
 
@@ -11,4 +13,9 @@ import Breadcrumb from "$lib/components/Breadcrumb.svelte";
 </script>
 
 <Breadcrumb {crumbs} />
+
 <Title back="/categories" title="{startCase($page.params.name)}" />
+
+<Pills />
+
+<Products />
