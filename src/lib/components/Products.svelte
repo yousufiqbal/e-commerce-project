@@ -1,5 +1,8 @@
 <script>
   import AddToCart from "./AddToCart.svelte";
+  import Icon from "./Icon.svelte";
+
+  export let wishlist = true
 
   export let products = [
     { name: 'Head & Shoulders 250ML', url_name: 'head-and-shoulders-250ml' },
@@ -17,6 +20,15 @@
 
     <a href="/product/{product.url_name}" class="image">
       <img loading="lazy" src="/product.jpg" alt="">
+      {#if wishlist}
+      <button>
+        <Icon icon="heartTwo" size="1.5rem" />
+      </button>
+      {:else}
+      <button>
+        <Icon icon="deleteBin" size="1.5rem" />
+      </button>
+      {/if}
     </a>
 
     <div class="info">
@@ -40,10 +52,17 @@
     /* border: 1px solid red; */
   }
   .image {
+    position: relative;
     padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .image button {
+    display: flex;
+    position: absolute;
+    top: 10px; right: 10px;
+    /* border: 1px solid var(--border); */
   }
   .name {
     font-weight: bold;

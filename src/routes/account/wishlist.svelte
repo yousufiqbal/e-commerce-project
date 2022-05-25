@@ -13,4 +13,4 @@
 
 <Title back title="Wishlist" />
 
-<Products />
+<Products wishlist={false} />

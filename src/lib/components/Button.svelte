@@ -38,7 +38,7 @@
   }
   .primary {
     color: white;
-    background-color: rgb(0, 153, 219);
+    background-color: var(--secondary);
   }
   .general {
     background-color: #fff;

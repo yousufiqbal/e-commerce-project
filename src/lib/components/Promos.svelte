@@ -2,27 +2,31 @@
 
   <div class="promo card">
 
-    <h2>BIG50</h2>
+    <div class="title">
+      <h2>BIG50</h2>
+      <div class="status valid">Valid</div>
+    </div>
 
     <div>
       <p>10% Off - Upto Rs. 50</p>
       <p>Validity Dec 18, 2022</p>
     </div>
 
-    <div class="status valid">Valid</div>
 
   </div>
   
   <div class="promo card expired">
 
-    <h2>BIG50</h2>
+    <div class="title">
+      <h2>BIG50</h2>
+      <div class="status expired">Expired</div>
+    </div>
 
     <div>
       <p>10% Off - Upto Rs. 50</p>
       <p>Validity Dec 18, 2022</p>
     </div>
 
-    <div class="status expired">Expired</div>
 
   </div>
 
@@ -33,6 +37,11 @@
     display: grid;
     gap: 20px;
     /* border: 1px solid red; */
+  }
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   .expired {
     user-select: none;

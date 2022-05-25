@@ -1,8 +1,7 @@
 <script>
-
-import Icon from "./Icon.svelte";
-
+  import Icon from "./Icon.svelte";
 </script>
+
 <div class="addresses">
   
   <div class="address card">
@@ -44,7 +43,8 @@ import Icon from "./Icon.svelte";
   }
   .addresses {
     display: grid;
-    gap: 20px
+    gap: 20px;
+    margin-bottom: 20px;
   }
   .address {
     display: grid;

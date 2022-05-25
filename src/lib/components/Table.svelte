@@ -11,6 +11,6 @@
     padding: var(--padding-extra);
   }
   .table tr:nth-child(even) {
-    background-color: rgb(233, 233, 233);
+    background-color: rgb(241, 241, 241);
   }
 </style>
