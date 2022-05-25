@@ -5,6 +5,6 @@
 <style>
   .small-button-group {
     display: flex;
-    gap: 5px;
+    gap: 10px;
   }
 </style>
