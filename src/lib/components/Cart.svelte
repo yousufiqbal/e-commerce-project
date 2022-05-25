@@ -5,6 +5,8 @@
     { name: '', url_name: '', price: 0, counts: 0, stock: 0 },
   ]
 
+  export let locked = false
+
   /** @type {Items} */
   export let items = []
 </script>
@@ -24,7 +26,11 @@
     </div>
   
     <div class="counter-total">
+      {#if !locked}
       <Counter bind:counts={item.counts} limit={item.stock} />
+      {:else}
+      <div class="counts">x {item.counts}</div>
+      {/if}
       <div class="total">Rs. {item.counts * item.price}</div>
     </div>
   
@@ -36,8 +42,8 @@
 <style>
   .cart-item {
     display: flex;
-    padding-bottom: 15px;
-    border-bottom: 1px dashed var(--border);
+    padding-bottom: 18px;
+    border-bottom: 1px dashed black;
   }
   .cart-item:last-child {
     border-bottom: none;
@@ -74,5 +80,11 @@
     display: grid;
     gap: 20px;
     margin-bottom: 20px;
+  }
+  .counts {
+    color: red;
+    font-weight: bold;
+    /* border: 1px solid red; */
+    justify-self: end;
   }
 </style>

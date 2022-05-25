@@ -12,7 +12,7 @@ import SmallButtonGroup from "./SmallButtonGroup.svelte";
       <p class="dated">Expected On: May 25 - May 30, 2022</p>
     </div>
     <SmallButtonGroup>
-      <SmallButton icon="eye" name="Show Details" />
+      <SmallButton href="/account/orders/546546" icon="eye" name="Show Details" />
     </SmallButtonGroup>
   </div>
 
