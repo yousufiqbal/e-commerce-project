@@ -44,9 +44,8 @@ import Table from "$lib/components/Table.svelte";
 <style>
   .total {
     font-size: 3rem;
-    text-align: center;
+    color: green;
     font-family: var(--serif);
     margin-bottom: 30px;
-    /* border: 1px solid red; */
   }
 </style>
