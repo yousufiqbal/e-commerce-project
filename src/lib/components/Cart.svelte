@@ -55,7 +55,7 @@
     border-radius: 5px;
     border: 1px solid var(--border);
     width: 80px;
-    margin-right: 10px;
+    margin-right: 15px;
   }
   .info {
     flex: 1;
