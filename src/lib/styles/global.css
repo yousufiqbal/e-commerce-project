@@ -6,7 +6,7 @@
   font-family: var(--sans-serif);
 }
 
-input {
+input, textarea {
   border: none;
 }
 

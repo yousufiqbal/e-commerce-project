@@ -15,4 +15,9 @@
     left: 0; right: 0;
     padding: 0 20px;
   }
+  @media (max-height: 500px) {
+    .button-group {
+      display: none;
+    }
+  }
 </style>

@@ -16,7 +16,7 @@
   <label for="{name}">{label}</label>
 
   {#if face == 'textarea'}
-  <textarea bind:value {name} id="{name}" rows="5"></textarea>
+  <textarea bind:value {name} id="{name}" rows="3"></textarea>
   {/if}
 
   {#if face == 'radio'}
@@ -26,6 +26,10 @@
     <label for="{item[idColumn]}">{item[valueColumn]}</label>
     {/each}
   </div>
+  {/if}
+
+  {#if face == 'input'}
+  <input type="text">
   {/if}
 
   {#if touched && error}
@@ -45,19 +49,21 @@
   }
   .field {
     display: grid;
-    gap: 15px;
+    gap: 10px;
     /* border: 1px solid red; */
-    margin-bottom: 30px; /*temp*/
+    margin-bottom: 20px; /*temp*/
   }
   .field > label {
     /* color: green; */
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-family: var(--serif);
   }
   .error {
     color: red;
   }
-  textarea {
-    padding: 15px;
+  textarea, input {
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 10px 15px;
   }
 </style>
