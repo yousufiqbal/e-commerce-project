@@ -1,17 +1,14 @@
 <script>
 import Address from "$lib/components/Address.svelte";
-
-  import Addresses from "$lib/components/Addresses.svelte";
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
+import Button from "$lib/components/Button.svelte";
+import ButtonGroup from "$lib/components/ButtonGroup.svelte";
 import CartSummary from "$lib/components/CartSummary.svelte";
 import Methods from "$lib/components/Methods.svelte";
 import PromoField from "$lib/components/PromoField.svelte";
-import SmallButton from "$lib/components/SmallButton.svelte";
-import SmallButtonGroup from "$lib/components/SmallButtonGroup.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Title from "$lib/components/Title.svelte";
 
-  export let method 
 
   const crumbs = [
     { name: 'Cart', href: '/cart' },
@@ -43,7 +40,7 @@ import SmallButtonGroup from "$lib/components/SmallButtonGroup.svelte";
 
 <CartSummary {items} />
 
-<!-- <ButtonGroup>
+<ButtonGroup>
   <Button name="Confirm Order" href="/cart/confirm" icon="checkDouble" />
-</ButtonGroup> -->
+</ButtonGroup>
 
