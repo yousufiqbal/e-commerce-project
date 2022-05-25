@@ -1,7 +1,7 @@
 <script>
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
-import Icon from "$lib/components/Icon.svelte";
-import Table from "$lib/components/Table.svelte";
+  import Icon from "$lib/components/Icon.svelte";
+  import Table from "$lib/components/Table.svelte";
   import Title from "$lib/components/Title.svelte";
 
   const crumbs = [

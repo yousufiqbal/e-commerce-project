@@ -12,8 +12,8 @@
   ]
 
   const links2 = [
-    { name: 'Return Policy', icon: 'arrowGoBack', href: '/account/return-policy' },
     { name: 'Customer Support', icon: 'customerService', href: '/account/customer-support' },
+    { name: 'Return Policy', icon: 'arrowGoBack', href: '/account/return-policy' },
     { name: 'About', icon: 'information', href: '/account/about' },
   ]
   
