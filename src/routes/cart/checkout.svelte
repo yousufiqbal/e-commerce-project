@@ -1,6 +1,13 @@
 <script>
+import Address from "$lib/components/Address.svelte";
+
   import Addresses from "$lib/components/Addresses.svelte";
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
+import CartSummary from "$lib/components/CartSummary.svelte";
+import Methods from "$lib/components/Methods.svelte";
+import PromoField from "$lib/components/PromoField.svelte";
+import SmallButton from "$lib/components/SmallButton.svelte";
+import SmallButtonGroup from "$lib/components/SmallButtonGroup.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Title from "$lib/components/Title.svelte";
 
@@ -10,72 +17,33 @@
     { name: 'Cart', href: '/cart' },
     { name: 'Checkout', href: '/cart/checkout' },
   ]
+    let items = [
+    { name: 'Head & Shoulders 250ML', url_name: 'head-and-shoulders-250ml', price: 250, counts: 1, stock: 3 },
+    { name: 'Head & Shoulders 250ML', url_name: 'head-and-shoulders-250ml', price: 250, counts: 2, stock: 5 },
+    { name: 'Head & Shoulders 250ML', url_name: 'head-and-shoulders-250ml', price: 250, counts: 3, stock: 10 },
+  ]
 </script>
-
 <Breadcrumb {crumbs} />
 
 <Title back title="Checkout" />
 
 <Subtitle subtitle="Address" />
-<Addresses />
+
+<Address />
 
 <Subtitle subtitle="Payment Method" />
 
-<div class="methods">
-  <div class="method">
-    <input bind:group={method} type="radio" id="cod" name="cod" value="cod">
-    <label for="cod">Cash On Delivery</label>
-  </div>
-  <div class="method">
-    <input bind:group={method} type="radio" id="card" name="card" value="card">
-    <label for="card">Debit / Credit Card</label>
-  </div>
-</div>
+<Methods />
 
 <Subtitle subtitle="Promo Code" />
 
-<div class="promo-input">
-  <input type="text">
-  <button>Apply</button>
-</div>
+<PromoField />
 
 <Subtitle subtitle="Bill Summary" />
+
+<CartSummary {items} />
 
 <!-- <ButtonGroup>
   <Button name="Confirm Order" href="/cart/confirm" icon="checkDouble" />
 </ButtonGroup> -->
 
-<style>
-  .methods {
-    display: grid;
-    justify-items: start;
-    gap: 15px;
-    margin-bottom: 20px;
-    /* border: 1px solid red; */
-  }
-  .method {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    /* border: 1px solid blue; */
-  }
-  .promo-input {
-    display: flex;
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    margin-bottom: 20px;
-  }
-  input {
-    flex: 1;
-    padding: var(--padding-extra);
-    /* border: 1px solid blue; */
-  }
-  button {
-    padding: 12px 20px;
-    /* border: 1px solid green; */
-    color: white;
-    background-color: var(--secondary);
-  }
-</style>
