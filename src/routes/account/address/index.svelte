@@ -17,5 +17,5 @@
 <Addresses />
 
 <ButtonGroup>
-  <Button name="Add New Address" icon="add" />
+  <Button href="/account/address/add-address" name="Add New Address" icon="add" />
 </ButtonGroup>
