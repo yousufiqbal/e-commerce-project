@@ -10,11 +10,13 @@
     { name: 'Wallet', icon: 'walletThree', href: '/account/wallet' },
     { name: 'Promos', icon: 'ticket', href: '/account/promos' },
   ]
+
   const links2 = [
     { name: 'Return Policy', icon: 'arrowGoBack', href: '/account/return-policy' },
-    { name: 'Support', icon: 'customerService', href: '/account/support' },
+    { name: 'Customer Support', icon: 'customerService', href: '/account/customer-support' },
     { name: 'About', icon: 'information', href: '/account/about' },
   ]
+  
   const links3 = [
     { name: 'Logout', icon: 'logoutBoxR', href: '/account/logout' },
   ]

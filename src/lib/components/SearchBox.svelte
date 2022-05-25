@@ -1,10 +1,10 @@
 <script>
-import { goto } from "$app/navigation";
-import { page } from "$app/stores";
-
+  import { goto } from "$app/navigation";
+  import { page } from "$app/stores";
   import Icon from "$lib/components/Icon.svelte";
   import { isSafari } from '$lib/others/utils.js'
 
+  let input
   let keyword = $page.url.searchParams.get('keyword') || ''
   export let placeholder = ''
   let show = false
@@ -18,11 +18,24 @@ import { page } from "$app/stores";
   }
 
   const search = () => {
-    if (!keyword) {
+    if (!keyword.trim()) {
       keyword = ''
       return
     }
     goto(`/search?keyword=${keyword}`)
+  }
+
+  const clear = () => {
+    keyword = ''
+    input.focus()
+    goto('/search', { keepfocus: true })
+  }
+
+  const hideSuggestions = e => {
+    // keyword = e.currentTarget.text
+    setTimeout(() => {
+      show = false
+    }, 0);
   }
 </script>
 
@@ -32,17 +45,19 @@ import { page } from "$app/stores";
     
   <form class="search" on:submit|preventDefault={search}>
     <button><Icon size="1.3rem" icon="searchTwo" /></button>
-    <input bind:value={keyword} use:typeMe on:focus={()=>show=true} on:blur={()=>show=false} {placeholder}>
-    <!-- <button><Icon size="1.3rem" icon="close" /></button> -->
+    <input bind:this={input} bind:value={keyword} use:typeMe on:focus={()=>show=true} on:blur={hideSuggestions} {placeholder}>
+    {#if keyword}
+    <button on:click={clear}><Icon size="1.3rem" icon="close" /></button>
+    {/if}
   </form>
 
   {#if show}
   <div class="suggestions">
-    <a href="/">Chine Apple</a>
-    <a href="/">Pakistan Banana</a>
-    <a href="/">Japan Orange</a>
-    <a href="/">Chine Apple</a>
-    <a href="/">Pakistan Banana</a>
+    <a href="/search?keyword=chine-apple">Chine Apple</a>
+    <a href="/search?keyword=pakistan-banana">Pakistan Banana</a>
+    <a href="/search?keyword=japan-orange">Japan Orange</a>
+    <a href="/search?keyword=chine-apple">Chine Apple</a>
+    <a href="/search?keyword=pakistan-banana">Pakistan Banana</a>
   </div>
   {/if}
   
@@ -68,6 +83,7 @@ import { page } from "$app/stores";
     align-items: center;
   }
   .search button {
+    z-index: 1;
     display: flex;
     padding: 12px 13px;
   }
@@ -82,4 +98,5 @@ import { page } from "$app/stores";
     padding: var(--padding-extra);
     border-top: 1px solid var(--border);
   }
+
 </style>

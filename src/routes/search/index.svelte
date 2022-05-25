@@ -10,6 +10,6 @@ import { page } from "$app/stores";
 <Seo title="Search" />
 <SearchBox placeholder="Search Grocery Store" />
 
-<Subtitle subtitle="Results for {$page.url.searchParams.get('keyword')}" />
+<Subtitle subtitle="Search Results for '{$page.url.searchParams.get('keyword')}'" />
 
 <Products />
