@@ -1,9 +1,10 @@
 <script>
+  export let span = 'span 1'
   export let label, name
   export let touched = false, error = null
   export let value = undefined
 
-  export let idColumn, valueColumn
+  export let idColumn = null, valueColumn = null
 
   export let items = []
   
@@ -11,7 +12,7 @@
   export let face
 </script>
 
-<div class="field">
+<div style:grid-column={span} class="field">
 
   <label for="{name}">{label}</label>
 
@@ -29,7 +30,7 @@
   {/if}
 
   {#if face == 'input'}
-  <input type="text">
+  <input size="1" type="text">
   {/if}
 
   {#if touched && error}
@@ -45,18 +46,10 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    /* accent-color: rgb(0, 188, 0); */
   }
   .field {
     display: grid;
     gap: 10px;
-    /* border: 1px solid red; */
-    margin-bottom: 20px; /*temp*/
-  }
-  .field > label {
-    /* color: green; */
-    font-size: 1rem;
-    font-family: var(--serif);
   }
   .error {
     color: red;

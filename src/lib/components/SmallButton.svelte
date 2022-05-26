@@ -8,7 +8,7 @@
 
   <a {href} class="button {type}">
     {#if icon}
-    <Icon size="1.3rem" {icon} />
+    <Icon size="1.2rem" {icon} />
     {/if}
     <span>{name}</span>
   </a>
@@ -17,7 +17,7 @@
 
   <button class="button {type}">
     {#if icon}
-    <Icon size="1.3rem" {icon} />
+    <Icon size="1.2rem" {icon} />
     {/if}
     <span>{name}</span>
   </button>

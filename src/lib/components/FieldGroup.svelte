@@ -9,5 +9,6 @@
 <style>
   .field-group {
     display: grid;
+    gap: 20px;
   }
 </style>
