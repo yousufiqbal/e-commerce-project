@@ -1,5 +1,6 @@
 <script>
   import { page } from "$app/stores";
+import BillSummary from "$lib/components/BillSummary.svelte";
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
@@ -37,13 +38,13 @@ import Statuses from "$lib/components/Statuses.svelte";
   You may receive your order by May 26, 2022. In case, date exceeds, feel free to contact <a href="/account/customer-support">Customer Support</a>.
 </Message>
 
-<Subtitle subtitle="Status" />
-
+<Subtitle subtitle="Status" icon="listCheckTwo" />
 <Statuses />
 
-<Subtitle subtitle="Items" />
-
+<Subtitle subtitle="Items" icon="shoppingCart" />
 <Cart locked {items} />
-<CartSummary {items} />
+
+<Subtitle subtitle="Bill Summary" icon="bill" />
+<BillSummary />
 
 

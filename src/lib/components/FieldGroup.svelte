@@ -1,3 +1,4 @@
+
 <script>
   export let columns = '1fr'
 </script>
@@ -9,6 +10,7 @@
 <style>
   .field-group {
     display: grid;
+    margin-bottom: 20px;
     gap: 20px;
   }
 </style>

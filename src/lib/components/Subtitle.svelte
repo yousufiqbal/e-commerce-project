@@ -1,9 +1,16 @@
 <script>
-  export let subtitle
+  import Icon from "./Icon.svelte";
+
+  export let subtitle, icon = null
 </script>
 
 <div class="subtitle">
-  <h2>{subtitle}</h2>
+  <div class="group">
+    {#if icon}
+    <Icon fill="var(--primary)" size="1.2rem" {icon} />
+    {/if}
+    <h2>{subtitle}</h2>
+  </div>
   <slot></slot>
 </div>
 
@@ -13,6 +20,12 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
+  }
+  .group {
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
   h2 {
     font-family: var(--serif);

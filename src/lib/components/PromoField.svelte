@@ -1,5 +1,5 @@
 <div class="promo-field">
-  <input type="text">
+  <input placeholder="5 Letters Code">
   <button>Apply</button>
 </div>
 
@@ -14,6 +14,7 @@
   }
   input {
     flex: 1;
+    /* align-items: stretch; */
     padding: var(--padding-extra);
     /* border: 1px solid blue; */
   }

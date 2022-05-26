@@ -12,4 +12,4 @@ import { page } from "$app/stores";
 
 <Subtitle subtitle="Search Results for '{$page.url.searchParams.get('keyword')}'" />
 
-<Products />
+<!-- <Products /> -->

@@ -43,7 +43,7 @@
   .cart-item {
     display: flex;
     padding-bottom: 18px;
-    border-bottom: 1px dashed black;
+    border-bottom: 1px dashed var(--border);
   }
   .cart-item:last-child {
     border-bottom: none;

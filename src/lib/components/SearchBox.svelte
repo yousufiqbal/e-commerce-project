@@ -44,11 +44,17 @@
   <div class="search-box {$$props.class || 'mb20'}">
     
   <form class="search" on:submit|preventDefault={search}>
+
     <button><Icon size="1.3rem" icon="searchTwo" /></button>
     <input bind:this={input} bind:value={keyword} use:typeMe on:focus={()=>show=true} on:blur={hideSuggestions} {placeholder}>
-    {#if keyword}
+    
+    {#if keyword && show}
+    <button on:click={clear}><Icon size="1.3rem" fill="var(--primary)" icon="arrowRight" /></button>
+    {/if}
+    {#if keyword && !show}
     <button on:click={clear}><Icon size="1.3rem" icon="close" /></button>
     {/if}
+
   </form>
 
   {#if show}
@@ -71,7 +77,9 @@
     margin-bottom: 70px;
   }
   .search-box {
+    overflow: hidden;
     position: absolute;
+    z-index: 1;
     left: 0; right: 0;
     display: grid;
     border: 1px solid var(--border);
