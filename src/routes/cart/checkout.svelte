@@ -16,18 +16,16 @@
     { name: 'Cart', href: '/cart' },
     { name: 'Checkout', href: '/cart/checkout' },
   ]
-
 </script>
+
 <Breadcrumb {crumbs} />
 
 <Title back title="Checkout" />
 
 <Subtitle icon="mapPinTwo" subtitle="Delivery Address" />
-
 <Address />
 
 <Subtitle icon="currency" subtitle="Payment Method" />
-
 <Methods bind:paymentMethod />
 
 {#if paymentMethod == 'card'}
@@ -36,15 +34,11 @@
 {/if}
 
 <Subtitle icon="coupon" subtitle="Promo Code" />
-
 <PromoField />
 
 <Subtitle icon="bill" subtitle="Bill Summary" />
-
 <BillSummary />
-
 
 <ButtonGroup>
   <Button name="Confirm Order" href="/cart/confirm" icon="checkDouble" />
 </ButtonGroup>
-
