@@ -1,18 +1,16 @@
 <script>
   import Address from "$lib/components/Address.svelte";
-import BillSummary from "$lib/components/BillSummary.svelte";
+  import BillSummary from "$lib/components/BillSummary.svelte";
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
-import DebitCard from "$lib/components/DebitCard.svelte";
-  import FieldGroup from "$lib/components/FieldGroup.svelte";
-import Input from "$lib/components/Input.svelte";
+  import DebitCard from "$lib/components/DebitCard.svelte";
   import Methods from "$lib/components/Methods.svelte";
   import PromoField from "$lib/components/PromoField.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Title from "$lib/components/Title.svelte";
 
-  let paymentMethod = 'card'
+  let paymentMethod = 'cod'
 
   const crumbs = [
     { name: 'Cart', href: '/cart' },

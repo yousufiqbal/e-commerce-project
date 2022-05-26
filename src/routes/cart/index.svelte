@@ -22,8 +22,8 @@ import Subtitle from "$lib/components/Subtitle.svelte";
 <Cart bind:items />
 <!-- <CartSummary {items} /> -->
 
-<Subtitle subtitle="Promo" icon="coupon" />
-<PromoField />
+<!-- <Subtitle subtitle="Promo" icon="coupon" />
+<PromoField /> -->
 
 <Subtitle subtitle="Bill Summary" icon="bill" />
 <BillSummary />
