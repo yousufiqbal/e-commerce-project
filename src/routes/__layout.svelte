@@ -3,11 +3,29 @@
   import '$lib/styles/global.css'
   import Container from '$lib/components/Container.svelte'
   import BottomMenu from '$lib/components/BottomMenu.svelte'
-  // import { page } from '$app/stores';
   import NProgress from '$lib/components/NProgress.svelte';
+  import Modal from '$lib/components/Modal.svelte';
+  import Text from '$lib/components/Text.svelte';
+  import Subtitle from '$lib/components/Subtitle.svelte';
+  import Spaced from '$lib/components/Spaced.svelte';
+  import SmallButton from '$lib/components/SmallButton.svelte';
 
   // const paths = ['/cart/checkout']
+  let show = false
 </script>
+
+{#if show}
+<Modal on:close={()=>show=false}>
+  <Subtitle icon="errorWarning" subtitle="Confirm" />
+  <Text>
+    Are You sure you want to remove this?
+  </Text>
+  <Spaced>
+    <SmallButton icon="check" name="Yes" />
+    <SmallButton icon="close" name="No" />
+  </Spaced>
+</Modal>
+{/if}
 
 <Container>
   <slot></slot>
