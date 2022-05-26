@@ -33,8 +33,8 @@
 <DebitCard />
 {/if}
 
-<Subtitle icon="coupon" subtitle="Promo Code" />
-<PromoField />
+<!-- <Subtitle icon="coupon" subtitle="Promo Code" />
+<PromoField /> -->
 
 <Subtitle icon="bill" subtitle="Bill Summary" />
 <BillSummary />

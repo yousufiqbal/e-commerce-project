@@ -20,13 +20,13 @@ import Subtitle from "$lib/components/Subtitle.svelte";
 
 <Subtitle subtitle="Items" icon="shoppingCart" />
 <Cart bind:items />
-<!-- <CartSummary {items} /> -->
+<CartSummary {items} />
 
-<!-- <Subtitle subtitle="Promo" icon="coupon" />
-<PromoField /> -->
+<Subtitle subtitle="Promo Code" icon="coupon" />
+<PromoField />
 
 <Subtitle subtitle="Bill Summary" icon="bill" />
-<BillSummary />
+<BillSummary {items} />
 
 <ButtonGroup>
   <Button name="Sign-In To Checkout" href="/account/sign-in?next=/cart/checkout" icon="shoppingBag" />

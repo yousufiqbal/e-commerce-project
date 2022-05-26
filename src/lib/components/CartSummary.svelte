@@ -22,9 +22,9 @@
   .cart-summary {
     display: flex;
     justify-content: space-between;
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    box-shadow: var(--shadow);
+    border-top: 1px solid black;
+    /* border-radius: 5px; */
+    /* box-shadow: var(--shadow); */
     padding: 10px;
     margin-bottom: 20px;
   }
