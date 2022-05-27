@@ -15,7 +15,7 @@
 
 {:else}
 
-  <button class="button {type}">
+  <button on:click class="button {type}">
     {#if icon}
     <Icon size="1.3rem" {icon} />
     {/if}

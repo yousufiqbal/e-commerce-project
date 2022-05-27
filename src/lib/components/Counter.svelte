@@ -1,23 +1,15 @@
 <script>
   import Icon from "$lib/components/Icon.svelte";
+  import { createEventDispatcher } from "svelte";
 
-  export let counts = 0, limit = 20
-
-  const increase = () => {
-    if (counts >= limit) return
-    counts++
-  }
-
-  const decrease = () => {
-    if (counts == 0) return
-    counts--
-  }
+  const dispatch = createEventDispatcher()
+  export let counts = 0
 </script>
 
 <div class="counter">
-  <button on:click={decrease}><Icon size="1.3rem" icon="{counts <= 1? 'deleteBin' : 'subtract'}" /></button>
+  <button on:click={()=>dispatch('decrease')}><Icon size="1.3rem" icon="{counts <= 1? 'deleteBin' : 'subtract'}" /></button>
   <div class="counts">{counts}</div>
-  <button on:click={increase}><Icon size="1.3rem" icon="add" /></button>
+  <button on:click={()=>dispatch('increase')}><Icon size="1.3rem" icon="add" /></button>
 </div>
 
 <style>

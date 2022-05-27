@@ -1,12 +1,13 @@
 <script>
   import { createEventDispatcher } from "svelte";
+import { fly } from "svelte/transition";
   import Icon from "./Icon.svelte";
 
   const dispatch = createEventDispatcher()
 </script>
 
 <div class="wrapper">
-  <div class="modal card">
+  <div transition:fly|local={{y: 20, duration: 100}} class="modal card">
     <button on:click={()=>dispatch('close')} class="close">
       <Icon size="1.3rem" icon="close" />
     </button>

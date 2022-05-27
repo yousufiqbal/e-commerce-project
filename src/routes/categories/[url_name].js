@@ -43,18 +43,13 @@ export const get = async ({ params, url }) => {
 
   }
 
-  console.log(categories)
 
-
-
+  // Get products for chosen category / subcategory
   const products = await db.selectFrom('products')
-    .leftJoin('stocks', 'stocks.product_id', 'products.product_id')
-    .select(['products.product_id', 'products.name', 'products.fair_quantity', 'products.url_name', 'products.price', 'products.description', sql`SUM(stocks.quantity_remaining)`.as('stock')]) 
-    .groupBy('products.product_id')
+    .select(['products.product_id', 'products.name', 'products.url_name', 'products.price', 'products.description', 'products.stock', 'products.fair_quantity']) 
     .where('products.category_id', 'in', categories)
     .execute()
 
-    console.log(products.map(product => product.stock))
 
   return {
     body: { subcategories: [{ name: 'All', url_name: 'all' }, ...subcategories], products }

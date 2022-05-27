@@ -1,6 +1,7 @@
 <script>
   import AddToCart from "./AddToCart.svelte";
   import Icon from "./Icon.svelte";
+import Nothing from "./Nothing.svelte";
 
   const Product = [{ name: '', url_name: '' }]
 
@@ -15,12 +16,12 @@
   ]
 </script>
 
-
+{#if products.length != 0}
 <div class="products">
-
+  
   {#each products as product (product.product_id)}
   <div class="product">
-
+    
     <a href="/product/{product.url_name}" class="image">
       <img loading="lazy" src="/products/{product.url_name}.jpg" alt="">
       {#if wishlist}
@@ -33,20 +34,25 @@
       </button>
       {/if}
     </a>
-
+    
     <div class="info">
-      <a href="/product/{product.url_name}" class="name">{product.name}</a>
       {#if product.stock == 0}
       <div class="stock">Out of Stock</div>
       {/if}
+      <a href="/product/{product.url_name}" class="name">{product.name}</a>
       <div class="price">Rs. {product.price}</div>
       <AddToCart limit={product.fair_quantity} />
     </div>
-
+    
   </div>
   {/each}
-
+  
 </div>
+{:else}
+<Nothing>
+  No Products
+</Nothing>
+{/if}
 
 <style>
   .product {
