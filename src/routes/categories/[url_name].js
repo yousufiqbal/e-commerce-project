@@ -4,29 +4,54 @@ import { sql } from 'kysely'
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const get = async ({ params, url }) => {
 
-  // get category_id
-  const parent = await db.selectFrom('categories')
-    .where('categories.url_name', '=', params.url_name)
-    .select('categories.category_id')
-    .executeTakeFirst()
-
-  // Fetch sub-categories to display in pills
-  const subcategories = await db.selectFrom('categories')
-    .where('categories.parent_id', '=', parent.category_id)
-    .select(['categories.name', 'categories.url_name'])
+  // Get subcategories
+  const subcategories = await db
+    .selectFrom('categories as c1')
+    .leftJoin('categories as c2', 'c1.parent_id', 'c2.category_id')
+    .where('c2.url_name', '=', params.url_name)
+    .select(['c1.category_id', 'c1.name', 'c1.url_name'])
     .execute()
 
-  // Current chosen category (parent or child)
-  const { category_id } = await db.selectFrom('categories')
-    .where('categories.url_name', '=', url.searchParams.get('type') || params.url_name)
-    .selectAll()
-    .executeTakeFirst()
+  let categories = []
+    
+  // If no type or type == 'all'.. get this parent and children category IDs in an array
+  if (!url.searchParams.get('type') || url.searchParams.get('type') == 'all') {
+
+    // Get parent category_id
+    const parent = await db.selectFrom('categories')
+      .select('categories.category_id')
+      .where('categories.url_name', '=', params.url_name).executeTakeFirst()
+
+    categories.push(parent.category_id)
+
+    // Get children_id
+    const children = await db.selectFrom('categories')
+      .select(['categories.category_id'])
+      .where('categories.parent_id', '=', parent.category_id).execute()
+
+    categories.push(...children.map(category => category.category_id))
+
+  } else {
+
+    // If type != 'all' get particular category in an array
+    const category = await db.selectFrom('categories')
+      .where('categories.url_name', '=', url.searchParams.get('type'))
+      .select('categories.category_id')
+      .executeTakeFirst()
+
+    categories.push(category.category_id)
+
+  }
+
+  console.log(categories)
+
+
 
   const products = await db.selectFrom('products')
     .leftJoin('stocks', 'stocks.product_id', 'products.product_id')
     .select(['products.product_id', 'products.name', 'products.fair_quantity', 'products.url_name', 'products.price', 'products.description', sql`SUM(stocks.quantity_remaining)`.as('stock')]) 
     .groupBy('products.product_id')
-    .where('products.category_id', '=', category_id)
+    .where('products.category_id', 'in', categories)
     .execute()
 
     console.log(products.map(product => product.stock))

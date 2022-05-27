@@ -31,7 +31,8 @@
     border-radius: 20px;
   }
   .active {
-    color: var(--primary);
-    border-color: var(--primary);
+    background-color: rgb(79, 79, 79);
+    color: white;
+    /* border-color: var(--primary); */
   }
 </style>
