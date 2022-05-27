@@ -2,6 +2,7 @@
   import Counter from "$lib/components/Counter.svelte";
 
   export let counts = 0
+  export let limit = 100
 
   const increase = () => {
     counts++
@@ -12,7 +13,7 @@
   {#if counts == 0}
   <button on:click={increase}>Add To Cart</button>
   {:else}
-  <Counter bind:counts />
+  <Counter bind:counts {limit} />
   {/if}
 </div>
 

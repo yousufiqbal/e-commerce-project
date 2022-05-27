@@ -2,16 +2,9 @@
   import { page } from "$app/stores";
 
   export let name = 'type'
-  
-  export let pills = [
-    { name: 'Butter', url_name: 'butter' },
-    { name: 'Milk', url_name: 'milk' },
-    { name: 'Cheese', url_name: 'cheese' },
-    { name: 'Cream', url_name: 'cream' },
-    { name: 'Yogurt', url_name: 'yogurt' },
-  ]
+  export let pills = []
 
-  $: current = $page.url.searchParams.get(name) || null
+  $: current = $page.url.searchParams.get(name) || pills[0].url_name
 </script>
 
 <div class="pills">
@@ -25,10 +18,11 @@
 <style>
   .pills {
     /* border: 1px solid red; */
+    white-space: nowrap;
     display: flex;
-    gap: 10px;
+    gap: 15px;
     margin-bottom: 15px;
-    overflow-x: hidden;
+    overflow-x: scroll;
     padding-bottom: 10px;
   }
   .pill {

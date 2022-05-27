@@ -3,9 +3,7 @@
   export let label, name
   export let touched = false, error = null
   export let value = undefined
-
   export let idColumn = null, valueColumn = null
-
   export let items = []
   
   /** @type {'input'|'radio'|'textarea'|'select'|'selectSimple'}*/

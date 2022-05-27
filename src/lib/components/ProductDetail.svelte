@@ -1,26 +1,25 @@
 <script>
-  import AddToCart from "./AddToCart.svelte";
-  import ButtonGroup from "./ButtonGroup.svelte";
   import Carousel from "./Carousel.svelte";
+  export let product = {}
 </script>
 
-<Carousel />
+<Carousel images={[`/products/${product.url_name}.jpg`]}  />
 
 <div class="product-detail">
 
-    <div class="name">Head & Shoulders 250ML</div>
-    <div class="price">Rs. 250</div>
-    <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.</p>
+  {#if product.stock == 0}
+    <div class="stock">Out of Stock!</div>
+  {/if}
+    <div class="name">{product.name}</div>
+    <div class="price">Rs. {product.price}</div>
+    <p class="description">{product.description}</p>
 
 </div>
-
-<ButtonGroup>
-  <AddToCart />
-</ButtonGroup>
 
 <style>
   .product-detail {
     display: grid;
+    margin-bottom: 40px;
     /* border: 1px solid red; */
   }
   .name {
@@ -35,5 +34,8 @@
   }
   .description {
     font-size: 1.05rem;
+  }
+  .stock {
+    color: red;
   }
 </style>

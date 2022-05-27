@@ -23,7 +23,11 @@
   },
   "type": "module",
   "dependencies": {
+    "@rmp135/sql-ts": "^1.13.0",
+    "knex": "^2.1.0",
+    "kysely": "^0.19.2",
     "lodash-es": "^4.17.21",
+    "mysql2": "^2.3.3",
     "nprogress": "^0.2.0",
     "svelte-gestures": "^1.4.1"
   }
