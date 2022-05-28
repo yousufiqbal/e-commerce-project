@@ -1,24 +1,59 @@
 <script>
   import Counter from "$lib/components/Counter.svelte";
-import Modal from "./Modal.svelte";
-import SmallButton from "./SmallButton.svelte";
-import SmallButtonGroup from "./SmallButtonGroup.svelte";
-import Subtitle from "./Subtitle.svelte";
-import Text from "./Text.svelte";
+  import { cartItemsStore } from "$lib/others/store";
+import { axios } from "$lib/others/utils";
+  import { onMount  } from "svelte";
+  import Modal from "./Modal.svelte";
+  import SmallButton from "./SmallButton.svelte";
+  import SmallButtonGroup from "./SmallButtonGroup.svelte";
+  import Subtitle from "./Subtitle.svelte";
+  import Text from "./Text.svelte";
+
+  onMount(() => {
+    counts = $cartItemsStore.filter(i => i.product_id == product.product_id)[0]?.quantity || 0
+  })
 
   /**@type {Product}*/
   export let product = {}
-  export let counts = 0
-
+  let counts = 0
   let modal = false
 
-  const updateCart = () => {
+  // const addToCart = () => {
+    
+  // }
 
-  }
-
-  const increase = () => {
+  const increase = async () => {
     if (counts > product.fair_limit || counts > product.stock) return
-    counts++
+    try {
+      // Is item already inside?
+      // If it is already just check fair/stock limit and then increase quantity only
+      counts++
+      const index = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
+      if (index != -1) {
+        // TODO check fair and stock limit here
+        $cartItemsStore[index].quantity += 1
+        await axios.put('/api/carts?product_id=' + product.product_id)
+      } else {
+        // TODO check fair and stock limit here
+        $cartItemsStore.push({
+          product_id: product.product_id,
+          name: product.name,
+          url_name: product.url_name,
+          price: product.price,
+          quantity: 1,
+        })
+        $cartItemsStore = $cartItemsStore
+        await axios.post('/api/carts?product_id=' + product.product_id)
+      }
+      // If not
+      // add item and quantity after checking fair/stock limit
+    } catch (error) {
+      console.log(error)
+      // On failure revert your changes here
+      counts--
+      $cartItemsStore.pop()
+      $cartItemsStore = $cartItemsStore
+    }
   }
 
   const decrease = () => {

@@ -1,4 +1,5 @@
 <script>
+  import { cartItemsStore } from "$lib/others/store";
   import Counter from "./Counter.svelte";
 
   let Items = [
@@ -8,7 +9,7 @@
   export let locked = false
 
   /** @type {Items} */
-  export let items = []
+  export let items = $cartItemsStore
 </script>
 
 <div class="cart">
@@ -17,7 +18,7 @@
   <div class="cart-item">
 
     <a href="/product/{item.url_name}" class="image">
-      <img src="/product.jpg" alt="">
+      <img src="/products/{item.url_name}.jpg" alt="">
     </a>
   
     <div class="info">
@@ -27,11 +28,11 @@
   
     <div class="counter-total">
       {#if !locked}
-      <Counter bind:counts={item.counts} limit={item.stock} />
+      <Counter bind:counts={item.quantity} limit={item.stock} />
       {:else}
-      <div class="counts">x {item.counts}</div>
+      <div class="counts">x {item.quantity}</div>
       {/if}
-      <div class="total">Rs. {item.counts * item.price}</div>
+      <div class="total">Rs. {item.quantity * item.price}</div>
     </div>
   
   </div>

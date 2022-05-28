@@ -168,13 +168,13 @@ interface Database {
   addresses: Addresses
   admins: Admins
   brands: Brands
-  cartItems: CartItems
+  cart_items: CartItems
   categories: Categories
-  guestCartItems: GuestCartItems
+  guest_cart_items: GuestCartItems
   guests: Guests
   messages: Messages
-  orderDetails: OrderDetails
-  orderStatuses: OrderStatuses
+  order_details: OrderDetails
+  order_statuses: OrderStatuses
   orders: Orders
   products: Products
   promos: Promos

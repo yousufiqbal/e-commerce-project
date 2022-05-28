@@ -1,4 +1,13 @@
+<script context="module">
+  /** @type {import('@sveltejs/kit').Load} */
+  export const load = async ({ fetch }) => {
+    const response = await fetch('/api/carts')
+    const cartItems = await response.json()
+    return { props: { cartItems } }
+  }
+</script>
 <script>
+  import { cartItemsStore } from '$lib/others/store'
   import '$lib/styles/variables.css'
   import '$lib/styles/global.css'
   import Container from '$lib/components/Container.svelte'
@@ -10,7 +19,9 @@
   import Spaced from '$lib/components/Spaced.svelte';
   import SmallButton from '$lib/components/SmallButton.svelte';
 
-  // const paths = ['/cart/checkout']
+  export let cartItems = []
+  $cartItemsStore = cartItems
+  $: console.log($cartItemsStore)
   let show = false
 </script>
 

@@ -1,6 +1,7 @@
 <script>
   import { page } from "$app/stores";
   import Icon from "$lib/components/Icon.svelte";
+import { cartItemsStore } from "$lib/others/store";
   import { fly } from "svelte/transition";
 </script>
 
@@ -25,6 +26,7 @@
   <a class:active={$page.url.pathname == '/cart'} href="/cart">
     <Icon size="1.3rem" icon="shoppingCart" />
     <span>Cart</span>
+    <div class="badge">{$cartItemsStore.length}</div>
   </a>
 
 </div>
@@ -40,7 +42,20 @@
     bottom: 0; left: 0; right: 0;
     /* border: 1px solid red; */
   }
+  div.badge {
+    line-height: 1;
+    background-color: var(--primary);
+    color: white;
+    font-size: 0.8rem;
+    padding: 2px 4px;
+    border-radius: 5px;
+    top: -10px;
+    display: flex;
+    position: absolute;
+    /* border: 1px solid red; */
+  }
   a {
+    position: relative;
     padding: 10px 0;
     flex: 1;
     display: grid;
