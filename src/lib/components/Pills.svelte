@@ -22,7 +22,7 @@
     display: flex;
     gap: 15px;
     margin-bottom: 15px;
-    overflow-x: scroll;
+    overflow-x: auto;
     padding-bottom: 10px;
   }
   .pill {

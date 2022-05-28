@@ -28,13 +28,10 @@
 {/if}
 
 <Container>
+  <BottomMenu />
   <slot></slot>
 </Container>
 
 <div class="mb50"></div>
-
-<!-- {#if !paths.includes($page.url.pathname)} -->
-<BottomMenu />
-<!-- {/if} -->
 
 <NProgress />

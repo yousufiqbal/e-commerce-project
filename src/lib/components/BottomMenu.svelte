@@ -31,6 +31,7 @@
 
 <style>
   .bottom-menu {
+    z-index: 2;
     background-color: #fff;
     border-top: 1px solid var(--border);
     /* border-radius: 20px; */
@@ -46,12 +47,40 @@
     justify-items: center;
     /* border: 1px solid blue; */
   }
+  a:hover {
+    color: red;
+  }
   .active {
     color: var(--primary);
   }
   @media (max-height: 500px) {
     .bottom-menu {
       display: none;
+    }
+  }
+  @media (min-width: 960px) {
+    .bottom-menu {
+      border-top: none;
+      margin-bottom: 20px;
+      position: static;
+      /* padding-bottom: 5px; */
+      /* border-bottom: 1px dashed var(--border); */
+      /* justify-content: center; */
+    }
+    a {
+      padding: 7px 20px;
+      /* padding-left: 0; */
+      margin-right: 20px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      flex: 0;
+      display: flex;
+      gap: 10px;
+      color: green;
+    }
+    a * {
+    font-family: var(--serif);
+      font-size: 1.1rem;
     }
   }
 </style>

@@ -41,7 +41,7 @@ import Nothing from "./Nothing.svelte";
       {/if}
       <a href="/product/{product.url_name}" class="name">{product.name}</a>
       <div class="price">Rs. {product.price}</div>
-      <AddToCart limit={product.fair_quantity} />
+      <AddToCart {product} />
     </div>
     
   </div>
@@ -64,6 +64,7 @@ import Nothing from "./Nothing.svelte";
     /* border: 1px solid red; */
   }
   .image {
+    z-index: 1;
     position: relative;
     padding: 10px;
     display: flex;
@@ -89,13 +90,18 @@ import Nothing from "./Nothing.svelte";
     color: green;
     margin-bottom: 5px;;
   }
+  .stock {
+    color: red;
+  }
   .products {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     margin-bottom: 40px;
   }
-  .stock {
-    color: red;
+  @media (min-width: 1000px) {
+    .products {
+      grid-template-columns: repeat(5, 1fr);
+    }
   }
 </style>

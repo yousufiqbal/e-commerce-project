@@ -7,5 +7,6 @@
     position: relative;
     padding: 20px;
     margin: 0 auto;
+    max-width: 960px;
   }
 </style>

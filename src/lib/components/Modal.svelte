@@ -23,7 +23,7 @@ import { fly } from "svelte/transition";
     z-index: 2;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    border: 1px solid red;
+    /* border: 1px solid red; */
   }
   .modal {
     position: relative;

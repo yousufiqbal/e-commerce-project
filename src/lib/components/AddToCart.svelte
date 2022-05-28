@@ -1,16 +1,23 @@
 <script>
   import Counter from "$lib/components/Counter.svelte";
+import Modal from "./Modal.svelte";
+import SmallButton from "./SmallButton.svelte";
+import SmallButtonGroup from "./SmallButtonGroup.svelte";
+import Subtitle from "./Subtitle.svelte";
+import Text from "./Text.svelte";
 
-  export let product_id
+  /**@type {Product}*/
+  export let product = {}
   export let counts = 0
-  export let limit = 100
+
+  let modal = false
 
   const updateCart = () => {
 
   }
 
   const increase = () => {
-    if (counts >= limit) return
+    if (counts > product.fair_limit || counts > product.stock) return
     counts++
   }
 
@@ -18,17 +25,48 @@
     if (counts == 0) return
     counts--
   }
+
+  const notify = () => {
+    modal = true
+  }
+
+  const close = () => {
+    modal = false
+  }
+
+  const undoNotify = () => {
+
+  }
 </script>
 
 <div class="add-to-cart">
 
-  {#if counts == 0}
-  <button on:click={increase}>Add To Cart</button>
-  {:else}
-  <Counter on:increase={increase} on:decrease={decrease} {counts} />
-  {/if}
+  {#if product.stock != 0}
 
+    {#if counts == 0}
+    <button on:click={increase}>Add To Cart</button>
+    {:else}
+    <Counter on:increase={increase} on:decrease={decrease} {counts} />
+    {/if}
+
+  {:else}
+    <button on:click={notify}>Notify Me</button>
+  {/if}
+  
 </div>
+
+{#if modal}
+<Modal on:close={close}>
+  <Subtitle subtitle="Notify Alert Added" />
+  <Text>
+    In-sha-Allah, you will be notified, when this product is available 
+  </Text>
+  <SmallButtonGroup>
+    <SmallButton on:click={close} icon="check" name="Alright" />
+    <SmallButton on:click={undoNotify} icon="arrowGoBack" name="Undo" />
+  </SmallButtonGroup>
+</Modal>
+{/if}
 
 <style>
   .add-to-cart {

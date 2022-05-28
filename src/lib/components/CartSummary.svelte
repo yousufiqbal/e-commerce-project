@@ -22,7 +22,7 @@
   .cart-summary {
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid black;
+    border-top: 1px double black;
     /* border-radius: 5px; */
     /* box-shadow: var(--shadow); */
     padding: 10px;
