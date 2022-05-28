@@ -39,8 +39,8 @@ export interface Brands {
 export interface CartItems {
   'cart_item'?: number;
   'created'?: Date;
+  'product_id': number;
   'quantity': number;
-  'stock_id': number;
   'user_id': number;
 }
 export interface Categories {

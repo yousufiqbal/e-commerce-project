@@ -1,40 +1,37 @@
 <script>
-  import Counter from "$lib/components/Counter.svelte";
   import { cartItemsStore } from "$lib/others/store";
-import { axios } from "$lib/others/utils";
-  import { onMount  } from "svelte";
+  import { axios } from "$lib/others/utils";
+  import { onMount } from "svelte";
+  import Counter from "./Counter.svelte";
   import Modal from "./Modal.svelte";
   import SmallButton from "./SmallButton.svelte";
   import SmallButtonGroup from "./SmallButtonGroup.svelte";
   import Subtitle from "./Subtitle.svelte";
   import Text from "./Text.svelte";
 
-  onMount(() => {
-    counts = $cartItemsStore.filter(i => i.product_id == product.product_id)[0]?.quantity || 0
-  })
-
   /**@type {Product}*/
   export let product = {}
-  let counts = 0
   let modal = false
+  let quantity = 0
 
-  // const addToCart = () => {
-    
-  // }
+  onMount(() => {
+    quantity = $cartItemsStore.filter(i => i.product_id == product.product_id)[0]?.quantity || 0
+  })
 
   const increase = async () => {
-    if (counts > product.fair_limit || counts > product.stock) return
+
+    // Validation..
+    if (quantity >= product.fair_quantity || quantity >= product.stock) return
+
+    // Index for checks..
+    const index = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
+
     try {
-      // Is item already inside?
-      // If it is already just check fair/stock limit and then increase quantity only
-      counts++
-      const index = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
-      if (index != -1) {
-        // TODO check fair and stock limit here
-        $cartItemsStore[index].quantity += 1
-        await axios.put('/api/carts?product_id=' + product.product_id)
-      } else {
-        // TODO check fair and stock limit here
+
+      if (index == -1) {
+        
+        // New Item
+        quantity++
         $cartItemsStore.push({
           product_id: product.product_id,
           name: product.name,
@@ -44,21 +41,79 @@ import { axios } from "$lib/others/utils";
         })
         $cartItemsStore = $cartItemsStore
         await axios.post('/api/carts?product_id=' + product.product_id)
+        
+      } else {
+        
+        // Old Item
+        quantity++
+        $cartItemsStore[index].quantity += 1
+        await axios.put('/api/carts?product_id=' + product.product_id)
       }
-      // If not
-      // add item and quantity after checking fair/stock limit
+
     } catch (error) {
-      console.log(error)
-      // On failure revert your changes here
-      counts--
-      $cartItemsStore.pop()
+      
+      // Rollback..
+
+      if (index == -1) {
+
+        // New Item
+        const index2 = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
+        $cartItemsStore.splice(index2, 1)
+
+      } else {
+
+        // Old Item
+        $cartItemsStore[index].quantity -= 1
+      }
+      
+      // For both..
+      quantity--
       $cartItemsStore = $cartItemsStore
+
     }
   }
 
-  const decrease = () => {
-    if (counts == 0) return
-    counts--
+  const decrease = async () => {
+
+    
+    // Index for checks..
+    const index = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
+    
+    // Invalid item
+    if (index == -1) return
+    
+    try {
+      
+      // Old Item
+      let itemQuantity = $cartItemsStore[index].quantity
+
+      if (itemQuantity >= 2) {
+
+        // If +1 quantity just decrease
+        $cartItemsStore[index].quantity--
+      } else {
+
+        // else remove..
+        $cartItemsStore.splice(index, 1)
+        $cartItemsStore = $cartItemsStore
+      }
+
+      quantity--
+
+      await axios.delete('/api/carts?product_id=' + product.product_id)
+
+    } catch (error) {
+
+      // Rollback..
+      $cartItemsStore[index].quantity++
+      quantity++
+      
+    }
+
+
+
+    // if (quantity == 0) return
+    // quantity--
   }
 
   const notify = () => {
@@ -78,10 +133,10 @@ import { axios } from "$lib/others/utils";
 
   {#if product.stock != 0}
 
-    {#if counts == 0}
+    {#if quantity == 0}
     <button on:click={increase}>Add To Cart</button>
     {:else}
-    <Counter on:increase={increase} on:decrease={decrease} {counts} />
+    <Counter {quantity} on:decrease={decrease} on:increase={increase} />
     {/if}
 
   {:else}
@@ -114,4 +169,5 @@ import { axios } from "$lib/others/utils";
     border: 1px solid var(--border);
     padding: 7px 0;
   }
+
 </style>

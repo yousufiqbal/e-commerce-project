@@ -3,12 +3,12 @@
   import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher()
-  export let counts = 0
+  export let quantity = 0
 </script>
 
 <div class="counter">
-  <button on:click={()=>dispatch('decrease')}><Icon size="1.3rem" icon="{counts <= 1? 'deleteBin' : 'subtract'}" /></button>
-  <div class="counts">{counts}</div>
+  <button on:click={()=>dispatch('decrease')}><Icon size="1.3rem" icon="{quantity <= 1? 'deleteBin' : 'subtract'}" /></button>
+  <div class="counts">{quantity}</div>
   <button on:click={()=>dispatch('increase')}><Icon size="1.3rem" icon="add" /></button>
 </div>
 

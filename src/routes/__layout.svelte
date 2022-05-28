@@ -21,26 +21,34 @@
 
   export let cartItems = []
   $cartItemsStore = cartItems
-  $: console.log($cartItemsStore)
   let show = false
 </script>
 
 {#if show}
 <Modal on:close={()=>show=false}>
+
   <Subtitle icon="errorWarning" subtitle="Confirm" />
+
   <Text>
     Are You sure you want to remove this?
   </Text>
+
   <Spaced>
     <SmallButton icon="check" name="Yes" />
     <SmallButton icon="close" name="No" />
   </Spaced>
+
 </Modal>
 {/if}
 
 <Container>
   <BottomMenu />
-  <slot></slot>
+  <!-- <div class="layout">
+    <div> -->
+      <slot></slot>
+    <!-- </div>
+    <div></div>
+  </div> -->
 </Container>
 
 <div class="mb50"></div>

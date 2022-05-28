@@ -1,12 +1,8 @@
 <script>
-  export let items = [
-    { name: 'Head & Shoulders 250ML', url_name: 'head-and-shoulders-250ml', price: 250, counts: 1, stock: 3 },
-    { name: 'Head & Shoulders 250ML', url_name: 'head-and-shoulders-250ml', price: 250, counts: 2, stock: 5 },
-    { name: 'Head & Shoulders 250ML', url_name: 'head-and-shoulders-250ml', price: 250, counts: 3, stock: 10 },
-  ]
+  export let items = []
 
   let deliveryFee = 0, taxes = 0, promoDiscount = 0
-  $: itemsAmount = items.map(item => item.counts * item.price).reduce((a, b) => +a + +b, 0)
+  $: itemsAmount = items.map(item => item.quantity * item.price).reduce((a, b) => +a + +b, 0)
   $: grandTotal = itemsAmount + deliveryFee + taxes + promoDiscount 
 </script>
 

@@ -26,6 +26,7 @@ import { fly } from "svelte/transition";
     /* border: 1px solid red; */
   }
   .modal {
+    max-width: 500px;
     position: relative;
     background-color: #fff;
     width: 70%;

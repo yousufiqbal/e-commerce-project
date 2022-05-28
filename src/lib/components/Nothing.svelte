@@ -13,6 +13,7 @@ import Icon from "./Icon.svelte";
     display: flex;
     gap: 10px;
     margin-top: 40px;
+    margin-bottom: 40px;
     padding-bottom: 10px;
     font-family: var(--serif);
     font-size: 1.1rem;

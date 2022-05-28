@@ -11,7 +11,7 @@
   </div>
 
   <div class="right">
-    <div>Rs. {items.map(item => item.counts * item.price).reduce((a, b) => +a + +b, 0)}</div>
+    <div>Rs. {items.map(item => item.quantity * item.price).reduce((a, b) => +a + +b, 0)}</div>
     <div>All Taxes Included</div>
   </div>
   

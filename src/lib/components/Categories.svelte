@@ -42,4 +42,9 @@
     gap: 20px;
     margin-bottom: 30px;
   }
+  @media (min-width: 960px) {
+    .categories {
+      grid-template-columns: repeat(8, 1fr);
+    }
+  }
 </style>

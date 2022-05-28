@@ -1,20 +1,21 @@
 <script>
   import { cartItemsStore } from "$lib/others/store";
-  import Counter from "./Counter.svelte";
+import { onMount } from "svelte";
+  import AddToCart from "./AddToCart.svelte";
 
-  let Items = [
-    { name: '', url_name: '', price: 0, counts: 0, stock: 0 },
-  ]
+  let mounted = false
+
+  onMount(() => {
+    mounted = true
+  })
 
   export let locked = false
-
-  /** @type {Items} */
-  export let items = $cartItemsStore
 </script>
 
+{#if mounted}
 <div class="cart">
-
-  {#each items as item}
+  
+  {#each $cartItemsStore as item}
   <div class="cart-item">
 
     <a href="/product/{item.url_name}" class="image">
@@ -28,17 +29,19 @@
   
     <div class="counter-total">
       {#if !locked}
-      <Counter bind:counts={item.quantity} limit={item.stock} />
+      <AddToCart product={item} />
+      <!-- <Counter quantity={item.quantity} limit={item.stock} /> -->
       {:else}
       <div class="counts">x {item.quantity}</div>
       {/if}
       <div class="total">Rs. {item.quantity * item.price}</div>
     </div>
-  
+    
   </div>
   {/each}
-
+  
 </div>
+{/if}
 
 <style>
   .cart-item {
