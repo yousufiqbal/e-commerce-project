@@ -3,6 +3,7 @@
   export let label, name
   export let type = 'text', inputmode = 'text'
   export let touched = false, error = null
+  export let value = undefined
 
   const typeMe = node => {
     node.type = type
@@ -10,7 +11,7 @@
 </script>
 
 <div style:grid-column={span} class="input">
-  <input on:blur={()=>touched=true} size="1" {inputmode} placeholder="{label}" {name} id="{name}" use:typeMe>
+  <input bind:value on:blur={()=>touched=true} size="1" {inputmode} placeholder="{label}" {name} id="{name}" use:typeMe>
   {#if touched && error}
   <div class="error">{error}</div>
   {/if}
@@ -30,7 +31,10 @@
     border: 1px s;
   }
   .error {
+    text-transform: capitalize;
     color: red;
+    padding-top: 7px;
+    /* padding: 7px 15px 0 15px; */
     /* padding: var(--padding); */
   }
 </style>

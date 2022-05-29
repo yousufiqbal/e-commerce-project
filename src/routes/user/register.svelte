@@ -7,6 +7,30 @@
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Text from "$lib/components/Text.svelte";
   import Title from "$lib/components/Title.svelte";
+  import { extractYupErrors, registerSchema } from "$lib/database/schema.js";
+
+  let user = {}, touched = false, errors = '';
+
+  const validate = () => {
+    try {
+      registerSchema.validateSync(user, { abortEarly: false })
+      errors = ''
+    } catch (error) {
+      errors = extractYupErrors(error)
+      console.log(errors)
+    }
+  }
+
+  const submit = async () => {
+    if (errors) { touched = true; return }
+    await registerUser()
+  }
+
+  const registerUser = async () => {
+
+  }
+
+  $: user && validate();
 </script>
 
 <Title title="Register New Account" />
@@ -18,10 +42,10 @@
     <Subtitle icon="survey" subtitle="Enter Your Information" />
 
     <FieldGroup>
-      <Input label="Name" />
-      <Input label="Email" inputmode="email" />
-      <Input label="Password" type="password" />
-      <Input label="Retype Password" type="password" />
+      <Input {touched} error={errors.name} bind:value={user.name} name="name" label="Name" />
+      <Input {touched} error={errors.email} bind:value={user.email} name="email" label="Email" inputmode="email" />
+      <Input {touched} error={errors.password} bind:value={user.password} name="password" label="Password" type="password" />
+      <Input {touched} error={errors.repeatPassword} bind:value={user.repeatPassword} name="repeat-password" label="Retype Password" type="password" />
     </FieldGroup>
 
     <Text>
@@ -29,10 +53,9 @@
     </Text>
 
     <ButtonGroup>
-      <Button icon="save" name="Register" />
+      <Button icon="save" name="Register" on:click={submit} />
       <Button href="/user/login" icon="loginBox" name="Already a user? Login" type="general" />
     </ButtonGroup>
-
 
   </div>
 
@@ -43,28 +66,10 @@
     <Text>
       In order to save your data, including orders, wishlist, promos, notifications, etc. It is required to Sign-In/Register account
     </Text>
-    
+
   </div>
 
 </Layout>
-
-
-<!-- <FieldGroup>
-  <Input label="Name" />
-  <Input label="Email" inputmode="email" />
-  <Input label="Password" type="password" />
-  <Input label="Retype Password" type="password" />
-</FieldGroup>
-
-
-<ButtonGroup>
-  <Button icon="save" name="Register" />
-</ButtonGroup>
-
-<a class="mb30" href="?tab=login">Already a user? Login</a>
-<Text>
-  By registering, you agree to our <a href="/privacy-policies">privacy policies</a>.
-</Text> -->
 
 <style>
   a {
