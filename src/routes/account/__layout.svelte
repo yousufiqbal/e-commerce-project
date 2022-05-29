@@ -2,7 +2,7 @@
   /** @type {import('@sveltejs/kit').Load} */
   export const load = ({ session }) => {
     if (!session.user) {
-      return { redirect: '/login-signup', status: 302 }
+      return { redirect: '/user/login', status: 302 }
     }
   }
 </script>

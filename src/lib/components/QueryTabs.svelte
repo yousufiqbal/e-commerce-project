@@ -31,7 +31,7 @@
     border: 1px solid var(--border);
     border-left: none;
     border-bottom: none;
-    color: blue;
+    /* color: blue; */
   }
   .active {
     color: var(--primary)

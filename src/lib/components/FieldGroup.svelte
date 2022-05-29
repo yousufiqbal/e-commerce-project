@@ -1,9 +1,4 @@
-
-<script>
-  export let columns = '1fr'
-</script>
-
-<div style:grid-template-columns={columns} class="field-group">
+<div class="field-group">
   <slot></slot>
 </div>
 
@@ -12,5 +7,11 @@
     display: grid;
     margin-bottom: 40px;
     gap: 20px;
+  }
+  @media (min-width: 960px) {
+    .field-group {
+      max-width: 600px;
+      grid-template-columns: 1fr 1fr;
+    }
   }
 </style>
