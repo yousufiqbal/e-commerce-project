@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `brands` (
   UNIQUE KEY `url_name` (`url_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.brands: ~3 rows (approximately)
+-- Dumping data for table fast-ecommerce.brands: ~11 rows (approximately)
 /*!40000 ALTER TABLE `brands` DISABLE KEYS */;
 INSERT INTO `brands` (`brand_id`, `name`, `url_name`, `created`) VALUES
 	(1, 'Nurpur', 'nurpur', '2022-05-27 10:45:03'),
@@ -104,17 +104,17 @@ CREATE TABLE IF NOT EXISTS `cart_items` (
   KEY `FK_cart_items_products` (`product_id`),
   CONSTRAINT `FK_cart_items_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
   CONSTRAINT `FK_cart_items_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.cart_items: ~0 rows (approximately)
+-- Dumping data for table fast-ecommerce.cart_items: ~6 rows (approximately)
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
 INSERT INTO `cart_items` (`cart_item`, `user_id`, `product_id`, `quantity`, `created`) VALUES
-	(1, 1, 12, 5, '2022-05-28 15:30:44'),
-	(2, 1, 3, 2, '2022-05-28 15:30:56'),
-	(3, 1, 7, 3, '2022-05-28 15:31:08'),
-	(4, 1, 1, 1, '2022-05-28 17:09:01'),
-	(5, 1, 2, 1, '2022-05-28 17:09:19'),
-	(6, 1, 5, 1, '2022-05-28 17:09:25');
+	(43, 1, 3, 3, '2022-05-29 11:08:23'),
+	(44, 1, 4, 5, '2022-05-29 11:08:25'),
+	(45, 1, 6, 2, '2022-05-29 11:08:28'),
+	(46, 1, 5, 2, '2022-05-29 11:12:50'),
+	(47, 1, 2, 1, '2022-05-29 14:04:19'),
+	(48, 1, 1, 3, '2022-05-29 15:51:46');
 /*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.categories
@@ -271,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   CONSTRAINT `FK_products_categories` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.products: ~0 rows (approximately)
+-- Dumping data for table fast-ecommerce.products: ~18 rows (approximately)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`product_id`, `category_id`, `brand_id`, `name`, `url_name`, `stock`, `unit_cost`, `price`, `fair_quantity`, `description`, `created`) VALUES
 	(1, 6, 1, 'Nurpur Butter 50 Grams', 'nurpur-butter-50-grams', 505, 80, 100.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:38:38'),
@@ -324,7 +324,7 @@ CREATE TABLE IF NOT EXISTS `stocks` (
   CONSTRAINT `FK_stocks_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.stocks: ~0 rows (approximately)
+-- Dumping data for table fast-ecommerce.stocks: ~24 rows (approximately)
 /*!40000 ALTER TABLE `stocks` DISABLE KEYS */;
 INSERT INTO `stocks` (`stock_id`, `product_id`, `quantity_came`, `quantity_remaining`, `unit_cost`, `created`) VALUES
 	(1, 12, 100, 100, 502.00, '2022-05-27 17:24:35'),
