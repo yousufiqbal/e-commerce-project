@@ -5,6 +5,7 @@
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import DebitCard from "$lib/components/DebitCard.svelte";
+import Layout from "$lib/components/Layout.svelte";
   import Methods from "$lib/components/Methods.svelte";
   import PromoField from "$lib/components/PromoField.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
@@ -22,23 +23,29 @@
 
 <Title back title="Checkout" />
 
-<Subtitle icon="mapPinTwo" subtitle="Delivery Address" />
-<Address />
+<Layout>
+  <div slot="main">
+    <Subtitle icon="mapPinTwo" subtitle="Delivery Address" />
+    <Address />
+    
+    <Subtitle icon="currency" subtitle="Payment Method" />
+    <Methods bind:paymentMethod />
+    {#if paymentMethod == 'card'}
+    <Subtitle icon="bankCard" subtitle="Card Details *" />
+    <DebitCard />
+    {/if}
+  </div>
+  <div slot="related">
+    <Subtitle icon="bill" subtitle="Bill Summary" />
+    <BillSummary />
+    
+    <ButtonGroup>
+      <Button name="Confirm Order" href="/cart/confirm" icon="checkDouble" />
+    </ButtonGroup>
+  </div>
+</Layout>
 
-<Subtitle icon="currency" subtitle="Payment Method" />
-<Methods bind:paymentMethod />
 
-{#if paymentMethod == 'card'}
-<Subtitle icon="bankCard" subtitle="Card Details *" />
-<DebitCard />
-{/if}
 
 <!-- <Subtitle icon="coupon" subtitle="Promo Code" />
 <PromoField /> -->
-
-<Subtitle icon="bill" subtitle="Bill Summary" />
-<BillSummary />
-
-<ButtonGroup>
-  <Button name="Confirm Order" href="/cart/confirm" icon="checkDouble" />
-</ButtonGroup>

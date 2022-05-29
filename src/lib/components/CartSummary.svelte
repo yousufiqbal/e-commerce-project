@@ -1,5 +1,6 @@
 <script>
   export let items = []
+  $: total = items.map(el => el.quantity).reduce((a, b) => +a + +b, 0) || 0
 </script>
 
 {#if items.length != 0}
@@ -7,7 +8,7 @@
   
   <div class="left">
     <div>Total</div>
-    <div>{items.length} Items</div>
+    <div>{total} Items in {items.length} Products</div>
   </div>
 
   <div class="right">

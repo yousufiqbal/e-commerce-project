@@ -42,10 +42,10 @@
 {/if}
 
 <Container>
+  <BottomMenu />
   <slot></slot>
 </Container>
 
 <div class="mb50"></div>
 
 <NProgress />
-<BottomMenu />

@@ -41,11 +41,6 @@
     background-color: green;
     color: white;
   }
-  .addresses {
-    display: grid;
-    gap: 20px;
-    margin-bottom: 20px;
-  }
   .address {
     display: grid;
     gap: 5px;
@@ -70,5 +65,16 @@
   }
   .actions a, .actions button {
     color: blue;
+  }
+  .addresses {
+    display: grid;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  @media (min-width: 960px) {
+    .addresses {
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
   }
 </style>

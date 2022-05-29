@@ -84,6 +84,7 @@ import Nothing from "./Nothing.svelte";
     padding: 8px;
     /* border: 1px solid green; */
     display: grid;
+    align-items: end;
     gap: 5px;
   }
   .price {

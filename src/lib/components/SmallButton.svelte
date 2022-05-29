@@ -1,7 +1,7 @@
 <script>
   import Icon from "./Icon.svelte";
 
-  export let name, href, icon, type = 'general'
+  export let name, href = null, icon, type = 'general'
 </script>
 
 {#if href}

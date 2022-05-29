@@ -53,4 +53,9 @@ import { page } from "$app/stores";
     color: var(--primary);
     /* border: 1px solid red; */
   }
+  @media (min-width: 960px) {
+    .link {
+      padding: 12px 15px;
+    }
+  }
 </style>

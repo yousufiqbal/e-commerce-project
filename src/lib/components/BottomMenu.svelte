@@ -1,8 +1,10 @@
 <script>
   import { page } from "$app/stores";
   import Icon from "$lib/components/Icon.svelte";
-import { cartItemsStore } from "$lib/others/store";
+  import { cartItemsStore } from "$lib/others/store";
   import { fly } from "svelte/transition";
+
+  $: total = $cartItemsStore && $cartItemsStore.map(el => el.quantity).reduce((a, b) => +a + +b, 0) || 0
 </script>
 
 <div transition:fly|local={{ y: 20, duration: 200 }} class="bottom-menu">
@@ -26,7 +28,9 @@ import { cartItemsStore } from "$lib/others/store";
   <a class:active={$page.url.pathname == '/cart'} href="/cart">
     <Icon size="1.3rem" icon="shoppingCart" />
     <span>Cart</span>
-    <div class="badge">{$cartItemsStore.length}</div>
+    {#key total}
+    <div in:fly={{ y: 20, duration: 100}} class="badge">{total}</div>
+    {/key}
   </a>
 
 </div>
@@ -42,14 +46,17 @@ import { cartItemsStore } from "$lib/others/store";
     bottom: 0; left: 0; right: 0;
     /* border: 1px solid red; */
   }
-  div.badge {
+  .badge {
+    /* font-weight: bold; */
     line-height: 1;
-    background-color: var(--primary);
+    /* opacity: 0.8; */
+    background-color: var(--secondary);
     color: white;
     font-size: 0.8rem;
-    padding: 2px 4px;
+    padding: 3px;
+    font-family: var(--serif);
     border-radius: 5px;
-    top: -10px;
+    top: -12px;
     display: flex;
     position: absolute;
     /* border: 1px solid red; */
@@ -82,6 +89,10 @@ import { cartItemsStore } from "$lib/others/store";
       /* border-bottom: 1px dashed var(--border); */
       /* justify-content: center; */
     }
+    .badge {
+      position: static;
+      font-size: 0.9rem;
+    }
     a {
       padding: 7px 20px;
       /* padding-left: 0; */
@@ -90,6 +101,7 @@ import { cartItemsStore } from "$lib/others/store";
       border: 1px solid var(--border);
       flex: 0;
       display: flex;
+      align-items: center;
       gap: 10px;
       color: green;
     }

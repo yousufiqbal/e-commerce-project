@@ -1,82 +1,14 @@
 <script>
+  import { browser } from "$app/env";
   import { cartItemsStore } from "$lib/others/store";
   import { axios } from "$lib/others/utils";
-  import { onMount } from "svelte";
   import Counter from "./Counter.svelte";
   import Modal from "./Modal.svelte";
   import SmallButton from "./SmallButton.svelte";
   import SmallButtonGroup from "./SmallButtonGroup.svelte";
+  // import Spaced from "./Spaced.svelte";
   import Subtitle from "./Subtitle.svelte";
   import Text from "./Text.svelte";
-
-  onMount(async () => {
-    await syncCart()
-  })
-
-  /**@type {Product}*/
-  export let product = {}
-  let modal = false
-  let quantity = 0;
-
-  $: if ($cartItemsStore) {
-    quantity = $cartItemsStore.filter(i => i.product_id == product.product_id)[0]?.quantity || 0
-  }
-
-  const increase = async () => {
-    
-    // Validation..
-    if (quantity >= product.fair_quantity || quantity >= product.stock) return
-
-    // Index for checks..
-    const index = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
-
-    try {
-      
-      if (index == -1) {
-        
-        // New Item
-        $cartItemsStore.push({
-          product_id: product.product_id,
-          name: product.name,
-          url_name: product.url_name,
-          price: product.price,
-          quantity: 1,
-        })
-        $cartItemsStore = $cartItemsStore
-        await axios.post('/api/carts?product_id=' + product.product_id)
-        
-      } else {
-        
-        // Old Item
-        $cartItemsStore[index].quantity += 1
-        await axios.put('/api/carts?product_id=' + product.product_id)
-      }
-
-    } catch (error) {
-      
-      // Rollback..
-
-      if (index == -1) {
-
-        // New Item
-        const index2 = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
-        $cartItemsStore.splice(index2, 1)
-        $cartItemsStore = $cartItemsStore
-
-      } else {
-
-        // Old Item
-        $cartItemsStore[index].quantity -= 1
-      }
-      
-
-    } finally {
-
-      // Syncing...
-      await syncCart()
-
-    }
-  }
 
   const syncCart = async () => {
     try {
@@ -88,22 +20,96 @@
     }
   }
 
+  (async () => {
+    if (browser) {
+      await syncCart()
+    }
+  })();
+
+  /**@type {Product}*/
+  export let product = {}
+  let modal = false
+  let wait = false
+  let quantity = 0;
+
+  // let confirmDeleteModal = false
+  // let removeLast = false
+
+
+  $: if ($cartItemsStore) {
+    quantity = $cartItemsStore.filter(i => i.product_id == product.product_id)[0]?.quantity || 0
+  }
+
+  const increase = async () => {
+ 
+    try {
+      if (wait) return
+      wait = true
+      
+      // Validation..
+      if (quantity >= product.fair_quantity || quantity >= product.stock) return
+  
+      // Index for checks..
+      const index = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
+      
+      if (index == -1) {
+        // Adding New Item..
+        $cartItemsStore.push({
+          product_id: product.product_id,
+          name: product.name,
+          url_name: product.url_name,
+          price: product.price,
+          quantity: 1,
+        })
+        $cartItemsStore = $cartItemsStore
+        await axios.post('/api/carts?product_id=' + product.product_id)
+        
+      } else {
+        // Incrementing old item..
+        $cartItemsStore[index].quantity += 1
+        await axios.put('/api/carts?product_id=' + product.product_id)
+      }
+
+    } catch (error) {
+      // Rollback..
+      if (index == -1) {
+        // Removing new item..
+        const index2 = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
+        $cartItemsStore.splice(index2, 1)
+        $cartItemsStore = $cartItemsStore
+      } else {
+        // Decrementing old item..
+        $cartItemsStore[index].quantity--
+      }
+
+    } finally {
+      // Syncing...
+      await syncCart()
+      wait = false
+    }
+
+  }
+
+  const confirmRemoval = async () => {
+    return new Promose()
+  }
+
   const decrease = async () => {
 
-    if (quantity == 0) return
-    
-    // Index for checks..
-    const index = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
-    
-    // Invalid item
-    if (index == -1) return
-    
-    try {
-      
-      // Old Item
-      let itemQuantity = $cartItemsStore[index].quantity
+    if (quantity == 1 && !await confirmRemoval()) return 
 
-      if (itemQuantity >= 2) {
+    try {
+
+
+      if (wait) return
+      wait = true
+      
+      // Index for checks..
+      const index = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
+      // Invalid item (less possible..)
+      if (index == -1) return
+      // Old Item
+      if ($cartItemsStore[index].quantity >= 2) {
 
         // If +1 quantity just decrease
         $cartItemsStore[index].quantity--
@@ -114,21 +120,22 @@
         $cartItemsStore = $cartItemsStore
       }
 
-      quantity--
-
       await axios.delete('/api/carts?product_id=' + product.product_id)
 
     } catch (error) {
 
       // Rollback..
       $cartItemsStore[index].quantity++
-      quantity++
       
+    } finally {
+      await syncCart()
+      wait = false
     }
 
   }
 
   const notify = () => {
+    console.log('came to notify')
     modal = true
   }
 
@@ -152,7 +159,7 @@
     {/if}
 
   {:else}
-    <button on:click={notify}>Notify Me</button>
+    <button class="notify" on:click={notify}>Notify Me</button>
   {/if}
   
 </div>
@@ -170,16 +177,31 @@
 </Modal>
 {/if}
 
+<!-- {#if confirmDeleteModal}
+<Modal on:close={close}>
+  <Subtitle subtitle="Delete This?" icon="deleteBin" />
+  <Text>
+    Do you want to remove {product.name} from cart completely? 
+  </Text>
+  <Spaced>
+    <SmallButton on:click={close} icon="check" name="Yes" />
+    <SmallButton on:click={undoNotify} icon="close" name="No" />
+  </Spaced>
+</Modal>
+{/if} -->
+
 <style>
   .add-to-cart {
     display: grid;
   }
-  .add-to-cart > button {
+  button {
     border-radius: 5px;
     background-color: rgb(255, 240, 212);
     flex: 1;
     border: 1px solid var(--border);
     padding: 7px 0;
   }
-
+  .notify {
+    background-color: #fff;
+  }
 </style>

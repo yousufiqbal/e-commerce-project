@@ -28,7 +28,7 @@ import { page } from "$app/stores";
   <Title title="Account" />
 </div>
 
-<Layout columns="2fr 4fr">  
+<Layout columns="2fr 5fr">  
 
   <div class:hide={$page.url.pathname != '/account'} slot="main">
     <Menu links={links1} />
