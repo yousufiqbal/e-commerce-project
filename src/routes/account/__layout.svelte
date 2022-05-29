@@ -1,8 +1,16 @@
+<script context="module">
+  /** @type {import('@sveltejs/kit').Load} */
+  export const load = ({ session }) => {
+    if (!session.user) {
+      return { redirect: '/login-signup', status: 302 }
+    }
+  }
+</script>
 <script>
   import Menu from "$lib/components/Menu.svelte";
   import Title from "$lib/components/Title.svelte";
   import Layout from "$lib/components/Layout.svelte";
-import { page } from "$app/stores";
+  import { page } from "$app/stores";
 
   const links1 = [
     { name: 'Orders', icon: 'listUnordered', href: '/account/orders' },

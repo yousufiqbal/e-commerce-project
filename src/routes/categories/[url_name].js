@@ -22,6 +22,8 @@ export const get = async ({ params, url }) => {
       .select('categories.category_id')
       .where('categories.url_name', '=', params.url_name).executeTakeFirst()
 
+      console.log(params)
+
     categories.push(parent.category_id)
 
     // Get children_id

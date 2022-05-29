@@ -1,6 +1,5 @@
 <script>
-import { page } from "$app/stores";
-
+  import { page } from "$app/stores";
 
   export let name = 'tab'
   export let items = [

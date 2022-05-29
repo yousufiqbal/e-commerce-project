@@ -10,7 +10,7 @@
 <style>
   .field-group {
     display: grid;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     gap: 20px;
   }
 </style>
