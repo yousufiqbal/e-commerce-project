@@ -1,18 +1,10 @@
 <script>
   import { cartItemsStore } from "$lib/others/store";
-import { onMount } from "svelte";
   import AddToCart from "./AddToCart.svelte";
-
-  let mounted = false
-
-  onMount(() => {
-    mounted = true
-  })
 
   export let locked = false
 </script>
 
-{#if mounted}
 <div class="cart">
   
   {#each $cartItemsStore as item}
@@ -41,7 +33,6 @@ import { onMount } from "svelte";
   {/each}
   
 </div>
-{/if}
 
 <style>
   .cart-item {

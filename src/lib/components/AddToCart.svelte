@@ -9,17 +9,21 @@
   import Subtitle from "./Subtitle.svelte";
   import Text from "./Text.svelte";
 
+  onMount(async () => {
+    await syncCart()
+  })
+
   /**@type {Product}*/
   export let product = {}
   let modal = false
-  let quantity = 0
+  let quantity = 0;
 
-  onMount(() => {
+  $: if ($cartItemsStore) {
     quantity = $cartItemsStore.filter(i => i.product_id == product.product_id)[0]?.quantity || 0
-  })
+  }
 
   const increase = async () => {
-
+    
     // Validation..
     if (quantity >= product.fair_quantity || quantity >= product.stock) return
 
@@ -27,11 +31,10 @@
     const index = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
 
     try {
-
+      
       if (index == -1) {
         
         // New Item
-        quantity++
         $cartItemsStore.push({
           product_id: product.product_id,
           name: product.name,
@@ -45,7 +48,6 @@
       } else {
         
         // Old Item
-        quantity++
         $cartItemsStore[index].quantity += 1
         await axios.put('/api/carts?product_id=' + product.product_id)
       }
@@ -59,6 +61,7 @@
         // New Item
         const index2 = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
         $cartItemsStore.splice(index2, 1)
+        $cartItemsStore = $cartItemsStore
 
       } else {
 
@@ -66,15 +69,28 @@
         $cartItemsStore[index].quantity -= 1
       }
       
-      // For both..
-      quantity--
-      $cartItemsStore = $cartItemsStore
 
+    } finally {
+
+      // Syncing...
+      await syncCart()
+
+    }
+  }
+
+  const syncCart = async () => {
+    try {
+      const response = await axios.get('/api/carts')
+      $cartItemsStore = await response.data
+    } catch (error) {
+      $cartItemsStore = []
+      alert('Cannot sync cart..')
     }
   }
 
   const decrease = async () => {
 
+    if (quantity == 0) return
     
     // Index for checks..
     const index = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
@@ -110,10 +126,6 @@
       
     }
 
-
-
-    // if (quantity == 0) return
-    // quantity--
   }
 
   const notify = () => {

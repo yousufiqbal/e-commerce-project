@@ -43,13 +43,11 @@ export const get = async ({ params, url }) => {
 
   }
 
-
   // Get products for chosen category / subcategory
   const products = await db.selectFrom('products')
     .select(['products.product_id', 'products.name', 'products.url_name', 'products.price', 'products.description', 'products.stock', 'products.fair_quantity']) 
     .where('products.category_id', 'in', categories)
     .execute()
-
 
   return {
     body: { subcategories: [{ name: 'All', url_name: 'all' }, ...subcategories], products }

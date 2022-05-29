@@ -8,7 +8,7 @@
 
 <div class="counter">
   <button on:click={()=>dispatch('decrease')}><Icon size="1.3rem" icon="{quantity <= 1? 'deleteBin' : 'subtract'}" /></button>
-  <div class="counts">{quantity}</div>
+  <div class="quantity">{quantity}</div>
   <button on:click={()=>dispatch('increase')}><Icon size="1.3rem" icon="add" /></button>
 </div>
 
@@ -18,20 +18,23 @@
     align-items: center;
     border: 1px solid var(--border);
   }
-  .counter .counts {
+  .quantity {
     min-width: 35px;
     font-weight: bold;
     flex: 1;
     text-align: center;
   }
-  .counter button {
+  button {
     padding: 7px;
     display: flex;
   }
-  .counter button:first-child {
+  button:first-child {
     border-right: 1px solid var(--border);
   }
-  .counter button:last-child {
+  button:last-child {
     border-left: 1px solid var(--border);
+  }
+  button:hover {
+    color: red;
   }
 </style>

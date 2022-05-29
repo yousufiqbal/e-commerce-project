@@ -1,4 +1,6 @@
 <script>
+import { page } from "$app/stores";
+
   import Icon from "$lib/components/Icon.svelte";
 
   const Links = [
@@ -12,7 +14,7 @@
 <div class="menu">
 
   {#each links as link}
-  <a href={link.href} class="link">
+  <a class:active={$page.url.pathname == link.href} href={link.href} class="link">
     <Icon fill="var(--primary)" icon="{link.icon}" size="1.3rem" />
     <div class="name">{link.name}</div>
     {#if !link.badge}
@@ -26,7 +28,11 @@
 </div>
 
 <style>
+  .active {
+    background-color: rgb(243, 255, 240);
+  }
   .menu {
+    overflow: hidden;
     border-radius: 5px;
     border: 1px solid var(--border);
     margin-bottom: 30px;

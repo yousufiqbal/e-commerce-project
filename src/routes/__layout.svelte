@@ -1,13 +1,15 @@
 <script context="module">
+  import { cartItemsStore } from '$lib/others/store'
+
   /** @type {import('@sveltejs/kit').Load} */
   export const load = async ({ fetch }) => {
     const response = await fetch('/api/carts')
     const cartItems = await response.json()
-    return { props: { cartItems } }
+    cartItemsStore.set(cartItems)
+    return {}
   }
 </script>
 <script>
-  import { cartItemsStore } from '$lib/others/store'
   import '$lib/styles/variables.css'
   import '$lib/styles/global.css'
   import Container from '$lib/components/Container.svelte'
@@ -19,8 +21,6 @@
   import Spaced from '$lib/components/Spaced.svelte';
   import SmallButton from '$lib/components/SmallButton.svelte';
 
-  export let cartItems = []
-  $cartItemsStore = cartItems
   let show = false
 </script>
 
@@ -42,15 +42,10 @@
 {/if}
 
 <Container>
-  <BottomMenu />
-  <!-- <div class="layout">
-    <div> -->
-      <slot></slot>
-    <!-- </div>
-    <div></div>
-  </div> -->
+  <slot></slot>
 </Container>
 
 <div class="mb50"></div>
 
 <NProgress />
+<BottomMenu />
