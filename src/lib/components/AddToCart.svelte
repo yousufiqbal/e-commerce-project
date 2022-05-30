@@ -135,7 +135,6 @@
   }
 
   const notify = () => {
-    console.log('came to notify')
     modal = true
   }
 

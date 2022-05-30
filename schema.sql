@@ -357,7 +357,6 @@ INSERT INTO `stocks` (`stock_id`, `product_id`, `quantity_came`, `quantity_remai
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `name` varbinary(50) NOT NULL,
-  `contact` char(11) NOT NULL,
   `email` varchar(350) NOT NULL,
   `password` char(60) NOT NULL,
   `applied_promo_id` int DEFAULT NULL,
@@ -371,8 +370,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Dumping data for table fast-ecommerce.users: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`user_id`, `name`, `contact`, `email`, `password`, `applied_promo_id`, `last_messages_read`, `last_orders_read`, `last_promos_read`, `last_wallet_read`, `created`) VALUES
-	(1, _binary 0x596f75737566, '03212503902', 'yosofiqbal@gmail.com', '684684', NULL, '2022-05-28 15:30:23', '2022-05-28 15:30:23', '2022-05-28 15:30:24', '2022-05-28 15:30:25', '2022-05-28 15:30:25');
+INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `applied_promo_id`, `last_messages_read`, `last_orders_read`, `last_promos_read`, `last_wallet_read`, `created`) VALUES
+	(1, _binary 0x596f75737566, 'yosofiqbal@gmail.com', '684684', NULL, '2022-05-28 15:30:23', '2022-05-28 15:30:23', '2022-05-28 15:30:24', '2022-05-28 15:30:25', '2022-05-28 15:30:25');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.validations

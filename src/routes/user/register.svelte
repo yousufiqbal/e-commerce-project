@@ -7,17 +7,18 @@
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Text from "$lib/components/Text.svelte";
   import Title from "$lib/components/Title.svelte";
-  import { extractYupErrors, registerSchema } from "$lib/database/schema.js";
+  import { extractYupErrors, registerSchema } from "$lib/others/schema.js";
+import { axios } from "$lib/others/utils";
 
   let user = {}, touched = false, errors = '';
+  let emailError = ''
 
-  const validate = () => {
+  const validate = async () => {
     try {
-      registerSchema.validateSync(user, { abortEarly: false })
+      await registerSchema.validate(user, { abortEarly: false })
       errors = ''
     } catch (error) {
       errors = extractYupErrors(error)
-      console.log(errors)
     }
   }
 
@@ -30,7 +31,19 @@
 
   }
 
+  const checkEmailAvailability = async () => {
+    console.log('cameCEA')
+    if (errors.email) return;
+    const response = await axios.post('http://localhost:3000/api/is-email-available', { email: user.email || '' })
+    if (response.data) {
+      emailError = ''
+    } else {
+      emailError = 'Email already registered'
+    }
+  }
+
   $: user && validate();
+  $: if (user.email) checkEmailAvailability()
 </script>
 
 <Title title="Register New Account" />
@@ -43,7 +56,7 @@
 
     <FieldGroup>
       <Input {touched} error={errors.name} bind:value={user.name} name="name" label="Name" />
-      <Input {touched} error={errors.email} bind:value={user.email} name="email" label="Email" inputmode="email" />
+      <Input {touched} error={errors.email || emailError} bind:value={user.email} name="email" label="Email" inputmode="email" />
       <Input {touched} error={errors.password} bind:value={user.password} name="password" label="Password" type="password" />
       <Input {touched} error={errors.repeatPassword} bind:value={user.repeatPassword} name="repeat-password" label="Retype Password" type="password" />
     </FieldGroup>

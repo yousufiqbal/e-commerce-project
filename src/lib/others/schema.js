@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import { axios } from './utils';
 
 yup.setLocale({ mixed: { 'required': 'Required' } })
 
@@ -10,7 +11,7 @@ export const extractYupErrors = err => {
 
 // Example..
 export const registerSchema = yup.object({
-  name: yup.string().min(2).max(100).required(),
+  name: yup.string().min(3).max(50).required(),
   email: yup.string().email().required(),
   password: yup.string().min(8).max(16).required(),
   repeatPassword: yup.string().required().oneOf([yup.ref('password')], 'Passwords do not match'),
