@@ -1,4 +1,5 @@
 <script>
+  import { dev } from "$app/env";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import FieldGroup from "$lib/components/FieldGroup.svelte";
@@ -8,7 +9,8 @@
   import Text from "$lib/components/Text.svelte";
   import Title from "$lib/components/Title.svelte";
   import { extractYupErrors, registerSchema } from "$lib/others/schema.js";
-import { axios } from "$lib/others/utils";
+  import { axios } from "$lib/others/utils";
+  import { debounce} from 'lodash-es'
 
   let user = {}, touched = false, errors = '';
   let emailError = ''
@@ -23,16 +25,21 @@ import { axios } from "$lib/others/utils";
   }
 
   const submit = async () => {
-    if (errors) { touched = true; return }
+    if (errors || emailError) { touched = true; return }
     await registerUser()
   }
 
   const registerUser = async () => {
-
+    try {
+      const response = await axios.post('/api/register', user)
+      alert(response.data)
+    } catch (error) {
+      if (dev) console.log(error)
+      alert('Cannot register')
+    }
   }
 
-  const checkEmailAvailability = async () => {
-    console.log('cameCEA')
+  const checkEmailAvailability = debounce(async () => {
     if (errors.email) return;
     const response = await axios.post('http://localhost:3000/api/is-email-available', { email: user.email || '' })
     if (response.data) {
@@ -40,9 +47,9 @@ import { axios } from "$lib/others/utils";
     } else {
       emailError = 'Email already registered'
     }
-  }
+  }, 2000);
 
-  $: user && validate();
+  $: if (user) validate();
   $: if (user.email) checkEmailAvailability()
 </script>
 

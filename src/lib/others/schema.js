@@ -1,5 +1,4 @@
 import * as yup from 'yup'
-import { axios } from './utils';
 
 yup.setLocale({ mixed: { 'required': 'Required' } })
 
