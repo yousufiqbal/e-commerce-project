@@ -5,41 +5,35 @@ import jwt from 'jsonwebtoken'
 
 /** @type {import('@sveltejs/kit').Handle} */
 export const handle = async ({ event, resolve }) => {
-  
-  if (dev)  {
 
-    // Log URL & Method
+  // Log URL & Method
+  if (dev)  {
     console.log('----------------')
     console.log(event.request.method, event.request.url)
-
   }
   
-  const response = await resolve(event)
-  return response
-
+  // Response
+  return await resolve(event)
 
 }
 
 /** @type {import('@sveltejs/kit').GetSession} */
-export const getSession = async (event) => {
+export const getSession = async ( event ) => {
 
-  /**
-   * If signed-in, use 'user cookie'
-   * If not signed-in do following:
-   * 1. Make guest account and login using its guest_id
-   */
-
+  // Cookie
   const cookies = cookie.parse(event.request.headers.get('cookie') || '')
-  const fact = cookies?.fact
+  const fact = cookies.fact || null
   const secret = import.meta.env.VITE_SECRET
 
-  try {
-    jwt.verify(fact, secret)
+  if (fact && jwt.verify(fact, secret)) {
+    // User or Guest..
     const payload = jwt.decode(fact)
-    console.log(payload)
-    return { user_id: payload.user_id, name: payload.name }
-  } catch (error) {
+    if (payload.user_id) return { user_id: payload.user_id, name: payload.name }
+    if (payload.guest_id) return { guest_id: payload.guest_id, name: 'Account' }
+  } else {
+    // Not Both..
     return { user_id: null, name: null }
   }
+
 
 }

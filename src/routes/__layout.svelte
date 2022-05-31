@@ -2,8 +2,13 @@
   import { cartItemsStore } from '$lib/others/store'
 
   /** @type {import('@sveltejs/kit').Load} */
-  export const load = async ({ fetch }) => {
-    const response = await fetch('/api/carts')
+  export const load = async ({ fetch, session }) => {
+    if (!session.user_id && !session.guest_id) {
+      const response = await fetch('/api/make-guest', { method: 'POST' })
+      const payload = await response.json()
+      session = payload
+    }
+    const response = await fetch('/api/carts', { credentials: true })
     const cartItems = await response.json()
     cartItemsStore.set(cartItems)
     return {}

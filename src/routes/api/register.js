@@ -19,7 +19,7 @@ export const post = async ({ request }) => {
     user.password = await bcryptjs.hash(user.password, 11)
     delete user.repeatPassword
     // save user
-    const { insertId } = await db.insertInto('users').values(user, ).executeTakeFirst()
+    const { insertId } = await db.insertInto('users').values(user).executeTakeFirst()
     const payload = { user_id: Number(insertId), name: user.name }
     // login user using cookie
     const fact = jwt.sign(payload, import.meta.env.VITE_SECRET)

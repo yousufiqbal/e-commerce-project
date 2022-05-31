@@ -14,7 +14,6 @@ export const post = async ({ request }) => {
     const credential = await loginSchema.validate(body, { abortEarly: false})
     // check email
     const user = await db.selectFrom('users').selectAll().where('users.email', '=', credential.email).executeTakeFirst()
-    console.log(user)
     if (!user) {
       return { status: 401, body: { message: 'Incorrect email or password' } }
     }
@@ -23,7 +22,6 @@ export const post = async ({ request }) => {
       return { status: 401, body: { message: 'Incorrect email or password' } }
     }
     // login
-    console.log(user.name)
     const payload = { user_id: user.user_id, name: user.name }
     const fact = jwt.sign(payload, import.meta.env.VITE_SECRET)
     return {
