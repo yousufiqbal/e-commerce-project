@@ -15,14 +15,14 @@ export const get = async () => {
 
 // Adding new item..
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export const post = async ({ url }) => {
+export const post = async ({ url, session }) => {
   try {
     // TODO many validations remaining..
     const product_id = url.searchParams.get('product_id')
     const product = await db.selectFrom('products').where('products.product_id', '=', product_id)
       .selectAll().executeTakeFirst()
     await db.insertInto('cart_items').values({
-      user_id: 1,
+      user_id: session.user_id,
       product_id: product.product_id,
       quantity: 1
     }).execute()
