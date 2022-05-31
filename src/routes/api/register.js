@@ -23,7 +23,6 @@ export const post = async ({ request }) => {
     const payload = { user_id: Number(insertId), name: user.name }
     // login user using cookie
     const fact = jwt.sign(payload, import.meta.env.VITE_SECRET)
-    
     return {
       status: 201, headers: { 'set-cookie': cookie.serialize('fact', fact, { path: '/', maxAge: 7 * 86400 }) },
       body: { payload }

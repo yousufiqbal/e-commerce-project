@@ -1,52 +1,32 @@
-import jwt from 'jsonwebtoken'
-import cookie from 'cookie'
 import { db } from '$lib/database/db'
-
-let Decoded = { iss: '', nbf: 0, aud: '', sub: '', email: '', email_verified: true, azp: '', name: '', picture: '', given_name: '', family_name: '', iat: 0, exp: 0, jti: '' }
+import { loginSchema } from '$lib/others/schema'
+import { internalError } from '$lib/others/utils'
+import bcryptjs from 'bcryptjs'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const post = async ({ request }) => {
-  
-  // 1. Decode credential post sign-in success
-  const body = await request.json()
-  /** @type {Decoded} */
-  const decoded = jwt.decode(body.credential)
 
-  // 2. Check if user has verfied email
-  if (!decoded.email_verified) return {
-    body: { status: 404, message: 'You are not verified at Google.' }
-  }
-
-  // check if new or old user
-  const alreadyAUser = await db.selectFrom('users').where('users.sub', '=', decoded.sub).executeTakeFirst()
-
-  if (!alreadyAUser) {
-    // 3. Save user into database
-    await db.insertInto('users').values({
-      sub: decoded.sub,
-      email: decoded.email,
-      name: decoded.name,
-      picture: decoded.picture,
-      given_name: decoded.given_name,
-      family_name: decoded.family_name
-    }).execute()
-  }
-
-  // 4. login user saving his sub id into jwt and jwt into cookie
-  const payload = jwt.sign(decoded.sub, '!@#}{@#$/.,;```a}{|sd')
-  
-  return {
-    status: 200,
-    body: { name: decoded.given_name },
-    headers: {
-      'set-cookie': cookie.serialize('fact', payload, { maxAge: 7 * 24 * 60 * 1000, path: '/' })
+  try {
+    // general validataion
+    const body = await request.json()
+    const credential = await loginSchema.validate(body, { abortEarly: false})
+    // check email
+    const user = await db.selectFrom('users').selectAll().where('users.email', '=', credential.email).executeTakeFirst()
+    if (!user) {
+      return { status: 401, body: { message: 'Incorrect email or password' } }
     }
+    // check password
+    if (!await bcryptjs.compare(credential.password, user.password)) {
+      return { status: 401, body: { message: 'Incorrect email or password' } }
+    }
+    // login
+    const payload = { user_id: user.user_id, name: user.name }
+    const fact = jwt.sign(payload, import.meta.env.VITE_SECRET)
+    return {
+      status: 201, headers: { 'set-cookie': cookie.serialize('fact', fact, { path: '/', maxAge: 7 * 86400 }) },
+      body: { payload }
+    }
+  } catch (error) {
+    return internalError(error)
   }
-
 }
-
-// /** @type {import('@sveltejs/kit').RequestHandler} */
-// export const get = async ({ request }) => {
-//   console.log('came-to-get')
-//   return {}
-// }

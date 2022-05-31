@@ -1,6 +1,9 @@
 <script>
+  import { kebabCase } from "lodash-es";
+
   export let span = 'span 1'
-  export let label, name
+  export let label
+  let name = kebabCase(label)
   export let type = 'text', inputmode = 'text'
   export let touched = false, error = null
   export let value = undefined

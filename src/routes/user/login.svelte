@@ -1,4 +1,7 @@
 <script>
+import { dev } from "$app/env";
+import { session } from "$app/stores";
+
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import FieldGroup from "$lib/components/FieldGroup.svelte";
@@ -7,6 +10,45 @@
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Text from "$lib/components/Text.svelte";
   import Title from "$lib/components/Title.svelte";
+  import { extractYupErrors, loginSchema } from "$lib/others/schema.js";
+  import { axios } from "$lib/others/utils";
+
+  let user = {}, touched = false, errors = ''
+  let validationAllowed = true
+
+  const validate = async () => {
+    if (!validationAllowed) return
+    try {
+      await loginSchema.validate(user, { abortEarly: false })
+      errors = ''
+    } catch (error) {
+      errors = extractYupErrors(error)
+    }
+  }
+
+  const submit = async () => {
+    if (errors) {
+      touched = true; return
+    }
+    await login()
+  }
+
+  const login = async () => {
+    try {
+      validationAllowed = false
+      const response = await axios.post('/api/login', user)
+      $session = {
+        user_id: response.data.payload.user_id,
+        name: response.data.payload.name
+      }
+      goto('/')
+    } catch (error) {
+      if (dev) console.log(error)
+      validationAllowed = true
+    }
+  }
+
+  $: if (user) validate();
 </script>
 
 <Title title="Sign-In" />
@@ -18,12 +60,12 @@
     <Subtitle icon="survey" subtitle="Enter Credentials" />
 
     <FieldGroup>
-      <Input label="Email" inputmode="email" />
-      <Input label="Password" type="password" />
+      <Input {touched} bind:value={user.email} error={errors.email} label="Email" inputmode="email" />
+      <Input {touched} bind:value={user.password} error={errors.password} label="Password" type="password" />
     </FieldGroup>
     
     <ButtonGroup>
-      <Button icon="loginBox" name="Sign-In" />
+      <Button icon="loginBox" name="Sign-In" on:click={submit} />
       <Button href="/user/register" type="general" icon="save" name="New user? Register Now" />
     </ButtonGroup>
     
