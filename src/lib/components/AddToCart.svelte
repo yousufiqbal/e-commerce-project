@@ -39,8 +39,10 @@
   $: if ($cartItemsStore) {
     quantity = $cartItemsStore.filter(i => i.product_id == product.product_id)[0]?.quantity || 0
   }
-
+  
   const increase = async () => {
+    // Index for checks..
+    const index = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
  
     try {
       if (wait) return
@@ -49,8 +51,6 @@
       // Validation..
       if (quantity >= product.fair_quantity || quantity >= product.stock) return
   
-      // Index for checks..
-      const index = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
       
       if (index == -1) {
         // Adding New Item..
@@ -97,15 +97,15 @@
   const decrease = async () => {
 
     if (quantity == 1 && !await confirmRemoval()) return 
-
+    
+    // Index for checks..
+    const index = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
+    
     try {
-
 
       if (wait) return
       wait = true
       
-      // Index for checks..
-      const index = $cartItemsStore.map(item => item.product_id).indexOf(product.product_id);
       // Invalid item (less possible..)
       if (index == -1) return
       // Old Item
