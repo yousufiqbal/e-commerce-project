@@ -1,5 +1,5 @@
 <script>
-  import { page } from "$app/stores";
+  import { page, session } from "$app/stores";
   import Icon from "$lib/components/Icon.svelte";
   import { cartItemsStore } from "$lib/others/store";
   import { fly } from "svelte/transition";
@@ -23,7 +23,7 @@
   </a>
   <a class:active={$page.url.pathname == '/account'} href="/account">
     <Icon size="1.3rem" icon="userThree" />
-    <span>Account</span>
+    <span>{$session.name || 'Account'}</span>
   </a>
   <a class:active={$page.url.pathname == '/cart'} href="/cart">
     <Icon size="1.3rem" icon="shoppingCart" />

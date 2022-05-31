@@ -1,9 +1,10 @@
 <script context="module">
   /** @type {import('@sveltejs/kit').Load} */
   export const load = ({ session }) => {
-    if (!session.user) {
+    if (!session.user_id) {
       return { redirect: '/user/login', status: 302 }
     }
+    return {}
   }
 </script>
 <script>

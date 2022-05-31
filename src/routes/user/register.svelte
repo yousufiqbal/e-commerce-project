@@ -1,6 +1,16 @@
+<script context="module">
+  /** @type {import('@sveltejs/kit').Load} */
+  export const load = async ({ session }) => {
+    if (session.user_id) {
+      return { status: 302, redirect: '/' }
+    }
+    return {}
+  }
+</script>
 <script>
   import { dev } from "$app/env";
-import { goto } from "$app/navigation";
+  import { goto } from "$app/navigation";
+  import { session } from "$app/stores";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import FieldGroup from "$lib/components/FieldGroup.svelte";
@@ -37,7 +47,10 @@ import { goto } from "$app/navigation";
     try {
       validationAllowed = false
       const response = await axios.post('/api/register', user)
-      alert(response.data.message)
+      $session = {
+        user_id: response.data.payload.user_id,
+        name: response.data.payload.name
+      }
       goto('/')
     } catch (error) {
       validationAllowed = true

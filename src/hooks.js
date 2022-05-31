@@ -27,17 +27,13 @@ export const getSession = async (event) => {
   const fact = cookies?.fact
   const secret = import.meta.env.VITE_SECRET
 
-  console.log(jwt.decode(fact))
-  
   try {
-    const sub = jwt.verify(fact, secret)
-    console.log(jwt.decode(fact))
-    const { given_name } = await db.selectFrom('users')
-      .where('users.sub', '=', sub)
-      .executeTakeFirst()
-    return { user: given_name }
+    jwt.verify(fact, secret)
+    const payload = jwt.decode(fact)
+    console.log(payload)
+    return { user_id: payload.user_id, name: payload.name }
   } catch (error) {
-    return { user: false }
+    return { user_id: null, name: null }
   }
 
 }

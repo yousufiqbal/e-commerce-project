@@ -106,15 +106,8 @@ CREATE TABLE IF NOT EXISTS `cart_items` (
   CONSTRAINT `FK_cart_items_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.cart_items: ~6 rows (approximately)
+-- Dumping data for table fast-ecommerce.cart_items: ~5 rows (approximately)
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
-INSERT INTO `cart_items` (`cart_item`, `user_id`, `product_id`, `quantity`, `created`) VALUES
-	(43, 1, 3, 3, '2022-05-29 11:08:23'),
-	(44, 1, 4, 5, '2022-05-29 11:08:25'),
-	(45, 1, 6, 2, '2022-05-29 11:08:28'),
-	(46, 1, 5, 2, '2022-05-29 11:12:50'),
-	(47, 1, 2, 1, '2022-05-29 14:04:19'),
-	(48, 1, 1, 3, '2022-05-29 15:51:46');
 /*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.categories
@@ -366,12 +359,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_wallet_read` datetime DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.users: ~0 rows (approximately)
+-- Dumping data for table fast-ecommerce.users: ~6 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `applied_promo_id`, `last_messages_read`, `last_orders_read`, `last_promos_read`, `last_wallet_read`, `created`) VALUES
-	(1, _binary 0x596f75737566, 'yosofiqbal@gmail.com', '684684', NULL, '2022-05-28 15:30:23', '2022-05-28 15:30:23', '2022-05-28 15:30:24', '2022-05-28 15:30:25', '2022-05-28 15:30:25');
+	(7, _binary 0x596f75737566, 'yosof@fast.com', '$2a$11$IFPP9EvJmPU73z9T8xhgeuFfqpxIbVxaSRRcZ6M40PQFhuBqyiJZi', NULL, NULL, NULL, NULL, NULL, '2022-05-31 10:17:06'),
+	(8, _binary 0x466168616420416c616d, 'fahadalam@gmail.com', '$2a$11$ob4PfS8vnC3VSkiSpTNFKeC66wRJOGrLputlONT8zKP.OIUcJlM0C', NULL, NULL, NULL, NULL, NULL, '2022-05-31 10:24:30'),
+	(9, _binary 0x53616a6964, 'sajid@fast.com', '$2a$11$Jxvj93ZgzOlbATBcM02fFOM7jjBV3/D4EFHXj3bpHADdThAxp1oIC', NULL, NULL, NULL, NULL, NULL, '2022-05-31 10:31:42');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.validations
