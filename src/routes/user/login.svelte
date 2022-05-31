@@ -1,10 +1,20 @@
+<script context="module">
+  /** @type {import('@sveltejs/kit').Load} */
+  export const load = async ({ session }) => {
+    if (session.user_id) {
+      return { status: 302, redirect: '/' }
+    }
+    return {}
+  }
+</script>
 <script>
-import { dev } from "$app/env";
-import { session } from "$app/stores";
-
+  import { dev } from "$app/env";
+  import { goto } from "$app/navigation";
+  import { session } from "$app/stores";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import FieldGroup from "$lib/components/FieldGroup.svelte";
+import Icon from "$lib/components/Icon.svelte";
   import Input from "$lib/components/Input.svelte";
   import Layout from "$lib/components/Layout.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
@@ -15,6 +25,7 @@ import { session } from "$app/stores";
 
   let user = {}, touched = false, errors = ''
   let validationAllowed = true
+  let postLoginError = ''
 
   const validate = async () => {
     if (!validationAllowed) return
@@ -27,9 +38,7 @@ import { session } from "$app/stores";
   }
 
   const submit = async () => {
-    if (errors) {
-      touched = true; return
-    }
+    if (errors) { touched = true; return }
     await login()
   }
 
@@ -37,13 +46,15 @@ import { session } from "$app/stores";
     try {
       validationAllowed = false
       const response = await axios.post('/api/login', user)
+      console.log(response.data)
       $session = {
         user_id: response.data.payload.user_id,
         name: response.data.payload.name
       }
+      console.log($session)
       goto('/')
     } catch (error) {
-      if (dev) console.log(error)
+      postLoginError = error.data.message
       validationAllowed = true
     }
   }
@@ -63,13 +74,22 @@ import { session } from "$app/stores";
       <Input {touched} bind:value={user.email} error={errors.email} label="Email" inputmode="email" />
       <Input {touched} bind:value={user.password} error={errors.password} label="Password" type="password" />
     </FieldGroup>
+
+    {#if postLoginError}
+    <div class="login-error">
+      <Icon icon="errorWarning" />
+      <span>{postLoginError}</span>
+    </div>
+    {/if}
     
     <ButtonGroup>
       <Button icon="loginBox" name="Sign-In" on:click={submit} />
       <Button href="/user/register" type="general" icon="save" name="New user? Register Now" />
     </ButtonGroup>
     
-    <a class="mb30" href="/user/forgot-password">Forgot Password?</a>
+    <a class="mb30" href="/user/forgot-password">
+      Forgot Password?
+    </a>
   </div>
 
   <div slot="related">
@@ -86,6 +106,14 @@ import { session } from "$app/stores";
 
 
 <style>
+  .login-error {
+    display: flex;
+    margin-bottom: 20px;
+    color: red;
+    gap: 10px;
+    align-items: center;
+    /* border: 1px solid blue; */
+  }
   a {
     display: flex;
     color: blue;

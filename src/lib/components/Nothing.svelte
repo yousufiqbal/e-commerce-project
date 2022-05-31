@@ -16,7 +16,6 @@ import Icon from "./Icon.svelte";
     margin-bottom: 40px;
     padding-bottom: 10px;
     font-family: var(--serif);
-    font-size: 1.1rem;
     border-bottom: 1px dashed red;
   }
 </style>

@@ -9,12 +9,14 @@
     { name: 'Account', href: '/account' },
     { name: 'Address', href: '/account/address' },
   ]
+
+  export let addresses = []
 </script>
 
 <Breadcrumb {crumbs} />
 <Title back title="Address"></Title>
 
-<Addresses />
+<Addresses {addresses} />
 
 <ButtonGroup>
   <Button href="/account/address/add-address" name="Add New Address" icon="add" />

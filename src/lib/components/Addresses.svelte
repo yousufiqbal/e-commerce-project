@@ -1,40 +1,49 @@
 <script>
   import Icon from "./Icon.svelte";
+import Nothing from "./Nothing.svelte";
+
+  export let addresses = []
 </script>
 
+{#if addresses.length != 0}
 <div class="addresses">
   
+  {#each addresses as address}
   <div class="address card">
-    <h2>Office</h2>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit, earum!</p>
+
+    <h2>{address.label}</h2>
+    <p>{address.address} - {address.city}</p>
+
     <div class="actions">
+
+      {#if address.default}
       <div class="default">
         <Icon icon="checkDouble" />
         <span>Default</span>
       </div>
-      <a href="/address/edit-address">
-        <Icon icon="editBox" />
-        <span>Edit</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="address card">
-    <h2>Office</h2>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit, earum!</p>
-    <div class="actions">
+      {:else}
       <button>
         <Icon icon="check" />
         <span>Make Default</span>
       </button>
-      <a href="/address/edit-address">
+      {/if}
+
+      <a href="/address/edit-address?address_id={address.address_id}">
         <Icon icon="editBox" />
         <span>Edit</span>
       </a>
+
     </div>
+
   </div>
+  {/each}
 
 </div>
+{:else}
+<Nothing>
+  No address added yet
+</Nothing>
+{/if}
 
 <style>
   .default {
