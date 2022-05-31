@@ -9,30 +9,29 @@ export const post = async ({ request }) => {
 
   try {
     const body = await request.json()
-    console.log('came')
     // General validation
     const user = await registerSchema.validate(body, { abortEarly: false })
+    console.log('came')
     // Is email unique?
     const result = await db.selectFrom('users').where('users.email', '=', user.email)
       .selectAll().executeTakeFirst()
     if (result) throw new Error('Email already registered')
+    console.log(user)
     // hash password
-    const hashedPassword = await bcryptjs.hash(user.password)
-    delete user.password
+    user.password = await bcryptjs.hash(user.password, 11)
+    delete user.repeatPassword
     // save user
-    const user_id = await db.insertInto('users').values({
-      ...user,
-      password: hashedPassword
-    })
+    const { insertId } = await db.insertInto('users').values(user, ).executeTakeFirst()
+    console.log(Number(insertId))
     // login user using cookie
-    const fact = jwt.sign({ user_id, name: user.name }, '}{}{34+_1+ad_-=][]')
+    const fact = jwt.sign({ user_id: Number(insertId), name: user.name }, '}{}{34+_1+ad_-=][]')
     
     return {
       status: 201, headers: { 'set-cookie': cookie.serialize('fact', fact, { path: '/', maxAge: 7 * 86400 }) },
       body: { message: 'User Registered'}
     }
   } catch (error) {
-    
+    console.log(error)
   }
   
 }

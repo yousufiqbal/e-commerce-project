@@ -1,5 +1,6 @@
 <script>
   import { dev } from "$app/env";
+import { goto } from "$app/navigation";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import FieldGroup from "$lib/components/FieldGroup.svelte";
@@ -14,8 +15,10 @@
 
   let user = {}, touched = false, errors = '';
   let emailError = ''
+  let validationAllowed = true
 
   const validate = async () => {
+    if (!validationAllowed) return
     try {
       await registerSchema.validate(user, { abortEarly: false })
       errors = ''
@@ -25,15 +28,19 @@
   }
 
   const submit = async () => {
+    if (!validationAllowed) return
     if (errors || emailError) { touched = true; return }
     await registerUser()
   }
 
   const registerUser = async () => {
     try {
+      validationAllowed = false
       const response = await axios.post('/api/register', user)
-      alert(response.data)
+      alert(response.data.message)
+      goto('/')
     } catch (error) {
+      validationAllowed = true
       if (dev) console.log(error)
       alert('Cannot register')
     }
@@ -41,7 +48,7 @@
 
   const checkEmailAvailability = debounce(async () => {
     if (errors.email) return;
-    const response = await axios.post('http://localhost:3000/api/is-email-available', { email: user.email || '' })
+    const response = await axios.post('/api/is-email-available', { email: user.email || '' })
     if (response.data) {
       emailError = ''
     } else {

@@ -75,11 +75,11 @@
   .active {
     color: var(--primary);
   }
-  @media (max-height: 500px) {
+  /* @media (max-height: 500px) {
     .bottom-menu {
       display: none;
     }
-  }
+  } */
   @media (min-width: 960px) {
     .bottom-menu {
       border-top: none;

@@ -26,6 +26,8 @@ export const getSession = async (event) => {
   const cookies = cookie.parse(event.request.headers.get('cookie') || '')
   const fact = cookies?.fact
   const secret = import.meta.env.VITE_SECRET
+
+  console.log(jwt.decode(fact))
   
   try {
     const sub = jwt.verify(fact, secret)
