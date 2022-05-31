@@ -23,6 +23,12 @@ export const handle = async ({ event, resolve }) => {
 /** @type {import('@sveltejs/kit').GetSession} */
 export const getSession = async (event) => {
 
+  /**
+   * If signed-in, use 'user cookie'
+   * If not signed-in do following:
+   * 1. Make guest account and login using its guest_id
+   */
+
   const cookies = cookie.parse(event.request.headers.get('cookie') || '')
   const fact = cookies?.fact
   const secret = import.meta.env.VITE_SECRET
