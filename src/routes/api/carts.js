@@ -2,11 +2,16 @@ import { db } from '$lib/database/db'
 import { internalError } from '$lib/others/utils'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export const get = async () => {
+export const get = async ({ locals }) => {
 
-  const cartItems = await db.selectFrom('cart_items')
-    .leftJoin('products', 'products.product_id', 'cart_items.product_id')
-    .select(['products.product_id', 'products.name',  'products.url_name', 'cart_items.quantity', 'products.price'])
+  // User or Guest
+  let table
+  if (locals.guest_id) table = 'guest_cart_items'
+  if (locals.user_id) table = 'cart_items'
+
+  const cartItems = await db.selectFrom(table)
+    .leftJoin('products', 'products.product_id', `${table}.product_id`)
+    .select(['products.product_id', 'products.name',  'products.url_name', `${table}.quantity`, 'products.price'])
     .execute()
 
   return { body: cartItems }
@@ -15,20 +20,21 @@ export const get = async () => {
 
 // Adding new item..
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export const post = async ({ url, session }) => {
+export const post = async ({ url, locals }) => {
   try {
 
-    if (session.guest_id) table = 'guest_cart_items'
-    if (session.user_id) table = 'cart_items'
 
-    const table = 'cart+'
+    // User or Guest
+    let table
+    if (locals.guest_id) table = 'guest_cart_items'
+    if (locals.user_id) table = 'cart_items'
 
     // TODO many validations remaining..
     const product_id = url.searchParams.get('product_id')
     const product = await db.selectFrom('products').where('products.product_id', '=', product_id)
       .selectAll().executeTakeFirst()
     await db.insertInto(table).values({
-      user_id: session.user_id,
+      user_id: locals.user_id || locals.guest_id,
       product_id: product.product_id,
       quantity: 1
     }).execute()
@@ -40,16 +46,22 @@ export const post = async ({ url, session }) => {
 
 // Adding previous item..
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export const put = async ({ url }) => {
+export const put = async ({ url, locals }) => {
   try {
+
+    // User or Guest
+    let table
+    if (locals.guest_id) table = 'guest_cart_items'
+    if (locals.user_id) table = 'cart_items'
+
     // TODO many validations remaining..
     const product_id = url.searchParams.get('product_id')
-    const cartItem = await db.selectFrom('cart_items')
-    .where('cart_items.product_id', '=', product_id)
-      .select(['cart_items.quantity'])
+    const cartItem = await db.selectFrom(table)
+    .where(`${table}.product_id`, '=', product_id)
+      .select([`${table}.quantity`])
       .executeTakeFirst();
-    await db.updateTable('cart_items')
-      .where('cart_items.product_id', '=', product_id)
+    await db.updateTable(table)
+      .where(`${table}.product_id`, '=', product_id)
       .set({
         'quantity': +cartItem.quantity + 1
       })
@@ -61,19 +73,24 @@ export const put = async ({ url }) => {
 }
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export const del = async ({ url }) => {
+export const del = async ({ url, locals }) => {
 
   try {
 
+    // User or Guest
+    let table
+    if (locals.guest_id) table = 'guest_cart_items'
+    if (locals.user_id) table = 'cart_items'
+
     const product_id = url.searchParams.get('product_id')
-    const cartItem = await db.selectFrom('cart_items').where('cart_items.product_id', '=', product_id)
+    const cartItem = await db.selectFrom(table).where(`${table}.product_id`, '=', product_id)
       .selectAll().executeTakeFirst()
 
     if (cartItem.quantity >= 2) {
-      await db.updateTable('cart_items').where('cart_items.product_id', '=', product_id)
+      await db.updateTable(table).where(`${table}.product_id`, '=', product_id)
         .set({ quantity: cartItem.quantity - 1}).execute()
     } else {
-      await db.deleteFrom('cart_items').where('cart_items.product_id', '=', product_id)
+      await db.deleteFrom(table).where(`${table}.product_id`, '=', product_id)
         .execute()
     }
 

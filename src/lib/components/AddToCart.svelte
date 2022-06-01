@@ -20,11 +20,12 @@
     }
   }
 
-  (async () => {
-    if (browser) {
-      await syncCart()
-    }
-  })();
+  // TODO better sync it in __layout.svelte periodically.. or on an event
+  // (async () => {
+  //   if (browser) {
+  //     await syncCart()
+  //   }
+  // })();
 
   /**@type {Product}*/
   export let product = {}

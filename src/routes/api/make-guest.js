@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken'
 import cookie from 'cookie'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export const post = async () => {
-
+export const get = async () => {
+  
   // Making Guest..
   const { insertId } = await db.insertInto('guests').values({}).executeTakeFirst()
   const payload = { guest_id: Number(insertId), name: 'Account' }
@@ -14,6 +14,6 @@ export const post = async () => {
   return {
     status: 201,
     body: { payload },
-    headers: { 'set-cookie': cookie.serialize('fact', fact, { path: '/', maxAge: 7 * 86400 }) }
+    headers: { 'set-cookie': cookie.serialize('fact', fact, { path: '/', maxAge: 7 * 86400, httpOnly: true }) }
   }
 }

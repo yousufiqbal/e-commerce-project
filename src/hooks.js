@@ -12,6 +12,23 @@ export const handle = async ({ event, resolve }) => {
     console.log(event.request.method, event.request.url)
   }
   
+  // Cookie
+  const cookies = cookie.parse(event.request.headers.get('cookie') || '')
+  const fact = cookies.fact || null
+  const secret = import.meta.env.VITE_SECRET
+
+  if (fact && jwt.verify(fact, secret)) {
+    
+    // User or Guest..
+    const payload = jwt.decode(fact)
+    if (payload.user_id) event.locals = payload
+    if (payload.guest_id) event.locals = payload
+
+  } else {
+    // Not Both..
+    event.locals = null
+  }
+
   // Response
   return await resolve(event)
 
@@ -20,20 +37,6 @@ export const handle = async ({ event, resolve }) => {
 /** @type {import('@sveltejs/kit').GetSession} */
 export const getSession = async ( event ) => {
 
-  // Cookie
-  const cookies = cookie.parse(event.request.headers.get('cookie') || '')
-  const fact = cookies.fact || null
-  const secret = import.meta.env.VITE_SECRET
-
-  if (fact && jwt.verify(fact, secret)) {
-    // User or Guest..
-    const payload = jwt.decode(fact)
-    if (payload.user_id) return { user_id: payload.user_id, name: payload.name }
-    if (payload.guest_id) return { guest_id: payload.guest_id, name: 'Account' }
-  } else {
-    // Not Both..
-    return { user_id: null, name: null }
-  }
-
+  return event.locals
 
 }
