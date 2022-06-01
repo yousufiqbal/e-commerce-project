@@ -343,13 +343,15 @@ CREATE TABLE IF NOT EXISTS `promos` (
   `validity` datetime NOT NULL,
   `percentage` int NOT NULL,
   `max_discount` decimal(20,2) NOT NULL DEFAULT '0.00',
-  `consumed` tinyint NOT NULL DEFAULT '0',
+  `status` enum('available','consumed','expired') NOT NULL DEFAULT 'available',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`promo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.promos: ~0 rows (approximately)
 /*!40000 ALTER TABLE `promos` DISABLE KEYS */;
+INSERT INTO `promos` (`promo_id`, `user_id`, `code`, `validity`, `percentage`, `max_discount`, `status`, `created`) VALUES
+	(1, 9, 'BE2022', '2022-06-02 01:42:26', 10, 200.00, 'available', '2022-06-02 01:42:30');
 /*!40000 ALTER TABLE `promos` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.stocks

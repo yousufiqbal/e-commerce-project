@@ -2,7 +2,9 @@
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import Title from "$lib/components/Title.svelte";
   import Promos from "$lib/components/Promos.svelte";
-import QueryTabs from "$lib/components/QueryTabs.svelte";
+  import QueryTabs from "$lib/components/QueryTabs.svelte";
+
+  export let promos = []
 
   const crumbs = [
     { name: 'Account', href: '/account' },
@@ -16,4 +18,4 @@ import QueryTabs from "$lib/components/QueryTabs.svelte";
 
 <QueryTabs />
 
-<Promos />
+<Promos {promos} />

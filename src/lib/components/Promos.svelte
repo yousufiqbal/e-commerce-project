@@ -1,36 +1,36 @@
+<script>
+import dayjs from "dayjs";
+
+import Nothing from "./Nothing.svelte";
+
+  export let promos = []
+</script>
+
+{#if promos.length != 0}
 <div class="promos">
-
-  <div class="promo card">
-
-    <div class="title">
-      <h2>BIG50</h2>
-      <div class="status valid">Valid</div>
-    </div>
-
-    <div>
-      <p>10% Off - Upto Rs. 50</p>
-      <p>Validity Dec 18, 2022</p>
-    </div>
-
-
-  </div>
   
-  <div class="promo card expired">
-
+  {#each promos as promo}
+  <div class="promo card">
+    
     <div class="title">
-      <h2>BIG50</h2>
-      <div class="status expired">Expired</div>
+      <h2>{promo.code}</h2>
+      <div class="status valid">{promo.status}</div>
     </div>
-
+    
     <div>
-      <p>10% Off - Upto Rs. 50</p>
-      <p>Validity Dec 18, 2022</p>
+      <p>{promo.percentage}% Off - Upto Rs. {promo.max_discount}</p>
+      <p>Validity {dayjs(promo.validity).format('MMM DD, YYYY - hh:mm a')}</p>
     </div>
-
-
+    
   </div>
-
+  {/each}
+    
 </div>
+{:else}
+<Nothing>
+  No Promos
+</Nothing>
+{/if}
 
 <style>
   .promos {
