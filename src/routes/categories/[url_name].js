@@ -45,7 +45,8 @@ export const get = async ({ params, url }) => {
 
   // Get products for chosen category / subcategory
   const products = await db.selectFrom('products')
-    .select(['products.product_id', 'products.name', 'products.url_name', 'products.price', 'products.description', 'products.stock', 'products.fair_quantity']) 
+    .leftJoin('wishlists', 'wishlists.product_id', 'products.product_id')
+    .select(['products.product_id', 'products.name', 'products.url_name', 'products.price', 'products.description', 'products.stock', 'products.fair_quantity', 'wishlists.wishlist_id']) 
     .where('products.category_id', 'in', categories)
     .execute()
 

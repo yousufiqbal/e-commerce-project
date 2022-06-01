@@ -3,6 +3,8 @@
   import Products from "$lib/components/Products.svelte";
   import Title from "$lib/components/Title.svelte";
 
+  export let wishlist = []
+
   const crumbs = [
     { name: 'Account', href: '/account' },
     { name: 'Wishlist', href: '/account/wishlist' },
@@ -13,4 +15,4 @@
 
 <Title back title="Wishlist" />
 
-<Products wishlist={false} />
+<Products products={wishlist} />

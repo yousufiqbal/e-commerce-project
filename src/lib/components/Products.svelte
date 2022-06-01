@@ -1,19 +1,34 @@
 <script>
+  import { dev } from "$app/env";
+  import { invalidate } from "$app/navigation";
+  import { page } from "$app/stores";
+  import { axios } from "$lib/others/utils";
   import AddToCart from "./AddToCart.svelte";
   import Icon from "./Icon.svelte";
-import Nothing from "./Nothing.svelte";
+  import Nothing from "./Nothing.svelte";
 
   const Product = [{ name: '', url_name: '' }]
 
-  export let wishlist = true
-
   /** @type {Product} */
-  export let products = [
-    // { name: 'Head & Shoulders 250ML', url_name: 'head-and-shoulders-250ml' },
-    // { name: 'Head & Shoulders 250ML', url_name: 'head-and-shoulders-250ml' },
-    // { name: 'Head & Shoulders 250ML', url_name: 'head-and-shoulders-250ml' },
-    // { name: 'Head & Shoulders 250ML', url_name: 'head-and-shoulders-250ml' },
-  ]
+  export let products = []
+
+  const addToWishlist = async product_id => {
+    try {
+      await axios.post('/api/wishlists?product_id=' + product_id)
+      invalidate('')
+    } catch (error) {
+      if (dev) console.log(error)
+    }
+  }
+  
+  const removeFromWishlist = async product_id => {
+    try {
+      axios.delete('/api/wishlists?product_id=' + product_id)
+      invalidate('')
+    } catch (error) {
+      if (dev) console.log(error)
+    }
+  }
 </script>
 
 {#if products.length != 0}
@@ -24,16 +39,16 @@ import Nothing from "./Nothing.svelte";
     
     <a href="/product/{product.url_name}" class="image">
       <img loading="lazy" src="/products/{product.url_name}.jpg" alt="">
-      {#if wishlist}
-      <button>
-        <Icon icon="heartTwo" size="1.5rem" />
-      </button>
-      {:else}
-      <button>
-        <Icon icon="deleteBin" size="1.5rem" />
-      </button>
-      {/if}
     </a>
+    {#if product.wishlist_id}
+    <button on:click={()=>removeFromWishlist(product.product_id)} class="heart">
+      <Icon icon="deleteBin" size="1.5rem" />
+    </button>
+    {:else}
+    <button on:click={()=>addToWishlist(product.product_id)} class="heart">
+      <Icon icon="heartTwo" size="1.5rem" />
+    </button>
+    {/if}
     
     <div class="info">
       {#if product.stock == 0}
@@ -55,7 +70,18 @@ import Nothing from "./Nothing.svelte";
 {/if}
 
 <style>
+  .heart {
+    display: flex;
+    position: absolute;
+    background-color: #fff;
+    /* border: 1px solid red; */
+    top: 10px; right: 10px;
+  }
+  .heart:hover {
+    color: red;
+  }
   .product {
+    position: relative;
     box-shadow: var(--shadow);
     display: grid;
     border: 1px solid var(--border);
@@ -64,18 +90,10 @@ import Nothing from "./Nothing.svelte";
     /* border: 1px solid red; */
   }
   .image {
-    z-index: 1;
-    position: relative;
     padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  .image button {
-    display: flex;
-    position: absolute;
-    top: 10px; right: 10px;
-    /* border: 1px solid var(--border); */
   }
   .name {
     font-weight: bold;

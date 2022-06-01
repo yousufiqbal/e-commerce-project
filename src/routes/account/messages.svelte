@@ -5,6 +5,7 @@
   import { axios } from "$lib/others/utils";
   import { dev } from "$app/env";
   import { getContext, onMount } from "svelte";
+  import { invalidate } from "$app/navigation";
   
   const getUnread = getContext('getUnread')
 
@@ -18,7 +19,7 @@
   const makeMessagesRead = async () => {
     try {
       await axios.put('/api/messages/read')
-      await getUnread()
+      await invalidate('/api/unread')
     } catch (error) {
       if (dev) console.log(error)
     }
