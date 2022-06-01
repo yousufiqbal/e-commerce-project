@@ -20,7 +20,7 @@
 </div>
 {:else}
 <Nothing>
-  No messages.
+  No messages
 </Nothing>
 {/if}
 

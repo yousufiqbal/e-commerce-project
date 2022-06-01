@@ -4,18 +4,21 @@
   import Messages from "$lib/components/Messages.svelte";
   import { axios } from "$lib/others/utils";
   import { dev } from "$app/env";
-  import { onMount } from "svelte";
+  import { getContext, onMount } from "svelte";
+  
+  const getUnread = getContext('getUnread')
 
   onMount(() => {
     setTimeout(async () => {
       await makeMessagesRead()
     }, 2000);
   })
+
   
   const makeMessagesRead = async () => {
     try {
       await axios.put('/api/messages/read')
-      await invalidate('/account')
+      await getUnread()
     } catch (error) {
       if (dev) console.log(error)
     }

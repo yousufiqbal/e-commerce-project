@@ -7,7 +7,6 @@ export const get = async ({ locals }) => {
     .where('messages.user_id', '=', locals.user_id)
     .orderBy('messages.created', 'desc')
     .selectAll().execute()
-    console.log(messages)
   return { body: { messages }}
 }
 

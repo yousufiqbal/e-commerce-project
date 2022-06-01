@@ -8,4 +8,6 @@ export const put = async ({ locals }) => {
     .where('users.user_id', '=', locals.user_id)
     .set({ last_messages_read: dayjs().format('YYYY-MM-DD HH:mm:ss')})
     .execute()
+
+  return { status: 200 }
 }
