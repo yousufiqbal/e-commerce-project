@@ -21,6 +21,7 @@ export const post = async ({ request }) => {
     if (!await bcryptjs.compare(credential.password, user.password)) {
       return { status: 401, body: { message: 'Incorrect email or password' } }
     }
+    // if user has empty cart... shift guest cart to him else not..
     // login
     const payload = { user_id: user.user_id, name: user.name }
     const fact = jwt.sign(payload, import.meta.env.VITE_SECRET)

@@ -23,7 +23,7 @@
     <CartSummary items={$cartItemsStore} />
     {/if}
   </div>
-
+  
   <div slot="related">
     {#if $cartItemsStore.length != 0}
     <Subtitle subtitle="Promo Code" icon="coupon" />
@@ -38,9 +38,11 @@
     </Nothing>
     {/if}
     
+    {#if $cartItemsStore.length != 0}
     <ButtonGroup>
       <Button name="Sign-In To Checkout" href="/account/sign-in?next=/cart/checkout" icon="shoppingBag" />
     </ButtonGroup>
+    {/if}
   </div>
 
 </Layout>
