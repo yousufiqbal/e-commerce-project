@@ -46,12 +46,10 @@ import Icon from "$lib/components/Icon.svelte";
     try {
       validationAllowed = false
       const response = await axios.post('/api/login', user)
-      console.log(response.data)
       $session = {
         user_id: response.data.payload.user_id,
         name: response.data.payload.name
       }
-      console.log($session)
       goto('/')
     } catch (error) {
       postLoginError = error.data.message

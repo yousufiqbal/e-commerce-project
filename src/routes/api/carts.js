@@ -10,6 +10,7 @@ export const get = async ({ locals }) => {
   if (locals.user_id) table = 'cart_items'
 
   const cartItems = await db.selectFrom(table)
+    .where(`${table}.user_id`, '=', locals.user_id || locals.guest_id)
     .leftJoin('products', 'products.product_id', `${table}.product_id`)
     .select(['products.product_id', 'products.name',  'products.url_name', `${table}.quantity`, 'products.price'])
     .execute()
@@ -21,8 +22,8 @@ export const get = async ({ locals }) => {
 // Adding new item..
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const post = async ({ url, locals }) => {
-  try {
 
+  try {
 
     // User or Guest
     let table

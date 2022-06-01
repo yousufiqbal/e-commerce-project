@@ -6,6 +6,8 @@ import jwt from 'jsonwebtoken'
 /** @type {import('@sveltejs/kit').Handle} */
 export const handle = async ({ event, resolve }) => {
 
+  console.log('hooks')
+
   // Log URL & Method
   if (dev)  {
     console.log('----------------')
@@ -26,7 +28,7 @@ export const handle = async ({ event, resolve }) => {
 
   } else {
     // Not Both..
-    event.locals = null
+    event.locals = {}
   }
 
   // Response

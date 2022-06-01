@@ -9,7 +9,7 @@
       const payload = await response.json()
       session = payload
     }
-    const response = await fetch('/api/carts', { credentials: true })
+    const response = await fetch('/api/carts')
     const cartItems = await response.json()
     cartItemsStore.set(cartItems)
     return {}
