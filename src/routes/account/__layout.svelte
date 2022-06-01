@@ -1,10 +1,13 @@
 <script context="module">
   /** @type {import('@sveltejs/kit').Load} */
-  export const load = ({ session }) => {
+  export const load = async ({ session }) => {
     if (!session.user_id) {
       return { redirect: '/user/login', status: 302 }
     }
-    return {}
+    const response = await fetch('/api/unread')
+    return {
+      props: { unread: await response.json() }
+    }
   }
 </script>
 <script>
@@ -13,13 +16,15 @@
   import Layout from "$lib/components/Layout.svelte";
   import { page } from "$app/stores";
 
+  export let unread = {}
+
   const links1 = [
-    { name: 'Orders', icon: 'listUnordered', href: '/account/orders' },
-    { name: 'Messages', icon: 'mail', href: '/account/messages' },
+    { name: 'Orders', icon: 'listUnordered', href: '/account/orders', badge: unread.totalOrders },
+    { name: 'Messages', icon: 'mail', href: '/account/messages', badge: unread.totalMessages  },
     { name: 'Address', icon: 'mapPin', href: '/account/address' },
     { name: 'Wishlist', icon: 'heartTwo', href: '/account/wishlist' },
-    { name: 'Wallet', icon: 'walletThree', href: '/account/wallet' },
-    { name: 'Promos', icon: 'ticket', href: '/account/promos' },
+    { name: 'Wallet', icon: 'walletThree', href: '/account/wallet', badge: unread.totalWallets  },
+    { name: 'Promos', icon: 'ticket', href: '/account/promos', badge: unread.totalPromos  },
   ]
 
   const links2 = [

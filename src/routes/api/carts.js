@@ -32,7 +32,8 @@ export const post = async ({ url, locals }) => {
 
     // TODO many validations remaining..
     const product_id = url.searchParams.get('product_id')
-    const product = await db.selectFrom('products').where('products.product_id', '=', product_id)
+    const product = await db.selectFrom('products')
+      .where('products.product_id', '=', product_id)
       .selectAll().executeTakeFirst()
     await db.insertInto(table).values({
       user_id: locals.user_id || locals.guest_id,
@@ -57,15 +58,17 @@ export const put = async ({ url, locals }) => {
 
     // TODO many validations remaining..
     const product_id = url.searchParams.get('product_id')
+
     const cartItem = await db.selectFrom(table)
-    .where(`${table}.product_id`, '=', product_id)
+      .where(`${table}.user_id`, '=', locals.user_id || locals.guest_id)
+      .where(`${table}.product_id`, '=', product_id)
       .select([`${table}.quantity`])
       .executeTakeFirst();
+
     await db.updateTable(table)
       .where(`${table}.product_id`, '=', product_id)
-      .set({
-        'quantity': +cartItem.quantity + 1
-      })
+      .where(`${table}.user_id`, '=', locals.user_id || locals.guest_id)
+      .set({ 'quantity': +cartItem.quantity + 1 })
       .execute()
     return { status: 201, body: { message: 'Item updated' }}
   } catch (error) {
@@ -84,14 +87,20 @@ export const del = async ({ url, locals }) => {
     if (locals.user_id) table = 'cart_items'
 
     const product_id = url.searchParams.get('product_id')
-    const cartItem = await db.selectFrom(table).where(`${table}.product_id`, '=', product_id)
+    const cartItem = await db.selectFrom(table)
+      .where(`${table}.user_id`, '=', locals.user_id || locals.guest_id)
+      .where(`${table}.product_id`, '=', product_id)
       .selectAll().executeTakeFirst()
 
     if (cartItem.quantity >= 2) {
-      await db.updateTable(table).where(`${table}.product_id`, '=', product_id)
+      await db.updateTable(table)
+        .where(`${table}.product_id`, '=', product_id)
+        .where(`${table}.user_id`, '=', locals.user_id || locals.guest_id)
         .set({ quantity: cartItem.quantity - 1}).execute()
     } else {
-      await db.deleteFrom(table).where(`${table}.product_id`, '=', product_id)
+      await db.deleteFrom(table)
+        .where(`${table}.user_id`, '=', locals.user_id || locals.guest_id)
+        .where(`${table}.product_id`, '=', product_id)
         .execute()
     }
 

@@ -1,57 +1,28 @@
+<script>
+  import dayjs from "dayjs";
+  import Nothing from "./Nothing.svelte";
+
+  export let messages = []
+</script>
+
+{#if messages.length != 0}
 <div class="messages">
+  
+  <h2>Date Remain..</h2>
 
-  <h2>Today</h2>
-  
+  {#each messages as message (message.message_id)}
   <div class="message">
-    <div class="date">05:40 PM</div>
-    <div class="body">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit voluptates praesentium error modi mollitia ad quos eos? Eaque, explicabo dolores?</div>
+    <div class="date">{dayjs(message.created).format('MMM DD, YYYY - hh:mm a')}</div>
+    <div class="body">{message.message}</div>
   </div>
+  {/each}
   
-  <div class="message">
-    <div class="date">05:40 PM</div>
-    <div class="body">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit voluptates praesentium error modi mollitia ad quos eos? Eaque, explicabo dolores?</div>
-  </div>
-  
-  <div class="message">
-    <div class="date">05:40 PM</div>
-    <div class="body">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit voluptates praesentium error modi mollitia ad quos eos? Eaque, explicabo dolores?</div>
-  </div>
-  
-  <h2>Yesterday</h2>
-  
-  <div class="message">
-    <div class="date">05:40 PM</div>
-    <div class="body">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit voluptates praesentium error modi mollitia ad quos eos? Eaque, explicabo dolores?</div>
-  </div>
-  
-  <div class="message">
-    <div class="date">05:40 PM</div>
-    <div class="body">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit voluptates praesentium error modi mollitia ad quos eos? Eaque, explicabo dolores?</div>
-  </div>
-  
-  <div class="message">
-    <div class="date">05:40 PM</div>
-    <div class="body">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit voluptates praesentium error modi mollitia ad quos eos? Eaque, explicabo dolores?</div>
-  </div>
-  
-  <h2>May 22, 2022</h2>
-
-  <div class="message">
-    <div class="date">05:40 PM</div>
-    <div class="body">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit voluptates praesentium error modi mollitia ad quos eos? Eaque, explicabo dolores?</div>
-  </div>
-  
-  <div class="message">
-    <div class="date">05:40 PM</div>
-    <div class="body">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit voluptates praesentium error modi mollitia ad quos eos? Eaque, explicabo dolores?</div>
-  </div>
-  
-  <div class="message">
-    <div class="date">05:40 PM</div>
-    <div class="body">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit voluptates praesentium error modi mollitia ad quos eos? Eaque, explicabo dolores?</div>
-  </div>
-
 </div>
+{:else}
+<Nothing>
+  No messages.
+</Nothing>
+{/if}
 
 <style>
   h2 {

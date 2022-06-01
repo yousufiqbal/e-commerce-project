@@ -1,6 +1,9 @@
 <script>
+import { createEventDispatcher } from "svelte";
+
   import Icon from "./Icon.svelte";
-import Nothing from "./Nothing.svelte";
+  import Nothing from "./Nothing.svelte";
+  const dispatch = createEventDispatcher()
 
   export let addresses = []
 </script>
@@ -8,15 +11,15 @@ import Nothing from "./Nothing.svelte";
 {#if addresses.length != 0}
 <div class="addresses">
   
-  {#each addresses as address}
-  <div class="address card">
+  {#each addresses as address (address.address_id)}
+  <div  class="address card">
 
     <h2>{address.label}</h2>
     <p>{address.address} - {address.city}</p>
 
     <div class="actions">
 
-      {#if address.default}
+      {#if address.default == '1'}
       <div class="default">
         <Icon icon="checkDouble" />
         <span>Default</span>
@@ -24,11 +27,11 @@ import Nothing from "./Nothing.svelte";
       {:else}
       <button>
         <Icon icon="check" />
-        <span>Make Default</span>
+        <span on:click={()=>dispatch('make-default', { address_id: address.address_id })}>Make Default</span>
       </button>
       {/if}
 
-      <a href="/address/edit-address?address_id={address.address_id}">
+      <a href="/account/address/edit-address?address_id={address.address_id}">
         <Icon icon="editBox" />
         <span>Edit</span>
       </a>
@@ -57,6 +60,7 @@ import Nothing from "./Nothing.svelte";
   .address h2 {
     font-size: 1.1rem;
     font-family: var(--serif);
+    text-transform: capitalize;
   }
   .actions {
     display: flex;

@@ -18,9 +18,10 @@ import { page } from "$app/stores";
     <Icon fill="var(--primary)" icon="{link.icon}" size="1.3rem" />
     <div class="name">{link.name}</div>
     {#if !link.badge}
-    <Icon fill="var(--primary)" icon="arrowRightS" size="1.3rem" />
+    <Icon icon="arrowRightS" size="1.3rem" />
     {:else}
-    <div class="badge">{link.badge}</div>
+    <div class="badge">{link.badge} New</div>
+    <Icon icon="arrowRightS" size="1.3rem" />
     {/if}
   </a>
   {/each}
@@ -50,7 +51,7 @@ import { page } from "$app/stores";
     flex: 1;
   }
   .badge {
-    color: var(--primary);
+    color: blue;
     /* border: 1px solid red; */
   }
   @media (min-width: 960px) {
