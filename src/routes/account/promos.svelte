@@ -9,6 +9,7 @@
   import { dev } from "$app/env";
 
   export let promos = []
+  export let counts = {}
 
   onMount(() => {
     setTimeout(async () => {
@@ -31,9 +32,9 @@
   ]
 
   const items = [
-    { name: 'Available', url_name: 'valid' },
-    { name: 'Consumed', url_name: 'invalid' },
-    { name: 'Expired', url_name: 'invalid' },
+    { name: `Available (${counts.available})`, url_name: 'available' },
+    { name: `Consumed (${counts.consumed})`, url_name: 'consumed' },
+    { name: `Expired (${counts.expired})`, url_name: 'expired' },
   ]
 </script>
 
@@ -41,6 +42,6 @@
 
 <Title back title="Promos" />
 
-<QueryTabs {items} />
+<QueryTabs name="status" {items} />
 
 <Promos {promos} />

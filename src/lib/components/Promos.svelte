@@ -9,8 +9,8 @@ import Nothing from "./Nothing.svelte";
 {#if promos.length != 0}
 <div class="promos">
   
-  {#each promos as promo}
-  <div class:expired={promo.status == 'expired'} class="promo card">
+  {#each promos as promo (promo.promo_id)}
+  <div class:expired={promo.status == 'expired' || promo.status == 'consumed'} class="promo card">
     
     <div class="title">
       <h2>{promo.code}</h2>
@@ -46,7 +46,7 @@ import Nothing from "./Nothing.svelte";
   .expired {
     user-select: none;
     background-color: rgb(227, 227, 227);
-    opacity: 0.5;
+    opacity: 0.7;
   }
   .promo {
     display: grid;
@@ -60,9 +60,7 @@ import Nothing from "./Nothing.svelte";
     text-transform: uppercase;
   }
   .valid {
-    /* text-align: right; */
     font-family: var(--serif);
     color: green;
-    /* font-weight: bold; */
   }
 </style>

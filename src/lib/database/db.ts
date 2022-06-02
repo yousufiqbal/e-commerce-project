@@ -16,7 +16,7 @@ interface Addresses {
   'address_id'?: number;
   'city': string;
   'created'?: Date;
-  'default': any;
+  'default'?: any;
   'label': string;
   'user_id': number;
 }
@@ -103,11 +103,11 @@ interface Products {
 }
 interface Promos {
   'code': string;
-  'consumed'?: number;
   'created'?: Date;
   'max_discount'?: number;
   'percentage': number;
   'promo_id'?: number;
+  'status'?: any;
   'user_id': number;
   'validity': Date;
 }
@@ -123,10 +123,10 @@ interface Users {
   'applied_promo_id': number | null;
   'created'?: Date;
   'email': string;
-  'last_messages_read': Date | null;
-  'last_orders_read': Date | null;
-  'last_promos_read': Date | null;
-  'last_wallet_read': Date | null;
+  'last_messages_read'?: Date;
+  'last_orders_read'?: Date;
+  'last_promos_read'?: Date;
+  'last_wallets_read'?: Date;
   'name': string;
   'password': string;
   'user_id'?: number;
@@ -158,6 +158,7 @@ interface Wishlists {
   'user_id': number;
   'wishlist_id'?: number;
 }
+
 
 
 interface Database {

@@ -22,7 +22,7 @@
     { name: 'Address', icon: 'mapPin', href: '/account/address' },
     { name: 'Wishlist', icon: 'heartTwo', href: '/account/wishlist' },
     { name: 'Wallet', icon: 'walletThree', href: '/account/wallet', badge: unread.totalWallets  },
-    { name: 'Promos', icon: 'ticket', href: '/account/promos', badge: unread.totalPromos  },
+    { name: 'Promos', icon: 'ticket', href: '/account/promos?status=available', badge: unread.totalPromos  },
   ]
 
   let links2 = [

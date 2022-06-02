@@ -23,6 +23,7 @@
     border-left: 1px solid var(--border);
   }
   .tab {
+    white-space: nowrap;
     padding: var(--padding);
     border: 1px solid var(--border);
     border-left: none;
