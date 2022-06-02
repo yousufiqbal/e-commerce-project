@@ -1,8 +1,8 @@
 <script>
-import SmallButton from "./SmallButton.svelte";
-import SmallButtonGroup from "./SmallButtonGroup.svelte";
-
+  import SmallButton from "./SmallButton.svelte";
+  import SmallButtonGroup from "./SmallButtonGroup.svelte";
 </script>
+
 <div class="orders">
 
   <div class="order card">
@@ -40,10 +40,10 @@ import SmallButtonGroup from "./SmallButtonGroup.svelte";
   }
   .orders {
     display: grid;
+    gap: 20px;
   }
   @media (min-width: 960px) {
     .orders {
-      gap: 20px;
       grid-template-columns: 1fr 1fr;
     }
   }
