@@ -1,1 +1,0 @@
-Remove all guests after 7 days from creation date.
