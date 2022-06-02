@@ -11,7 +11,7 @@
   <p>{address.address} - {address.city}</p>
 
   <SmallButtonGroup>
-    <SmallButton icon="editBox" name="Change Address" />
+    <SmallButton href="/account/address/edit-address?address_id={address.address_id}&next=/cart/checkout" icon="editBox" name="Change Address" />
   </SmallButtonGroup>
 
 </div>

@@ -1,21 +1,17 @@
 <script>
-import { dev } from "$app/env";
-
-import { goto } from "$app/navigation";
-
+  import { dev } from "$app/env";
+  import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
-  import Field from "$lib/components/Field.svelte";
   import FieldGroup from "$lib/components/FieldGroup.svelte";
   import Input from "$lib/components/Input.svelte";
-import Modal from "$lib/components/Modal.svelte";
+  import Modal from "$lib/components/Modal.svelte";
   import Radios from "$lib/components/Radios.svelte";
-import SmallButton from "$lib/components/SmallButton.svelte";
-import SmallButtonGroup from "$lib/components/SmallButtonGroup.svelte";
-import Spaced from "$lib/components/Spaced.svelte";
-import Subtitle from "$lib/components/Subtitle.svelte";
+  import SmallButton from "$lib/components/SmallButton.svelte";
+  import Spaced from "$lib/components/Spaced.svelte";
+  import Subtitle from "$lib/components/Subtitle.svelte";
   import Text from "$lib/components/Text.svelte";
   import Title from "$lib/components/Title.svelte";
   import { addressSchema, extractYupErrors } from "$lib/others/schema";
@@ -25,6 +21,9 @@ import Subtitle from "$lib/components/Subtitle.svelte";
   export let address = { label: 'home' }
   let touched = false, errors = {}
   let deleteModal = false
+  let next = $page.url.searchParams.get('next') || ''
+
+  $: console.log(next)
 
   const crumbs = [
     { name: 'Account', href: '/account' },
@@ -50,7 +49,7 @@ import Subtitle from "$lib/components/Subtitle.svelte";
   const addAddress = async () => {
     try {
       await axios.post('/api/address', address)
-      goto('/account/address')
+      goto(next || '/account/address')
     } catch (error) {
       if (dev) console.log(error)
       alert('Cannot add address')
@@ -60,7 +59,7 @@ import Subtitle from "$lib/components/Subtitle.svelte";
   const editAddress = async () => {
     try {
       await axios.put('/api/address?address_id=' + $page.url.searchParams.get('address_id'), address)
-      goto('/account/address')
+      goto(next || '/account/address')
     } catch (error) {
       if (dev) console.log(error)
       alert('Cannot add address')
