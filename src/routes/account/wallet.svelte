@@ -48,7 +48,7 @@
   {#each wallets as wallet}
   <tr>
     <td><Icon size="1.1rem" icon="{ wallet.in > 0 ? 'arrowUp' : 'arrowDown'}" fill="{ wallet.in > 0 ? 'green' : 'red'}" /></td>
-    <td style="font-weight: bold">Rs. {wallet.in || wallet.out}</td>
+    <td style="font-weight: bold">Rs. { Number(wallet.in > 0 ? wallet.in : wallet.out).toFixed(1) }</td>
     <td style="text-align: right">{dayjs(wallet.created).format('MMM DD, YYYY - hh:mm a')}</td>
   </tr>
   {/each}
