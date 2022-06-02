@@ -12,7 +12,7 @@
   .done {
     display: flex;
     justify-content: center;
-    margin-bottom: 40px;
+    margin: 30px;
   }
   .circle {
     display: flex;
