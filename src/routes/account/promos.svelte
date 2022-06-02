@@ -3,10 +3,10 @@
   import Title from "$lib/components/Title.svelte";
   import Promos from "$lib/components/Promos.svelte";
   import QueryTabs from "$lib/components/QueryTabs.svelte";
-import { onMount } from "svelte";
-import { axios } from "$lib/others/utils";
-import { invalidate } from "$app/navigation";
-import { dev } from "$app/env";
+  import { onMount } from "svelte";
+  import { axios } from "$lib/others/utils";
+  import { invalidate } from "$app/navigation";
+  import { dev } from "$app/env";
 
   export let promos = []
 
