@@ -4,7 +4,7 @@
   export let span = 'span 1'
   export let label
   let name = kebabCase(label)
-  export let type = 'text', inputmode = 'text'
+  export let type = 'text', inputmode = ''
   export let touched = false, error = null
   export let value = undefined
 

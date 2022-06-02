@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `cart_items` (
   KEY `FK_cart_items_products` (`product_id`),
   CONSTRAINT `FK_cart_items_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
   CONSTRAINT `FK_cart_items_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.cart_items: ~14 rows (approximately)
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
@@ -127,7 +127,11 @@ INSERT INTO `cart_items` (`cart_item_id`, `user_id`, `product_id`, `quantity`, `
 	(79, 18, 2, 6, '2022-06-01 21:17:37'),
 	(80, 18, 3, 8, '2022-06-01 21:17:40'),
 	(81, 9, 5, 34, '2022-06-02 01:49:42'),
-	(82, 9, 6, 5, '2022-06-02 01:49:54');
+	(82, 9, 6, 5, '2022-06-02 01:49:54'),
+	(83, 9, 1, 4, '2022-06-02 16:10:25'),
+	(84, 9, 2, 6, '2022-06-02 16:10:27'),
+	(85, 9, 3, 5, '2022-06-02 16:10:31'),
+	(86, 9, 4, 4, '2022-06-02 16:10:34');
 /*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.categories
@@ -166,12 +170,31 @@ INSERT INTO `categories` (`category_id`, `name`, `url_name`, `parent_id`, `creat
 	(19, 'Organic Oil', 'organic-oil', 3, '2022-05-27 00:04:47');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 
+-- Dumping structure for table fast-ecommerce.constants
+CREATE TABLE IF NOT EXISTS `constants` (
+  `constant_id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `value` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`constant_id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table fast-ecommerce.constants: ~0 rows (approximately)
+/*!40000 ALTER TABLE `constants` DISABLE KEYS */;
+INSERT INTO `constants` (`constant_id`, `name`, `value`, `created`) VALUES
+	(1, 'whatsapp', '0333-3215469', '2022-06-02 16:43:13'),
+	(2, 'email', 'support@fast.com', '2022-06-02 16:43:31'),
+	(3, 'phone', '021-34554658', '2022-06-02 16:43:40'),
+	(4, 'timings', '9AM to 6PM everyday, except Sundays and Prayer timings', '2022-06-02 16:44:27');
+/*!40000 ALTER TABLE `constants` ENABLE KEYS */;
+
 -- Dumping structure for table fast-ecommerce.guests
 CREATE TABLE IF NOT EXISTS `guests` (
   `guest_id` int NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`guest_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=449 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=454 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.guests: ~14 rows (approximately)
 /*!40000 ALTER TABLE `guests` DISABLE KEYS */;
@@ -192,7 +215,11 @@ INSERT INTO `guests` (`guest_id`, `created`) VALUES
 	(445, '2022-06-01 22:47:29'),
 	(446, '2022-06-02 14:50:17'),
 	(447, '2022-06-02 14:50:17'),
-	(448, '2022-06-02 14:50:17');
+	(448, '2022-06-02 14:50:17'),
+	(449, '2022-06-02 15:51:14'),
+	(450, '2022-06-02 15:51:32'),
+	(451, '2022-06-02 17:03:43'),
+	(452, '2022-06-02 17:03:43');
 /*!40000 ALTER TABLE `guests` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.guest_cart_items
@@ -276,14 +303,15 @@ CREATE TABLE IF NOT EXISTS `orders` (
 CREATE TABLE IF NOT EXISTS `order_details` (
   `order_detail_id` int NOT NULL AUTO_INCREMENT,
   `order_id` int NOT NULL,
-  `stock_id` int NOT NULL,
+  `product_id` int NOT NULL,
   `quantity` int NOT NULL,
   `price` decimal(20,2) NOT NULL,
+  `cost` decimal(20,2) NOT NULL,
   PRIMARY KEY (`order_detail_id`),
   KEY `FK_order_details_orders` (`order_id`),
-  KEY `FK_order_details_stocks` (`stock_id`),
+  KEY `FK_order_details_stocks` (`product_id`) USING BTREE,
   CONSTRAINT `FK_order_details_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-  CONSTRAINT `FK_order_details_stocks` FOREIGN KEY (`stock_id`) REFERENCES `stocks` (`stock_id`)
+  CONSTRAINT `FK_order_details_stocks` FOREIGN KEY (`product_id`) REFERENCES `stocks` (`stock_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.order_details: ~0 rows (approximately)
@@ -427,14 +455,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_wallets_read` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.users: ~12 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `applied_promo_id`, `last_messages_read`, `last_orders_read`, `last_promos_read`, `last_wallets_read`, `created`) VALUES
 	(7, 'Yousuf', 'yosof@fast.com', '$2a$11$IFPP9EvJmPU73z9T8xhgeuFfqpxIbVxaSRRcZ6M40PQFhuBqyiJZi', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-05-31 10:17:06'),
 	(8, 'Fahad Alam', 'fahadalam@gmail.com', '$2a$11$ob4PfS8vnC3VSkiSpTNFKeC66wRJOGrLputlONT8zKP.OIUcJlM0C', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-05-31 10:24:30'),
-	(9, 'Sajid', 'sajid@fast.com', '$2a$11$Jxvj93ZgzOlbATBcM02fFOM7jjBV3/D4EFHXj3bpHADdThAxp1oIC', NULL, '2022-06-02 14:53:31', '2022-06-01 21:43:30', '2022-06-02 14:37:37', '2022-06-02 14:53:47', '2022-05-31 10:31:42'),
+	(9, 'Sajid', 'sajid@fast.com', '$2a$11$Jxvj93ZgzOlbATBcM02fFOM7jjBV3/D4EFHXj3bpHADdThAxp1oIC', NULL, '2022-06-02 17:02:49', '2022-06-01 21:43:30', '2022-06-02 17:02:35', '2022-06-02 17:02:38', '2022-05-31 10:31:42'),
 	(10, 'nasir', 'nasir@fast.com', '$2a$11$dwA/ydACTGCXquf6oeQdAOUpre7.ePJi4J.RuGgCRn/p9ULldxXwK', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 11:08:14'),
 	(11, 'nasir', 'nasir2@fast.com', '$2a$11$EAPeNfoMjDE4NhhPv9j1uO9ho5gZ8lP9En4RzlLX0zKh.rFRUOM2a', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 11:08:49'),
 	(12, 'nasir', 'nasir3@fast.com', '$2a$11$mVIrHKce1HCcHZlspjpXxuth4v3NkubfYsGK4ljYZXqIMOqEzk2kG', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 11:09:22'),
@@ -443,7 +471,9 @@ INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `applied_promo_id`,
 	(15, 'shahid', 'shahid@fast.com', '$2a$11$ebsBbhvmUpatVcbP22Lo0e0VfD4H2L.2JmKfXj/8OfKkkwueV.uz.', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 11:13:24'),
 	(16, 'habib', 'habib@fast.com', '$2a$11$8nJljXLXPCOUZ/3TJjKMFeyd0h.tLzr5mUh2V6KSZ.jFlFnb5de8K', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 18:51:45'),
 	(17, 'Furqan', 'furqan@fast.com', '$2a$11$MjysB0KBx.9sLlFlRrOtSuR36RhcTuR3Tj66OpWgB3wEcQCztBS2e', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 19:35:25'),
-	(18, 'Sami', 'sami@gmail.com', '$2a$11$Uf62x.4U3pXTxhijB/qqQe79tB5hvOUYx0b0UZlaM6l/V/LZv7Y5O', NULL, '2022-06-01 22:44:44', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:18:38');
+	(18, 'Sami', 'sami@gmail.com', '$2a$11$Uf62x.4U3pXTxhijB/qqQe79tB5hvOUYx0b0UZlaM6l/V/LZv7Y5O', NULL, '2022-06-01 22:44:44', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:18:38'),
+	(19, 'Javed', 'javed@mm.com', '$2a$11$UKeI2ss87SnO2R0KUHW4ausOggINzJs2uqMl0YWkTXWLvaLCwL70S', NULL, '2022-06-02 17:08:37', '2022-06-02 17:08:37', '2022-06-02 17:08:37', '2022-06-02 17:08:37', '2022-06-02 17:08:37'),
+	(20, 'Fahad', 'fahad@ss.com', '$2a$11$6mbuZUy7vwXP4hPoeP9yZOXv2psutS0miYtDvbv5amjj1kyE6r2H2', NULL, '2022-06-02 17:10:48', '2022-06-02 17:10:48', '2022-06-02 17:10:48', '2022-06-02 17:10:48', '2022-06-02 17:10:48');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.validations

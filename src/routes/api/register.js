@@ -35,10 +35,15 @@ export const post = async ({ request, locals }) => {
     previousGuestCart.forEach(item => {
       item.user_id = user_id
     })
-    await db.insertInto('cart_items').values(previousGuestCart).execute()
 
-    // remove guest and related info
-    await db.deleteFrom('guest_cart_items').where('guest_cart_items.user_id', '=', locals.guest_id).execute()
+    if (previousGuestCart.length != 0) {
+      // transfer guest cart
+      await db.insertInto('cart_items').values(previousGuestCart).execute()
+      // remove guest cart
+      await db.deleteFrom('guest_cart_items').where('guest_cart_items.user_id', '=', locals.guest_id).execute()
+    }
+
+    // remove guest
     await db.deleteFrom('guests').where('guests.guest_id', '=', locals.guest_id).execute()
 
     // login user using cookie
