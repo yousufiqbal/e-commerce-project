@@ -17,7 +17,7 @@
 
   const markRead = async () => {
     try {
-      await axios.put('/api/read?type=messages')
+      await axios.put('/api/read?type=orders')
       await invalidate('/api/unread')
     } catch (error) {
       if (dev) console.log(error)
