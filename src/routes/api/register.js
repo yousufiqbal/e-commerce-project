@@ -24,9 +24,23 @@ export const post = async ({ request, locals }) => {
     delete user.repeatPassword
 
     // save user
-    const { insertId } = await db.insertInto('users').values(user).executeTakeFirst()
+    const { insertId } = await db.insertInto('users').values({
+      email: user.email,
+      name: user.name,
+      password: user.password,
+    }).executeTakeFirst()
     const user_id = Number(insertId)
     const payload = { user_id, name: user.name }
+
+    // save default address
+    await db.insertInto('addresses')
+      .values({
+        city: user.city,
+        address: user.address,
+        user_id,
+        default: '1',
+        label: 'Home',
+      }).execute()
 
     // TODO make this transactional
     // convert guest to user (cart, wishlist.. transfer)

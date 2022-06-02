@@ -14,6 +14,8 @@ export const registerSchema = yup.object({
   email: yup.string().email().required(),
   password: yup.string().min(8).max(16).required(),
   repeatPassword: yup.string().required().oneOf([yup.ref('password')], 'Passwords do not match'),
+  city: yup.string().min(3).max(50).required(),
+  address: yup.string().min(3).max(50).required(),
 }).noUnknown(true);
 
 // Login

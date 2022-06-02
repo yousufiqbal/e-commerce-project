@@ -23,7 +23,7 @@
   </a>
   <a class:active={$page.url.pathname == '/account'} href="/account">
     <Icon size="1.3rem" icon="userThree" />
-    <span>{$session.name || 'Account'}</span>
+    <span class="name">{$session.name?.split(' ')[0] || 'Account'}</span>
   </a>
   <a class:active={$page.url.pathname == '/cart'} href="/cart">
     <Icon size="1.3rem" icon="shoppingCart" />
@@ -36,20 +36,22 @@
 </div>
 
 <style>
+  .name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70px;
+  }
   .bottom-menu {
     z-index: 2;
     background-color: #fff;
     border-top: 1px solid var(--border);
-    /* border-radius: 20px; */
     display: flex;
     position: fixed;
     bottom: 0; left: 0; right: 0;
-    /* border: 1px solid red; */
   }
   .badge {
-    /* font-weight: bold; */
     line-height: 1;
-    /* opacity: 0.8; */
     background-color: var(--secondary);
     color: white;
     font-size: 0.8rem;
@@ -59,7 +61,6 @@
     top: -12px;
     display: flex;
     position: absolute;
-    /* border: 1px solid red; */
   }
   a {
     position: relative;
@@ -67,7 +68,6 @@
     flex: 1;
     display: grid;
     justify-items: center;
-    /* border: 1px solid blue; */
   }
   a:hover {
     color: red;
@@ -75,19 +75,11 @@
   .active {
     color: var(--primary);
   }
-  /* @media (max-height: 500px) {
-    .bottom-menu {
-      display: none;
-    }
-  } */
   @media (min-width: 960px) {
     .bottom-menu {
       border-top: none;
       margin-bottom: 20px;
       position: static;
-      /* padding-bottom: 5px; */
-      /* border-bottom: 1px dashed var(--border); */
-      /* justify-content: center; */
     }
     .badge {
       position: static;
@@ -95,7 +87,6 @@
     }
     a {
       padding: 7px 20px;
-      /* padding-left: 0; */
       margin-right: 20px;
       border-radius: 20px;
       border: 1px solid var(--border);
