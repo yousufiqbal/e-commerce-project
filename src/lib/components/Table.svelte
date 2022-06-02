@@ -4,6 +4,7 @@
 
 <style global>
   .table {
+    white-space: nowrap;
     width: 100%;
     border-collapse: collapse;
   }

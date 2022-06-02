@@ -5,18 +5,21 @@
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import DebitCard from "$lib/components/DebitCard.svelte";
-import Layout from "$lib/components/Layout.svelte";
+  import Layout from "$lib/components/Layout.svelte";
   import Methods from "$lib/components/Methods.svelte";
-  import PromoField from "$lib/components/PromoField.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Title from "$lib/components/Title.svelte";
+  import { cartItemsStore } from "$lib/others/store";
 
   let paymentMethod = 'cod'
+  export let address = {}
 
   const crumbs = [
     { name: 'Cart', href: '/cart' },
     { name: 'Checkout', href: '/cart/checkout' },
   ]
+
+  console.log(address)
 </script>
 
 <Breadcrumb {crumbs} />
@@ -26,7 +29,7 @@ import Layout from "$lib/components/Layout.svelte";
 <Layout>
   <div slot="main">
     <Subtitle icon="mapPinTwo" subtitle="Delivery Address" />
-    <Address />
+    <Address {address} />
     
     <Subtitle icon="currency" subtitle="Payment Method" />
     <Methods bind:paymentMethod />
@@ -37,7 +40,7 @@ import Layout from "$lib/components/Layout.svelte";
   </div>
   <div slot="related">
     <Subtitle icon="bill" subtitle="Bill Summary" />
-    <BillSummary />
+    <BillSummary items={$cartItemsStore} />
     
     <ButtonGroup>
       <Button name="Confirm Order" href="/cart/confirm" icon="checkDouble" />

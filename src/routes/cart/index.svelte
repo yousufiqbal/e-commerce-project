@@ -10,6 +10,7 @@
   import Title from "$lib/components/Title.svelte";
   import { cartItemsStore } from "$lib/others/store";
   import Layout from "$lib/components/Layout.svelte";
+import { session } from "$app/stores";
 </script>
 
 <Title title="Cart" />
@@ -40,7 +41,11 @@
     
     {#if $cartItemsStore.length != 0}
     <ButtonGroup>
-      <Button name="Sign-In To Checkout" href="/account/sign-in?next=/cart/checkout" icon="shoppingBag" />
+      {#if $session.user_id}
+      <Button name="Checkout" href="/cart/checkout" icon="shoppingBag" />
+      {:else}
+      <Button name="Sign-In To Checkout" href="/account/sign-in?next=/cart/checkout" icon="loginBox" />
+      {/if}
     </ButtonGroup>
     {/if}
   </div>

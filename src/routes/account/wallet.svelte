@@ -1,14 +1,17 @@
 <script>
-import { dev } from "$app/env";
-
-import { invalidate } from "$app/navigation";
-
+  import { dev } from "$app/env";
+  import { invalidate } from "$app/navigation";
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import Icon from "$lib/components/Icon.svelte";
+  import Nothing from "$lib/components/Nothing.svelte";
   import Table from "$lib/components/Table.svelte";
   import Title from "$lib/components/Title.svelte";
-import { axios } from "$lib/others/utils";
-import { onMount } from "svelte";
+  import { axios } from "$lib/others/utils";
+  import dayjs from "dayjs";
+  import { onMount } from "svelte";
+
+  export let wallets = []
+  export let total = 0
 
   onMount(() => {
     setTimeout(async () => {
@@ -16,10 +19,9 @@ import { onMount } from "svelte";
     }, 2000);
   })
 
-  
   const markRead = async () => {
     try {
-      await axios.put('/api/read?type=messages')
+      await axios.put('/api/read?type=wallets')
       await invalidate('/api/unread')
     } catch (error) {
       if (dev) console.log(error)
@@ -37,31 +39,26 @@ import { onMount } from "svelte";
 <Title back title="Wallet" />
 
 <div class="total">
-  Rs. 5000
+  Rs. {total}
 </div>
 
+{#if wallets.length != 0}
 <Table>
+
+  {#each wallets as wallet}
   <tr>
-    <td><Icon size="1.1rem" icon="arrowUp" fill="green" /></td>
-    <td style="font-weight: bold">Rs. 1000</td>
-    <td style="text-align: right">12 Apr, 2022 - 05:23 PM</td>
+    <td><Icon size="1.1rem" icon="{ wallet.in > 0 ? 'arrowUp' : 'arrowDown'}" fill="{ wallet.in > 0 ? 'green' : 'red'}" /></td>
+    <td style="font-weight: bold">Rs. {wallet.in || wallet.out}</td>
+    <td style="text-align: right">{dayjs(wallet.created).format('MMM DD, YYYY - hh:mm a')}</td>
   </tr>
-  <tr>
-    <td><Icon size="1.1rem" icon="arrowDown" fill="red" /></td>
-    <td style="font-weight: bold">Rs. 1000</td>
-    <td style="text-align: right">12 Apr, 2022 - 05:23 PM</td>
-  </tr>
-  <tr>
-    <td><Icon size="1.1rem" icon="arrowUp" fill="green" /></td>
-    <td style="font-weight: bold">Rs. 1000</td>
-    <td style="text-align: right">12 Apr, 2022 - 05:23 PM</td>
-  </tr>
-  <tr>
-    <td><Icon size="1.1rem" icon="arrowUp" fill="green" /></td>
-    <td style="font-weight: bold">Rs. 1000</td>
-    <td style="text-align: right">12 Apr, 2022 - 05:23 PM</td>
-  </tr>
+  {/each}
+
 </Table>
+{:else}
+<Nothing>
+  Wallet is empty
+</Nothing>
+{/if}
 
 <style>
   .total {

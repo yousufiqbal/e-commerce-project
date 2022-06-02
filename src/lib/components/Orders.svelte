@@ -1,33 +1,38 @@
 <script>
+  import Nothing from "./Nothing.svelte";
   import SmallButton from "./SmallButton.svelte";
   import SmallButtonGroup from "./SmallButtonGroup.svelte";
+
+  export let orders = []
 </script>
 
+{#if orders.length != 0}
 <div class="orders">
-
+  
+  {#each orders as order}
   <div class="order card">
-    <h2>Order # 546546</h2>
+
+    <h2>Order # {order.order_id}</h2>
+
     <div style="margin-bottom: 10px;">
-      <p class="dated">Placed On: May 20, 2022</p>
-      <p class="dated">Expected On: May 25 - May 30, 2022</p>
+      <p class="dated">Placed On: {order.created}</p>
+      <p class="dated">Expected On: {order.expected}/p>
     </div>
+
     <SmallButtonGroup>
       <SmallButton href="/account/orders/546546" icon="eye" name="Show Details" />
     </SmallButtonGroup>
+    
   </div>
-
-  <div class="order card">
-    <h2>Order # 546546</h2>
-    <div style="margin-bottom: 10px;">
-      <p class="dated">Placed On: May 20, 2022</p>
-      <p class="dated">Expected On: May 25 - May 30, 2022</p>
-    </div>
-    <SmallButtonGroup>
-      <SmallButton href="/account/orders/546546" icon="eye" name="Show Details" />
-    </SmallButtonGroup>
-  </div>
-
+  {/each}
+  
 </div>
+
+{:else}
+<Nothing>
+  No Orders
+</Nothing>
+{/if}
 
 <style>
   .order {

@@ -1,24 +1,16 @@
 <script>
   import Seo from "$lib/components/Seo.svelte";
-  import { onMount } from "svelte";
   import { fly } from "svelte/transition";
   import Icon from "./Icon.svelte";
-
-  export let align = 'left'
-  let referrer
-
-  onMount(() => {
-    referrer = document.referrer
-  })
 
   export let title, back = false
 </script>
 
 <div class="title">
   {#if back}
-  <a href="{back === true ? referrer : back}"><Icon size="2rem" icon="arrowLeft" /></a>
+  <button on:click={()=>history.go(-1)}><Icon size="1.8rem" icon="arrowLeft" /></button>
   {/if}
-  <h1 style:text-align={align} in:fly={{ x: -20, duration: 150 }}>{title}</h1>
+  <h1 in:fly={{ x: -20, duration: 150 }}>{title}</h1>
 </div>
 
 <Seo {title} />
@@ -26,14 +18,15 @@
 <style>
   .title {
     display: flex;
-    gap: 15px;
+    align-items: center;
+    gap: 10px;
     margin-bottom: 20px;
   }
   h1 {
     font-family: var(--serif);
     font-size: 1.5rem;
   }
-  a {
+  button {
     display: flex;
     align-items: center;
   }

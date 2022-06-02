@@ -1,16 +1,19 @@
 <script>
-import SmallButton from "./SmallButton.svelte";
+  import SmallButton from "./SmallButton.svelte";
+  import SmallButtonGroup from "./SmallButtonGroup.svelte";
 
-
-import SmallButtonGroup from "./SmallButtonGroup.svelte";
-
+  export let address = {}
 </script>
+
 <div class="address card">
-  <h2>Office</h2>
-  <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, quia.</p>
+
+  <h2>{address.label}</h2>
+  <p>{address.address} - {address.city}</p>
+
   <SmallButtonGroup>
     <SmallButton icon="editBox" name="Change Address" />
   </SmallButtonGroup>
+
 </div>
 
 <style>
@@ -20,6 +23,7 @@ import SmallButtonGroup from "./SmallButtonGroup.svelte";
     margin-bottom: 20px;
   }
   .address h2 {
+    text-transform: capitalize;
     font-size: 1.1rem;
     font-family: var(--serif);
   }
