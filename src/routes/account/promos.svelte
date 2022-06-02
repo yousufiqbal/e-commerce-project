@@ -15,7 +15,6 @@
       await markRead()
     }, 2000);
   })
-
   
   const markRead = async () => {
     try {

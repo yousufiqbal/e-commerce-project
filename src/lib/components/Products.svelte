@@ -15,7 +15,7 @@
   const addToWishlist = async product_id => {
     try {
       await axios.post('/api/wishlists?product_id=' + product_id)
-      invalidate('')
+      await invalidate($page.url.pathname)
     } catch (error) {
       if (dev) console.log(error)
     }
@@ -24,7 +24,7 @@
   const removeFromWishlist = async product_id => {
     try {
       axios.delete('/api/wishlists?product_id=' + product_id)
-      invalidate('')
+      await invalidate($page.url.pathname)
     } catch (error) {
       if (dev) console.log(error)
     }
