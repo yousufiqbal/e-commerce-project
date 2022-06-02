@@ -1,14 +1,14 @@
 <script>
-  export let paymentMethod
+  export let payment_method
 </script>
 
 <div class="methods card">
   <div class="method">
-    <input bind:group={paymentMethod} type="radio" id="cod" name="cod" value="cod">
+    <input bind:group={payment_method} type="radio" id="cod" name="cod" value="cod">
     <label for="cod">Cash On Delivery</label>
   </div>
   <div class="method">
-    <input bind:group={paymentMethod} type="radio" id="card" name="card" value="card">
+    <input bind:group={payment_method} type="radio" id="card" name="card" value="card">
     <label for="card">Debit / Credit Card</label>
   </div>
 </div>

@@ -1,4 +1,6 @@
 <script>
+import dayjs from "dayjs";
+
   import Nothing from "./Nothing.svelte";
   import SmallButton from "./SmallButton.svelte";
   import SmallButtonGroup from "./SmallButtonGroup.svelte";
@@ -15,8 +17,8 @@
     <h2>Order # {order.order_id}</h2>
 
     <div style="margin-bottom: 10px;">
-      <p class="dated">Placed On: {order.created}</p>
-      <p class="dated">Expected On: {order.expected}/p>
+      <p class="dated">Placed On: {dayjs(order.created).format('MMM DD, YYYY hh:mm a')}</p>
+      <p class="dated">Expected On: {order.expected || 'WIP'}</p>
     </div>
 
     <SmallButtonGroup>

@@ -2,10 +2,12 @@
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import Title from "$lib/components/Title.svelte";
   import Orders from "$lib/components/Orders.svelte";
-import { onMount } from "svelte";
-import { axios } from "$lib/others/utils";
-import { invalidate } from "$app/navigation";
-import { dev } from "$app/env";
+  import { onMount } from "svelte";
+  import { axios } from "$lib/others/utils";
+  import { invalidate } from "$app/navigation";
+  import { dev } from "$app/env";
+
+  export let orders = []
 
   onMount(() => {
     setTimeout(async () => {
@@ -13,7 +15,6 @@ import { dev } from "$app/env";
     }, 2000);
   })
 
-  
   const markRead = async () => {
     try {
       await axios.put('/api/read?type=messages')
@@ -33,4 +34,4 @@ import { dev } from "$app/env";
 
 <Title back title="Orders" />
 
-<Orders />
+<Orders {orders} />

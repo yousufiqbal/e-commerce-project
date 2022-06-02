@@ -87,8 +87,10 @@ interface OrderStatuses {
   'status': string;
 }
 interface Orders {
+  'address': string;
   'created'?: Date;
   'order_id'?: number;
+  'payment_method': any;
   'promo_id': number;
   'user_id': number;
 }

@@ -1,9 +1,10 @@
 <script>
   export let items = []
+  export let promo = { max_discount: 0 }
 
-  let deliveryFee = 0, taxes = 0, promoDiscount = 0
+  let deliveryFee = 0, taxes = 0
   $: itemsAmount = items.map(item => item.quantity * item.price).reduce((a, b) => +a + +b, 0)
-  $: grandTotal = itemsAmount + deliveryFee + taxes + promoDiscount 
+  $: grandTotal = (itemsAmount + deliveryFee + taxes) - promo.max_discount 
 </script>
 
 <div class="bill-summary card">
@@ -17,10 +18,10 @@
   </div>
   <div class="summary promo-discount">
     <div>Promo Discount</div>
-    <div>Rs. {promoDiscount}</div>
+    <div><strong>-</strong> Rs. {promo.max_discount}</div>
   </div>
   <div class="summary taxes">
-    <div>Sales Tax</div>
+    <div>Sales Tax (13%)</div>
     <div>Inclusive</div>
   </div>
   <div class="summary grand-total">
@@ -30,6 +31,10 @@
 </div>
 
 <style>
+  strong {
+    color:  red;
+    font-weight: bold;
+  }
   .bill-summary {
     display: grid;
     gap: 8px;

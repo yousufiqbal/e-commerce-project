@@ -10,7 +10,9 @@
   import Title from "$lib/components/Title.svelte";
   import { cartItemsStore } from "$lib/others/store";
   import Layout from "$lib/components/Layout.svelte";
-import { session } from "$app/stores";
+  import { session } from "$app/stores";
+
+  export let promo = {}
 </script>
 
 <Title title="Cart" />
@@ -28,10 +30,11 @@ import { session } from "$app/stores";
   <div slot="related">
     {#if $cartItemsStore.length != 0}
     <Subtitle subtitle="Promo Code" icon="coupon" />
-    <PromoField />
+
+    <PromoField {promo} />
   
     <Subtitle subtitle="Bill Summary" icon="bill" />
-    <BillSummary items={$cartItemsStore} />
+    <BillSummary {promo} items={$cartItemsStore} />
     
     {:else}
     <Nothing>

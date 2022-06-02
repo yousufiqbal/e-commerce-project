@@ -1,16 +1,71 @@
-<div class="promo-field">
-  <input placeholder="5 Letters Code">
-  <button>Apply</button>
+<script>
+  import { dev } from "$app/env";
+  import { invalidate } from "$app/navigation";
+  import { axios } from "$lib/others/utils";
+
+  export let promo = {
+    code: ''
+  }
+  export let touched = false, error = ''
+
+  const removePromo = async () => {
+    try {
+      await axios.delete('/api/promos')
+      await invalidate('')
+    } catch (error) {
+      if (dev) console.log(error)
+    }
+  }
+
+  const applyPromo = async () => {
+    try {
+      await axios.post('/api/promos', promo)
+      await invalidate('')
+    } catch (error) {
+      if (dev) console.log(error)
+    }
+  }
+</script>
+
+<div class="wrapper">
+
+  <div class="promo-field">
+    <input disabled={promo.promo_id} bind:value={promo.code} on:blur={()=>touched=true} placeholder="5 Letters Code">
+    {#if promo.promo_id}
+    <button on:click={removePromo}>Remove</button>
+    {:else}
+    <button on:click={applyPromo}>Apply</button>
+    {/if}
+  </div>
+
+  {#if promo.promo_id}
+  <div class="detail">OFF: {promo.percentage}% | Max Discount: {promo.max_discount} | Validity: {promo.validity}</div>
+  {/if}
+
+  {#if touched && error}
+  <div class="error">{error}</div>
+  {/if}
+
 </div>
 
 <style>
+  .detail {
+    padding-top: 7px;
+  }
+  .error {
+    text-transform: capitalize;
+    color: red;
+    padding-top: 7px;
+  }
+  .wrapper {
+    margin-bottom: 20px;
+  }
   .promo-field {
     display: flex;
     border: 1px solid var(--border);
     border-radius: 5px;
     overflow: hidden;
     box-shadow: var(--shadow);
-    margin-bottom: 20px;
   }
   input {
     flex: 1;

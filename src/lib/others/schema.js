@@ -1,5 +1,12 @@
 import * as yup from 'yup'
 
+yup.addMethod(yup.mixed, 'ne', function () {
+  return this.transform(value => {
+    if (value == '' || value == "") return undefined
+    return value
+  })
+})
+
 yup.setLocale({ mixed: { 'required': 'Required' } })
 
 export const extractYupErrors = err => {
@@ -30,4 +37,9 @@ export const addressSchema = yup.object({
   city: yup.string().min(3).max(50).required(),
   address: yup.string().min(10).max(200).required(),
   default: yup.string().oneOf(['0', '1'])
+}).noUnknown(true);
+
+// Promo
+export const promoSchema = yup.object({
+  code: yup.string().length(5).ne().nullable(),
 }).noUnknown(true);

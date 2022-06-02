@@ -1,9 +1,8 @@
 <script>
+  import { page } from "$app/stores";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import Done from "$lib/components/Done.svelte";
-import Text from "$lib/components/Text.svelte";
-import Title from "$lib/components/Title.svelte";
 </script>
 
 <Done />
@@ -13,7 +12,7 @@ import Title from "$lib/components/Title.svelte";
 </div>
 
 <p>
-  Your Order Number - <span style="font-weight: bold;">0224687</span>
+  Your Order Number - <span style="font-weight: bold;">{$page.url.searchParams.get('number')}</span>
 </p>
 
 <p>

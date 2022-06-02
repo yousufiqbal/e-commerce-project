@@ -23,8 +23,6 @@
   let deleteModal = false
   let next = $page.url.searchParams.get('next') || ''
 
-  $: console.log(next)
-
   const crumbs = [
     { name: 'Account', href: '/account' },
     { name: 'Address', href: '/account/address' },
