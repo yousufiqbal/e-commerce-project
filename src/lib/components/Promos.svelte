@@ -43,11 +43,11 @@ import Nothing from "./Nothing.svelte";
     justify-content: space-between;
     align-items: center;
   }
-  .expired {
+  /* .expired {
     user-select: none;
     background-color: rgb(227, 227, 227);
     opacity: 0.5;
-  }
+  } */
   .promo {
     display: grid;
     gap: 10px;

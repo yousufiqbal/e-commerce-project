@@ -1,11 +1,8 @@
 <script>
-import { page } from "$app/stores";
-
+  import { page } from "$app/stores";
   import Icon from "$lib/components/Icon.svelte";
 
-  const Links = [
-    { name: '', icon: '', badge: '', href: '' }
-  ]
+  const Links = [ { name: '', icon: '', badge: '', href: '' } ]
 
   /** @type {Links} */
   export let links = []

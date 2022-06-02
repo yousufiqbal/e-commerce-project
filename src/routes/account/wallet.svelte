@@ -1,8 +1,30 @@
 <script>
+import { dev } from "$app/env";
+
+import { invalidate } from "$app/navigation";
+
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import Icon from "$lib/components/Icon.svelte";
   import Table from "$lib/components/Table.svelte";
   import Title from "$lib/components/Title.svelte";
+import { axios } from "$lib/others/utils";
+import { onMount } from "svelte";
+
+  onMount(() => {
+    setTimeout(async () => {
+      await markRead()
+    }, 2000);
+  })
+
+  
+  const markRead = async () => {
+    try {
+      await axios.put('/api/read?type=messages')
+      await invalidate('/api/unread')
+    } catch (error) {
+      if (dev) console.log(error)
+    }
+  }
 
   const crumbs = [
     { name: 'Account', href: '/account' },
