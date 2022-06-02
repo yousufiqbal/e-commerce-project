@@ -2,12 +2,7 @@
   import { page } from "$app/stores";
 
   export let name = 'tab'
-  export let items = [
-    { name: 'All', url_name: 'all' },
-    { name: 'Available', url_name: 'valid' },
-    { name: 'Expired', url_name: 'invalid' },
-    { name: 'Consumed', url_name: 'invalid' },
-  ]
+  export let items = []
 
   $: current = $page.url.searchParams.get(name) || items[0].url_name
 </script>

@@ -1,5 +1,6 @@
 import { db } from '$lib/database/db'
 import { registerSchema } from '$lib/others/schema'
+import { internalError } from '$lib/others/utils'
 import bcryptjs from 'bcryptjs'
 import cookie from 'cookie'
 import jwt from 'jsonwebtoken'
@@ -47,7 +48,7 @@ export const post = async ({ request, locals }) => {
       body: { payload }
     }
   } catch (error) {
-    console.log(error)
+    return internalError(error)
   }
   
 }

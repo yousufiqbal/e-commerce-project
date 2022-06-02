@@ -29,12 +29,18 @@
     { name: 'Account', href: '/account' },
     { name: 'Promos', href: '/account/promos' },
   ]
+
+  const items = [
+    { name: 'Available', url_name: 'valid' },
+    { name: 'Consumed', url_name: 'invalid' },
+    { name: 'Expired', url_name: 'invalid' },
+  ]
 </script>
 
 <Breadcrumb {crumbs} />
 
 <Title back title="Promos" />
 
-<QueryTabs />
+<QueryTabs {items} />
 
 <Promos {promos} />

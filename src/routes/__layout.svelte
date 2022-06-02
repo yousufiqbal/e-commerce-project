@@ -3,7 +3,6 @@
 
   /** @type {import('@sveltejs/kit').Load} */
   export const load = async ({ fetch, session }) => {
-    console.log(session)
     if (!session.user_id && !session.guest_id) {
       const response = await fetch('/api/make-guest')
       const payload = await response.json()

@@ -3,8 +3,6 @@ import { db } from '$lib/database/db'
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const get = async ({ locals }) => {
 
-  console.log('server')
-
   const last = await db.selectFrom('users')
     .select(['users.last_messages_read', 'users.last_orders_read', 'users.last_promos_read', 'users.last_wallets_read'])
     .where('users.user_id', '=', locals.user_id)

@@ -1,7 +1,6 @@
 <script context="module">
   /** @type {import('@sveltejs/kit').Load} */
   export const load = async ({ session, fetch }) => {
-    console.log('parent load')
     if (!session.user_id) { return { redirect: '/user/login', status: 302 } }
     const response = await fetch('/api/unread')
     return {
