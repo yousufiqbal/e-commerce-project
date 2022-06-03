@@ -1,19 +1,17 @@
 <script>
-  import { browser } from "$app/env";
   import { cartItemsStore } from "$lib/others/store";
   import { axios } from "$lib/others/utils";
   import Counter from "./Counter.svelte";
   import Modal from "./Modal.svelte";
   import SmallButton from "./SmallButton.svelte";
   import SmallButtonGroup from "./SmallButtonGroup.svelte";
-  // import Spaced from "./Spaced.svelte";
   import Subtitle from "./Subtitle.svelte";
   import Text from "./Text.svelte";
 
   const syncCart = async () => {
     try {
       const response = await axios.get('/api/carts')
-      $cartItemsStore = await response.data
+      $cartItemsStore = response.data
     } catch (error) {
       $cartItemsStore = []
       alert('Cannot sync cart..')
