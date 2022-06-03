@@ -21,6 +21,7 @@ import Icon from "$lib/components/Icon.svelte";
   import Text from "$lib/components/Text.svelte";
   import Title from "$lib/components/Title.svelte";
   import { extractYupErrors, loginSchema } from "$lib/others/schema.js";
+import { addToast } from "$lib/others/toast";
   import { axios } from "$lib/others/utils";
 
   let user = {}, touched = false, errors = ''
@@ -53,8 +54,10 @@ import Icon from "$lib/components/Icon.svelte";
         name: response.data.payload.name
       }
       goto(next || '/')
+      addToast({ message: 'You are now logged-in', type: 'success' })
     } catch (error) {
       postLoginError = error.data.message
+      addToast({ message: postLoginError, type: 'error' })
       validationAllowed = true
     }
   }

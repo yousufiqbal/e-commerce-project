@@ -12,23 +12,23 @@
   /** @type {Product} */
   export let products = []
 
-  const addToWishlist = async product_id => {
+  const addToWishlist = async (product_id, name) => {
     try {
       await axios.post('/api/wishlists?product_id=' + product_id)
       await invalidate($page.url.pathname)
-      addToast({ message: 'Added to wishlsit', type: 'success'})
+      addToast({ message: `Added ${name} to wishlist`, type: 'success'})
     } catch (error) {
-      addToast({ message: 'Cannot add to wishlsit', type: 'error'})
+      addToast({ message: 'Cannot add to wishlist', type: 'error'})
     }
   }
   
-  const removeFromWishlist = async product_id => {
+  const removeFromWishlist = async (product_id, name) => {
     try {
       axios.delete('/api/wishlists?product_id=' + product_id)
       await invalidate($page.url.pathname)
-      addToast({ message: 'Removed from wishlsit', type: 'success'})
+      addToast({ message: `Removed ${name} from wishlist`, type: 'info'})
     } catch (error) {
-      addToast({ message: 'Cannot remove from wishlsit', type: 'error'})
+      addToast({ message: 'Cannot remove from wishlist', type: 'error'})
     }
   }
 </script>
@@ -43,11 +43,11 @@
       <img loading="lazy" src="/products/{product.url_name}.jpg" alt="">
     </a>
     {#if product.wishlist_id}
-    <button on:click={()=>removeFromWishlist(product.product_id)} class="heart">
+    <button on:click={()=>removeFromWishlist(product.product_id, product.name)} class="heart">
       <Icon icon="deleteBin" size="1.5rem" />
     </button>
     {:else}
-    <button on:click={()=>addToWishlist(product.product_id)} class="heart">
+    <button on:click={()=>addToWishlist(product.product_id, product.name)} class="heart">
       <Icon icon="heartTwo" size="1.5rem" />
     </button>
     {/if}

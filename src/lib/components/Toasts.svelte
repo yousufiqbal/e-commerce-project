@@ -14,7 +14,7 @@
 <div class="toasts">
 
   {#each $toasts as toast (toast.id)}
-  <div transition:fly={{y: -20, duration: 100}} class="toast">
+  <div transition:fly={{y: -20, duration: 100}} class="toast {toast.type}">
 
     <Icon size="1.2rem" icon={iconsMap[toast.type]} />
     <div class="message">{toast.message}</div>
@@ -35,7 +35,7 @@
   .border {
     position: absolute;
     width: 0%;
-    border-bottom: 2px solid red;
+    border-bottom: 2px solid rgb(255, 141, 141);
     bottom: 0; left: 0;
     animation: hero ease-in-out;
   }
@@ -56,7 +56,7 @@
     position: relative;
     gap: 10px;
     background-color: rgb(255, 255, 255);
-    padding: var(--padding);
+    padding: var(--padding-extra);
     display: flex;
     align-items: center;
     border: 1px solid var(--border);
@@ -64,13 +64,23 @@
     box-shadow: var(--shadow);
     /* color: white; */
   }
-  .message {
-    
-  }
   button {
+    padding: 1px;
     color: white;
     background-color: rgb(65, 65, 65);
     display: flex;
     border-radius: 50%;
+  }
+  .success {
+    color: white;
+    background-color: rgb(0, 128, 92);
+  }
+  .info {
+    color: white;
+    background-color: var(--secondary);
+  }
+  .error {
+    color: white;
+    background-color: var(--primary);
   }
 </style>

@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 
-const toastType = { id: 0, type: '', dismissible: true, timeout: 0 }
+const toastType = { id: 0, type: '', dismissible: true, timeout: 0, message: '' }
 
 export const toasts = writable([])
 
