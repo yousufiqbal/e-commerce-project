@@ -2,12 +2,13 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import Icon from "$lib/components/Icon.svelte";
-  import { isSafari } from '$lib/others/utils.js'
+  import { axios, isSafari } from '$lib/others/utils.js'
 
   let input
   let keyword = $page.url.searchParams.get('keyword') || ''
   export let placeholder = ''
   let show = false
+  let suggestions = []
 
   const typeMe = node => {
     if (isSafari()) {
@@ -37,6 +38,16 @@
       show = false
     }, 0);
   }
+
+  const suggest = async () => {
+    if (keyword.length <= 2) return
+    try {
+      const response = await axios.get('/api/suggestions?keyword='+ keyword)
+      suggestions = response.data
+    } catch (error) {
+      console.log(error)
+    }
+  }
 </script>
 
 <div class="wrapper">
@@ -46,7 +57,7 @@
   <form class="search" on:submit|preventDefault={search}>
 
     <button><Icon size="1.3rem" icon="searchTwo" /></button>
-    <input bind:this={input} bind:value={keyword} use:typeMe on:focus={()=>show=true} on:blur={hideSuggestions} {placeholder}>
+    <input on:keyup={suggest} bind:this={input} bind:value={keyword} use:typeMe on:focus={()=>show=true} on:blur={hideSuggestions} {placeholder}>
     
     {#if keyword && show}
     <button on:click={clear}><Icon size="1.3rem" fill="var(--primary)" icon="arrowRight" /></button>
@@ -57,13 +68,11 @@
 
   </form>
 
-  {#if show}
+  {#if show && suggestions.length != 0}
   <div class="suggestions">
-    <a href="/search?keyword=chine-apple">Chine Apple</a>
-    <a href="/search?keyword=pakistan-banana">Pakistan Banana</a>
-    <a href="/search?keyword=japan-orange">Japan Orange</a>
-    <a href="/search?keyword=chine-apple">Chine Apple</a>
-    <a href="/search?keyword=pakistan-banana">Pakistan Banana</a>
+    {#each suggestions as suggestion}
+    <a href="/product/{suggestion.url_name}">{suggestion.name}</a>
+    {/each}
   </div>
   {/if}
   

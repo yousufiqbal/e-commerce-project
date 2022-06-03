@@ -44,7 +44,7 @@
     to { width: 100%; }
   }
   .toasts {
-    z-index: 1;
+    z-index: 10;
     top: 20px; right: 20px;
     position: fixed;
     display: grid;
