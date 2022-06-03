@@ -1,6 +1,5 @@
 <script>
-import { createEventDispatcher } from "svelte";
-
+  import { createEventDispatcher } from "svelte";
   import Icon from "./Icon.svelte";
   import Nothing from "./Nothing.svelte";
   const dispatch = createEventDispatcher()

@@ -9,6 +9,7 @@ import { invalidate } from "$app/navigation";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import Title from "$lib/components/Title.svelte";
   import { loading } from "$lib/others/store";
+  import { addToast } from "$lib/others/toast";
   import { axios } from "$lib/others/utils";
 
   const crumbs = [
@@ -21,9 +22,9 @@ import { invalidate } from "$app/navigation";
       $loading = true
       await axios.put('/api/address/make-default?address_id=' + e.detail.address_id)
       await invalidate('/account/address')
+      addToast({ type: 'success', message: 'Changed default address' })
     } catch (error) {
-      if (dev) console.log(error)
-      alert('Unable to make address default')
+      addToast({ type: 'error', message: 'Cannot change default address' })
     } finally {
       $loading = false
     }

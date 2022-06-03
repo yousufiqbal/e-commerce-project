@@ -1,7 +1,6 @@
 <script context="module">
   import { cartItemsStore } from '$lib/others/store'
 
-
   /** @type {import('@sveltejs/kit').Load} */
   export const load = async ({ fetch, session }) => {
     if (!session.user_id && !session.guest_id) {
@@ -21,18 +20,12 @@
   import Container from '$lib/components/Container.svelte'
   import BottomMenu from '$lib/components/BottomMenu.svelte'
   import NProgress from '$lib/components/NProgress.svelte';
-  import { addToast } from '$lib/others/toast';
   import Toasts from '$lib/components/Toasts.svelte';
-
-  let input = ''
 </script>
 
 <Toasts />
 
-
 <Container>
-  <input bind:value={input} type="text">
-  <button on:click={()=>addToast({ message: input })}>Add Toast</button>
   <BottomMenu />
   <slot></slot>
 </Container>

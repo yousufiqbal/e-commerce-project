@@ -1,7 +1,7 @@
 <script>
   import { removeToast, toasts } from "$lib/others/toast";
+  import { fly } from "svelte/transition";
   import Icon from "./Icon.svelte";
-  // { id: 0, type: '', dismissible: true, timeout: 0, message: '' }
 
   const iconsMap = {
     success: 'checkboxCircle',
@@ -14,7 +14,7 @@
 <div class="toasts">
 
   {#each $toasts as toast (toast.id)}
-  <div class="toast">
+  <div transition:fly={{y: -20, duration: 100}} class="toast">
 
     <Icon size="1.2rem" icon={iconsMap[toast.type]} />
     <div class="message">{toast.message}</div>
@@ -45,7 +45,7 @@
   }
   .toasts {
     z-index: 1;
-    top: 15px; right: 15px;
+    top: 20px; right: 20px;
     position: fixed;
     display: grid;
     justify-items: right;

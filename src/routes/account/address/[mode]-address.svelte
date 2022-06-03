@@ -15,6 +15,7 @@
   import Text from "$lib/components/Text.svelte";
   import Title from "$lib/components/Title.svelte";
   import { addressSchema, extractYupErrors } from "$lib/others/schema";
+import { addToast } from "$lib/others/toast";
   import { axios } from "$lib/others/utils";
   import { capitalize } from 'lodash-es'
 
@@ -48,19 +49,19 @@
     try {
       await axios.post('/api/address', address)
       goto(next || '/account/address')
+      addToast({ message: 'Address added', type: 'success'})
     } catch (error) {
-      if (dev) console.log(error)
-      alert('Cannot add address')
+      addToast({ message: 'Cannot add address', type: 'error'})
     }
   }
-
+  
   const editAddress = async () => {
     try {
       await axios.put('/api/address?address_id=' + $page.url.searchParams.get('address_id'), address)
       goto(next || '/account/address')
+      addToast({ message: 'Address changed', type: 'info'})
     } catch (error) {
-      if (dev) console.log(error)
-      alert('Cannot add address')
+      addToast({ message: 'Cannot edit address', type: 'error'})
     }
   }
 
@@ -78,9 +79,9 @@
       deleteModal = false
       await axios.delete('/api/address?address_id=' + $page.url.searchParams.get('address_id'))
       goto('/account/address')
+      addToast({ message: 'Address removed', type: 'info'})
     } catch (error) {
-      if (dev) console.log(error)
-      alert('Cannot remove address')
+      addToast({ message: 'Cannot remove address', type: 'error'})
     }
   }
 
