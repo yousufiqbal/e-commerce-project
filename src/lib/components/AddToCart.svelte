@@ -8,6 +8,12 @@
   import Subtitle from "./Subtitle.svelte";
   import Text from "./Text.svelte";
 
+  /**
+   * TODO Improve cart sync mechanism
+   * Make root layout listen to cartItemsStore and with a denounce of 2s, sync the cart
+   * Only mutate cartItemsStore directly from all places. Its more robust.
+   */
+
   const syncCart = async () => {
     try {
       const response = await axios.get('/api/carts')
