@@ -1,6 +1,7 @@
 <script context="module">
   import { cartItemsStore } from '$lib/others/store'
 
+
   /** @type {import('@sveltejs/kit').Load} */
   export const load = async ({ fetch, session }) => {
     if (!session.user_id && !session.guest_id) {
@@ -20,33 +21,18 @@
   import Container from '$lib/components/Container.svelte'
   import BottomMenu from '$lib/components/BottomMenu.svelte'
   import NProgress from '$lib/components/NProgress.svelte';
-  import Modal from '$lib/components/Modal.svelte';
-  import Text from '$lib/components/Text.svelte';
-  import Subtitle from '$lib/components/Subtitle.svelte';
-  import Spaced from '$lib/components/Spaced.svelte';
-  import SmallButton from '$lib/components/SmallButton.svelte';
+  import { addToast } from '$lib/others/toast';
+  import Toasts from '$lib/components/Toasts.svelte';
 
-  let show = false
+  let input = ''
 </script>
 
-{#if show}
-<Modal on:close={()=>show=false}>
+<Toasts />
 
-  <Subtitle icon="errorWarning" subtitle="Confirm" />
-
-  <Text>
-    Are You sure you want to remove this?
-  </Text>
-
-  <Spaced>
-    <SmallButton icon="check" name="Yes" />
-    <SmallButton icon="close" name="No" />
-  </Spaced>
-
-</Modal>
-{/if}
 
 <Container>
+  <input bind:value={input} type="text">
+  <button on:click={()=>addToast({ message: input })}>Add Toast</button>
   <BottomMenu />
   <slot></slot>
 </Container>
@@ -54,3 +40,4 @@
 <div class="mb50"></div>
 
 <NProgress />
+

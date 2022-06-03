@@ -7,13 +7,15 @@
   $: current = $page.url.searchParams.get(name) || pills[0].url_name
 </script>
 
+{#if pills.length != 0}
 <div class="pills">
-
+  
   {#each pills as pill}
   <a class:active={current==pill.url_name} href="?{name}={pill.url_name}" class="pill">{pill.name}</a>
   {/each}
-
+  
 </div>
+{/if}
 
 <style>
   .pills {
