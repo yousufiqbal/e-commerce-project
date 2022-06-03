@@ -22,7 +22,7 @@ import dayjs from "dayjs";
     </div>
 
     <SmallButtonGroup>
-      <SmallButton href="/account/orders/546546" icon="eye" name="Show Details" />
+      <SmallButton href="/account/orders/{order.order_id}" icon="eye" name="Show Details" />
     </SmallButtonGroup>
     
   </div>

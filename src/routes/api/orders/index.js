@@ -1,4 +1,5 @@
 import { db } from '$lib/database/db'
+import { internalError } from '$lib/others/utils'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const post = async ({ request, locals }) => {
@@ -20,7 +21,8 @@ export const post = async ({ request, locals }) => {
   // TODO Check promo validity.. product, stock, price, cost.. etc..
 
   // TODO transaction..
-
+  try {
+    let order_id
     await db.transaction().execute(async trx => {
     
       // Add order
@@ -31,9 +33,9 @@ export const post = async ({ request, locals }) => {
         user_id: locals.user_id
       }).executeTakeFirstOrThrow()
   
-      const order_id = Number(insertId)
+      order_id = Number(insertId)
   
-      // Shifting cart_items to order_details (requires products table)
+      // Shifting cart_items to order_details (requires products table join)
       const cartItems = await trx.selectFrom('cart_items')
         .leftJoin('products', 'products.product_id', 'cart_items.product_id')
         .where('cart_items.user_id', '=', locals.user_id)
@@ -47,14 +49,30 @@ export const post = async ({ request, locals }) => {
       })
   
       await trx.insertInto('order_details').values(details).execute()
-
-      // Removing cart_items and applied_promo_code 
-      await db.updateTable('users').where('users.user_id', '=', locals.user_id)
-      .set({ applied_promo_id: null }).execute()
-      await db.deleteFrom('cart_items').where('cart_items.user_id', '=', locals.user_id).execute()
   
+      // Removing cart_items and applied_promo_code 
+      await trx.updateTable('users')
+        .where('users.user_id', '=', locals.user_id)
+        .set({ applied_promo_id: null }).execute()
+      await trx.deleteFrom('cart_items')
+        .where('cart_items.user_id', '=', locals.user_id)
+        .execute()
+
+      // Set order status to confirmed
+      await trx.insertInto('order_statuses').values({
+        order_id,
+        status: 'confirmed',
+      }).execute()
+  
+      // TODO if promo used, comsume it.
     })
+
+    return { status: 201, body: { message: order_id } }
+  } catch (error) {
+    return internalError(error)
+    
+  }
+
  
-  return { status: 201, body: { message: order_id } }
 
 }

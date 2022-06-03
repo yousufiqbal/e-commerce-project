@@ -1,50 +1,36 @@
 <script>
-  import { page } from "$app/stores";
-import BillSummary from "$lib/components/BillSummary.svelte";
+  import BillSummary from "$lib/components/BillSummary.svelte";
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
-  import Button from "$lib/components/Button.svelte";
-  import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import Cart from "$lib/components/Cart.svelte";
-import CartSummary from "$lib/components/CartSummary.svelte";
-import Message from "$lib/components/Message.svelte";
-import Statuses from "$lib/components/Statuses.svelte";
+  import Message from "$lib/components/Message.svelte";
+  import Statuses from "$lib/components/Statuses.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Title from "$lib/components/Title.svelte";
+
+  export let order = {}, promo = {}, statuses = [], items = []
 
   const crumbs = [
     { name: 'Account', href: '/account' },
     { name: 'Orders', href: '/account/orders' },
-    { name: 'No. ' + $page.params.number, href: '/account/orders/' + $page.params.number },
-  ]
-
-  const labels = [
-    { name: 'Home', url_name: 'home' },
-    { name: 'Company', url_name: 'company' },
-    { name: 'Office', url_name: 'office' },
-  ]
-
-  let items = [
-    { name: 'Head & Shoulders 250ML', url_name: 'head-and-shoulders-250ml', price: 250, counts: 1, stock: 3 },
-    { name: 'Head & Shoulders 250ML', url_name: 'head-and-shoulders-250ml', price: 250, counts: 2, stock: 5 },
-    { name: 'Head & Shoulders 250ML', url_name: 'head-and-shoulders-250ml', price: 250, counts: 3, stock: 10 },
+    { name: 'No. ' + order.order_id, href: '/account/orders/' + order.order_id },
   ]
 </script>
 
 <Breadcrumb {crumbs} />
 
-<Title back title="Order # {$page.params.number}" />
+<Title back title="Order # {order.order_id}" />
 
 <Message pinned>
   You may receive your order by May 26, 2022. In case, date exceeds, feel free to contact <a href="/account/customer-support">Customer Support</a>.
 </Message>
 
 <Subtitle subtitle="Status" icon="listCheckTwo" />
-<Statuses />
+<Statuses {statuses} />
 
 <Subtitle subtitle="Items" icon="shoppingCart" />
 <Cart locked {items} />
 
 <Subtitle subtitle="Bill Summary" icon="bill" />
-<BillSummary />
+<BillSummary {promo} {items} />
 
 

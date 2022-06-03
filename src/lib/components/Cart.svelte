@@ -1,13 +1,13 @@
 <script>
-  import { cartItemsStore } from "$lib/others/store";
   import AddToCart from "./AddToCart.svelte";
 
   export let locked = false
+  export let items = []
 </script>
 
 <div class="cart">
   
-  {#each $cartItemsStore as item}
+  {#each items as item}
   <div class="cart-item">
 
     <a href="/product/{item.url_name}" class="image">
@@ -22,7 +22,6 @@
     <div class="counter-total">
       {#if !locked}
       <AddToCart product={item} />
-      <!-- <Counter quantity={item.quantity} limit={item.stock} /> -->
       {:else}
       <div class="counts">x {item.quantity}</div>
       {/if}

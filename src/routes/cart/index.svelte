@@ -22,7 +22,7 @@
   <div slot="main">
     {#if $cartItemsStore.length != 0}
     <Subtitle subtitle="Items" icon="shoppingCart" />
-    <Cart />
+    <Cart items={$cartItemsStore} />
     <CartSummary items={$cartItemsStore} />
     {/if}
   </div>

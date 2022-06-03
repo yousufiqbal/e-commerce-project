@@ -31,11 +31,13 @@ export const internalError = error => {
   }
 }
 
-export const beautifyDateTime = (ISO8601 = '') => {
-  return dayjs(ISO8601).format('DD MMM, YYYY HH:mm:ss')
+export const beautifyDateTime = ISO8601 => {
+  if (!ISO8601) return null
+  return dayjs(ISO8601).format('MMM DD, YYYY hh:mm a')
 }
 
-export const beautifyDate = (ISO8601 = '') => {
+export const beautifyDate = ISO8601 => {
+  if (!ISO8601) return null
   return dayjs(ISO8601).format('DD MMM, YYYY')
 }
 
