@@ -4,7 +4,7 @@
 
   let deliveryFee = 0, taxes = 0
   $: itemsAmount = items.map(item => item.quantity * item.price).reduce((a, b) => +a + +b, 0)
-  $: grandTotal = (itemsAmount + deliveryFee + taxes) - promo.max_discount 
+  $: grandTotal = (itemsAmount + deliveryFee + taxes) - (promo.max_discount || 0)
 </script>
 
 <div class="bill-summary card">
@@ -18,7 +18,7 @@
   </div>
   <div class="summary promo-discount">
     <div>Promo Discount</div>
-    <div><strong>-</strong> Rs. {promo.max_discount}</div>
+    <div><strong>-</strong> Rs. {promo.max_discount || 0}</div>
   </div>
   <div class="summary taxes">
     <div>Sales Tax (13%)</div>

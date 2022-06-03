@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   PRIMARY KEY (`address_id`),
   KEY `FK_addresses_users` (`user_id`),
   CONSTRAINT `FK_addresses_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.addresses: ~6 rows (approximately)
 /*!40000 ALTER TABLE `addresses` DISABLE KEYS */;
@@ -52,7 +52,8 @@ INSERT INTO `addresses` (`address_id`, `user_id`, `label`, `city`, `address`, `d
 	(11, 18, 'home', 'Lahore', 'C9, Saleeema Arcade', '0', '2022-06-01 21:24:12'),
 	(12, 18, 'office', 'Karachi', 'Daryalal Street, Jodia', '1', '2022-06-01 21:25:11'),
 	(13, 22, 'Home', 'Lahore', 'Anarkali Bazar', '1', '2022-06-02 22:33:48'),
-	(14, 23, 'Home', 'Lahore', 'C26, Jauhar', '1', '2022-06-02 22:35:45');
+	(14, 23, 'Home', 'Lahore', 'C26, Jauhar', '1', '2022-06-02 22:35:45'),
+	(15, 24, 'Home', 'Karachi', 'C26, block 14, jauhar', '1', '2022-06-03 09:46:54');
 /*!40000 ALTER TABLE `addresses` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.admins
@@ -112,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `cart_items` (
   KEY `FK_cart_items_products` (`product_id`),
   CONSTRAINT `FK_cart_items_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
   CONSTRAINT `FK_cart_items_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.cart_items: ~20 rows (approximately)
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
@@ -194,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `guests` (
   `guest_id` int NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`guest_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=463 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.guests: ~28 rows (approximately)
 /*!40000 ALTER TABLE `guests` DISABLE KEYS */;
@@ -226,7 +227,10 @@ INSERT INTO `guests` (`guest_id`, `created`) VALUES
 	(458, '2022-06-02 22:35:16'),
 	(460, '2022-06-02 22:38:27'),
 	(461, '2022-06-02 22:38:27'),
-	(462, '2022-06-02 22:38:27');
+	(462, '2022-06-02 22:38:27'),
+	(463, '2022-06-03 09:46:00'),
+	(464, '2022-06-03 09:46:00'),
+	(465, '2022-06-03 09:46:00');
 /*!40000 ALTER TABLE `guests` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.guest_cart_items
@@ -293,7 +297,7 @@ INSERT INTO `messages` (`message_id`, `user_id`, `type`, `message`, `created`) V
 CREATE TABLE IF NOT EXISTS `orders` (
   `order_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `promo_id` int NOT NULL,
+  `promo_id` int DEFAULT NULL,
   `address` varchar(500) NOT NULL,
   `payment_method` enum('card','cod') NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -302,12 +306,13 @@ CREATE TABLE IF NOT EXISTS `orders` (
   KEY `FK_orders_promos` (`promo_id`),
   CONSTRAINT `FK_orders_promos` FOREIGN KEY (`promo_id`) REFERENCES `promos` (`promo_id`),
   CONSTRAINT `FK_orders_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.orders: ~0 rows (approximately)
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 INSERT INTO `orders` (`order_id`, `user_id`, `promo_id`, `address`, `payment_method`, `created`) VALUES
-	(24, 9, 1, 'Fatimah Bae, Patel Para - Lahore', 'cod', '2022-06-03 09:12:29');
+	(24, 9, 1, 'Fatimah Bae, Patel Para - Lahore', 'cod', '2022-06-03 09:12:29'),
+	(25, 24, NULL, 'C26, block 14, jauhar - Karachi', 'cod', '2022-06-03 09:51:23');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.order_details
@@ -323,13 +328,17 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   KEY `FK_order_details_stocks` (`product_id`) USING BTREE,
   CONSTRAINT `FK_order_details_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
   CONSTRAINT `FK_order_details_stocks` FOREIGN KEY (`product_id`) REFERENCES `stocks` (`stock_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.order_details: ~0 rows (approximately)
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
 INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quantity`, `price`, `unit_cost`) VALUES
 	(48, 24, 1, 4, 100.00, 80.00),
-	(49, 24, 2, 4, 250.00, 240.00);
+	(49, 24, 2, 4, 250.00, 240.00),
+	(50, 25, 1, 3, 100.00, 80.00),
+	(51, 25, 3, 4, 250.00, 205.00),
+	(52, 25, 11, 2, 400.00, 350.00),
+	(53, 25, 12, 1, 300.00, 250.00);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.order_statuses
@@ -342,12 +351,13 @@ CREATE TABLE IF NOT EXISTS `order_statuses` (
   PRIMARY KEY (`order_status_id`),
   KEY `FK__orders` (`order_id`),
   CONSTRAINT `FK__orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.order_statuses: ~0 rows (approximately)
 /*!40000 ALTER TABLE `order_statuses` DISABLE KEYS */;
 INSERT INTO `order_statuses` (`order_status_id`, `order_id`, `status`, `description`, `created`) VALUES
-	(1, 24, 'confirmed', NULL, '2022-06-03 09:12:29');
+	(1, 24, 'confirmed', NULL, '2022-06-03 09:12:29'),
+	(2, 25, 'confirmed', NULL, '2022-06-03 09:51:23');
 /*!40000 ALTER TABLE `order_statuses` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.products
@@ -471,7 +481,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_wallets_read` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.users: ~17 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
@@ -492,7 +502,8 @@ INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `applied_promo_id`,
 	(20, 'Fahad', 'fahad@ss.com', '$2a$11$6mbuZUy7vwXP4hPoeP9yZOXv2psutS0miYtDvbv5amjj1kyE6r2H2', NULL, '2022-06-02 17:10:48', '2022-06-02 17:10:48', '2022-06-02 17:10:48', '2022-06-02 17:10:48', '2022-06-02 17:10:48'),
 	(21, 'Naseem', 'naseem@abc.com', '$2a$11$2Psh/L07QDEldtDMlJ8K1eYVh34dc9erMRR7xnXZZ.diZnKpbtCCG', NULL, '2022-06-02 22:33:15', '2022-06-02 22:33:15', '2022-06-02 22:33:15', '2022-06-02 22:33:15', '2022-06-02 22:33:15'),
 	(22, 'Naseem', 'naseem@gmail.com', '$2a$11$T7vH6tuARnocECFbK15DBuw4mB65ANuBIRPwR5Uolz0ZDtAFCGUZK', NULL, '2022-06-02 22:33:48', '2022-06-02 22:33:48', '2022-06-02 22:33:48', '2022-06-02 22:33:48', '2022-06-02 22:33:48'),
-	(23, 'Jameel Iqbal Khan', 'jameel@gmail.com', '$2a$11$PG8QUsdlCVPKwRTCVSJ96eiJRsCM21usarNpJVvfUzcbotL322nrm', NULL, '2022-06-02 22:35:45', '2022-06-02 22:35:45', '2022-06-02 22:35:45', '2022-06-02 22:35:45', '2022-06-02 22:35:45');
+	(23, 'Jameel Iqbal Khan', 'jameel@gmail.com', '$2a$11$PG8QUsdlCVPKwRTCVSJ96eiJRsCM21usarNpJVvfUzcbotL322nrm', NULL, '2022-06-02 22:35:45', '2022-06-02 22:35:45', '2022-06-02 22:35:45', '2022-06-02 22:35:45', '2022-06-02 22:35:45'),
+	(24, 'Shoaib', 'shoaib@zz.com', '$2a$11$e9NG4bFmlrgoUBfgN/wnfeTtDskHdfax.49jUruuOFWksZcaKTJHe', NULL, '2022-06-03 09:46:54', '2022-06-03 09:46:54', '2022-06-03 09:46:54', '2022-06-03 09:46:54', '2022-06-03 09:46:54');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.validations

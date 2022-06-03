@@ -29,7 +29,7 @@ export const post = async ({ request, locals }) => {
       const { insertId } = await trx.insertInto('orders').values({
         address: completeAddress,
         payment_method,
-        promo_id: user.applied_promo_id,
+        promo_id: user.applied_promo_id || null,
         user_id: locals.user_id
       }).executeTakeFirstOrThrow()
   
@@ -50,10 +50,14 @@ export const post = async ({ request, locals }) => {
   
       await trx.insertInto('order_details').values(details).execute()
   
-      // Removing cart_items and applied_promo_code 
-      await trx.updateTable('users')
-        .where('users.user_id', '=', locals.user_id)
-        .set({ applied_promo_id: null }).execute()
+      // Removing applied_promo_id..
+      if (user.applied_promo_id) {
+        await trx.updateTable('users')
+          .where('users.user_id', '=', locals.user_id)
+          .set({ applied_promo_id: null }).execute()
+      }
+
+      // Clearing cart..
       await trx.deleteFrom('cart_items')
         .where('cart_items.user_id', '=', locals.user_id)
         .execute()
