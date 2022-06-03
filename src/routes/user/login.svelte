@@ -10,7 +10,7 @@
 <script>
   import { dev } from "$app/env";
   import { goto } from "$app/navigation";
-  import { session } from "$app/stores";
+  import { page, session } from "$app/stores";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import FieldGroup from "$lib/components/FieldGroup.svelte";
@@ -26,6 +26,8 @@ import Icon from "$lib/components/Icon.svelte";
   let user = {}, touched = false, errors = ''
   let validationAllowed = true
   let postLoginError = ''
+
+  let next = $page.url.searchParams.get('next') || ''
 
   const validate = async () => {
     if (!validationAllowed) return
@@ -50,7 +52,7 @@ import Icon from "$lib/components/Icon.svelte";
         user_id: response.data.payload.user_id,
         name: response.data.payload.name
       }
-      goto('/')
+      goto(next || '/')
     } catch (error) {
       postLoginError = error.data.message
       validationAllowed = true
@@ -82,7 +84,7 @@ import Icon from "$lib/components/Icon.svelte";
     
     <ButtonGroup>
       <Button icon="loginBox" name="Sign-In" on:click={submit} />
-      <Button href="/user/register" type="general" icon="save" name="New user? Register Now" />
+      <Button href="/user/register{next ? `?next=${next}` : ''}" type="general" icon="save" name="New user? Register Now" />
     </ButtonGroup>
     
     <a class="mb30" href="/user/forgot-password">

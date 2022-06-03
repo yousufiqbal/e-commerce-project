@@ -10,7 +10,7 @@
 <script>
   import { dev } from "$app/env";
   import { goto } from "$app/navigation";
-  import { session } from "$app/stores";
+  import { page, session } from "$app/stores";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import FieldGroup from "$lib/components/FieldGroup.svelte";
@@ -26,6 +26,8 @@
   let user = {}, touched = false, errors = '';
   let emailError = ''
   let validationAllowed = true
+
+  let next = $page.url.searchParams.get('next') || ''
 
   const validate = async () => {
     if (!validationAllowed) return
@@ -51,7 +53,7 @@
         user_id: response.data.payload.user_id,
         name: response.data.payload.name
       }
-      goto('/')
+      goto(next || '/')
     } catch (error) {
       validationAllowed = true
       if (dev) console.log(error)
@@ -96,7 +98,7 @@
 
     <ButtonGroup>
       <Button icon="save" name="Register" on:click={submit} />
-      <Button href="/user/login" icon="loginBox" name="Already a user? Login" type="general" />
+      <Button href="/user/login{next ? `?next=${next}` : ''}" icon="loginBox" name="Already a user? Login" type="general" />
     </ButtonGroup>
 
   </div>

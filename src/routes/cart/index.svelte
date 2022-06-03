@@ -47,7 +47,7 @@
       {#if $session.user_id}
       <Button name="Checkout" href="/cart/checkout" icon="shoppingBag" />
       {:else}
-      <Button name="Sign-In To Checkout" href="/account/sign-in?next=/cart/checkout" icon="loginBox" />
+      <Button name="Sign-In To Checkout" href="/user/login?next=/cart/checkout" icon="loginBox" />
       {/if}
     </ButtonGroup>
     {/if}
