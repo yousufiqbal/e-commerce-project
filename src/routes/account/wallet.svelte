@@ -48,7 +48,7 @@
   <tr>
     <td><Icon size="1.1rem" icon="{ wallet.in > 0 ? 'arrowUp' : 'arrowDown'}" fill="{ wallet.in > 0 ? 'green' : 'red'}" /></td>
     <td style="font-weight: bold">Rs. { Number(wallet.in > 0 ? wallet.in : wallet.out).toFixed(1) }</td>
-    <td style="text-align: right">{beautifyDateTime(wallet.created))}</td>
+    <td style="text-align: right">{beautifyDateTime(wallet.created)}</td>
   </tr>
   {/each}
 

@@ -48,7 +48,4 @@
   .date {
     font-weight: bold;
   }
-  .body {
-    /* fonts */
-  }
 </style>
