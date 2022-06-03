@@ -8,7 +8,7 @@ export const get = async ({ locals }) => {
     .where('users.user_id', '=', locals.user_id)
     .executeTakeFirst()
     
-  if (user.applied_promo_id) {
+  if (user?.applied_promo_id) {
     const promo = await db.selectFrom('promos')
       .selectAll()
       .where('promos.promo_id', '=', user.applied_promo_id)
