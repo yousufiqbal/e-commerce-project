@@ -26,8 +26,6 @@ export const get = async ({ params, locals }) => {
     .where('order_details.order_id', '=', order_id)
     .select(['order_details.product_id', 'order_details.quantity', 'order_details.price', 'products.name', 'products.url_name']).execute()
 
-    console.log(items)
-
   return { body: { order, promo, statuses, items }}
   
 }

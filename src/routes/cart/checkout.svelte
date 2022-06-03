@@ -1,5 +1,4 @@
 <script>
-  import { dev } from "$app/env";
   import { goto } from "$app/navigation";
   import Address from "$lib/components/Address.svelte";
   import BillSummary from "$lib/components/BillSummary.svelte";
@@ -12,6 +11,7 @@
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Title from "$lib/components/Title.svelte";
   import { cartItemsStore } from "$lib/others/store";
+  import { addToast } from "$lib/others/toast";
   import { axios } from "$lib/others/utils";
 
   let payment_method = 'cod'
@@ -29,9 +29,9 @@
         address_id: address.address_id, payment_method
       })
       goto('/cart/order-confirmed?number=' + response.data.message)
+      addToast({ type: 'success', message: 'We have received your order'})
     } catch (error) {
-      if (dev) console.log(error)
-      alert('Unable to add order')
+      addToast({ type: 'error', message: 'Unable to place your order'})
     }
   }
 </script>
@@ -41,6 +41,7 @@
 <Title back title="Checkout" />
 
 <Layout>
+
   <div slot="main">
     <Subtitle icon="mapPinTwo" subtitle="Delivery Address" />
     <Address {address} />
@@ -52,6 +53,7 @@
     <DebitCard />
     {/if}
   </div>
+
   <div slot="related">
     <Subtitle icon="bill" subtitle="Bill Summary" />
     <BillSummary {promo} items={$cartItemsStore} />
@@ -60,9 +62,5 @@
       <Button name="Confirm Order" on:click={addOrder} icon="checkDouble" />
     </ButtonGroup>
   </div>
+
 </Layout>
-
-
-
-<!-- <Subtitle icon="coupon" subtitle="Promo Code" />
-<PromoField /> -->

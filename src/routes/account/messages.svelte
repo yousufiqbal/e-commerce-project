@@ -17,12 +17,8 @@
 
   
   const markRead = async () => {
-    try {
-      await axios.put('/api/read?type=messages')
-      await invalidate('/api/unread')
-    } catch (error) {
-      if (dev) console.log(error)
-    }
+    await axios.put('/api/read?type=messages')
+    await invalidate('/api/unread')
   }
 
   const crumbs = [

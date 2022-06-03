@@ -8,7 +8,6 @@
   }
 </script>
 <script>
-  import { dev } from "$app/env";
   import { goto } from "$app/navigation";
   import { page, session } from "$app/stores";
   import Button from "$lib/components/Button.svelte";
@@ -20,6 +19,7 @@
   import Text from "$lib/components/Text.svelte";
   import Title from "$lib/components/Title.svelte";
   import { extractYupErrors, registerSchema } from "$lib/others/schema.js";
+  import { addToast } from "$lib/others/toast";
   import { axios } from "$lib/others/utils";
   import { debounce} from 'lodash-es'
 
@@ -54,10 +54,10 @@
         name: response.data.payload.name
       }
       goto(next || '/')
+      addToast({ type: 'error', message: 'You are registered and logged in', timeout: 8000})
     } catch (error) {
       validationAllowed = true
-      if (dev) console.log(error)
-      alert('Cannot register')
+      addToast({ type: 'error', message: 'Unable to register'})
     }
   }
 

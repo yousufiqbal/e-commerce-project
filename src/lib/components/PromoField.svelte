@@ -1,28 +1,28 @@
 <script>
-  import { dev } from "$app/env";
   import { invalidate } from "$app/navigation";
+  import { addToast } from "$lib/others/toast";
   import { axios } from "$lib/others/utils";
 
-  export let promo = {
-    code: ''
-  }
+  export let promo = { code: '' }
   export let touched = false, error = ''
 
   const removePromo = async () => {
     try {
       await axios.delete('/api/promos')
       await invalidate('')
+      addToast({ type: 'info', message: 'Promo removed' })
     } catch (error) {
-      if (dev) console.log(error)
+      addToast({ type: 'error', message: 'Cannot remove promo' })
     }
   }
-
+  
   const applyPromo = async () => {
     try {
       await axios.post('/api/promos', promo)
       await invalidate('')
+      addToast({ type: 'info', message: 'Promo applied' })
     } catch (error) {
-      if (dev) console.log(error)
+      addToast({ type: 'error', message: 'Cannot apply promo' })
     }
   }
 </script>
@@ -69,14 +69,11 @@
   }
   input {
     flex: 1;
-    /* align-items: stretch; */
     padding: var(--padding-extra);
-    /* border: 1px solid blue; */
   }
   button {
     text-transform: uppercase;
     padding: 12px 20px;
-    /* border: 1px solid green; */
     color: white;
     background-color: var(--secondary);
   }

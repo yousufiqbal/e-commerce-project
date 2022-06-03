@@ -1,7 +1,7 @@
 <script>
-  import { dev } from "$app/env";
   import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
+  import { addToast } from "$lib/others/toast";
   import { axios } from "$lib/others/utils";
   import AddToCart from "./AddToCart.svelte";
   import Icon from "./Icon.svelte";
@@ -16,8 +16,9 @@
     try {
       await axios.post('/api/wishlists?product_id=' + product_id)
       await invalidate($page.url.pathname)
+      addToast({ message: 'Added to wishlsit', type: 'success'})
     } catch (error) {
-      if (dev) console.log(error)
+      addToast({ message: 'Cannot add to wishlsit', type: 'error'})
     }
   }
   
@@ -25,8 +26,9 @@
     try {
       axios.delete('/api/wishlists?product_id=' + product_id)
       await invalidate($page.url.pathname)
+      addToast({ message: 'Removed from wishlsit', type: 'success'})
     } catch (error) {
-      if (dev) console.log(error)
+      addToast({ message: 'Cannot remove from wishlsit', type: 'error'})
     }
   }
 </script>
