@@ -1,6 +1,5 @@
 <script>
-import dayjs from "dayjs";
-
+  import { beautifyDateTime } from "$lib/others/utils";
   import Nothing from "./Nothing.svelte";
   import SmallButton from "./SmallButton.svelte";
   import SmallButtonGroup from "./SmallButtonGroup.svelte";
@@ -17,7 +16,7 @@ import dayjs from "dayjs";
     <h2>Order # {order.order_id}</h2>
 
     <div style="margin-bottom: 10px;">
-      <p class="dated">Placed On: {dayjs(order.created).format('MMM DD, YYYY hh:mm a')}</p>
+      <p class="dated">Placed On: {beautifyDateTime(order.created)}</p>
       <p class="dated">Expected On: {order.expected || 'WIP'}</p>
     </div>
 

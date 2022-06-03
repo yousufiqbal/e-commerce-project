@@ -1,5 +1,5 @@
 <script>
-  import dayjs from "dayjs";
+  import { beautifyDateTime } from "$lib/others/utils";
   import Nothing from "./Nothing.svelte";
 
   export let messages = []
@@ -12,7 +12,7 @@
 
   {#each messages as message (message.message_id)}
   <div class="message">
-    <div class="date">{dayjs(message.created).format('MMM DD, YYYY - hh:mm a')}</div>
+    <div class="date">{beautifyDateTime(message.created)}</div>
     <div class="body">{message.message}</div>
   </div>
   {/each}

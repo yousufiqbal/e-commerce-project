@@ -38,7 +38,7 @@ export const beautifyDateTime = ISO8601 => {
 
 export const beautifyDate = ISO8601 => {
   if (!ISO8601) return null
-  return dayjs(ISO8601).format('DD MMM, YYYY')
+  return dayjs(ISO8601).format('MMM DD, YYYY')
 }
 
 // From stackoverflow.com

@@ -6,8 +6,7 @@
   import Nothing from "$lib/components/Nothing.svelte";
   import Table from "$lib/components/Table.svelte";
   import Title from "$lib/components/Title.svelte";
-  import { axios } from "$lib/others/utils";
-  import dayjs from "dayjs";
+  import { axios, beautifyDateTime } from "$lib/others/utils";
   import { onMount } from "svelte";
 
   export let wallets = []
@@ -49,7 +48,7 @@
   <tr>
     <td><Icon size="1.1rem" icon="{ wallet.in > 0 ? 'arrowUp' : 'arrowDown'}" fill="{ wallet.in > 0 ? 'green' : 'red'}" /></td>
     <td style="font-weight: bold">Rs. { Number(wallet.in > 0 ? wallet.in : wallet.out).toFixed(1) }</td>
-    <td style="text-align: right">{dayjs(wallet.created).format('MMM DD, YYYY - hh:mm a')}</td>
+    <td style="text-align: right">{beautifyDateTime(wallet.created))}</td>
   </tr>
   {/each}
 

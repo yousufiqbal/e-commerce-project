@@ -1,7 +1,6 @@
 <script>
-import dayjs from "dayjs";
-
-import Nothing from "./Nothing.svelte";
+  import { beautifyDateTime } from "$lib/others/utils";
+  import Nothing from "./Nothing.svelte";
 
   export let promos = []
 </script>
@@ -19,7 +18,7 @@ import Nothing from "./Nothing.svelte";
     
     <div>
       <p>{promo.percentage}% Off - Upto Rs. {promo.max_discount}</p>
-      <p>Validity {dayjs(promo.validity).format('MMM DD, YYYY - hh:mm a')}</p>
+      <p>Validity {beautifyDateTime(promo.validity)}</p>
     </div>
     
   </div>

@@ -6,6 +6,8 @@
   import Statuses from "$lib/components/Statuses.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Title from "$lib/components/Title.svelte";
+  import { beautifyDate } from "$lib/others/utils";
+  import dayjs from "dayjs";
 
   export let order = {}, promo = {}, statuses = [], items = []
 
@@ -14,6 +16,7 @@
     { name: 'Orders', href: '/account/orders' },
     { name: 'No. ' + order.order_id, href: '/account/orders/' + order.order_id },
   ]
+
 </script>
 
 <Breadcrumb {crumbs} />
@@ -21,7 +24,7 @@
 <Title back title="Order # {order.order_id}" />
 
 <Message pinned>
-  You may receive your order by May 26, 2022. In case, date exceeds, feel free to contact <a href="/account/customer-support">Customer Support</a>.
+  You may receive your order by {beautifyDate(dayjs(order.created).add(7, 'days'))}. In case, date exceeds, feel free to contact <a href="/account/customer-support">Customer Support</a>.
 </Message>
 
 <Subtitle subtitle="Status" icon="listCheckTwo" />
