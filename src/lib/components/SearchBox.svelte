@@ -29,12 +29,14 @@
   }
 
   const search = () => {
-    console.log('c2search')
-    if (!keyword.trim()) {
-      keyword = ''
-      return
+    let active = suggestionsNode.querySelector('.active')
+    // if active click it, else search
+    if (active) {
+      active.click()
+    } else {
+      if (!keyword.trim()) { keyword = ''; return }
+      goto(`/search?keyword=${keyword}`)
     }
-    goto(`/search?keyword=${keyword}`)
   }
 
   const clear = () => {
@@ -98,13 +100,6 @@
     }
   }
 
-  const enter = e => {
-    if (suggestionsNode && e.key == 'Enter') {
-      let active = suggestionsNode.querySelector('.active')
-      active.click()
-    }
-  }
-
   $: if (mounted && keyword) suggest()
 </script>
 
@@ -115,7 +110,7 @@
   <form class="search" on:submit|preventDefault={search}>
 
     <button><Icon size="1.3rem" icon="searchTwo" /></button>
-    <input on:keyup={navigateSuggestions} on:keyup={enter} bind:this={input} bind:value={keyword} use:typeMe on:focus={()=>show=true} on:blur={hideSuggestions} {placeholder}>
+    <input on:keyup={navigateSuggestions} bind:this={input} bind:value={keyword} use:typeMe on:focus={()=>show=true} on:blur={hideSuggestions} {placeholder}>
     
     {#if keyword && show}
     <button on:click={search}><Icon size="1.3rem" fill="var(--primary)" icon="arrowRight" /></button>
