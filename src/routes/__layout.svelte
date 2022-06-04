@@ -1,5 +1,5 @@
 <script context="module">
-  import { cartItemsStore } from '$lib/others/store'
+  import { cartItems } from '$lib/others/cart'
 
   /** @type {import('@sveltejs/kit').Load} */
   export const load = async ({ fetch, session }) => {
@@ -9,8 +9,8 @@
       session = payload
     }
     const response = await fetch('/api/carts')
-    const cartItems = await response.json()
-    cartItemsStore.set(cartItems)
+    const cart = await response.json()
+    cartItems.set(cart)
     return {}
   }
 </script>

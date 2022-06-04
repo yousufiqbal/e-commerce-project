@@ -10,7 +10,7 @@
   import Methods from "$lib/components/Methods.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Title from "$lib/components/Title.svelte";
-  import { cartItemsStore } from "$lib/others/store";
+  import { cartItems } from "$lib/others/cart";
   import { addToast } from "$lib/others/toast";
   import { axios } from "$lib/others/utils";
 
@@ -60,7 +60,7 @@
 
   <div slot="related">
     <Subtitle icon="bill" subtitle="Bill Summary" />
-    <BillSummary {promo} items={$cartItemsStore} />
+    <BillSummary {promo} items={$cartItems} />
     
     <ButtonGroup>
       <Button name="Confirm Order" on:click={addOrder} icon="checkDouble" />

@@ -1,14 +1,15 @@
 <script context="module">
-  import { cartItemsStore } from "$lib/others/store";
+  import { cartItems } from "$lib/others/cart";
 
   /** @type {import('@sveltejs/kit').Load} */
   export const load = async ({ fetch }) => {
     const response = await fetch('/api/carts')
-    cartItemsStore.set(await response.json())
+    cartItems.set(await response.json())
     return {}
   }
 </script>
 <script>
+  cartItems
   import { page } from "$app/stores";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";

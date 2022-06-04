@@ -1,10 +1,10 @@
 <script>
   import { page, session } from "$app/stores";
   import Icon from "$lib/components/Icon.svelte";
-  import { cartItemsStore } from "$lib/others/store";
+  import { cartItems } from "$lib/others/cart";
   import { fly } from "svelte/transition";
 
-  $: total = $cartItemsStore && $cartItemsStore.map(el => el.quantity).reduce((a, b) => +a + +b, 0) || 0
+  $: total = $cartItems && $cartItems.map(el => el.quantity).reduce((a, b) => +a + +b, 0) || 0
 </script>
 
 <div transition:fly|local={{ y: 20, duration: 200 }} class="bottom-menu">
