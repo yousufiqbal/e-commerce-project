@@ -10,7 +10,7 @@
   {#if back}
   <button on:click={()=>history.go(-1)}><Icon size="1.8rem" icon="arrowLeft" /></button>
   {/if}
-  <h1 in:fly={{ x: -20, duration: 150 }}>{title}</h1>
+  <h1 in:fly|local={{ x: -20, duration: 150 }}>{title}</h1>
 </div>
 
 <Seo {title} />

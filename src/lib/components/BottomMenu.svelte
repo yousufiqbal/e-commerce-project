@@ -29,7 +29,7 @@
     <Icon size="1.3rem" icon="shoppingCart" />
     <span>Cart</span>
     {#key total}
-    <div in:fly={{ y: 20, duration: 100}} class="badge">{total}</div>
+    <div in:fly|local={{ y: 20, duration: 100}} class="badge">{total}</div>
     {/key}
   </a>
 

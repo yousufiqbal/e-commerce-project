@@ -1,10 +1,12 @@
 <script>
   import AddToCart from "./AddToCart.svelte";
+  import Nothing from "./Nothing.svelte";
 
   export let locked = false
   export let items = []
 </script>
 
+{#if items.length != 0}
 <div class="cart">
   
   {#each items as item}
@@ -18,7 +20,7 @@
       <div class="name">{item.name}</div>
       <div class="price">Rs. {item.price}</div>
     </div>
-  
+    
     <div class="counter-total">
       {#if !locked}
       <AddToCart product={item} />
@@ -32,6 +34,11 @@
   {/each}
   
 </div>
+{:else}
+<Nothing>
+  No items in cart
+</Nothing>
+{/if}
 
 <style>
   .cart-item {

@@ -27,7 +27,7 @@
 
   <div class="placeholder">
     {#key current}
-    <img in:fly={{ x, duration: 200 }} use:swipe={{ timeframe: 300, minSwipeDistance: 30 }} on:swipe={handleSwipe} src="{images[current]}" alt="">
+    <img in:fly|local={{ x, duration: 200 }} use:swipe={{ timeframe: 300, minSwipeDistance: 30 }} on:swipe={handleSwipe} src="{images[current]}" alt="">
     {/key}
   </div>
 

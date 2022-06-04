@@ -20,11 +20,11 @@
 <Layout>
   
   <div slot="main">
-    {#if $cartItemsStore.length != 0}
+    <!-- {#if $cartItemsStore.length != 0} -->
     <Subtitle subtitle="Items" icon="shoppingCart" />
     <Cart items={$cartItemsStore} />
     <CartSummary items={$cartItemsStore} />
-    {/if}
+    <!-- {/if} -->
   </div>
   
   <div slot="related">
@@ -36,10 +36,6 @@
     <Subtitle subtitle="Bill Summary" icon="bill" />
     <BillSummary {promo} items={$cartItemsStore} />
     
-    {:else}
-    <Nothing>
-      No Items in Cart
-    </Nothing>
     {/if}
     
     {#if $cartItemsStore.length != 0}
