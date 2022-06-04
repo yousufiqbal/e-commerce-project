@@ -13,7 +13,7 @@
   <div class="cart-item">
 
     <a href="/product/{item.url_name}" class="image">
-      <img src="/products/{item.url_name}.jpg" alt="">
+      <img loading="lazy" src="/products/{item.url_name}.jpg" alt="">
     </a>
   
     <div class="info">

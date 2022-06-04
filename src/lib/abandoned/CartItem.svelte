@@ -9,7 +9,7 @@
 <div class="cart-item">
 
   <div class="image">
-    <img src="/product.jpg" alt="">
+    <img loading="lazy" src="/product.jpg" alt="">
   </div>
 
   <div class="info">

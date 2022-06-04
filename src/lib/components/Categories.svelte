@@ -12,7 +12,7 @@
   {#each categories as category}
   <a href="/categories/{category.url_name}" class="category">
     <div class="image">
-      <img src="/category.jpg" alt="">
+      <img loading="lazy" src="/category.jpg" alt="">
     </div>
     <div class="name">{category.name}</div>
   </a>

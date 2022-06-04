@@ -4,7 +4,7 @@
 
 <div class="category">
   <div class="image">
-    <img {src} alt="">
+    <img loading="lazy" {src} alt="">
   </div>
   <div class="name">{name}</div>
 </div>
