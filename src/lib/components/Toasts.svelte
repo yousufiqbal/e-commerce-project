@@ -46,6 +46,7 @@
   .toasts {
     z-index: 10;
     top: 20px; right: 20px;
+    left: 20px;
     position: fixed;
     display: grid;
     justify-items: right;

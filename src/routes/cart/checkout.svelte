@@ -29,10 +29,9 @@
         address_id: address.address_id, payment_method
       })
 
+      addToast({ type: 'success', message: 'Great! We have received your order'})
       if (response.data.freePromo) {
         addToast({ type: 'success', message: 'Congratulations! You have won a free promo', timeout: 15000})
-      } else {
-        addToast({ type: 'success', message: 'Great! We have received your order'})
       }
       goto('/cart/order-confirmed?number=' + response.data.message)
     } catch (error) {

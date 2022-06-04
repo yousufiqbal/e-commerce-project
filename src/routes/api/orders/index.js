@@ -24,9 +24,11 @@ export const post = async ({ request, locals }) => {
 
   // TODO transaction..
   try {
+    
     let order_id
     await db.transaction().execute(async trx => {
 
+      // Checking free promo eligibility..
       const orders = await trx.selectFrom('orders')
         .where('orders.user_id', '=', locals.user_id)
         .selectAll().execute()
@@ -41,7 +43,7 @@ export const post = async ({ request, locals }) => {
         }).execute()
       }
     
-      // Add order
+      // Adding main order..
       const { insertId } = await trx.insertInto('orders').values({
         address: completeAddress,
         payment_method,
@@ -73,18 +75,26 @@ export const post = async ({ request, locals }) => {
           .set({ applied_promo_id: null }).execute()
         }
 
+        // and consuming it..
+        await trx.updateTable('promos')
+          .where('promos.promo_id', '=', user.applied_promo_id)
+          .where('promos.user_id', '=', locals.user_id``)
+          .set({
+            status: 'consumed'
+          })
+
       // Clearing cart..
       await trx.deleteFrom('cart_items')
         .where('cart_items.user_id', '=', locals.user_id)
         .execute()
 
-      // Set order status to confirmed
+      // Seting order status to confirmed..
       await trx.insertInto('order_statuses').values({
         order_id,
         status: 'confirmed',
       }).execute()
 
-      // Send messsage
+      // Sending messsage..
       await trx.insertInto('messages')
         .values({
           message: 'You order: ' + order_id + ' has been placed. You will (in-sha-Allah) receive it by ' + beautifyDate(dayjs().add(5, 'days')),
