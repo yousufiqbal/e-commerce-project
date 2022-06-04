@@ -12,22 +12,28 @@
   
   export let product = {}
   let modal = false
+  let wait = false
 
   const syncCart = debounce(async () => {
     try {
+      wait = true
       const response = await axios.post('/api/carts/sync', $cartItems)
       $cartItems = response.data
     } catch (error) {
       addToast({ type: 'error', message: 'Unable to sync cart'})
+    } finally {
+      wait = false
     }
   }, 2000)
 
   const increase = async () => {
+    if (wait) true
     cartItems.addItem(product)
     await syncCart()
   }
   
   const decrease = async () => {
+    if (wait) true
     cartItems.removeItem(product)
     await syncCart()
   }
