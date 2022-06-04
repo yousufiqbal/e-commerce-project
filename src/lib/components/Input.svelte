@@ -14,7 +14,7 @@
 </script>
 
 <div style:grid-column={span} class="input">
-  <input spellcheck="false" bind:value on:blur={()=>touched=true} size="1" {inputmode} placeholder="{label}" {name} id="{name}" use:typeMe>
+  <input autocomplete="off" spellcheck="false" bind:value on:blur={()=>touched=true} size="1" {inputmode} placeholder="{label}" {name} id="{name}" use:typeMe>
   {#if touched && error}
   <div class="error">{error}</div>
   {/if}
