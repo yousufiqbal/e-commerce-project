@@ -78,7 +78,7 @@ export const post = async ({ request, locals }) => {
         // and consuming it..
         await trx.updateTable('promos')
           .where('promos.promo_id', '=', user.applied_promo_id)
-          .where('promos.user_id', '=', locals.user_id``)
+          .where('promos.user_id', '=', locals.user_id)
           .set({
             status: 'consumed'
           })

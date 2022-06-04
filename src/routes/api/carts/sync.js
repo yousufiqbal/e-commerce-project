@@ -33,8 +33,6 @@ export const post = async ({ request, locals }) => {
 
   })
 
-  console.log('Done')
-  
   const cartItems = await db.selectFrom(table)
     .where(`${table}.user_id`, '=', locals.user_id || locals.guest_id)
     .leftJoin('products', 'products.product_id', `${table}.product_id`)

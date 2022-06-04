@@ -56,12 +56,8 @@
     if (keyword.length <= 2) {
       suggestions = []; return
     }
-    try {
-      const response = await axios.get('/api/suggestions?keyword=' + keyword)
-      suggestions = response.data
-    } catch (error) {
-      console.log(error)
-    }
+    const response = await axios.get('/api/suggestions?keyword=' + keyword)
+    suggestions = response.data
   }
 
   const navigateSuggestions = e => {
