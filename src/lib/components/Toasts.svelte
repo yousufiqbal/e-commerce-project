@@ -66,7 +66,7 @@
     /* color: white; */
   }
   button {
-    padding: 1px;
+    padding: 2px;
     color: white;
     background-color: rgb(65, 65, 65);
     display: flex;
