@@ -32,7 +32,7 @@
 </p>
 
 <p>
-  In case of any delays or queries, you can contact our <a href="/account/support">Customer Support</a>
+  In case of any delays or queries, you can contact our <a href="/account/customer-support">Customer Support</a>
 </p>
 
 <div class="mb40"></div>

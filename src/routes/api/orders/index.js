@@ -1,5 +1,5 @@
 import { db } from '$lib/database/db'
-import { getRandomCode, internalError } from '$lib/others/utils'
+import { beautifyDate, getRandomCode, internalError } from '$lib/others/utils'
 import dayjs from 'dayjs'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
@@ -71,7 +71,7 @@ export const post = async ({ request, locals }) => {
         await trx.updateTable('users')
           .where('users.user_id', '=', locals.user_id)
           .set({ applied_promo_id: null }).execute()
-      }
+        }
 
       // Clearing cart..
       await trx.deleteFrom('cart_items')
@@ -84,6 +84,13 @@ export const post = async ({ request, locals }) => {
         status: 'confirmed',
       }).execute()
 
+      // Send messsage
+      await trx.insertInto('messages')
+        .values({
+          message: 'You order: ' + order_id + ' has been placed. You will (in-sha-Allah) receive it by ' + beautifyDate(dayjs().add(5, 'days')),
+          type: 'order',
+          user_id: locals.user_id
+        }).execute()
   
       // TODO if promo used, comsume it.
     })
