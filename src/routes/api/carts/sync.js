@@ -28,8 +28,10 @@ export const post = async ({ request, locals }) => {
       .where(`${table}.user_id`, '=', locals.user_id)
       .execute()
       
-    await trx.insertInto(table)
-      .values(data).execute()
+    if (data.length != 0) {
+      await trx.insertInto(table)
+        .values(data).execute()
+    }
 
   })
 
