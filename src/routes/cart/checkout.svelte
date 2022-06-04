@@ -28,8 +28,13 @@
       const response = await axios.post('/api/orders', {
         address_id: address.address_id, payment_method
       })
+
+      if (response.data.freePromo) {
+        addToast({ type: 'success', message: 'Congratulations! You have won a free promo', timeout: 15000})
+      } else {
+        addToast({ type: 'success', message: 'Great! We have received your order'})
+      }
       goto('/cart/order-confirmed?number=' + response.data.message)
-      addToast({ type: 'success', message: 'We have received your order'})
     } catch (error) {
       addToast({ type: 'error', message: 'Unable to place your order'})
     }

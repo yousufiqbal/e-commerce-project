@@ -50,6 +50,16 @@ export const fileToBase64 = async (file) =>
   reader.onerror = (e) => reject(e)
 })
 
+export const getRandomCode = length => {
+  let result           = '';
+  let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let charactersLength = characters.length;
+  for (let i = 0; i < length; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
 // /**
 //  * 
 //  * @param {*} $page Page Store

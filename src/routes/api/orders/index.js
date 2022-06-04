@@ -1,5 +1,6 @@
 import { db } from '$lib/database/db'
-import { internalError } from '$lib/others/utils'
+import { getRandomCode, internalError } from '$lib/others/utils'
+import dayjs from 'dayjs'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const post = async ({ request, locals }) => {
@@ -19,11 +20,26 @@ export const post = async ({ request, locals }) => {
     .executeTakeFirst()
 
   // TODO Check promo validity.. product, stock, price, cost.. etc..
+  let freePromo
 
   // TODO transaction..
   try {
     let order_id
     await db.transaction().execute(async trx => {
+
+      const orders = await trx.selectFrom('orders')
+        .where('orders.user_id', '=', locals.user_id)
+        .selectAll().execute()
+      
+      if (orders.length == 0) {
+        freePromo = true
+        let code = getRandomCode(5).toUpperCase()
+        // TODO check if this code already exist..
+        await trx.insertInto('promos').values({
+          code, max_discount: 100, percentage: 10, user_id: locals.user_id, status: 'available',
+          validity: dayjs().add(30, 'days').format('YYYY-MM-DD HH:mm:ss')
+        }).execute()
+      }
     
       // Add order
       const { insertId } = await trx.insertInto('orders').values({
@@ -67,11 +83,12 @@ export const post = async ({ request, locals }) => {
         order_id,
         status: 'confirmed',
       }).execute()
+
   
       // TODO if promo used, comsume it.
     })
 
-    return { status: 201, body: { message: order_id } }
+    return { status: 201, body: { message: order_id, freePromo } }
   } catch (error) {
     return internalError(error)
     

@@ -54,7 +54,7 @@
         name: response.data.payload.name
       }
       goto(next || '/')
-      addToast({ type: 'error', message: 'You are registered and logged in', timeout: 8000})
+      addToast({ type: 'info', message: 'You are registered and logged in', timeout: 8000})
     } catch (error) {
       validationAllowed = true
       addToast({ type: 'error', message: 'Unable to register'})
