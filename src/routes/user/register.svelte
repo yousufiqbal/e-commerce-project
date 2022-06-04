@@ -85,7 +85,7 @@
 
     <FieldGroup>
       <Input {touched} error={errors.name} bind:value={user.name} name="name" label="Name" />
-      <Input {touched} error={errors.email || emailError} bind:value={user.email} name="email" label="Email" inputmode="email" />
+      <Input {touched} type="email" error={errors.email || emailError} bind:value={user.email} name="email" label="Email" inputmode="email" />
       <Input {touched} error={errors.password} bind:value={user.password} name="password" label="Password" type="password" />
       <Input {touched} error={errors.repeatPassword} bind:value={user.repeatPassword} name="repeat-password" label="Retype Password" type="password" />
       <Input {touched} error={errors.city} bind:value={user.city} name="city" label="City" />

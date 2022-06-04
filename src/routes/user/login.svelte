@@ -74,7 +74,7 @@ import { addToast } from "$lib/others/toast";
     <Subtitle icon="survey" subtitle="Enter Credentials" />
 
     <FieldGroup>
-      <Input {touched} bind:value={user.email} error={errors.email} label="Email" inputmode="email" />
+      <Input {touched} bind:value={user.email} error={errors.email} label="Email" inputmode="email" type="email" />
       <Input {touched} bind:value={user.password} error={errors.password} label="Password" type="password" />
     </FieldGroup>
 
