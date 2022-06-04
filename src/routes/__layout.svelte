@@ -23,6 +23,11 @@
   import Toasts from '$lib/components/Toasts.svelte';
 </script>
 
+<!-- Favicon fix -->
+<svelte:head>
+  <link rel="icon" href="/favicon.png" />
+</svelte:head>
+
 <Toasts />
 
 <Container>
