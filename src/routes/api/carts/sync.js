@@ -14,7 +14,7 @@ export const post = async ({ request, locals }) => {
 
   body.forEach(item => {
     data.push({
-      user_id: locals.user_id,
+      user_id: locals.guest_id || locals.user_id,
       product_id: item.product_id,
       quantity: item.quantity,
     })
