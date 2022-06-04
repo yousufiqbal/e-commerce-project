@@ -31,7 +31,9 @@
 
       addToast({ type: 'success', message: 'Great! We have received your order'})
       if (response.data.freePromo) {
-        addToast({ type: 'info', message: 'You have won a free promo!', timeout: 15000})
+        setTimeout(() => {
+          addToast({ type: 'info', message: 'You have won a free promo!', timeout: 15000})
+        }, 5000);
       }
       goto('/cart/order-confirmed?number=' + response.data.message)
     } catch (error) {
