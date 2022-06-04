@@ -81,7 +81,7 @@ export const post = async ({ request, locals }) => {
           .where('promos.user_id', '=', locals.user_id)
           .set({
             status: 'consumed'
-          })
+          }).execute()
 
       // Clearing cart..
       await trx.deleteFrom('cart_items')
