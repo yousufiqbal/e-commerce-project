@@ -12,7 +12,6 @@ export const get = async ({ locals }) => {
 
   const dates = messages.map(message => dayjs(message.created).format('YYYY-MM-DD'))
   const uniqueDates = [...new Set(dates)]
-
   
   let data = []
   

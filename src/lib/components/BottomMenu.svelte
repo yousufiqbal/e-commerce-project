@@ -88,7 +88,7 @@
     a {
       padding: 7px 20px;
       margin-right: 20px;
-      border-radius: 20px;
+      border-radius: 10px;
       border: 1px solid var(--border);
       flex: 0;
       display: flex;
