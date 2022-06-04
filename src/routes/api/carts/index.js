@@ -13,6 +13,7 @@ export const get = async ({ locals }) => {
     .where(`${table}.user_id`, '=', locals.user_id || locals.guest_id)
     .leftJoin('products', 'products.product_id', `${table}.product_id`)
     .select(['products.product_id', 'products.name',  'products.url_name', `${table}.quantity`, 'products.price'])
+    .orderBy('products.name', 'asc')
     .execute()
 
   return { body: cartItems }
