@@ -20,12 +20,14 @@ export const post = async ({ request, locals }) => {
     })
   })
 
+  // console.log(data)
+
   // !!! TODO !!! VERIFY THIS CART !!!
 
   await db.transaction().execute(async trx => {
 
     await trx.deleteFrom(table)
-      .where(`${table}.user_id`, '=', locals.user_id)
+      .where(`${table}.user_id`, '=', locals.guest_id || locals.user_id)
       .execute()
       
     if (data.length != 0) {
