@@ -20,7 +20,7 @@
     } catch (error) {
       addToast({ type: 'error', message: 'Unable to sync cart'})
     }
-  }, 2000)
+  }, 5000)
 
   const increase = async () => {
     cartItems.addItem(product)

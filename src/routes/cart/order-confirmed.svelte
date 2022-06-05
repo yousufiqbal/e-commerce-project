@@ -1,10 +1,10 @@
 <script context="module">
   import { cartItems } from "$lib/others/cart";
-
   /** @type {import('@sveltejs/kit').Load} */
-  export const load = async ({ fetch }) => {
-    const response = await fetch('/api/carts')
-    cartItems.set(await response.json())
+  export const load = async ({ session }) => {
+    if (!session.user_id) { return { redirect: '/user/login?next=/cart/checkout', status: 302 } }
+    // Clearing $cartItems..
+    cartItems.set([])
     return {}
   }
 </script>

@@ -9,7 +9,21 @@
   import Title from "$lib/components/Title.svelte";
   import Layout from "$lib/components/Layout.svelte";
   import { session } from "$app/stores";
+  import { onMount } from "svelte";
   import { cartItems } from "$lib/others/cart";
+
+  onMount(async () => {
+    await syncCartInstant()
+  })
+
+  const syncCartInstant = async () => {
+    try {
+      const response = await axios.post('/api/carts/sync', $cartItems)
+      $cartItems = response.data
+    } catch (error) {
+      addToast({ type: 'error', message: 'Unable to sync cart'})
+    }
+  }
 
   export let promo = {}
 </script>
