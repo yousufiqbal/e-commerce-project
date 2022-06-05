@@ -1,7 +1,7 @@
 <script>
   import Icon from "$lib/components/Icon.svelte";
 
-  export let name, href = '', icon = null, type = 'primary'
+  export let name = null, href = '', icon = null, type = 'primary'
 </script>
 
 {#if href}
@@ -10,7 +10,9 @@
     {#if icon}
     <Icon size="1.3rem" {icon} />
     {/if}
+    {#if name}
     <span>{name}</span>
+    {/if}
   </a>
 
 {:else}
