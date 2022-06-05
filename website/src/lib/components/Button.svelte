@@ -7,12 +7,8 @@
 {#if href}
 
   <a {href} class="button {type}">
-    {#if icon}
-    <Icon size="1.3rem" {icon} />
-    {/if}
-    {#if name}
-    <span>{name}</span>
-    {/if}
+    {#if icon} <Icon size="1.3rem" {icon} /> {/if}
+    {#if name} <span>{name}</span> {/if}
   </a>
 
 {:else}
