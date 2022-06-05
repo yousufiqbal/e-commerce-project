@@ -24,6 +24,7 @@
   .input {
     display: grid;
     gap: 5px;
+    align-items: start;
     /* border: 1px solid red; */
   }
   input {
