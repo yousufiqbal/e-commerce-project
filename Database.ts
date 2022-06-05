@@ -65,22 +65,22 @@ interface Guests {
   'guest_id'?: number;
 }
 interface Messages {
-  'created': Date;
+  'created'?: Date;
   'message': string;
   'message_id'?: number;
   'type': string;
   'user_id': number;
 }
 interface OrderDetails {
-  'cost': number;
   'order_detail_id'?: number;
   'order_id': number;
   'price': number;
   'product_id': number;
   'quantity': number;
+  'unit_cost': number;
 }
 interface OrderStatuses {
-  'created': Date;
+  'created'?: Date;
   'description': number | null;
   'order_id': number;
   'order_status_id'?: number;
@@ -91,7 +91,7 @@ interface Orders {
   'created'?: Date;
   'order_id'?: number;
   'payment_method': any;
-  'promo_id': number;
+  'promo_id': number | null;
   'user_id': number;
 }
 interface Products {
@@ -108,7 +108,7 @@ interface Products {
   'url_name': string;
 }
 interface Promos {
-  'code': string;
+  'code'?: string;
   'created'?: Date;
   'max_discount'?: number;
   'percentage': number;
@@ -124,6 +124,12 @@ interface Stocks {
   'quantity_remaining': number;
   'stock_id'?: number;
   'unit_cost': number;
+}
+interface Trials {
+  'created'?: Date;
+  'for': string;
+  'trial_id'?: number;
+  'user_id': number;
 }
 interface Users {
   'applied_promo_id': number | null;

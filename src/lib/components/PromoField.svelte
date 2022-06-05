@@ -5,24 +5,35 @@
 
   export let promo = { code: '' }
   export let touched = false, error = ''
+  let wait = false
 
   const removePromo = async () => {
+    wait = 'Removing'
     try {
       await axios.delete('/api/promos')
       await invalidate('')
       addToast({ type: 'info', message: 'Promo removed' })
     } catch (error) {
       addToast({ type: 'error', message: 'Cannot remove promo' })
+    } finally {
+      wait = false
     }
   }
   
   const applyPromo = async () => {
+    wait = 'Applying..'
     try {
       await axios.post('/api/promos', promo)
       await invalidate('')
       addToast({ type: 'info', message: 'Promo applied' })
     } catch (error) {
-      addToast({ type: 'error', message: 'Cannot apply promo' })
+      if (error.data.message) {
+        addToast({ type: 'error', message: error.data.message, timeout: 5000 })
+      } else {
+        addToast({ type: 'error', message: 'Cannot apply promo', timeout: 5000 })
+      }
+    } finally {
+      wait = false
     }
   }
 </script>
@@ -30,11 +41,11 @@
 <div class="wrapper">
 
   <div class="promo-field">
-    <input disabled={promo.promo_id} bind:value={promo.code} on:blur={()=>touched=true} placeholder="5 Letters Code">
+    <input minlength="5" maxlength="5" spellcheck="false" autocomplete="off" disabled={promo.promo_id} bind:value={promo.code} on:blur={()=>touched=true} placeholder="5 Letters Code">
     {#if promo.promo_id}
-    <button on:click={removePromo}>Remove</button>
+    <button on:click={removePromo}>{ wait || 'Remove'}</button>
     {:else}
-    <button on:click={applyPromo}>Apply</button>
+    <button on:click={applyPromo}>{wait || 'Apply'}</button>
     {/if}
   </div>
 
