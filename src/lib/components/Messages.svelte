@@ -1,5 +1,7 @@
 <script>
   import { beautifyDateTime } from "$lib/others/utils";
+import dayjs from "dayjs";
+import Icon from "./Icon.svelte";
   import Nothing from "./Nothing.svelte";
   import Subtitle from "./Subtitle.svelte";
 
@@ -10,16 +12,22 @@
 <div class="messages">
   
   {#each messages as messageGroup, index}
-  <Subtitle icon="calendar" subtitle={messageGroup.title} />
+  <div class="card">
 
-    {#each messages[index].messages as message}
-    <div class="message">
-      <div class="date">{beautifyDateTime(message.created)}</div>
-      <div class="body">{message.message}</div>
+    <Subtitle icon="calendar" subtitle={messageGroup.title} />
+    
+    <div class="message-group">
+      {#each messages[index].messages as message}
+      <div class="message">
+        <div class="time">
+          {dayjs(message.created).format('hh:mm a')}
+        </div>
+        <div class="body">{message.message}</div>
+      </div>
+      {/each}
     </div>
-    {/each}
-    <div class="mb10"></div>
-
+    
+  </div>
   {/each}
   
 </div>
@@ -33,16 +41,24 @@
 <style>
   .messages {
     display: grid;
-    gap: 12px;
+    gap: 20px;
+    /* border: 1px solid blue; */
+  }
+  .message-group {
+    display: grid;
+    gap: 15px;
+  }
+  .message:last-child {
+    border-bottom: none;
   }
   .message {
-    padding-bottom: 12px;
-    border-bottom: 1px dashed var(--border);
+    /* border: 1px solid red; */
+    display: grid;
+    gap: 5px;
   }
-  .message + .message:last-child {
-    border-bottom: none !important;
-  }
-  .date {
-    font-weight: bold;
+  .time {
+    display: flex;
+    gap: 5px;
+    font-family: var(--serif);
   }
 </style>
