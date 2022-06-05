@@ -1,8 +1,6 @@
 <script>
   import { cartItems } from "$lib/others/cart";
-  import { addToast } from "$lib/others/toast";
-  import { axios } from "$lib/others/utils";
-  import { debounce } from "lodash-es";
+  import { getContext } from "svelte";
   import Counter from "./Counter.svelte";
   import Modal from "./Modal.svelte";
   import SmallButton from "./SmallButton.svelte";
@@ -12,23 +10,19 @@
   
   export let product = {}
   let modal = false
-
-  const syncCart = debounce(async () => {
-    try {
-      const response = await axios.post('/api/carts/sync', $cartItems)
-      $cartItems = response.data
-    } catch (error) {
-      addToast({ type: 'error', message: 'Unable to sync cart'})
-    }
-  }, 5000)
+  export const syncCart = getContext('syncCart')
 
   const increase = async () => {
     cartItems.addItem(product)
+    // Cancelling previous if any is waiting..
+    syncCart.cancel()
     await syncCart()
   }
   
   const decrease = async () => {
     cartItems.removeItem(product)
+    // Cancelling previous if any is waiting..
+    syncCart.cancel()
     await syncCart()
   }
   
@@ -37,6 +31,7 @@
   const undoNotify = () => {}
 
   $: quantity = $cartItems.filter(item => item.product_id == product.product_id)[0]?.quantity || 0
+  // $: if ($cartItems) syncCart()
 </script>
 
 <div class="add-to-cart">

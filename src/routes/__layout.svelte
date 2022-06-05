@@ -21,6 +21,21 @@
   import BottomMenu from '$lib/components/BottomMenu.svelte'
   import NProgress from '$lib/components/NProgress.svelte';
   import Toasts from '$lib/components/Toasts.svelte';
+  import { setContext } from 'svelte';
+  import { debounce } from 'lodash-es';
+  import { axios } from '$lib/others/utils';
+  import { addToast } from '$lib/others/toast';
+
+  const syncCart = debounce(async () => {
+    try {
+      const response = await axios.post('/api/carts/sync', $cartItems)
+      cartItems.set(response.data)
+    } catch (error) {
+      addToast({ type: 'error', message: 'Unable to sync cart'})
+    }
+  }, 5000)
+
+  setContext('syncCart', syncCart)
 </script>
 
 <!-- Favicon fix -->

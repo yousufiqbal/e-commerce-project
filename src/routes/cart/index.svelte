@@ -11,15 +11,21 @@
   import { session } from "$app/stores";
   import { onMount } from "svelte";
   import { cartItems } from "$lib/others/cart";
+  import { addToast } from "$lib/others/toast";
+  import { axios } from "$lib/others/utils";
+  import { syncCart } from '$lib/components/AddToCart.svelte'
 
+  
   onMount(async () => {
+    // Cancelling waiting syncCart function.. (if any)
+    syncCart.cancel()
     await syncCartInstant()
   })
 
   const syncCartInstant = async () => {
     try {
       const response = await axios.post('/api/carts/sync', $cartItems)
-      $cartItems = response.data
+      cartItems.set(response.data) 
     } catch (error) {
       addToast({ type: 'error', message: 'Unable to sync cart'})
     }
