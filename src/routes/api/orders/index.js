@@ -97,12 +97,11 @@ export const post = async ({ request, locals }) => {
       // Sending messsage..
       await trx.insertInto('messages')
         .values({
-          message: 'You order: ' + order_id + ' has been placed. You will (in-sha-Allah) receive it by ' + beautifyDate(dayjs().add(5, 'days')),
+          message: 'You Order No. ' + order_id + ' has been placed. You will (in-sha-Allah) receive it by ' + beautifyDate(dayjs().add(5, 'days')),
           type: 'order',
           user_id: locals.user_id
         }).execute()
   
-      // TODO if promo used, comsume it.
     })
 
     return { status: 201, body: { message: order_id, freePromo } }
