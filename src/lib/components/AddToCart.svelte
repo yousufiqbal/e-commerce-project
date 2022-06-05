@@ -1,5 +1,6 @@
 <script>
   import { cartItems } from "$lib/others/cart";
+import { isEmpty } from "lodash-es";
   import { getContext } from "svelte";
   import Counter from "./Counter.svelte";
   import Modal from "./Modal.svelte";
@@ -8,8 +9,8 @@
   import Subtitle from "./Subtitle.svelte";
   import Text from "./Text.svelte";
   
-  export let product = {}
   let modal = false
+  export let product = {}
   export const syncCart = getContext('syncCart')
 
   const increase = async () => {
@@ -31,11 +32,11 @@
   const undoNotify = () => {}
 
   $: quantity = $cartItems.filter(item => item.product_id == product.product_id)[0]?.quantity || 0
-  // $: if ($cartItems) syncCart()
 </script>
 
+{#if !isEmpty(product)}
 <div class="add-to-cart">
-
+  
   {#if product.stock != 0}
 
     {#if quantity == 0}
@@ -43,12 +44,13 @@
     {:else}
     <Counter {quantity} on:decrease={decrease} on:increase={increase} />
     {/if}
-
+    
   {:else}
-    <button class="notify" on:click={notify}>Notify Me</button>
+  <button class="notify" on:click={notify}>Notify Me</button>
   {/if}
-  
+    
 </div>
+{/if}
 
 {#if modal}
 <Modal on:close={close}>

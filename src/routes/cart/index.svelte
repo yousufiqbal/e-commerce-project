@@ -13,12 +13,13 @@
   import { cartItems } from "$lib/others/cart";
   import { addToast } from "$lib/others/toast";
   import { axios } from "$lib/others/utils";
-  import { syncCart } from '$lib/components/AddToCart.svelte'
+  import AddToCart from '$lib/components/AddToCart.svelte'
 
+  let addToCart
   
   onMount(async () => {
     // Cancelling waiting syncCart function.. (if any)
-    syncCart.cancel()
+    addToCart.syncCart.cancel()
     await syncCartInstant()
   })
 
@@ -33,6 +34,8 @@
 
   export let promo = {}
 </script>
+
+<AddToCart bind:this={addToCart} />
 
 <Title title="Cart" />
 
