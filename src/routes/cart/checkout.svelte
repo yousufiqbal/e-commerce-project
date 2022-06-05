@@ -1,10 +1,3 @@
-<script context="module">
-  /** @type {import('@sveltejs/kit').Load} */
-  export const load = async ({ session }) => {
-    if (!session.user_id) { return { redirect: '/user/login?next=/cart/checkout', status: 301 } }
-    return {}
-  }
-</script>
 <script>
   import { goto } from "$app/navigation";
   import Address from "$lib/components/Address.svelte";
@@ -24,6 +17,8 @@
   let payment_method = 'cod'
   export let address = {}
   export let promo = {}
+
+  $: console.log(address)
 
   const crumbs = [
     { name: 'Cart', href: '/cart' },
