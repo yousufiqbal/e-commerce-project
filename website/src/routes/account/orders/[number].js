@@ -10,7 +10,7 @@ export const get = async ({ params, locals }) => {
     .where('orders.order_id', '=', order_id)
     .where('orders.user_id', '=', locals.user_id)
     .executeTakeFirst()
-
+    
   const promo = await db.selectFrom('promos')
     .selectAll()
     .where('promo_id', '=', order.promo_id)
