@@ -2,15 +2,39 @@ import { db } from '$lib/database/db'
 import { loginSchema } from '$lib/others/schema'
 import { internalError } from '$lib/others/utils'
 import bcryptjs from 'bcryptjs'
+import dayjs from 'dayjs'
 import jwt from 'jsonwebtoken'
 import cookie from 'cookie'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export const post = async ({ request }) => {
+export const post = async ({ request, locals, clientAddress }) => {
+
+  const body = await request.json()
 
   try {
+
+    // Checking fair usage..
+    const guestTrials = await db.selectFrom('guest_trials').selectAll()
+      .where('guest_trials.guest_id', '=', locals.guest_id)
+      .where('guest_trials.for', '=', 'login')
+      .where('guest_trials.created', '>=', dayjs().subtract(30, 'minutes').format('YYYY-MM-DD HH:mm'))
+      .execute()
+
+    if (guestTrials.length >= 3) {
+      return {
+        status: 401, body: { message: 'Too many trials. Checkback later' }
+      }
+    }
+
+    // Adding trial..
+    await db.insertInto('guest_trials').values({
+      for: 'login',
+      guest_id: locals.guest_id,
+      ip: clientAddress,
+      detail: JSON.stringify(body)
+    }).execute()
+
     // general validataion
-    const body = await request.json()
     const credential = await loginSchema.validate(body, { abortEarly: false})
     // check email
     const user = await db.selectFrom('users').selectAll().where('users.email', '=', credential.email).executeTakeFirst()

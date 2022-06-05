@@ -7,14 +7,9 @@ export const post = async ({ request, locals }) => {
   // Checking fair usage..
   const trials = await db.selectFrom('trials').selectAll()
     .where('trials.user_id', '=', locals.user_id)
+    .where('trials.for', '=', 'promo')
     .where('trials.created', '>=', dayjs().subtract(30, 'minutes').format('YYYY-MM-DD HH:mm'))
     .execute()
-
-  // Add trial
-  await db.insertInto('trials').values({
-    for: 'promo',
-    user_id: locals.user_id
-  }).execute()
 
   if (trials.length >= 3) {
     return {
@@ -22,6 +17,13 @@ export const post = async ({ request, locals }) => {
     }
   }
 
+  // Adding trial..
+  await db.insertInto('trials').values({
+    for: 'promo',
+    user_id: locals.user_id
+  }).execute()
+
+  // Next Steps..
   const { code } = await request.json()
 
   const promo = await db.selectFrom('promos')

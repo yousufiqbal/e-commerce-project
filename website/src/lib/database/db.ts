@@ -62,6 +62,12 @@ interface GuestCartItems {
   'quantity': number;
   'user_id': number;
 }
+interface GuestTrials {
+  'created'?: Date;
+  'for': string;
+  'guest_id': number;
+  'guest_trial_id'?: number;
+}
 interface Guests {
   'created'?: Date;
   'guest_id'?: number;
@@ -173,9 +179,6 @@ interface Wishlists {
   'wishlist_id'?: number;
 }
 
-
-
-
 interface Database {
   activities: Activities
   addresses: Addresses
@@ -184,6 +187,7 @@ interface Database {
   cart_items: CartItems
   categories: Categories
   constants: Constants
+  guest_trials: GuestTrials
   guest_cart_items: GuestCartItems
   guests: Guests
   messages: Messages
