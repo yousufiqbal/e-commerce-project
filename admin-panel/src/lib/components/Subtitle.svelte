@@ -24,6 +24,8 @@
     display: flex;
     justify-content: space-between;
     /* border: 1px solid red; */
+    align-items: center;
+    margin-bottom: 20px;
   }
   .left {
     display: flex;

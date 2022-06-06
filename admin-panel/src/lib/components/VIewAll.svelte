@@ -12,7 +12,7 @@
 <style>
   .view-all {
     display: flex;
-    border: 1px solid red;
+    gap: 5px;
   }
   span {
     color: blue;
