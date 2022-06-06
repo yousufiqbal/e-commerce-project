@@ -1,6 +1,6 @@
-<div class="field-group">
+<form class="field-group" on:submit|preventDefault>
   <slot></slot>
-</div>
+</form>
 
 <style>
   .field-group {

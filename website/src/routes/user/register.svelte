@@ -83,7 +83,7 @@
 
     <Subtitle icon="survey" subtitle="Enter Your Information" />
 
-    <FieldGroup>
+    <FieldGroup on:submit={submit}>
       <Input {touched} error={errors.name} bind:value={user.name} label="Name" />
       <Input {touched} type="email" error={errors.email || emailError} bind:value={user.email} label="Email" inputmode="email" />
       <Input {touched} error={errors.password} bind:value={user.password} label="Password" type="password" />
