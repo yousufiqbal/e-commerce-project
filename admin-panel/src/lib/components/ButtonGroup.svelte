@@ -5,6 +5,7 @@
 <style>
   .button-group {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 20px;
   }

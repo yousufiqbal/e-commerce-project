@@ -17,7 +17,7 @@
 <Title title="Backups" />
 
 <ButtonGroup>
-  <Button icon="add" name="New Backup" />
+  <Button icon="add" name="New Backup" href="/backups/add-backup" />
 </ButtonGroup>
 
 {#if backups.length != 0}

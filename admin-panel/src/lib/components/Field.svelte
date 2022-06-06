@@ -7,6 +7,7 @@
   export let touched = false, error = ''
   export let value = undefined
   export let placeholder = null
+  export let disabled = false
 
   const typeMe = node => {
     node.type = type
@@ -16,7 +17,7 @@
 <div class="field">
   <div class="label-input">
     <label for="{name}">{label}</label>
-    <input bind:value size="1" {placeholder} bind:this={el} spellcheck="false" autocomplete="off" id="{name}" {name} use:typeMe on:blur={()=>touched=true} type="text">
+    <input {disabled} bind:value size="1" {placeholder} bind:this={el} spellcheck="false" autocomplete="off" id="{name}" {name} use:typeMe on:blur={()=>touched=true} type="text">
   </div>
   {#if touched && error}
   <div class="error">{error}</div>
