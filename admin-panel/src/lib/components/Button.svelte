@@ -30,4 +30,7 @@
     color: white;
     background-color: var(--secondary);
   }
+  span {
+    color: blue;
+  }
 </style>
