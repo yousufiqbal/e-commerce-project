@@ -13,12 +13,15 @@ import ButtonGroup from '$lib/components/ButtonGroup.svelte';
 import Button from '$lib/components/Button.svelte';
 import Card from '$lib/components/Card.svelte';
 import Modal from '$lib/components/Modal.svelte';
+import Menu from '$lib/components/Menu.svelte';
 
   export let show = false
 </script>
 
 <Topbar />
-<Drawer />
+<Drawer>
+  <Menu />
+</Drawer>
 
 <Container>
   <QueryTabs />
@@ -31,6 +34,6 @@ import Modal from '$lib/components/Modal.svelte';
   {#if show}
   <Modal on:close={()=>show=false} />
   {/if}
-  
+
   <slot></slot>
 </Container>

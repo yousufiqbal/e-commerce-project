@@ -4,6 +4,7 @@
   font-weight: normal;
   font-size: 15px;
   font-family: var(--sans-serif);
+  text-align: left;
 }
 
 input, textarea {
