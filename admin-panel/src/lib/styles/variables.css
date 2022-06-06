@@ -1,0 +1,19 @@
+:root {
+
+  /* Fonts */
+  --sans-serif: KoHo, Helvetica, sans-serif;
+  --serif: 'Bree Serif', Georgia, Garamond, serif;
+
+  /* Paddings */
+  --padding: 7px 15px;
+  --padding-extra: 12px 15px;
+
+  /* Colors */
+  --primary: rgb(175, 0, 0);
+  --secondary: rgb(0, 153, 219);
+  --border: gray;
+
+  /* Shadows */
+  --shadow: 0 0 5px 0 lightgray;
+
+}
