@@ -54,7 +54,7 @@
   <Field bind:value={product.url_name} label="URL Name" {touched} error={errors['url_name']} />
   <Field bind:value={product.stock} label="Stock" {touched} error={errors['stock']} />
   <Field bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} />
-  <Field bind:value={product.price} label="Price" {touched} error={errors['price']} />
+  <Field bind:value={product.price} placeholder={recommendedPrice} label="Price" {touched} error={errors['price']} />
   <Field bind:value={product.fair_quantity} label="Fair Qty." {touched} error={errors['fair_quantity']} />
   <Field bind:value={product.description} label="Description" {touched} error={errors['description']} />
 </Form>

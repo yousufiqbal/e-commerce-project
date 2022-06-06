@@ -8,6 +8,8 @@
     white-space: nowrap;
     border-collapse: collapse;
     margin-bottom: 30px;
+    overflow-x: scroll;
+    width: 100%;
   }
   .table th, .table td {
     padding: var(--padding);

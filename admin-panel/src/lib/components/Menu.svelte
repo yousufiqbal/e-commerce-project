@@ -33,6 +33,10 @@
     <Icon fill="var(--primary)" icon="lineChart" />
     <span>Reports</span>
   </a>
+  <a href="/backups">
+    <Icon fill="var(--primary)" icon="databaseTwo" />
+    <span>Backups</span>
+  </a>
 </div>
 
 <style>
