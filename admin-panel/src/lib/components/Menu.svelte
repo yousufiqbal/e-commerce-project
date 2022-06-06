@@ -1,31 +1,37 @@
 <script>
+  import { beforeNavigate } from "$app/navigation";
+  import { showDrawer } from "$lib/stores/misc";
   import Icon from "./Icon.svelte";
+
+  beforeNavigate(() => {
+    $showDrawer = false
+  })
 </script>
 
 <div class="menu">
-  <a href="/">
+  <a href="/categories">
     <Icon fill="var(--primary)" icon="menuThree" />
     <span>Categories</span>
   </a>
-  <a href="/">
+  <a href="/brands">
     <Icon fill="var(--primary)" icon="searchTwo" />
     <span>Brands</span>
   </a>
-  <a href="/">
+  <a href="/products">
     <Icon fill="var(--primary)" icon="searchTwo" />
     <span>Products</span>
   </a>
-  <a href="/">
+  <a href="/orders">
     <Icon fill="var(--primary)" icon="searchTwo" />
     <span>Orders</span>
   </a>
-  <a href="/">
+  <a href="/users">
+    <Icon fill="var(--primary)" icon="searchTwo" />
+    <span>Users</span>
+  </a>
+  <a href="/reports">
     <Icon fill="var(--primary)" icon="searchTwo" />
     <span>Reports</span>
-  </a>
-  <a href="/">
-    <Icon fill="var(--primary)" icon="searchTwo" />
-    <span>Activity</span>
   </a>
 </div>
 

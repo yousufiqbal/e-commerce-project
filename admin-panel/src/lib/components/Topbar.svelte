@@ -15,7 +15,7 @@
 
   <div class="buttons">
     <a href="/admin"><Icon icon="userThree" size="1.3rem" /></a>
-    <button on:click={toggleDrawer}><Icon fill="{$showDrawer ? "var(--primary)" : ""}" icon="{$showDrawer ? "close" : "menuThree"}" size="1.3rem" /></button>
+    <button on:click={toggleDrawer}><Icon fill="var(--primary)" icon="{$showDrawer ? "close" : "menuThree"}" size="1.3rem" /></button>
   </div>
 
 </div>
