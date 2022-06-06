@@ -18,11 +18,11 @@
     <span>Brands</span>
   </a>
   <a href="/products">
-    <Icon fill="var(--primary)" icon="listOrdered" />
+    <Icon fill="var(--primary)" icon="listCheck" />
     <span>Products</span>
   </a>
   <a href="/orders">
-    <Icon fill="var(--primary)" icon="listCheck" />
+    <Icon fill="var(--primary)" icon="listOrdered" />
     <span>Orders</span>
   </a>
   <a href="/users">

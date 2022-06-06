@@ -1,11 +1,7 @@
 <script>
   import { page } from "$app/stores";
+  import Icon from "./Icon.svelte";
 
-  const Crumbs = [
-    { name: '', href: '' }
-  ]
-
-  /** @type {Crumbs}*/
   export let crumbs = []
 </script>
 
@@ -14,7 +10,12 @@
   {#each crumbs as link, index}
   
   {#if $page.url.pathname != link.href}
-  <a href="{link.href}">{link.name}</a>
+  <a href="{link.href}">
+    {#if link.icon}
+    <Icon size="1.1rem" icon={link.icon} />
+    {/if}
+    <span>{link.name}</span>
+  </a>
   {:else}
   <div>{link.name}</div>
   {/if}
@@ -36,6 +37,8 @@
     margin-bottom: 20px;
   }
   a {
+    display: flex;
+    gap: 8px;
     color: blue;
   }
 </style>

@@ -10,7 +10,7 @@
   <div class="left">
     {#if back}
     <a href="{back}">
-      <Icon fill="var(--primary)" size="1.3rem" icon="arrowLeft" />
+      <Icon fill="var(--primary)" size="1.5rem" icon="arrowLeft" />
     </a>
     {/if}
     <h1>{title}</h1>
