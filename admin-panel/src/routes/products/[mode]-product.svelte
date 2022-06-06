@@ -35,7 +35,7 @@
     }
   }
 
-  // $: if (product) validate()
+  // Naming url_name..
   $: if (product.name) product.url_name = kebabCase(product.name)
   $: if (!product.name) product.url_name = ''
 </script>
