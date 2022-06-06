@@ -13,7 +13,7 @@
 
   const mode = $page.params.mode
   const crumbs = [
-    { name: 'Products', href: '/stocks', icon: 'listCheck' },
+    { name: 'Products', href: '/products', icon: 'listCheck' },
     { name: 'Add Stock', href: '/products/add-stock' },
   ]
 
