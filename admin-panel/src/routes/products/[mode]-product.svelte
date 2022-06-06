@@ -1,6 +1,6 @@
 <script>
   import { page } from "$app/stores";
-  import { isEmpty, startCase } from 'lodash-es'
+  import { isEmpty, kebabCase, startCase } from 'lodash-es'
   import Title from "$lib/components/Title.svelte";
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
@@ -36,6 +36,8 @@
   }
 
   // $: if (product) validate()
+  $: if (product.name) product.url_name = kebabCase(product.name)
+  $: if (!product.name) product.url_name = ''
 </script>
 
 <Breadcrumb {crumbs} />
@@ -43,15 +45,15 @@
 <Title back="/products" title="{startCase(mode)} Product" />
 
 <Form>
-  <Input label="Select Category" {touched} error={errors['category_id']} />
-  <Input label="Select Brand" {touched} error={errors['brand_id']} />
-  <Input label="Name" {touched} error={errors['name']} />
-  <Input label="URL Name" {touched} error={errors['url_name']} />
-  <Input label="Stock" {touched} error={errors['stock']} />
-  <Input label="Unit Cost" {touched} error={errors['unit_cost']} />
-  <Input label="Price" {touched} error={errors['price']} />
-  <Input label="Fair Quantity" {touched} error={errors['fair_quantity']} />
-  <Input label="Description" {touched} error={errors['description']} />
+  <Input bind:value={product.category_id} label="Select Category" {touched} error={errors['category_id']} />
+  <Input bind:value={product.brand_id} label="Select Brand" {touched} error={errors['brand_id']} />
+  <Input bind:value={product.name} label="Name" {touched} error={errors['name']} />
+  <Input bind:value={product.url_name} label="URL Name" {touched} error={errors['url_name']} />
+  <Input bind:value={product.stock} label="Stock" {touched} error={errors['stock']} />
+  <Input bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} />
+  <Input bind:value={product.price} label="Price" {touched} error={errors['price']} />
+  <Input bind:value={product.fair_quantity} label="Fair Quantity" {touched} error={errors['fair_quantity']} />
+  <Input bind:value={product.description} label="Description" {touched} error={errors['description']} />
   <div>
     <div>Recommended price = Rs. </div>
   </div>
