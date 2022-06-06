@@ -5,9 +5,10 @@
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import Button from "$lib/components/Button.svelte";
-  import Input from "$lib/components/Input.svelte";
+  import Field from "$lib/components/Field.svelte";
   import Form from "$lib/components/Form.svelte";
   import { extractYupErrors } from "$lib/database/schema";
+import Text from "$lib/components/Text.svelte";
 
   let product = {}, touched = false, errors = {}
 
@@ -45,19 +46,20 @@
 <Title back="/products" title="{startCase(mode)} Product" />
 
 <Form>
-  <Input bind:value={product.category_id} label="Select Category" {touched} error={errors['category_id']} />
-  <Input bind:value={product.brand_id} label="Select Brand" {touched} error={errors['brand_id']} />
-  <Input bind:value={product.name} label="Name" {touched} error={errors['name']} />
-  <Input bind:value={product.url_name} label="URL Name" {touched} error={errors['url_name']} />
-  <Input bind:value={product.stock} label="Stock" {touched} error={errors['stock']} />
-  <Input bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} />
-  <Input bind:value={product.price} label="Price" {touched} error={errors['price']} />
-  <Input bind:value={product.fair_quantity} label="Fair Quantity" {touched} error={errors['fair_quantity']} />
-  <Input bind:value={product.description} label="Description" {touched} error={errors['description']} />
-  <div>
-    <div>Recommended price = Rs. </div>
-  </div>
+  <Field bind:value={product.category_id} label="Category" {touched} error={errors['category_id']} />
+  <Field bind:value={product.brand_id} label="Brand" {touched} error={errors['brand_id']} />
+  <Field bind:value={product.name} label="Name" {touched} error={errors['name']} />
+  <Field bind:value={product.url_name} label="URL Name" {touched} error={errors['url_name']} />
+  <Field bind:value={product.stock} label="Stock" {touched} error={errors['stock']} />
+  <Field bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} />
+  <Field bind:value={product.price} label="Price" {touched} error={errors['price']} />
+  <Field bind:value={product.fair_quantity} label="Fair Qty." {touched} error={errors['fair_quantity']} />
+  <Field bind:value={product.description} label="Description" {touched} error={errors['description']} />
 </Form>
+
+<Text>
+  <div>Recommended price = Rs. </div>
+</Text>
 
 <ButtonGroup>
   <Button on:click={submit} icon="save" name="Save" type="primary" />

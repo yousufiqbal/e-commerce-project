@@ -5,7 +5,7 @@
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import Button from "$lib/components/Button.svelte";
-  import Input from "$lib/components/Input.svelte";
+  import Field from "$lib/components/Field.svelte";
   import Form from "$lib/components/Form.svelte";
   import { extractYupErrors } from "$lib/database/schema";
 
@@ -42,7 +42,7 @@
 <Title back="/brands" title="{startCase(mode)} Brand" />
 
 <Form>
-  <Input label="Name" {touched} error={errors['name']} />
+  <Field label="Name" {touched} error={errors['name']} />
 </Form>
 
 <ButtonGroup>

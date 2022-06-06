@@ -1,7 +1,7 @@
 <script>
-  import Input from "$lib/components/Input.svelte";
+  import Field from "$lib/components/Field.svelte";
   import Title from "$lib/components/Title.svelte";
 </script>
 
 <Title title="Users" />
-<Input label="Search user through Order No." />
+<Field label="Search user through Order No." />
