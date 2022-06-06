@@ -9,17 +9,17 @@
   import Form from "$lib/components/Form.svelte";
   import { extractYupErrors } from "$lib/database/schema";
 
-  let category = {}, touched = false, errors = {}
+  let brand = {}, touched = false, errors = {}
 
   const mode = $page.params.mode
   const crumbs = [
-    { name: 'Categories', href: '/categories', icon: 'folders' },
-    { name: 'Add Category', href: '/categories/add-category' },
+    { name: 'Brands', href: '/brands', icon: 'priceTagThree' },
+    { name: 'Add Brand', href: '/brands/add-brand' },
   ]
 
   const validate = async () => {
     try {
-      await categorySchema.validate(category, { abortEarly: false })
+      await brandSchema.validate(brand, { abortEarly: false })
       error = {}
     } catch (error) {
       errors = extractYupErrors(error)
@@ -28,18 +28,18 @@
 
   const submit = async () => {
     if (isEmpty(errors)) {
-      if (mode == 'add') await addCategory()
-      if (mode == 'edit') await editCategory()
+      if (mode == 'add') await addBrand()
+      if (mode == 'edit') await editBrand()
     } else {
       touched = true
     }
   }
 
-  // $: if (category) validate()
+  // $: if (brand) validate()
 </script>
 
 <Breadcrumb {crumbs} />
-<Title back="/categories" title="{startCase(mode)} Category" />
+<Title back="/brands" title="{startCase(mode)} Brand" />
 
 <Form>
   <Input label="Name" {touched} error={errors['name']} />
@@ -47,5 +47,5 @@
 
 <ButtonGroup>
   <Button on:click={submit} icon="save" name="Save" type="primary" />
-  <Button href="/categories" icon="deleteBin" name="Discard" />
+  <Button href="/brands" icon="deleteBin" name="Discard" />
 </ButtonGroup>

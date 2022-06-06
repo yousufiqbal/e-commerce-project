@@ -30,6 +30,9 @@
     color: white;
     background-color: var(--secondary);
   }
+  .primary span {
+    color: white;
+  }
   span {
     color: blue;
   }
