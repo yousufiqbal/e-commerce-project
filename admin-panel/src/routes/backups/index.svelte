@@ -7,10 +7,10 @@
 
   // Dummy data
   export let backups = [
-    { backup_id: 1, filename: 'Fast - Jan 07, 2022 - 23.02', created: 'Jan 07,2022 - 23.02', size: '0.2MB' },
-    { backup_id: 1, filename: 'Fast - Jan 07, 2022 - 23.02', created: 'Jan 07,2022 - 23.02', size: '0.2MB' },
-    { backup_id: 1, filename: 'Fast - Jan 07, 2022 - 23.02', created: 'Jan 07,2022 - 23.02', size: '0.2MB' },
-    { backup_id: 1, filename: 'Fast - Jan 07, 2022 - 23.02', created: 'Jan 07,2022 - 23.02', size: '0.2MB' },
+    { backup_id: 1, filename: 'Fast - Jan 07, 2022 - 23.02', created: 'Jan 07, 2022 - 23.02', size: '0.2MB' },
+    { backup_id: 2, filename: 'Fast - Jan 07, 2022 - 23.02', created: 'Jan 07, 2022 - 23.02', size: '0.2MB' },
+    { backup_id: 3, filename: 'Fast - Jan 07, 2022 - 23.02', created: 'Jan 07, 2022 - 23.02', size: '0.2MB' },
+    { backup_id: 4, filename: 'Fast - Jan 07, 2022 - 23.02', created: 'Jan 07, 2022 - 23.02', size: '0.2MB' },
   ]
 </script>
 
