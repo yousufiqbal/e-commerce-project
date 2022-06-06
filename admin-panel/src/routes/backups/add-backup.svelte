@@ -34,7 +34,7 @@ import dayjs from "dayjs";
 </Form>
 
 <ButtonGroup>
-  <Button icon="save" name="Backup" />
-  <Button icon="close" name="Discard" />
+  <Button type="primary" icon="save" name="Backup" />
+  <Button icon="close" name="Discard" href="/backups" />
 </ButtonGroup>
 
