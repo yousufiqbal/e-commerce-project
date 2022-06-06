@@ -3,10 +3,10 @@ import { createPool } from 'mysql2'
 
 
 
-// interface Database {
+interface Database {
 //   activities: Activities
 //   addresses: Addresses
-// }
+}
 
 // You'd create one of these when you start your app.
 export const db = new Kysely<Database>({
