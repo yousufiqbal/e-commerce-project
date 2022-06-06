@@ -51,9 +51,11 @@
   
   <div slot="related">
     {#if $cartItems.length != 0}
-    <Subtitle subtitle="Promo Code" icon="coupon" />
-
-    <PromoField {promo} />
+    
+      {#if $session.user_id}
+      <Subtitle subtitle="Promo Code" icon="coupon" />
+      <PromoField {promo} />
+      {/if}
   
     <Subtitle subtitle="Bill Summary" icon="bill" />
     <BillSummary {promo} items={$cartItems} />
