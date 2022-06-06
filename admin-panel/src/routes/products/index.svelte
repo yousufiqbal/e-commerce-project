@@ -8,5 +8,5 @@
 
 <ButtonGroup>
   <Button icon="add" name="New" href="/products/add-product" />
-  <Button icon="add" name="Add Stock" />
+  <Button icon="add" name="Add Stock" href="/products/add-stock" />
 </ButtonGroup>
