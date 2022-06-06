@@ -23,6 +23,9 @@
 </div>
 
 <style>
+  .field:focus-within label {
+    color: rgb(229, 0, 0);
+  }
   .field {
     display: grid;
   }

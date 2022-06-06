@@ -8,9 +8,10 @@
   import Field from "$lib/components/Field.svelte";
   import Form from "$lib/components/Form.svelte";
   import { extractYupErrors } from "$lib/database/schema";
-import Text from "$lib/components/Text.svelte";
+  import Text from "$lib/components/Text.svelte";
 
-  let product = {}, touched = false, errors = {}
+  let product = { unit_cost: 0, price: 0 }, touched = false, errors = {}
+  let margin = 25
 
   const mode = $page.params.mode
   const crumbs = [
@@ -39,6 +40,7 @@ import Text from "$lib/components/Text.svelte";
   // Naming url_name..
   $: if (product.name) product.url_name = kebabCase(product.name)
   $: if (!product.name) product.url_name = ''
+  $: recommendedPrice = ((+product.unit_cost * (margin / 100)) + +product.unit_cost)
 </script>
 
 <Breadcrumb {crumbs} />
@@ -58,7 +60,7 @@ import Text from "$lib/components/Text.svelte";
 </Form>
 
 <Text>
-  <div>Recommended price = Rs. </div>
+  <div>Recommended price = Rs. {recommendedPrice} - ({margin}% margin)</div>
 </Text>
 
 <ButtonGroup>
