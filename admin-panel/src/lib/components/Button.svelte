@@ -22,12 +22,18 @@
   .button {
     display: flex;
     gap: 7px;
-    padding: var(--padding);
+    padding: 7px 12px;
     border: 1px solid var(--border);
     box-shadow: var(--shadow);
   }
   .primary {
     color: white;
     background-color: var(--secondary);
+  }
+  .primary span {
+    color: white;
+  }
+  span {
+    color: blue;
   }
 </style>
