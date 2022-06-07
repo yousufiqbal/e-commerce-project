@@ -1,14 +1,19 @@
-<table class="table">
-  <slot></slot>
-</table>
+<div class="wrapper">
+  <table class="table">
+    <slot></slot>
+  </table>
+</div>
 
 <style global>
+  .wrapper {
+    overflow-x: auto;
+    margin-bottom: 30px;
+  }
   .table {
     border: 1px solid red;
     white-space: nowrap;
     border-collapse: collapse;
-    margin-bottom: 30px;
-    overflow-x: auto;
+    margin-bottom: 10px;
   }
   .table th {
     font-weight: bold;

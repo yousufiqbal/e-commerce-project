@@ -54,6 +54,9 @@
     border-bottom: none;
   }
   label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     background-color: rgb(248, 248, 248);
     padding: var(--padding);
     /* border: 1px solid green; */
