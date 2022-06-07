@@ -18,7 +18,7 @@
 <Title title="Brands" />
 
 <ButtonGroup>
-  <Button icon="add" name="New" href="/brands/add-brand" />
+  <Button icon="add" name="New Brand" href="/brands/add-brand" />
 </ButtonGroup>
 
 {#if brands.length != 0}

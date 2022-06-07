@@ -12,7 +12,7 @@ import dayjs from "dayjs";
   let backup = {}, touched = false, errors = {}
 
   const crumbs = [
-    { name: 'Backups', href: '/backups' },
+    { name: 'Backups', href: '/backups', icon: "databaseTwo" },
     { name: 'Add Backup', href: '/backups/add-backup' },
   ]
 
@@ -27,7 +27,7 @@ import dayjs from "dayjs";
 
 <Breadcrumb {crumbs} />
 
-<Checkbox bind:checked />
+<Checkbox label="Name Automatically"  bind:checked />
 
 <Form>
   <Field bind:value={backup.name} disabled={checked} label="Filename" />

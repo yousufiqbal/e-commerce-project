@@ -7,7 +7,7 @@
 
 <div class="checkbox">
   <input {name} id={name} type="checkbox" bind:checked>
-  <label for="{name}">Name Automatically</label>
+  <label for="{name}">{label}</label>
 </div>
 
 <style>
@@ -16,5 +16,8 @@
     align-items: center;
     gap: 5px;
     margin-bottom: 20px;
-}
+  }
+  label {
+    user-select: none;
+  }
 </style>

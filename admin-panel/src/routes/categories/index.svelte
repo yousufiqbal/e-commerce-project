@@ -38,7 +38,7 @@
   ]
 </script>
 
-<Title title="All Categories" />
+<Title title="Categories" />
 
 <ButtonGroup>
   <Button icon="add" name="New Category" href="/categories/add-category" />
