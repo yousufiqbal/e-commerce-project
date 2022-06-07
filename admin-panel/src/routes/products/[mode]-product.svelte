@@ -16,7 +16,7 @@
 
   let product = { unit_cost: 0, price: 0, stock: 0, fair_quantity: 10 }, touched = false, errors = {}
   let margin = 25
-  let categoryModal = true, brandModal = false
+  let categoryModal = false, brandModal = false
 
   let categoryResults = [
     { id: 1, name: 'Dairy' },
@@ -84,8 +84,8 @@
 <Title back="/products" title="{startCase(mode)} Product" />
 
 <Form>
-  <Field on:focus={()=>categoryModal=true} bind:value={product.category_name} label="Category" {touched} error={errors['category_id']} />
-  <Field on:focus={()=>brandModal=true} bind:value={product.brand_name} label="Brand" {touched} error={errors['brand_id']} placeholder="Optional" />
+  <Field on:focus={e=>{categoryModal=true; e.target.blur()}} bind:value={product.category_name} label="Category" {touched} error={errors['category_id']} />
+  <Field on:focus={e=>{brandModal=true; e.target.blur()}} bind:value={product.brand_name} label="Brand" {touched} error={errors['brand_id']} placeholder="Optional" />
   <Field bind:value={product.name} label="Name" {touched} error={errors['name']} />
   <Field bind:value={product.url_name} label="URL Name" {touched} error={errors['url_name']} />
   <Field bind:value={product.stock} label="Stock" {touched} error={errors['stock']} inputmode="numeric" />
