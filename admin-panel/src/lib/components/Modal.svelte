@@ -1,11 +1,10 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { fly } from "svelte/transition";
-  import Button from "./Button.svelte";
-  import ButtonGroup from "./ButtonGroup.svelte";
   import Card from "./Card.svelte";
-  import Subtitle from "./Subtitle.svelte";
-  import Text from "./Text.svelte";
+  import Icon from "./Icon.svelte";
+
+  export let close = true
 
   const dispatch = createEventDispatcher()
 
@@ -15,22 +14,22 @@
 </script>
 
 <div class="wrapper">
-  <div transition:fly|local={{y: -20, duration: 150}} class="modal">
 
+  <!-- Modal Card -->
+  <div transition:fly|local={{y: -20, duration: 150}} class="modal">
+    
     <Card>
-      <Subtitle subtitle="New Products" />
-      <Text>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum qui alias unde natus veritatis! Exercitationem maxime consectetur excepturi ipsam quam!
-      </Text>
-      <ButtonGroup>
-        <Button icon="save" name="Save" type="primary" />
-        <Button icon="close" name="Discard" />
-      </ButtonGroup>
       <slot></slot>
     </Card>
 
+    {#if close}
+    <button on:click={()=>dispatch('close')} class="close-button">
+      <Icon size="1.3rem" icon="close" />
+    </button>
+    {/if}
 
   </div>
+
 </div>
 
 <svelte:window on:keydown={handleEscapeKey} />
@@ -46,6 +45,18 @@
     padding: 20px;
   }
   .modal {
+    position: relative;
+    width: 100%;
     max-width: 500px;
+  }
+  .close-button {
+    position: absolute;
+    top: -10px; right: -10px;
+    padding: 4px;
+    display: flex;
+    color: white;
+    background-color: rgb(51, 51, 51);
+    box-shadow: var(--shadow);
+    border-radius: 50%;
   }
 </style>

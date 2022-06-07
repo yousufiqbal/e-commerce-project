@@ -5,6 +5,7 @@
   import Topbar from '$lib/components/Topbar.svelte';
   import Drawer from '$lib/components/Drawer.svelte';
   import Menu from '$lib/components/Menu.svelte';
+  import Toasts from '$lib/components/Toasts.svelte';
   import NProgress from '$lib/components/NProgress.svelte';
 </script>
 
@@ -19,3 +20,5 @@
 <Container>
   <slot></slot>
 </Container>
+
+<Toasts />

@@ -20,9 +20,9 @@
   <div class="label-input">
     <label for="{name}">{label}</label>
     {#if !textarea}
-    <input {inputmode} {disabled} bind:value size="1" {placeholder} bind:this={el} spellcheck="false" autocomplete="off" id="{name}" {name} use:typeMe on:blur={()=>touched=true} >
+    <input on:focus {inputmode} {disabled} bind:value size="1" {placeholder} bind:this={el} spellcheck="false" autocomplete="off" id="{name}" {name} use:typeMe on:blur={()=>touched=true} >
     {:else}
-    <textarea {inputmode} {disabled} bind:value size="1" {placeholder} bind:this={el} spellcheck="false" autocomplete="off" id="{name}" {name} on:blur={()=>touched=true} rows="2"></textarea>
+    <textarea {inputmode} {disabled} bind:value size="1" {placeholder} bind:this={el} spellcheck="false" autocomplete="off" id="{name}" {name} on:blur={()=>touched=true} cols="10" rows="2"></textarea>
     {/if}
   </div>
   {#if touched && error}
