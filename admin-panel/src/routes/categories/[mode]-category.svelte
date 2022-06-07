@@ -11,10 +11,10 @@
 
   let category = {}, touched = false, errors = {}
 
-  const mode = $page.params.mode
+  const mode = startCase($page.params.mode)
   const crumbs = [
     { name: 'Categories', href: '/categories', icon: 'folders' },
-    { name: 'Add Category', href: '/categories/add-category' },
+    { name: mode + ' Category', href: `/categories/${$page.params.mode}-category` },
   ]
 
   const validate = async () => {
@@ -42,10 +42,10 @@
 <Title back="/categories" title="{startCase(mode)} Category" />
 
 <Form>
-  <Field label="Name" {touched} error={errors['name']} />
+  <Field label="Name" {touched} error={errors.name} />
 </Form>
 
 <ButtonGroup>
   <Button on:click={submit} icon="save" name="Save" type="primary" />
-  <Button href="/categories" icon="deleteBin" name="Discard" />
+  <Button href="/categories" icon="close" name="Discard" />
 </ButtonGroup>

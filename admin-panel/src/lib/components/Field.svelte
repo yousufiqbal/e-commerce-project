@@ -2,12 +2,14 @@
   import { kebabCase } from "lodash-es";
 
   export let label, name = kebabCase(label)
+  export let inputmode = ''
   export let el = null
   export let type = 'text' 
   export let touched = false, error = ''
   export let value = undefined
   export let placeholder = null
   export let disabled = false
+  export let textarea = false
 
   const typeMe = node => {
     node.type = type
@@ -17,7 +19,11 @@
 <div class="field">
   <div class="label-input">
     <label for="{name}">{label}</label>
-    <input {disabled} bind:value size="1" {placeholder} bind:this={el} spellcheck="false" autocomplete="off" id="{name}" {name} use:typeMe on:blur={()=>touched=true} type="text">
+    {#if !textarea}
+    <input {inputmode} {disabled} bind:value size="1" {placeholder} bind:this={el} spellcheck="false" autocomplete="off" id="{name}" {name} use:typeMe on:blur={()=>touched=true} >
+    {:else}
+    <textarea {inputmode} {disabled} bind:value size="1" {placeholder} bind:this={el} spellcheck="false" autocomplete="off" id="{name}" {name} on:blur={()=>touched=true} rows="2"></textarea>
+    {/if}
   </div>
   {#if touched && error}
   <div class="error">{error}</div>
@@ -43,7 +49,7 @@
   }
   .label-input {
     display: grid;
-    grid-template-columns: 2fr 4fr;
+    grid-template-columns: 130px 1fr;
     border: 1px solid var(--border);
     border-bottom: none;
   }
@@ -52,7 +58,7 @@
     padding: var(--padding);
     /* border: 1px solid green; */
   }
-  input {
+  input, textarea {
     padding: var(--padding);
     border-left: 1px solid var(--border);
   }

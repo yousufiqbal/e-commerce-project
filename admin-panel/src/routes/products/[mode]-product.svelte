@@ -49,21 +49,23 @@
 
 <Form>
   <Field bind:value={product.category_id} label="Category" {touched} error={errors['category_id']} />
-  <Field bind:value={product.brand_id} label="Brand" {touched} error={errors['brand_id']} />
+  <Field bind:value={product.brand_id} label="Brand" {touched} error={errors['brand_id']} placeholder="Optional" />
   <Field bind:value={product.name} label="Name" {touched} error={errors['name']} />
   <Field bind:value={product.url_name} label="URL Name" {touched} error={errors['url_name']} />
-  <Field bind:value={product.stock} label="Stock" {touched} error={errors['stock']} />
-  <Field bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} />
-  <Field bind:value={product.price} placeholder={recommendedPrice} label="Price" {touched} error={errors['price']} />
-  <Field bind:value={product.fair_quantity} label="Fair Qty." {touched} error={errors['fair_quantity']} />
-  <Field bind:value={product.description} label="Description" {touched} error={errors['description']} />
+  <Field bind:value={product.stock} label="Stock" {touched} error={errors['stock']} inputmode="numeric" />
+  <Field bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} inputmode="numeric" />
+  <Field bind:value={product.price} placeholder={recommendedPrice} label="Price" {touched} error={errors['price']} inputmode="numeric" />
+  <Field bind:value={product.fair_quantity} label="Fair Quantity" {touched} error={errors['fair_quantity']} inputmode="numeric" />
+  <Field textarea bind:value={product.description} label="Description" {touched} error={errors['description']} />
 </Form>
 
+{#if recommendedPrice}
 <Text>
-  <div>Recommended price = Rs. {recommendedPrice} - ({margin}% margin)</div>
+  <div>Recommended price = Rs. {recommendedPrice} ({margin}% margin)</div>
 </Text>
+{/if}
 
 <ButtonGroup>
   <Button on:click={submit} icon="save" name="Save" type="primary" />
-  <Button href="/products" icon="deleteBin" name="Discard" />
+  <Button href="/products" icon="close" name="Discard" />
 </ButtonGroup>

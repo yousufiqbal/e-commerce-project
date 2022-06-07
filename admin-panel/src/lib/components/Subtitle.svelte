@@ -8,7 +8,7 @@
 
   <div class="left">
     {#if icon}
-    <Icon icon="searchTwo" />
+    <Icon fill="var(--primary)" {icon} />
     {/if}
     <h2>{subtitle}</h2>
   </div>

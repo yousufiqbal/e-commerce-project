@@ -8,9 +8,11 @@
   import Field from "$lib/components/Field.svelte";
   import Form from "$lib/components/Form.svelte";
   import { extractYupErrors } from "$lib/database/schema";
-import Text from "$lib/components/Text.svelte";
+  import Table from "$lib/components/Table.svelte";
+  import Subtitle from "$lib/components/Subtitle.svelte";
 
-  let stock = {}, touched = false, errors = {}
+  let product = { previousStock: 250, previousCost: 400 }, touched = false, errors = {}
+  let margin = 25
 
   const mode = $page.params.mode
   const crumbs = [
@@ -36,7 +38,8 @@ import Text from "$lib/components/Text.svelte";
     }
   }
 
-  // $: if (stock) validate()
+  $: postStockValue = ((+product.previousStock * +product.previousCost) + (+product.stock * +product.unit_cost)) / (+product.previousStock + +product.stock)
+  $: recommendedPrice = ((+postStockValue * (margin / 100)) + +postStockValue)
 </script>
 
 <Breadcrumb {crumbs} />
@@ -44,19 +47,54 @@ import Text from "$lib/components/Text.svelte";
 <Title back="/products" title="{startCase(mode)} Stock" />
 
 <Form>
-  <Field label="Product" {touched} error={errors['product_id']} />
-  <Field label="Stock" {touched} error={errors['stock']} />
-  <Field label="Unit Cost" {touched} error={errors['unit_cost']} />
-  <Field label="Price" {touched} error={errors['price']} />
+  <Field bind:value={product.product_id} label="Product" {touched} error={errors['product_id']} />
+  <Field bind:value={product.stock} label="Stock" {touched} error={errors['stock']} />
+  <Field bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} />
+  <Field bind:value={product.price} label="Price" {touched} error={errors['price']} />
 </Form>
 
-<Text>
-  <div>Current stock value / unit = Rs. </div>
-  <div>Post addition stock value / unit = Rs. </div>
-  <div>Recommended price = Rs. </div>
-</Text>
+<Subtitle icon="lineChart" subtitle="Metrics" />
+
+<Table>
+  <tr>
+    <th class="main">Name</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Previous Stock Quanity</td>
+    <td>{product.previousStock}</td>
+  </tr>
+  <tr>
+    <td>Previous Stock Value / Unit</td>
+    <td>Rs. {product.previousCost}</td>
+  </tr>
+  {#if recommendedPrice}
+  <tr>
+    <td>Recommended price ({margin}% Margin)</td>
+    <td>Rs. {recommendedPrice.toFixed(2)}</td>
+  </tr>
+  {/if}
+  {#if postStockValue}
+  <tr>
+    <td>Post addition stock value / uni</td>
+    <td>Rs. {postStockValue.toFixed(2)}</td>
+  </tr>
+  {/if}
+</Table>
+
+<!-- <Text>
+  <div> = </div>
+  <div> = Rs. </div>
+  <div>-------------</div>
+  {#if recommendedPrice}
+  <div> = Rs.  </div>
+  {/if}
+  {#if postStockValue}
+  <div>t = Rs. </div>
+  {/if}
+</Text> -->
 
 <ButtonGroup>
   <Button on:click={submit} icon="save" name="Add Stock" type="primary" />
-  <Button href="/products" icon="deleteBin" name="Discard" />
+  <Button href="/products" icon="close" name="Discard" />
 </ButtonGroup>

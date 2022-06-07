@@ -10,6 +10,9 @@
     margin-bottom: 30px;
     overflow-x: auto;
   }
+  .table th {
+    font-weight: bold;
+  }
   .table th, .table td {
     padding: var(--padding);
     border: 1px solid var(--border);

@@ -8,27 +8,25 @@
   import Title from "$lib/components/Title.svelte";
   import { startCase } from "lodash-es";
 
-  let constant = {}, touched = false, errors = {}
-
   const mode = startCase($page.params.mode)
+  let subcategory = {}, touched = false, errors = {}
 
   const crumbs = [
-    { name: 'Admin', href: '/admin', icon: 'admin' },
-    { name: 'Constants', href: '/admin/constants' },
-    { name: `${mode} Constant`, href: `/admin/constants/${mode.toLowerCase()}-constant` },
+    { name: 'Categories', href: '/categories' },
+    { name: mode + ' Subcategory', href: `/categories/${$page.params.mode}-subcategory` },
   ]
 </script>
 
-<Title back="/constants" title="{mode} Constant" />
-
 <Breadcrumb {crumbs} />
 
+<Title back="/categories" title="{mode} Subcategory" />
+
 <Form>
-  <Field {touched} error={errors.name} bind:value={constant.name} label="Name" />
-  <Field {touched} error={errors.value} bind:value={constant.value} label="Value" />
+  <Field bind:value={subcategory.category_id} {touched} error={errors.category_id} label="Inside" />
+  <Field bind:value={subcategory.name} {touched} error={errors.name} label="Name" />
 </Form>
 
 <ButtonGroup>
   <Button icon="save" name="Save" type="primary" />
-  <Button icon="close" name="Discard" />
+  <Button icon="close" name="Discard" href="/categories" />
 </ButtonGroup>

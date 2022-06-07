@@ -24,7 +24,7 @@
       </Text>
       <ButtonGroup>
         <Button icon="save" name="Save" type="primary" />
-        <Button icon="deleteBin" name="Discard" />
+        <Button icon="close" name="Discard" />
       </ButtonGroup>
       <slot></slot>
     </Card>

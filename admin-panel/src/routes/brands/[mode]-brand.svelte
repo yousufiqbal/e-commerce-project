@@ -47,5 +47,5 @@
 
 <ButtonGroup>
   <Button on:click={submit} icon="save" name="Save" type="primary" />
-  <Button href="/brands" icon="deleteBin" name="Discard" />
+  <Button href="/brands" icon="close" name="Discard" />
 </ButtonGroup>
