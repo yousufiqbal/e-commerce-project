@@ -5,6 +5,7 @@
 <style>
   .flexed {
     display: flex;
+    align-items: start;
     gap: 20px;
   }
 </style>

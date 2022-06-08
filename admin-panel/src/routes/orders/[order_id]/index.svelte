@@ -1,4 +1,6 @@
 <script>
+import { goto } from "$app/navigation";
+
   import { page } from "$app/stores";
   import BillSummary from "$lib/components/BillSummary.svelte";
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
@@ -44,7 +46,7 @@ import Modal from "$lib/components/Modal.svelte";
   }
   
   const confirmOrder = () => {
-
+    goto('/orders/1/print')
   }
 </script>
 
@@ -73,6 +75,7 @@ import Modal from "$lib/components/Modal.svelte";
         <td>{info.payment_method}</td>
       </tr>
     </Table>
+    
     <Subtitle subtitle="Customer History" />
     <Table>
       <tr>
