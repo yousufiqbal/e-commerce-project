@@ -10,7 +10,7 @@
   export let end = $page.url.searchParams.get('end') || dayjs().format('YYYY-06-30')
 
   const fire = () => {
-    goto($page.url.pathname + '?start=' + start + '&end=' + end)
+    goto($page.url.pathname + '?start=' + start + '&end=' + end, { keepfocus: true })
   }
 
   const setToday = () => {
@@ -59,10 +59,12 @@
     /* color: white; */
     border: 1px solid var(--border);
     padding: var(--padding);
+    border-radius: 4px;
   }
   button {
     border: 1px solid var(--border);
     padding: var(--padding);
+    border-radius: 4px;
   }
   button {
     color: blue;

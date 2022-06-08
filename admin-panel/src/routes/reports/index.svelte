@@ -8,9 +8,8 @@
 <div class="wrapper">
   <div class="links">
     <a href="/reports/profit-and-loss">Profit & Loss</a>
-    <a href="/reports/users-registration">Users Registration</a>
-    <a href="/reports/users-sign-in-ratio">Orders & Statuses</a>
-    <a href="/reports/users-sign-in-ratio">Sales Stats</a>
+    <a href="/reports/user-registrations">Users Registration</a>
+    <a href="/reports/orders-and-statuses">Orders & Statuses</a>
   </div>
 </div>
 

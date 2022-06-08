@@ -28,4 +28,9 @@
   .table a {
     color: blue;
   }
+  .table .strong > td {
+    /* color: green */
+    padding: var(--padding-extra);
+    font-weight: bold;
+  }
 </style>

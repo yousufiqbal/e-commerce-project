@@ -13,7 +13,7 @@
   .drawer {
     padding-top: 50px;
     z-index: 1;
-    /* position: fixed; */
+    position: fixed;
     top: 0; left: 0;
     width: 200px; height: 100vh;
     border-right: 1px solid var(--border);
