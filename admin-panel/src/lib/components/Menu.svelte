@@ -3,10 +3,15 @@
   import { showDrawer } from "$lib/stores/misc";
   import Icon from "./Icon.svelte";
 
+  let innerWidth
+
   beforeNavigate(() => {
+    if (innerWidth < 800) return
     $showDrawer = false
   })
 </script>
+
+<svelte:window bind:innerWidth />
 
 <div class="menu">
   <a href="/categories">

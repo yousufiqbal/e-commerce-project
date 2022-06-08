@@ -10,15 +10,36 @@
 </script>
 
 <NProgress />
-
-<Topbar />
-
-<Drawer>
-  <Menu />
-</Drawer>
-
-<Container>
-  <slot></slot>
-</Container>
-
 <Toasts />
+
+<div class="layout">
+  <div class="left">
+    <Drawer>
+      <Menu />
+    </Drawer>
+  </div>
+  <div class="right">
+    <Topbar />
+
+    <Container>
+      <slot></slot>
+    </Container>
+  </div>
+</div>
+
+<style>
+  .layout {
+    display: grid;
+  }
+  .left {
+    display: none;
+  }
+  @media (min-width: 800px) {
+    .left {
+      display: initial;
+    }
+    .layout {
+      grid-template-columns: 200px 1fr;
+    }    
+  }
+</style>

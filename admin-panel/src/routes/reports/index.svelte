@@ -1,13 +1,28 @@
 <script>
   import Subtitle from "$lib/components/Subtitle.svelte";
-import Title from "$lib/components/Title.svelte";
+  import Title from "$lib/components/Title.svelte";
 </script>
 
 <Title title="Reports" />
 
-<Subtitle subtitle="Stocks" />
-<Subtitle subtitle="Orders" />
-<Subtitle subtitle="Users" />
-<Subtitle subtitle="P&L" />
-<Subtitle subtitle="Activity" />
-<Subtitle subtitle="Misc." />
+<div class="wrapper">
+  <div class="links">
+    <a href="/reports/profit-and-loss">Profit & Loss</a>
+    <a href="/reports/users-registration">Users Registration</a>
+    <a href="/reports/users-sign-in-ratio">Orders & Statuses</a>
+    <a href="/reports/users-sign-in-ratio">Sales Stats</a>
+  </div>
+</div>
+
+<style>
+  .links {
+    display: inline-grid;
+    gap: 8px;;
+  }
+  a {
+    color: blue;
+  }
+  a:hover {
+    color: red;
+  }
+</style>
