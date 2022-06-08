@@ -7,13 +7,13 @@
 
 {#if href}
 <a {href} class="button {type}">
-  <Icon size="1rem" {icon} />
+  <Icon size="1.2rem" {icon} />
   <span>{name}</span>
 </a>
 
 {:else}
 <button class="button {type}" on:click>
-  <Icon size="1rem" {icon} />
+  <Icon size="1.2rem" {icon} />
   <span>{name}</span>
 </button>
 {/if}

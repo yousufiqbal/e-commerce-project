@@ -1,16 +1,12 @@
 <script>
   import { page } from "$app/stores";
-  import { setQuery } from "$lib/others/utils";
 
-  export let name = 'tab'
   export let items = []
-
-  $: current = $page.url.searchParams.get(name) || items[0]?.url_name || null
 </script>
 
 <div class="query-tabs">
   {#each items as item}
-  <a class:active={current == item.url_name} href="{setQuery({ [name]: item.url_name }, $page)}" class="tab">{item.name}</a>
+  <a class:active={$page.url.pathname == item.href} href="{item.href}" class="tab">{item.name}</a>
   {/each}
 </div>
 
