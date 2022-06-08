@@ -16,7 +16,7 @@
   .search-box {
     display: flex;
     border: 1px solid var(--border);
-    /* box-shadow: var(--shadow); */
+    box-shadow: var(--shadow);
     margin-bottom: 20px;
   }
   input {

@@ -1,19 +1,16 @@
 <script>
   import { page } from "$app/stores";
+import { setQuery } from "$lib/others/utils";
 
   export let name = 'tab'
-  export let items = [
-    { name: 'All', url_name: 'all' },
-    { name: 'Available', url_name: 'available' },
-    { name: 'Consumed', url_name: 'consumed' },
-  ]
+  export let items = []
 
   $: current = $page.url.searchParams.get(name) || items[0]?.url_name || null
 </script>
 
 <div class="query-tabs">
   {#each items as item}
-  <a class:active={current == item.url_name} href="?{name}={item.url_name}" class="tab">{item.name}</a>
+  <a class:active={current == item.url_name} href="{setQuery({ [name]: item.url_name }, $page)}" class="tab">{item.name}</a>
   {/each}
 </div>
 
@@ -25,6 +22,7 @@
     display: flex;
     border-bottom: 1px solid var(--border);
     margin-bottom: 20px;
+    overflow-x: auto;
   }
   a {
     padding: var(--padding);

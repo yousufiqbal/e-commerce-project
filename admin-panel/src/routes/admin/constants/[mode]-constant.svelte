@@ -19,7 +19,7 @@
   ]
 </script>
 
-<Title back="/constants" title="{mode} Constant" />
+<Title back="/admin/constants" title="{mode} Constant" />
 
 <Breadcrumb {crumbs} />
 
@@ -30,5 +30,5 @@
 
 <ButtonGroup>
   <Button icon="save" name="Save" type="primary" />
-  <Button icon="close" name="Discard" />
+  <Button icon="close" name="Discard" href="/admin/constants" />
 </ButtonGroup>

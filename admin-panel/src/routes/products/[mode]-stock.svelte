@@ -127,27 +127,27 @@
 
 <Table>
   <tr>
-    <th class="main">Name</th>
     <th>Value</th>
+    <th class="main">Name</th>
   </tr>
   <tr>
-    <td>Previous Stock Quanity</td>
     <td>{product.previousStock}</td>
+    <td>Previous Stock Quanity</td>
   </tr>
   <tr>
-    <td>Previous Stock Value / Unit</td>
     <td>Rs. {product.previousCost}</td>
+    <td>Previous Stock Value / Unit</td>
   </tr>
   {#if recommendedPrice}
   <tr>
-    <td>Recommended price ({margin}% Margin)</td>
     <td>Rs. {recommendedPrice.toFixed(2)}</td>
+    <td>Recommended price ({margin}% Margin)</td>
   </tr>
   {/if}
   {#if postStockValue}
   <tr>
-    <td>Post addition stock value / uni</td>
     <td>Rs. {postStockValue.toFixed(2)}</td>
+    <td>Post addition stock value / uni</td>
   </tr>
   {/if}
 </Table>
