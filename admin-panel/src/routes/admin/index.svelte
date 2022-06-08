@@ -17,7 +17,8 @@ import Subtitle from "$lib/components/Subtitle.svelte";
 
 <div class="links">
   <a href="/admin/constants">Constants</a>
-  <a href="/admin/activities">Activities</a>
+  <a href="/admin/activities">Admin Activities</a>
+  <a href="/admin/promo-giveaway">Giveaway Promo</a>
 </div>
 
 <style>

@@ -2,6 +2,7 @@
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import Nothing from "$lib/components/Nothing.svelte";
+import Subtitle from "$lib/components/Subtitle.svelte";
   import Table from "$lib/components/Table.svelte";
   import Title from "$lib/components/Title.svelte";
 
@@ -22,8 +23,14 @@
 <Title title="Products" />
 
 <ButtonGroup>
-  <Button icon="add" name="New" href="/products/add-product" />
+  <Button icon="add" name="New Product" href="/products/add-product" />
   <Button icon="add" name="Add Stock" href="/products/add-stock" />
+</ButtonGroup>
+
+<Subtitle subtitle="Dairy" />
+
+<ButtonGroup>
+  <Button icon="add" name="New Product" href="/products/add-product" />
 </ButtonGroup>
 
 {#if products.length != 0}
@@ -31,7 +38,7 @@
   <tr>
     <th>Sr.</th>
     <!-- <th>Image</th> -->
-    <th>Name</th>
+    <th class="main">Name</th>
     <th>Price</th>
     <th>Stock</th>
     <th>Cost</th>
@@ -40,7 +47,7 @@
   <tr>
     <td>{index + 1}</td>
     <!-- <td><img src="/products/{product.url_name}.jpg" alt=""></td> -->
-    <td>{product.name}</td>
+    <td><a href="/products/{product.product_id}">{product.name}</a></td>
     <td>{product.price}</td>
     <td>{product.stock}</td>
     <td>{product.unit_cost}</td>

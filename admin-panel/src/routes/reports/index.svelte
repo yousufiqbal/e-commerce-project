@@ -10,6 +10,9 @@
     <a href="/reports/profit-and-loss">Profit & Loss</a>
     <a href="/reports/user-registrations">Users Registration</a>
     <a href="/reports/orders-and-statuses">Orders & Statuses</a>
+    <a href="/reports/product-views">Product Views</a>
+    <a href="/reports/page-views">Page Views</a>
+    <a href="/reports/category-wise-sales">Category Wise Sales</a>
   </div>
 </div>
 
