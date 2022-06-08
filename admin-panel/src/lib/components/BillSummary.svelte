@@ -6,6 +6,8 @@ import Card from "./Card.svelte"
 
   let deliveryFee = 0, taxes = 0
   $: itemsAmount = items.map(item => item.quantity * item.price).reduce((a, b) => +a + +b, 0)
+  
+  // TODO set promo.max_discount etc..
   $: grandTotal = (itemsAmount + deliveryFee + taxes) - (promo.max_discount || 0)
 </script>
 

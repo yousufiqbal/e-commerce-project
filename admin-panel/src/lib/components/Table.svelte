@@ -7,7 +7,7 @@
 <style global>
   .wrapper {
     overflow-x: auto;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
   .table {
     border: 1px solid red;
