@@ -19,8 +19,6 @@ import Modal from "$lib/components/Modal.svelte";
   const items = [
     { product_id: 1, name: 'Nurpur Butter', url_name: 'nurpur-butter', quantity: '3', price: 200 },
     { product_id: 2, name: 'Nurpur Butter', url_name: 'nurpur-butter', quantity: '3', price: 200 },
-    { product_id: 3, name: 'Nurpur Butter', url_name: 'nurpur-butter', quantity: '3', price: 200 },
-    { product_id: 4, name: 'Nurpur Butter', url_name: 'nurpur-butter', quantity: '3', price: 200 },
   ]
 
   // dummy data
@@ -56,22 +54,30 @@ import Modal from "$lib/components/Modal.svelte";
 <Layout>
   <div slot="main">
 
+    <Subtitle subtitle="Items" />
+    <Items {items} />
+
     <Subtitle subtitle="Customer Information" />
     
     <Table>
       <tr>
-        <!-- TODO href="/users/1" -->
         <th>Name</th>
-        <th>Contact</th>
-        <th>City</th>
-        <th>Address</th>
-        <th>Payment</th>
+        <td>{info.name}</td>
       </tr>
       <tr>
-        <td>{info.name}</td>
+        <th>Contact</th>
         <td>{info.contact}</td>
+      </tr>
+      <tr>
+        <th>City</th>
         <td>{info.city}</td>
+      </tr>
+      <tr>
+        <th>Address</th>
         <td>{info.address}</td>
+      </tr>
+      <tr>
+        <th>Payment</th>
         <td>{info.payment_method}</td>
       </tr>
     </Table>
@@ -96,25 +102,32 @@ import Modal from "$lib/components/Modal.svelte";
     <Table>
       <tr>
         <th>Ordered</th>
-        <th>Confirmed</th>
-        <th>Dispatched</th>
-        <th>Received</th>
-        <th>Cancelled</th>
-        <th>Returned</th>
+        <td>June 01, 2022 09:23 PM</td>
       </tr>
       <tr>
-        <td>June 01, 2022 09:23 PM</td>
+        <th>Confirmed</th>
         <td>Pending..</td>
+      </tr>
+      <tr>
+        <th>Dispatched</th>
         <td>Pending..</td>
+      </tr>
+      <tr>
+        <th>Received</th>
         <td>Pending..</td>
+      </tr>
+      <tr>
+        <th>Cancelled</th>
         <td>Pending..</td>
+      </tr>
+      <tr>
+        <th>Returned</th>
         <td>Pending..</td>
       </tr>
     </Table>
     
     
-    <Subtitle subtitle="Items" />
-    <Items {items} />
+
   </div>
   <div slot="related">
 

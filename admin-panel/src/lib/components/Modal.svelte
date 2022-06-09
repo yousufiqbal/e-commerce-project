@@ -39,15 +39,16 @@
     display: grid;
     place-items: center;
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background-color: rgba(243, 243, 243, 0.7);
-    border: 1px solid red;
+    /* border: 1px solid red; */
     padding: 20px;
   }
   .modal {
     position: relative;
     width: 100%;
-    max-width: 500px;
+    max-width: 450px;
   }
   .close-button {
     position: absolute;
@@ -58,5 +59,9 @@
     background-color: rgb(51, 51, 51);
     box-shadow: var(--shadow);
     border-radius: 50%;
+    transition: background-color 400ms;
+  }
+  .close-button:hover {
+    background-color: var(--primary);
   }
 </style>

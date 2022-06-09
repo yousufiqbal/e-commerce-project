@@ -31,6 +31,8 @@
 <ButtonGroup>
   <Button icon="add" name="New" type="primary" />
   <Button icon="searchTwo" name="Search" href="/orders/search" />
+  <Button icon="searchTwo" name="Dispatch Multiple" href="/orders/dispatch-multiple" />
+  <Button icon="searchTwo" name="Receive Multiple" href="/orders/receive-multiple" />
 </ButtonGroup>
 
 <QueryTabs items={types} />

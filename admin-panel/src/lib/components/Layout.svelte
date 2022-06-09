@@ -1,5 +1,8 @@
-<div class="layout">
-  <!-- <div class="drawer"></div> -->
+<script>
+  export let columns = '4fr 2fr'
+</script>
+
+<div style:grid-template-columns={columns} class="layout">
   <div class="main">
     <slot name="main"></slot>
   </div>
@@ -12,7 +15,7 @@
   .layout {
     /* border: 1px solid red; */
     display: grid;
-    grid-template-columns: 5fr 2fr;
+    grid-template-columns: 4fr 2fr;
     gap: 40px;
   }
 </style>

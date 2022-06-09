@@ -10,7 +10,6 @@
     margin-bottom: 20px;
   }
   .table {
-    border: 1px solid red;
     white-space: nowrap;
     border-collapse: collapse;
     margin-bottom: 10px;
@@ -20,7 +19,7 @@
   }
   .table th, .table td {
     padding: var(--padding);
-    border: 1px solid var(--border);
+    border: 0.9px solid var(--border);
   }
   .table .main {
     width: 100%;
@@ -32,5 +31,8 @@
     /* color: green */
     padding: var(--padding-extra);
     font-weight: bold;
+  }
+  .table .important {
+    color: red;
   }
 </style>

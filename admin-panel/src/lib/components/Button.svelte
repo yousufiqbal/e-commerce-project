@@ -38,6 +38,7 @@
     color: white;
   }
   span {
+    white-space: nowrap;
     color: blue;
   }
   .danger {
