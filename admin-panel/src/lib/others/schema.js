@@ -15,12 +15,17 @@ export const extractYupErrors = err => {
   }, {});
 }
 
-// Register
-export const registerSchema = yup.object({
+// Category
+export const categorySchema = yup.object({
   name: yup.string().min(3).max(50).required(),
-  email: yup.string().email().required(),
-  password: yup.string().min(8).max(16).required(),
-  repeatPassword: yup.string().required().oneOf([yup.ref('password')], 'Passwords do not match'),
-  city: yup.string().min(3).max(50).required(),
-  address: yup.string().min(3).max(50).required(),
+  url_name: yup.string().min(3).max(50).required(),
 }).noUnknown(true);
+
+// Subcategory
+export const makeSubcategorySchema = category_ids => {
+  return yup.object({
+    parent_id: yup.number().oneOf(category_ids, 'Invalid Category').required(),
+    name: yup.string().min(3).max(50).required(),
+    url_name: yup.string().min(3).max(50).required(),
+  }).noUnknown(true);
+}

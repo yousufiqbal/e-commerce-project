@@ -1,15 +1,19 @@
 <script>
   import { page } from "$app/stores";
-  import { isEmpty, startCase } from 'lodash-es'
+  import { isEmpty, kebabCase, startCase } from 'lodash-es'
   import Title from "$lib/components/Title.svelte";
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import Button from "$lib/components/Button.svelte";
   import Field from "$lib/components/Field.svelte";
   import Form from "$lib/components/Form.svelte";
-  import { extractYupErrors } from "$lib/database/schema";
+  import { categorySchema, extractYupErrors } from "$lib/others/schema";
+  import { axios } from "$lib/others/utils";
+  import { addToast } from "$lib/stores/toast";
 
-  let category = {}, touched = false, errors = {}
+  let category = {}
+  let touched = false, errors = {}
+  let el
 
   const mode = startCase($page.params.mode)
   const crumbs = [
@@ -20,7 +24,7 @@
   const validate = async () => {
     try {
       await categorySchema.validate(category, { abortEarly: false })
-      error = {}
+      errors = {}
     } catch (error) {
       errors = extractYupErrors(error)
     }
@@ -28,21 +32,43 @@
 
   const submit = async () => {
     if (isEmpty(errors)) {
-      if (mode == 'add') await addCategory()
-      if (mode == 'edit') await editCategory()
+      if ($page.params.mode == 'add') await addCategory()
+      if ($page.params.mode == 'edit') await editCategory()
     } else {
       touched = true
     }
   }
 
-  // $: if (category) validate()
+  const addCategory = async () => {
+    try {
+      const response = await axios.post('/api/categories', category)
+      addToast({ message: response.data.message })
+      reset()
+    } catch (error) {
+      addToast('Cannot add category')
+    }
+  }
+
+  const reset = () => {
+    category = {}
+    setTimeout(() => {
+      touched = false
+      errors = {}
+      el.focus()
+    }, 0);
+  }
+
+  // Computed
+  $: if (category) validate()
+  $: if (category.name) category.url_name = kebabCase(category.name)
 </script>
 
 <Breadcrumb {crumbs} />
 <Title back="/categories" title="{startCase(mode)} Category" />
 
 <Form>
-  <Field label="Name" {touched} error={errors.name} />
+  <Field bind:el label="Name" bind:value={category.name} {touched} error={errors.name} />
+  <Field label="URL Name" bind:value={category.url_name} {touched} error={errors.url_name} />
 </Form>
 
 <ButtonGroup>

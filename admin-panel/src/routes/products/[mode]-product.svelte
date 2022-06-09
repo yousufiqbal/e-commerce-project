@@ -7,7 +7,7 @@
   import Button from "$lib/components/Button.svelte";
   import Field from "$lib/components/Field.svelte";
   import Form from "$lib/components/Form.svelte";
-  import { extractYupErrors } from "$lib/database/schema";
+  import { extractYupErrors } from "$lib/others/schema";
   import Text from "$lib/components/Text.svelte";
   import Modal from "$lib/components/Modal.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";

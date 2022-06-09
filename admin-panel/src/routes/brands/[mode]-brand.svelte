@@ -7,7 +7,7 @@
   import Button from "$lib/components/Button.svelte";
   import Field from "$lib/components/Field.svelte";
   import Form from "$lib/components/Form.svelte";
-  import { extractYupErrors } from "$lib/database/schema";
+  import { extractYupErrors } from "$lib/others/schema";
 
   let brand = {}, touched = false, errors = {}
 

@@ -41,6 +41,6 @@
   }
   h1 {
     font-family: var(--serif);
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 </style>
