@@ -15,31 +15,31 @@
 
 <div class="menu">
   <a href="/categories">
-    <Icon fill="var(--primary)" icon="folders" />
+    <Icon icon="folders" />
     <span>Categories</span>
   </a>
   <a href="/brands">
-    <Icon fill="var(--primary)" icon="priceTagThree" />
+    <Icon icon="priceTagThree" />
     <span>Brands</span>
   </a>
   <a href="/products">
-    <Icon fill="var(--primary)" icon="listCheck" />
+    <Icon icon="listCheck" />
     <span>Products</span>
   </a>
   <a href="/orders">
-    <Icon fill="var(--primary)" icon="listOrdered" />
+    <Icon icon="listOrdered" />
     <span>Orders</span>
   </a>
   <a href="/users">
-    <Icon fill="var(--primary)" icon="userThree" />
+    <Icon icon="userThree" />
     <span>Users</span>
   </a>
   <a href="/reports">
-    <Icon fill="var(--primary)" icon="lineChart" />
+    <Icon icon="lineChart" />
     <span>Reports</span>
   </a>
   <a href="/backups">
-    <Icon fill="var(--primary)" icon="databaseTwo" />
+    <Icon icon="databaseTwo" />
     <span>Backups</span>
   </a>
 </div>
@@ -53,5 +53,8 @@
     gap: 10px;
     padding: var(--padding);
     border-bottom: 1px solid var(--border);
+  }
+  a:hover {
+    color: red;
   }
 </style>
