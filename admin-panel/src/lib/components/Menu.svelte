@@ -15,31 +15,31 @@
 
 <div class="menu">
   <a href="/categories">
-    <Icon icon="folders" />
+    <Icon fill="blue" icon="folders" />
     <span>Categories</span>
   </a>
   <a href="/brands">
-    <Icon icon="priceTagThree" />
+    <Icon fill="blue" icon="priceTagThree" />
     <span>Brands</span>
   </a>
   <a href="/products">
-    <Icon icon="listCheck" />
+    <Icon fill="blue" icon="listCheck" />
     <span>Products</span>
   </a>
   <a href="/orders">
-    <Icon icon="listOrdered" />
+    <Icon fill="blue" icon="listOrdered" />
     <span>Orders</span>
   </a>
   <a href="/users">
-    <Icon icon="userThree" />
+    <Icon fill="blue" icon="userThree" />
     <span>Users</span>
   </a>
   <a href="/reports">
-    <Icon icon="lineChart" />
+    <Icon fill="blue" icon="lineChart" />
     <span>Reports</span>
   </a>
   <a href="/backups">
-    <Icon icon="databaseTwo" />
+    <Icon fill="blue" icon="databaseTwo" />
     <span>Backups</span>
   </a>
 </div>

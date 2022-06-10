@@ -1,22 +1,36 @@
 <script>
   import Icon from "$lib/components/Icon.svelte";
 
+  let el
+  export let shortcut = null
   export let name, icon, href = null
   export let type = null
+
+  const handleShortcut = e => {
+    if (!shortcut) return
+    if (shortcut == 'ctrl+enter' && e.ctrlKey && e.key == 'Enter') {
+      if (el) {
+        e.preventDefault()
+        el.click()
+      }
+    }
+  }
 </script>
 
 {#if href}
-<a {href} class="button {type}">
+<a bind:this={el} {href} class="button {type}">
   <Icon size="1.2rem" {icon} />
   <span>{name}</span>
 </a>
 
 {:else}
-<button class="button {type}" on:click>
+<button bind:this={el} class="button {type}" on:click>
   <Icon size="1.2rem" {icon} />
   <span>{name}</span>
 </button>
 {/if}
+
+<svelte:window on:keydown={handleShortcut} />
 
 <style>
   .button {

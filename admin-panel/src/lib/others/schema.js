@@ -17,6 +17,7 @@ export const extractYupErrors = err => {
 
 // Category
 export const categorySchema = yup.object({
+  parent_id: yup.number().optional(),
   name: yup.string().min(3).max(50).required(),
   url_name: yup.string().min(3).max(50).required(),
 }).noUnknown(true);
@@ -24,7 +25,7 @@ export const categorySchema = yup.object({
 // Subcategory
 export const makeSubcategorySchema = category_ids => {
   return yup.object({
-    parent_id: yup.number().oneOf(category_ids, 'Invalid Category').required(),
+    parent_id: yup.number().oneOf(category_ids, 'Invalid Category').optional(),
     name: yup.string().min(3).max(50).required(),
     url_name: yup.string().min(3).max(50).required(),
   }).noUnknown(true);

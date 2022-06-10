@@ -16,7 +16,7 @@
 
   export let categories = []
   let modal = false
-  let subcategory = { category_name: '', parent_id: '', name: '', url_name: ''}
+  export let subcategory = { category_name: '', parent_id: '', name: '', url_name: ''}
   let touched = false, errors = {}
   const subcategorySchema = makeSubcategorySchema(categories.map(category => category.category_id))
 
@@ -72,6 +72,16 @@
       reset()
     } catch (error) {
       addToast({ message: 'Unable to add subcategory', type: 'error' })
+    }
+  }
+
+  const editSubcategory = async () => {
+    try {
+      const response = await axios.put('/api/subcategories?category_id=' + $page.url.searchParams.get('subcategory_id'), subcategory)
+      addToast({ message: response.data.message, type: 'success' })
+      reset()
+    } catch (error) {
+      addToast({ message: 'Unable to edit subcategory', type: 'error' })
     }
   }
 

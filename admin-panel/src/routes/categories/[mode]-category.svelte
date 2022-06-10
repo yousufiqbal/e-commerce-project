@@ -1,25 +1,35 @@
 <script>
-  import { page } from "$app/stores";
-  import { isEmpty, kebabCase, startCase } from 'lodash-es'
-  import Title from "$lib/components/Title.svelte";
+import { goto } from "$app/navigation";
+
+import { page } from "$app/stores";
+
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
-  import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import Button from "$lib/components/Button.svelte";
+  import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import Field from "$lib/components/Field.svelte";
   import Form from "$lib/components/Form.svelte";
-  import { categorySchema, extractYupErrors } from "$lib/others/schema";
-  import { axios } from "$lib/others/utils";
-  import { addToast } from "$lib/stores/toast";
+  import Title from "$lib/components/Title.svelte";
+import { categorySchema, extractYupErrors } from "$lib/others/schema";
+import { axios } from "$lib/others/utils";
+import { addToast } from "$lib/stores/toast";
+  import { isEmpty, kebabCase } from "lodash-es";
 
-  let category = {}
+  let category = { name: '', url_name: '' }
   let touched = false, errors = {}
-  let el
 
-  const mode = startCase($page.params.mode)
   const crumbs = [
-    { name: 'Categories', href: '/categories', icon: 'folders' },
-    { name: mode + ' Category', href: `/categories/${$page.params.mode}-category` },
+    { name: 'Categories', href: '/categories' },
+    { name: 'Add Category', href: '/categories/add-category' },
   ]
+
+  const submit = async () => {
+    if (isEmpty(errors)) {
+      if ($page.params.mode == 'add') addCategory()
+      if ($page.params.mode == 'edit') editCategory()
+    } else {
+      touched = true
+    }
+  }
 
   const validate = async () => {
     try {
@@ -27,51 +37,34 @@
       errors = {}
     } catch (error) {
       errors = extractYupErrors(error)
-    }
-  }
-
-  const submit = async () => {
-    if (isEmpty(errors)) {
-      if ($page.params.mode == 'add') await addCategory()
-      if ($page.params.mode == 'edit') await editCategory()
-    } else {
-      touched = true
+      
     }
   }
 
   const addCategory = async () => {
     try {
       const response = await axios.post('/api/categories', category)
-      addToast({ message: response.data.message })
-      reset()
+      addToast({ message: response.data.message, type: 'success'})
+      goto('/categories')
     } catch (error) {
-      addToast('Cannot add category')
+      addToast({ message: 'Cannot add category', type: 'error'})
     }
   }
 
-  const reset = () => {
-    category = {}
-    setTimeout(() => {
-      touched = false
-      errors = {}
-      el.focus()
-    }, 0);
-  }
-
-  // Computed
+  // URL Name
+  $: if (category) category.url_name = kebabCase(category.name) || ''
+  // Validation
   $: if (category) validate()
-  $: if (category.name) category.url_name = kebabCase(category.name)
 </script>
 
 <Breadcrumb {crumbs} />
-<Title back="/categories" title="{startCase(mode)} Category" />
+<Title back title="Add Category" />
 
 <Form>
-  <Field bind:el label="Name" bind:value={category.name} {touched} error={errors.name} />
-  <Field label="URL Name" bind:value={category.url_name} {touched} error={errors.url_name} />
+  <Field bind:value={category.name} label="Name" {touched} error={errors.name} />
 </Form>
 
 <ButtonGroup>
-  <Button on:click={submit} icon="save" name="Save" type="primary" />
-  <Button href="/categories" icon="close" name="Discard" />
+  <Button name="Save" icon="save" on:click={submit} />
+  <Button name="Discard" icon="close" href="/categories" />
 </ButtonGroup>

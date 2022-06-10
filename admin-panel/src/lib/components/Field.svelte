@@ -41,6 +41,7 @@
     border-bottom: 1px solid var(--border);
   }
   .error {
+    text-transform: capitalize;
     color: red;
     padding: var(--padding);
     border-top: 1px solid var(--border);

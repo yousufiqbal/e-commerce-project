@@ -2,7 +2,7 @@
   import Icon from "./Icon.svelte";
   import Seo from "./Seo.svelte";
 
-  export let title, back = null, description = title
+  export let title, back = null, description = title, icon  = null
 </script>
 
 <div class="title">
@@ -12,6 +12,9 @@
     <a href="{back}">
       <Icon fill="var(--primary)" size="1.5rem" icon="arrowLeft" />
     </a>
+    {/if}
+    {#if icon}
+    <Icon size="1.5rem" {icon} />
     {/if}
     <h1>{title}</h1>
   </div>
@@ -27,7 +30,7 @@
 <style>
   .title {
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     /* border: 1px solid red; */
   }
   a {

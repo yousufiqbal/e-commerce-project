@@ -13,5 +13,6 @@
     gap: 10px;
     padding-bottom: 10px;
     border-bottom: 1px dashed red;
+    margin-bottom: 20px;
   }
 </style>

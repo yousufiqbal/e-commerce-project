@@ -9,10 +9,14 @@
     overflow-x: auto;
     margin-bottom: 20px;
   }
+  .spaced {
+    padding: var(--padding-extra) !important;
+  }
   .table {
     white-space: nowrap;
     border-collapse: collapse;
     margin-bottom: 10px;
+    /* max-width: 800px; */
   }
   .table th {
     font-weight: bold;
@@ -34,5 +38,14 @@
   }
   .table .important {
     color: red;
+  }
+  .table a:hover {
+    color: red;
+  }
+  tr {
+    transition: background-color 400ms;
+  }
+  tr:hover {
+    background-color: rgb(247, 247, 255);
   }
 </style>

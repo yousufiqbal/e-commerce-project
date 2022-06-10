@@ -1,55 +1,61 @@
 <script>
+  import { page } from "$app/stores";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
-  import Subtitle from "$lib/components/Subtitle.svelte";
+import Card from "$lib/components/Card.svelte";
+import Nothing from "$lib/components/Nothing.svelte";
+import Subtitle from "$lib/components/Subtitle.svelte";
   import Table from "$lib/components/Table.svelte";
   import Title from "$lib/components/Title.svelte";
 
-  const Categories = [
-    {
-    name: 'Electronics',
-    subcategories: [
-      {
-        category_id: 31,
-        name: 'Cellphones',
-        url_name: 'cellphones',
-        parent_id: 21,
-        created: new Date()      
-      },
-    ]
-  }
-  ]
-
-  /** @type {Categories} */
   export let categories = []
 </script>
 
-<Title title="Categories" />
+<Title icon="folders" title="Categories" />
 
 <ButtonGroup>
-  <Button icon="add" name="New Category" href="/categories/add-category" />
+  <Button icon="add"  name="New Parent" href="{$page.url.pathname}/add-category" />
 </ButtonGroup>
 
-{#each categories as category, index}
-<Subtitle subtitle={category.name} />
+{#each categories as category}
+<Subtitle icon="listOrdered" subtitle={category.parent} />
 
 <ButtonGroup>
-  <Button icon="editBox" name="Edit" href="/categories/edit-category?category_id={category.category_id}" />
-  <Button icon="add" name="New Subcategory" href="/categories/add-subcategory?category_id={category.category_id}" />
+  <Button icon="add"  name="New Child" href="{$page.url.pathname}/add-category?category_id={category.category_id}" />
+  <Button icon="editBox" name="Edit" href="{$page.url.pathname}/add-category" />
 </ButtonGroup>
 
+{#if category.children.length != 0}
 <Table>
+  {#each category.children as children, index}
   <tr>
-    <th>Sr.</th>
-    <th>Name</th>
-    <th></th>
-  </tr>
-  {#each category.subcategories as subcategory}
-  <tr>
-    <td>{index + 1}</td>
-    <td class="main">{subcategory.name}</td>
-    <td><a href="/categories/edit-subcategory?subcategory_id={subcategory.category_id}">Edit</a></td>
+    <td>{index+1}.</td>
+    <td class="main">
+      <div class="level">
+        {@html children.path}
+      </div>
+    </td>
+    <td>15 Products</td>
+    <td><a href="{$page.url.pathname}/add-category?parent_id={category.category_id}">Append</a></td>
+    <td><a href="{$page.url.pathname}/edit-category?category_id={children.category_id}">Edit</a></td>
   </tr>
   {/each}
 </Table>
+{:else}
+<Nothing>
+  No Children
+</Nothing>
+{/if}
 {/each}
+
+
+<div class="levels">
+</div>
+
+
+<style>
+  .level {
+    display: flex;
+    gap: 10px;
+  }
+</style>
