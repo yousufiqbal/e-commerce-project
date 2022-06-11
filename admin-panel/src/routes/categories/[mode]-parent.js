@@ -10,4 +10,5 @@ export const get = async ({ params, url }) => {
       .executeTakeFirst()
     return { body: { parent: category } }
   }
+  return {}
 }

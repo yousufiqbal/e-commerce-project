@@ -1,24 +1,6 @@
 import { db } from '$lib/database/db'
 import { sql } from 'kysely'
 
-`WITH recursive categories_cte AS (
-
-	SELECT categories.category_id, categories.name, categories.url_name, categories.name AS path, categories.parent_id
-	FROM categories
-	WHERE categories.parent_id IS NULL
-	
-	UNION ALL 
-	
-	SELECT categories.category_id, categories.name, categories.url_name, CONCAT(categories_cte.path, ' > ', categories.name), categories.parent_id
-	FROM categories_cte
-	INNER JOIN categories ON categories.parent_id = categories_cte.category_id
-	
-)
-
-SELECT *
-FROM categories_cte`
-
-
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const get = async () => {
 

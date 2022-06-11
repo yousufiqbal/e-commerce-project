@@ -38,11 +38,12 @@
     gap: 7px;
     padding: 6px 12px;
     border: 1px solid var(--border);
-    box-shadow: var(--shadow);
+    /* box-shadow: var(--shadow); */
     border-radius: 4px;
   }
   .button:hover {
-    box-shadow: 0 0 5px 0 rgb(64, 64, 64);
+    color: red;
+    box-shadow: var(--shadow);
   }
   .primary {
     color: white;

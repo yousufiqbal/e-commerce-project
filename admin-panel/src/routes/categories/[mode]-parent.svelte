@@ -4,6 +4,7 @@
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
+import DeleteThis from "$lib/components/DeleteThis.svelte";
   import Field from "$lib/components/Field.svelte";
   import Form from "$lib/components/Form.svelte";
   import Title from "$lib/components/Title.svelte";
@@ -41,7 +42,7 @@
   const addParent = async () => {
     try {
       const response = await axios.post('/api/categories/parents', parent)
-      addToast({ message: response.data.message, type: 'success'})
+      addToast({ message: response.data.message })
       goto('/categories')
     } catch (error) {
       addToast({ message: error.data.message, type: 'error'})
@@ -51,10 +52,20 @@
   const editParent = async () => {
     try {
       const response = await axios.put('/api/categories/parents?category_id='+$page.url.searchParams.get('category_id'), parent)
-      addToast({ message: response.data.message, type: 'success'})
+      addToast({ message: response.data.message })
       goto('/categories')
     } catch (error) {
       addToast({ message: error.data.message, type: 'error'})
+    }
+  }
+  
+  const removeParent = async () => {
+    try {
+      const response = await axios.delete('/api/categories/parents?category_id='+$page.url.searchParams.get('category_id'))
+      addToast({ message: response.data.message })
+      goto('/categories')
+    } catch (error) {
+      addToast({ message: error.data.message || 'Cannot remove parent', type: 'error'})
     }
   }
 
@@ -73,3 +84,7 @@
   <Button name="Save" icon="save" on:click={submit} />
   <Button name="Discard" icon="close" href="/categories" />
 </ButtonGroup>
+
+{#if $page.params.mode == 'edit'}
+<DeleteThis on:yes={removeParent} />
+{/if}

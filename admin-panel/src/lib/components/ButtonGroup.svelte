@@ -1,15 +1,11 @@
-<div class="wrapper">
-  <div class="button-group">
-    <slot></slot>
-  </div>
+<div class="button-group">
+  <slot></slot>
 </div>
 
 <style>
-  .wrapper {
-    overflow-x: auto;
-  }
   .button-group {
     display: flex;
     column-gap: 15px;
+    margin-bottom: 20px;
   }
 </style>

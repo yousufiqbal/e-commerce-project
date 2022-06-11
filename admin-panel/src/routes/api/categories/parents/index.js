@@ -31,3 +31,23 @@ export const put = async ({ request, url }) => {
     return internalError(error)
   }
 }
+
+/** @type {import('@sveltejs/kit').RequestHandler} */
+export const del = async ({ url }) => {
+  try {
+    console.log('came')
+    const category_id = url.searchParams.get('category_id')
+    // Check if it has any children or products
+    // If it has donot remove it.. later.. TODO
+    const children = await db.selectFrom('categories').selectAll()
+      .where('categories.parent_id', '=', category_id).execute()
+    if (children.length != 0) {
+      return { status: 401, body: { message: 'Parent contains children. Remove them first'}}
+    }
+    await db.deleteFrom('categories').where('categories.category_id', '=', category_id)
+      .execute()
+    return { body: { message: 'Parent removed' }}
+  } catch (error) {
+    return internalError(error)
+  }
+}

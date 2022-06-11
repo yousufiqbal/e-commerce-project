@@ -4,11 +4,12 @@
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
+import DeleteThis from "$lib/components/DeleteThis.svelte";
   import Field from "$lib/components/Field.svelte";
   import Form from "$lib/components/Form.svelte";
   import Links from "$lib/components/Links.svelte";
   import Modal from "$lib/components/Modal.svelte";
-import SmartFilter from "$lib/components/SmartFilter.svelte";
+  import SmartFilter from "$lib/components/SmartFilter.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Title from "$lib/components/Title.svelte";
   import { childSchema, extractYupErrors } from "$lib/others/schema";
@@ -17,6 +18,7 @@ import SmartFilter from "$lib/components/SmartFilter.svelte";
   import { isEmpty, startCase } from "lodash-es";
 
   let modal = false
+  let el = null
   export let categories = []
   export let parent = {}
   export let child = {
@@ -61,6 +63,28 @@ import SmartFilter from "$lib/components/SmartFilter.svelte";
     }
   }
 
+  const editChild = async () => {
+    try {
+      const response = await axios.put('/api/categories/children?category_id='+$page.url.searchParams.get('child_id'), child)
+      addToast({ type: 'success', message: response.data.message })
+      goto('/categories')
+    } catch (error) {
+      addToast({ type: 'error', message: error.data.message })
+    }
+  }
+
+  const removeChild = async () => {
+    try {
+      modal = false
+      const response = await axios.delete('/api/categories/children?category_id='+$page.url.searchParams.get('child_id'), child)
+      addToast({ type: 'success', message: response.data.message })
+      goto('/categories')
+    } catch (error) {
+      modal = false
+      addToast({ type: 'error', message: error.data.message || 'Cannot remove child' })
+    }
+  }
+
   const showModal = e => {
     e.currentTarget.blur()
     modal = true
@@ -74,6 +98,7 @@ import SmartFilter from "$lib/components/SmartFilter.svelte";
     child.parent_id = id
     child.parent_path = path
     modal = false
+    if (errors.name) el.focus()
   }
 
   $: if (child) validate()
@@ -84,13 +109,17 @@ import SmartFilter from "$lib/components/SmartFilter.svelte";
 
 <Form>
   <Field label="Parent" value={child.parent_path} on:focus={showModal} />
-  <Field label="Child" bind:value={child.name} {touched} error={errors.name} />
+  <Field bind:el label="Child" bind:value={child.name} {touched} error={errors.name} />
 </Form>
 
 <ButtonGroup>
   <Button icon="save" name="Save" type="primary" on:click={submit} />
   <Button icon="close" name="Discard" href="/categories" />
 </ButtonGroup>
+
+{#if $page.params.mode == 'edit'}
+<DeleteThis on:yes={removeChild} />
+{/if}
 
 {#if modal}
 <Modal on:close={hideModal}>

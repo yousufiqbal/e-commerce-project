@@ -36,6 +36,7 @@
 
 <style>
   .wrapper {
+    z-index: 2;
     display: grid;
     place-items: center;
     position: fixed;

@@ -8,6 +8,11 @@
   
   const dispatch = createEventDispatcher()
   let modal = false
+
+  const handleClick = () => {
+    modal = false
+    dispatch('yes')
+  }
 </script>
 
 <div class="wrapper">
@@ -23,7 +28,7 @@
     Are you sure you want to delete this?
   </Text>
   <Spaced>
-    <Button shortcut="ctrl+enter" on:click={()=>dispatch('yes')} icon="check" name="Yes" />
+    <Button shortcut="ctrl+enter" on:click={handleClick} icon="check" name="Yes" />
     <Button type="primary" icon="close" on:click={()=>modal=false} name="No" />
   </Spaced>
 </Modal>

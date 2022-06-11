@@ -43,9 +43,10 @@
     color: red;
   }
   tr {
-    transition: background-color 400ms;
+    transition: background-color 200ms;
   }
   tr:hover {
-    background-color: rgb(247, 247, 255);
+    box-shadow: var(--shadow);
+    background-color: rgb(255, 244, 244);
   }
 </style>
