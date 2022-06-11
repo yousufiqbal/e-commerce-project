@@ -6,7 +6,9 @@
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import Field from "$lib/components/Field.svelte";
   import Form from "$lib/components/Form.svelte";
+  import Links from "$lib/components/Links.svelte";
   import Modal from "$lib/components/Modal.svelte";
+  import Subtitle from "$lib/components/Subtitle.svelte";
   import Title from "$lib/components/Title.svelte";
   import { childSchema, extractYupErrors } from "$lib/others/schema";
   import { axios } from "$lib/others/utils";
@@ -14,8 +16,10 @@
   import { isEmpty, startCase } from "lodash-es";
 
   let modal = false
+  export let categories = []
   export let parent = {}
   export let child = {
+    parent_path: parent.path,
     parent_id: parent.category_id,
     name: ''
   }
@@ -56,6 +60,21 @@
     }
   }
 
+  const showModal = e => {
+    e.currentTarget.blur()
+    modal = true
+  }
+
+  const hideModal = () => {
+    modal = false
+  }
+
+  const selectCategory = (id, path) => {
+    child.parent_id = id
+    child.parent_path = path
+    modal = false
+  }
+
   $: if (child) validate()
 </script>
 
@@ -63,7 +82,7 @@
 <Title back title="{startCase($page.params.mode)} Child" />
 
 <Form>
-  <Field label="Parent" value={parent.name} disabled />
+  <Field label="Parent" value={child.parent_path} on:focus={showModal} />
   <Field label="Child" bind:value={child.name} {touched} error={errors.name} />
 </Form>
 
@@ -73,7 +92,12 @@
 </ButtonGroup>
 
 {#if modal}
-<Modal on:close={()=>modal=false}>
-
+<Modal on:close={hideModal}>
+  <Subtitle subtitle="Choose Parent" />
+  <Links>
+    {#each categories as { category_id, path }}
+    <button on:click={() => selectCategory(category_id, path)}>{path}</button>
+    {/each}
+  </Links>
 </Modal>
 {/if}
