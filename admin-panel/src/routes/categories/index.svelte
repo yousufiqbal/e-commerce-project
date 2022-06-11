@@ -6,6 +6,7 @@
   import Nothing from "$lib/components/Nothing.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Table from "$lib/components/Table.svelte";
+import Text from "$lib/components/Text.svelte";
   import Title from "$lib/components/Title.svelte";
 
   export let categories = []
@@ -16,6 +17,10 @@
 <ButtonGroup>
   <Button icon="add"  name="New Parent" href="{$page.url.pathname}/add-parent" />
 </ButtonGroup>
+
+<Text>
+  If your website is in production, then it is mandatory that you do not change or shift any parent or child category which contains children or products. If you do it, you may lose your SEO juice. 
+</Text>
 
 <div class="mb40"></div>
 

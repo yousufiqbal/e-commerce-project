@@ -5,5 +5,6 @@
 <style>
   .text {
     margin-bottom: 20px;
+    max-width: 500px;
   }
 </style>
