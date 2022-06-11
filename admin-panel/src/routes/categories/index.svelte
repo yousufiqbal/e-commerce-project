@@ -39,7 +39,7 @@
     </td>
     <td>15 Products</td>
     <td><a href="{$page.url.pathname}/add-child?parent_id={children.category_id}">Append</a></td>
-    <td><a href="{$page.url.pathname}/edit-child?parent_id={children.category_id}">Edit</a></td>
+    <td><a href="{$page.url.pathname}/edit-child?parent_id={category.parent_id}&child_id={children.category_id}">Edit</a></td>
   </tr>
   {/each}
 </Table>

@@ -10,14 +10,14 @@
   import { parentSchema, extractYupErrors } from "$lib/others/schema";
   import { axios } from "$lib/others/utils";
   import { addToast } from "$lib/stores/toast";
-  import { isEmpty } from "lodash-es";
+  import { isEmpty, kebabCase, startCase } from "lodash-es";
 
-  let parent = { name: '', url_name: '' }
+  export let parent = { name: '', url_name: '' }
   let touched = false, errors = {}
 
   const crumbs = [
     { name: 'Categories', href: '/categories' },
-    { name: 'Add Parent', href: '/categories/add-parent' },
+    { name: `${startCase($page.params.mode)} Parent`, href: `/categories/${$page.params.mode}-parent` },
   ]
 
   const submit = async () => {
@@ -35,7 +35,6 @@
       errors = {}
     } catch (error) {
       errors = extractYupErrors(error)
-      
     }
   }
 
@@ -45,7 +44,17 @@
       addToast({ message: response.data.message, type: 'success'})
       goto('/categories')
     } catch (error) {
-      addToast({ message: 'Cannot add parent', type: 'error'})
+      addToast({ message: error.data.message, type: 'error'})
+    }
+  }
+
+  const editParent = async () => {
+    try {
+      const response = await axios.put('/api/categories/parents?category_id='+$page.url.searchParams.get('category_id'), parent)
+      addToast({ message: response.data.message, type: 'success'})
+      goto('/categories')
+    } catch (error) {
+      addToast({ message: error.data.message, type: 'error'})
     }
   }
 
@@ -54,7 +63,7 @@
 </script>
 
 <Breadcrumb {crumbs} />
-<Title back title="Add Parent" />
+<Title back title="{startCase($page.params.mode)} Parent" />
 
 <Form>
   <Field bind:value={parent.name} label="Parent Name" {touched} error={errors.name} />
