@@ -23,7 +23,6 @@
   const category_id = +$page.url.searchParams.get('category_id') || null
   if (category_id) {
     const category = categories.filter(category => +category.category_id == +category_id)[0]
-    console.log(category)
     subcategory.category_name = category.name
     subcategory.parent_id = category.category_id
   }
@@ -87,7 +86,6 @@
 
   $: subcategory.url_name = kebabCase(subcategory.name) || ''
   $: if (subcategory) validate()
-  $: console.log(categories)
 </script>
 
 <Breadcrumb {crumbs} />

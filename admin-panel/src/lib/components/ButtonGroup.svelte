@@ -10,6 +10,6 @@
   }
   .button-group {
     display: flex;
-    column-gap: 10px;
+    column-gap: 15px;
   }
 </style>

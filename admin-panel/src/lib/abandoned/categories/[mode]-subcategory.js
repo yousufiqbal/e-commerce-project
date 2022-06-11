@@ -17,7 +17,6 @@ export const get = async ({ url, params }) => {
       .where('categories.parent_id', 'is not', null)
       .select(['parent.category_id', 'parent.name as category_name', 'categories.name', 'categories.url_name'])
       .executeTakeFirst()
-      console.log(subcategory)
       return { body: { categories, subcategory }}
   }
 

@@ -1,34 +1,48 @@
 import { db } from '$lib/database/db'
 import { sql } from 'kysely'
 
+`WITH recursive categories_cte AS (
+
+	SELECT categories.category_id, categories.name, categories.url_name, categories.name AS path, categories.parent_id
+	FROM categories
+	WHERE categories.parent_id IS NULL
+	
+	UNION ALL 
+	
+	SELECT categories.category_id, categories.name, categories.url_name, CONCAT(categories_cte.path, ' > ', categories.name), categories.parent_id
+	FROM categories_cte
+	INNER JOIN categories ON categories.parent_id = categories_cte.category_id
+	
+)
+
+SELECT *
+FROM categories_cte`
+
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const get = async () => {
 
-  const result = await db.withRecursive('counts', db => 
-    db
-      .selectFrom('categories')
-      .select(['categories.category_id', 'categories.name as parent', 'categories.name', 'categories.name as path', 'categories.url_name'])
+  const categories = await db.withRecursive('categories_cte', db => 
+    db.selectFrom('categories')
       .where('categories.parent_id', 'is', null)
+      .select(['categories.category_id', 'categories.name', 'categories.url_name', 'categories.name as path', 'categories.parent_id', 'categories.category_id as root_id'])
       .unionAll(
-        db.selectFrom('categories')
-          .innerJoin('counts', 'counts.category_id', 'categories.parent_id')
-          .select(['categories.category_id', 'counts.parent', 'categories.name', sql`CONCAT(counts.path, ' &rarr; ', categories.name)`.as('path'), 'counts.url_name'])
-      )
-  )
+        db.selectFrom('categories_cte')
+          .innerJoin('categories', 'categories.parent_id', 'categories_cte.category_id')
+          .select(['categories.category_id', 'categories.name', 'categories.url_name', sql`CONCAT(categories_cte.path, ' > ', categories.name)`, 'categories.parent_id', 'categories_cte.root_id']))
+    ).selectFrom('categories_cte').selectAll().orderBy('path').execute()
+
+    const roots = categories.filter(category => category.parent_id == null)
+    let data = []
+
+    for (const root of roots) {
+      data.push({
+        name: root.name,
+        parent_id: root.category_id,
+        children: categories.filter(category => category.root_id == root.category_id && category.parent_id != null)
+      })
+    }
+
+    return { body: { categories: data }}
   
-  // Use
-  .selectFrom('counts').orderBy('counts.path').selectAll().execute()
-
-  const parents = [...new Set(result.map(category => ({name: category.parent, category_id: category.category_id})))]
-  let data = []
-  for (const parent of parents) {
-    data.push({
-      parent: parent.name,
-      category_id: parent.category_id,
-      children: result.filter(category => category.parent == parent.name && category.name != parent.name)
-    })
-  }
-
-  return { body: { categories: data }}
 }

@@ -9,7 +9,6 @@
     { name: 'Net Profit', value: 'net-profit' },
   ]
 
-  $: console.log(group)
 </script>
 
 <div class="checkboxes">
