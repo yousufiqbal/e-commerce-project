@@ -23,7 +23,7 @@
   }
   .table th, .table td {
     padding: var(--padding);
-    border: 0.9px solid var(--border);
+    border: 0.7px solid var(--border);
   }
   .table .main {
     width: 100%;

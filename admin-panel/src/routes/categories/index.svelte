@@ -17,6 +17,8 @@
   <Button icon="add"  name="New Parent" href="{$page.url.pathname}/add-parent" />
 </ButtonGroup>
 
+<div class="mb40"></div>
+
 {#each categories as category}
 <Subtitle icon="listOrdered" subtitle={category.name} />
 

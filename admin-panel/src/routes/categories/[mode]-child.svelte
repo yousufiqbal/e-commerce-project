@@ -8,6 +8,7 @@
   import Form from "$lib/components/Form.svelte";
   import Links from "$lib/components/Links.svelte";
   import Modal from "$lib/components/Modal.svelte";
+import SmartFilter from "$lib/components/SmartFilter.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Title from "$lib/components/Title.svelte";
   import { childSchema, extractYupErrors } from "$lib/others/schema";
@@ -94,6 +95,7 @@
 {#if modal}
 <Modal on:close={hideModal}>
   <Subtitle subtitle="Choose Parent" />
+  <SmartFilter bind:data={categories} searchColumn="path" placeholder="Filter Categories" />
   <Links>
     {#each categories as { category_id, path }}
     <button on:click={() => selectCategory(category_id, path)}>{path}</button>
