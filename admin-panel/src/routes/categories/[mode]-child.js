@@ -38,7 +38,6 @@ export const get = async ({ url, params }) => {
     const parent = categories.filter(category => category.category_id == parent_id)[0]
     const child_id = url.searchParams.get('child_id')
     const child = categories.filter(category => category.category_id == child_id)[0]
-    console.log(child)
     child.parent_path = parent.path
     child.parent_id =  parent.category_id
     return { body: { categories, child }}

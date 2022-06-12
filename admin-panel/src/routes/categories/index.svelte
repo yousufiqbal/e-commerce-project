@@ -6,7 +6,7 @@
   import Nothing from "$lib/components/Nothing.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Table from "$lib/components/Table.svelte";
-import Text from "$lib/components/Text.svelte";
+  import Text from "$lib/components/Text.svelte";
   import Title from "$lib/components/Title.svelte";
 
   export let categories = []
@@ -44,7 +44,7 @@ import Text from "$lib/components/Text.svelte";
     </td>
     <td>15 Products</td>
     <td><a href="{$page.url.pathname}/add-child?parent_id={children.category_id}">Append</a></td>
-    <td><a href="{$page.url.pathname}/edit-child?parent_id={category.parent_id}&child_id={children.category_id}">Edit</a></td>
+    <td><a href="{$page.url.pathname}/edit-child?parent_id={children.parent_id}&child_id={children.category_id}">Edit</a></td>
   </tr>
   {/each}
 </Table>

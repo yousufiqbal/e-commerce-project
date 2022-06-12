@@ -35,7 +35,6 @@ export const put = async ({ request, url }) => {
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const del = async ({ url }) => {
   try {
-    console.log('came')
     const category_id = url.searchParams.get('category_id')
     // Check if it has any children or products
     // If it has donot remove it.. later.. TODO

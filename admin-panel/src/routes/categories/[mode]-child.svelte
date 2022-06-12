@@ -113,7 +113,7 @@ import DeleteThis from "$lib/components/DeleteThis.svelte";
 </Form>
 
 <ButtonGroup>
-  <Button icon="save" name="Save" type="primary" on:click={submit} />
+  <Button shortcut="ctrl+enter" icon="save" name="Save" type="primary" on:click={submit} />
   <Button icon="close" name="Discard" href="/categories" />
 </ButtonGroup>
 

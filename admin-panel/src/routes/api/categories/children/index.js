@@ -25,7 +25,6 @@ export const put = async ({ request, url }) => {
     const body = await request.json()
     const child = await childSchema.validate(body, { abortEarly: false })
     child.url_name = kebabCase(child.name)
-    console.log(child)
     const child_id = url.searchParams.get('category_id')
     await db.updateTable('categories')
       .where('categories.category_id', '=', child_id)
