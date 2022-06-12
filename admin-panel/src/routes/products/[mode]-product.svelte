@@ -92,6 +92,9 @@ import Carousel from "$lib/components/Carousel.svelte";
 <Layout columns="3fr 2fr">
 
   <div slot="main">
+    <Subtitle icon="listOrdered" subtitle="Image" />
+    <ImageUpload />
+    
     <Subtitle icon="listOrdered" subtitle="Details" />
     <Form>
       <Field on:focus={()=>{categoryModal=true}} value={product.category_path} label="Category" {touched} error={errors['category_id']} />
@@ -122,10 +125,7 @@ import Carousel from "$lib/components/Carousel.svelte";
     </ButtonGroup>
   </div>
 
-  <div slot="related">
-    <Subtitle icon="listOrdered" subtitle="Image" />
-    <ImageUpload />
-    
+  <div slot="related">   
     <Subtitle icon="listOrdered" subtitle="Carousel" />
     <Carousel {images} />
     <MultipleImageUpload bind:images />

@@ -27,8 +27,9 @@ export const childSchema = yup.object({
 }).noUnknown(true);
 
 // Brand
-export const brandSchema = yup.object({
-  name: yup.string().min(3).max(50).required(),
+export const constantSchema = yup.object({
+  name: yup.string().min(1).max(50).required(),
+  value: yup.string().min(1).max(50).required(),
 }).noUnknown(true);
 
 // Product

@@ -85,6 +85,7 @@
     display: grid;
     justify-content: center;
     gap: 15px;
+    margin-bottom: 20px;
     /* outline: 1px solid red; */
   }
   .placeholder {

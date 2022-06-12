@@ -12,11 +12,7 @@
   ]
 
   // Dummy data
-  const constants = [
-    { constant_id: 1, name: 'Yousuf', value: 'Iqbal' },
-    { constant_id: 2, name: 'Nabeel', value: 'Khan' },
-    { constant_id: 3, name: 'Margin', value: '20%' },
-  ]
+  export let constants = []
 </script>
 
 <Breadcrumb {crumbs} />
@@ -31,8 +27,8 @@
 <Table>
   <tr>
     <th>Sr.</th>
-    <th class="main">Name</th>
-    <th>Value</th>
+    <th >Name</th>
+    <th class="main">Value</th>
     <th></th>
   </tr>
   {#each constants as constant, index (constant.constant_id)}

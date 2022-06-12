@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `brands` (
   UNIQUE KEY `url_name` (`url_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.brands: ~11 rows (approximately)
+-- Dumping data for table fast-ecommerce.brands: ~12 rows (approximately)
 /*!40000 ALTER TABLE `brands` DISABLE KEYS */;
 INSERT INTO `brands` (`brand_id`, `name`, `url_name`, `created`) VALUES
 	(1, 'Nurpur', 'nurpur', '2022-05-27 10:45:03'),
@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   CONSTRAINT `FK_categories_categories` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`category_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.categories: ~20 rows (approximately)
+-- Dumping data for table fast-ecommerce.categories: ~28 rows (approximately)
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
 INSERT INTO `categories` (`category_id`, `name`, `url_name`, `parent_id`, `created`) VALUES
 	(3, 'Oil & Ghee', 'oil-ghee', NULL, '2022-05-27 09:05:27'),
@@ -201,19 +201,18 @@ INSERT INTO `categories` (`category_id`, `name`, `url_name`, `parent_id`, `creat
 CREATE TABLE IF NOT EXISTS `constants` (
   `constant_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `value` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `value` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`constant_id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.constants: ~4 rows (approximately)
+-- Dumping data for table fast-ecommerce.constants: ~3 rows (approximately)
 /*!40000 ALTER TABLE `constants` DISABLE KEYS */;
 INSERT INTO `constants` (`constant_id`, `name`, `value`, `created`) VALUES
-	(1, 'whatsapp', '0333-3215469', '2022-06-02 16:43:13'),
-	(2, 'email', 'support@fast.com', '2022-06-02 16:43:31'),
 	(3, 'phone', '021-34554658', '2022-06-02 16:43:40'),
-	(4, 'timings', '9AM to 6PM everyday, except Sundays and Prayer timings', '2022-06-02 16:44:27');
+	(5, 'asdf', 'asdasdf', '2022-06-13 01:04:49'),
+	(6, 'asdf222', 'asdfa222', '2022-06-13 01:05:15');
 /*!40000 ALTER TABLE `constants` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.guests

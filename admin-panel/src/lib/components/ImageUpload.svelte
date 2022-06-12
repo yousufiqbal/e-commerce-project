@@ -1,12 +1,12 @@
 <script>
+  import { fileToBase64 } from "$lib/others/utils";
   import Button from "./Button.svelte";
   import ButtonGroup from "./ButtonGroup.svelte";
-  import { fileToBase64 } from "$lib/others/utils";
-import Nothing from "./Nothing.svelte";
 
+  export let name = 'Upload Image'
   export let image = null
-  let fileInput = null
   let filename
+  let fileInput
 
   const removeImage = () => {
     fileInput.value = ''
@@ -20,32 +20,41 @@ import Nothing from "./Nothing.svelte";
   }
 </script>
 
+<input on:change={previewImage} accept=".jpg, .jpeg" hidden bind:this={fileInput} type="file">
+
 <div class="image-upload">
   {#if image}
-  <img src="{image}" alt="">
-  {:else}
-  <Nothing --margin-bottom="0">
-    No Image
-  </Nothing>
+  <div class="product-image">
+    <div class="frame">
+      <img src="{image}" alt="">
+    </div>
+    <div class="filename">{filename}</div>
+  </div>
   {/if}
-  <ButtonGroup>
-    {#if !image}
-    <Button icon="imageAdd" name="Choose Image" on:click={()=>fileInput.click()} />
-    {:else}
-    <Button icon="deleteBin" name="Remove Image" />
-    {/if}
-  </ButtonGroup>
 </div>
 
-<input on:change={previewImage} hidden bind:this={fileInput} type="file" accept=".jpg">
+<ButtonGroup class="mb20">
+  {#if image}
+  <Button on:click={removeImage} icon="deleteBin" name="Remove Image" />
+  {:else}
+  <Button on:click={()=>fileInput.click()} icon="imageAdd" {name} />
+  <div style="border: 1px solid red; padding: var(--padding); color: red">No image</div>
+  {/if}
+</ButtonGroup>
 
 <style>
-  .image-upload {
+  .product-image {
+    /* outline: 1px solid red; */
     display: grid;
-    gap: 20px;
+    justify-content: start;
+    margin-bottom: 20px;
   }
-  img {
-    border-radius: 10px;
-    max-width: 400px;
+  .frame {
+    /* outline: 1px solid red; */
+    max-width: 200px;
+  }
+  .product-image img {
+    width: 100%;
+    height: auto;
   }
 </style>
