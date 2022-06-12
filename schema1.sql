@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `brands` (
   PRIMARY KEY (`brand_id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `url_name` (`url_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.brands: ~11 rows (approximately)
 /*!40000 ALTER TABLE `brands` DISABLE KEYS */;
@@ -102,12 +102,13 @@ INSERT INTO `brands` (`brand_id`, `name`, `url_name`, `created`) VALUES
 	(3, 'Milkpak', 'milkpak', '2022-05-27 10:45:46'),
 	(4, 'Good Milk', 'good-milk', '2022-05-27 10:45:58'),
 	(5, 'Blue Band', 'blue-band', '2022-05-27 10:46:14'),
-	(6, 'Amul', 'amul', '2022-05-27 10:48:12'),
+	(6, 'AmulG', 'amul-g', '2022-05-27 10:48:12'),
 	(7, 'Adam\'s', 'adams', '2022-05-27 10:50:18'),
 	(8, 'Nestle', 'nestle', '2022-05-27 10:50:46'),
 	(9, 'Dayfresh', 'dayfresh', '2022-05-27 10:50:58'),
 	(11, 'Nido', 'nido', '2022-05-27 14:54:13'),
-	(12, 'Desi', 'desi', '2022-05-27 14:56:03');
+	(12, 'Desi', 'desi', '2022-05-27 14:56:03'),
+	(13, 'Samama', 'samama', '2022-06-12 10:00:04');
 /*!40000 ALTER TABLE `brands` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.cart_items
@@ -152,16 +153,16 @@ INSERT INTO `cart_items` (`cart_item_id`, `user_id`, `product_id`, `quantity`, `
 -- Dumping structure for table fast-ecommerce.categories
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
+  `name` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
   `url_name` varchar(50) NOT NULL,
   `parent_id` int DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`category_id`),
-  UNIQUE KEY `name` (`name`),
   UNIQUE KEY `url_name` (`url_name`),
+  UNIQUE KEY `name` (`name`),
   KEY `FK_categories_categories` (`parent_id`),
   CONSTRAINT `FK_categories_categories` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.categories: ~20 rows (approximately)
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
@@ -176,17 +177,24 @@ INSERT INTO `categories` (`category_id`, `name`, `url_name`, `parent_id`, `creat
 	(10, 'Egg', 'egg', 5, '2022-05-26 23:59:42'),
 	(11, 'Yogurt', 'yogurt', 5, '2022-05-27 00:00:59'),
 	(12, 'Milk Powders', 'milk-powders', 5, '2022-05-27 00:01:15'),
-	(13, 'Soft Drinks', 'soft-drinks', 4, '2022-05-27 00:02:19'),
 	(14, 'Juices', 'juices', 4, '2022-05-27 00:02:37'),
 	(15, 'Mineral Water', 'mineral_water', 4, '2022-05-27 00:03:02'),
-	(16, 'Energy Drinks', 'energy-drinks', 4, '2022-05-27 00:03:18'),
 	(17, 'Cooking Oil', 'cooking-oil', 3, '2022-05-27 00:04:03'),
 	(18, 'Ghee', 'ghee', 3, '2022-05-27 00:04:15'),
 	(19, 'Organic Oil', 'organic-oil', 3, '2022-05-27 00:04:47'),
-	(22, 'Electronics', 'electronics', 3, '2022-06-10 11:04:17'),
-	(24, 'Vehicles', 'vehicles', NULL, '2022-06-10 12:17:37'),
-	(25, 'Margarine', 'margarine', 6, '2022-06-10 16:32:59'),
-	(26, 'Books', 'books', NULL, '2022-06-10 19:45:43');
+	(25, 'Margarine', 'margarine', 5, '2022-06-10 16:32:59'),
+	(26, 'Books', 'books', NULL, '2022-06-10 19:45:43'),
+	(29, 'Liquids', 'liquids', 4, '2022-06-11 23:52:50'),
+	(32, 'Electronics', 'electronics', NULL, '2022-06-12 09:04:19'),
+	(33, 'Cellphones', 'cellphones', 32, '2022-06-12 09:05:05'),
+	(34, 'Air Conditioners', 'air-conditioners', 32, '2022-06-12 09:05:27'),
+	(35, 'Calculators', 'calculators', 32, '2022-06-12 09:05:40'),
+	(36, 'Mayonnaise', 'mayonnaise', 5, '2022-06-12 09:07:35'),
+	(37, '1212', '1212', 5, '2022-06-12 09:08:17'),
+	(38, '22222', '22222', 37, '2022-06-12 09:09:10'),
+	(39, '654654', '654654', 38, '2022-06-12 10:04:27'),
+	(40, 'fdhdfgh', 'fdhdfgh', 39, '2022-06-12 10:04:33'),
+	(41, 'sss', 'sss', 39, '2022-06-12 10:04:47');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.constants
@@ -521,6 +529,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `category_id` int NOT NULL,
   `brand_id` int NOT NULL,
   `name` varchar(50) NOT NULL,
+  `sku` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `url_name` varchar(50) NOT NULL,
   `stock` int NOT NULL DEFAULT '10',
   `unit_cost` int NOT NULL DEFAULT '10',
@@ -539,25 +548,25 @@ CREATE TABLE IF NOT EXISTS `products` (
 
 -- Dumping data for table fast-ecommerce.products: ~18 rows (approximately)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` (`product_id`, `category_id`, `brand_id`, `name`, `url_name`, `stock`, `unit_cost`, `price`, `fair_quantity`, `description`, `created`) VALUES
-	(1, 6, 1, 'Nurpur Butter 50 Grams', 'nurpur-butter-50-grams', 505, 80, 100.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:38:38'),
-	(2, 6, 1, 'Nurpur Butter 200 Grams', 'nurpur-butter-200-grams', 10, 240, 250.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:39:14'),
-	(3, 6, 5, 'Blueband Margarine 250 Grams', 'blueband-margaring-250-grams', 50, 205, 250.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:39:46'),
-	(4, 6, 5, 'Blueband Margarine 500 Grams', 'blueband-margarine-500-grams', 60, 150, 500.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:40:08'),
-	(5, 7, 2, 'Olpers 250 ML', 'olpers-250-ml', 50, 100, 110.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:43:28'),
-	(6, 7, 2, 'Olpers 1 Litre', 'olpers-1-litre', 200, 280, 300.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:44:15'),
-	(7, 7, 8, 'Milkpak Milk 250 ML', 'milkpak-milk-250-ml', 50, 60, 120.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:45:44'),
-	(8, 7, 8, 'Milkpak Milk 1 Litre', 'milkpak-milk-1-litre', 10, 310, 320.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:46:11'),
-	(9, 8, 3, 'Milkpack Cream 200 ML', 'milkpak-cream-200-ml', 0, 170, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:48:02'),
-	(10, 8, 2, 'Olpers Cream 200 ML', 'olpers-cream-200-ml', 65, 170, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:48:33'),
-	(11, 9, 7, 'Adams Cheese Slices 10 Pieces', 'adams-cheese-slices-10-pieces', 20, 350, 400.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:49:03'),
-	(12, 9, 7, 'Adams Cheddar Cheese 250 Grams', 'adams-cheddar-cheese-250-grams', 10, 250, 300.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:49:34'),
-	(13, 9, 7, 'Adams Mozzarella Cheese 500 Grams', 'adams-mozzarella-cheese-500-grams', 30, 405, 455.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:50:08'),
-	(14, 9, 6, 'Amul Cheese Slices 15 Pieces', 'amul-cheese-slices-15-pieces', 40, 350, 506.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:51:31'),
-	(16, 11, 8, 'Nestle Yogurt 500 Grams', 'nestle-yogurt-500-grams', 50, 240, 245.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:52:37'),
-	(17, 11, 8, 'Nestle Yogurt 125 Grams', 'nestle-yogurt-125-grams', 0, 50, 100.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:52:56'),
-	(18, 12, 11, 'Nido Powder 500 Grams', 'nido-powder-500-grams', 5000, 1235, 1500.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:55:04'),
-	(20, 10, 12, 'Eggs 1 Dozen', 'eggs-1-dozen', 1000, 160, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:56:48');
+INSERT INTO `products` (`product_id`, `category_id`, `brand_id`, `name`, `sku`, `url_name`, `stock`, `unit_cost`, `price`, `fair_quantity`, `description`, `created`) VALUES
+	(1, 6, 1, 'Nurpur Butter 50 Grams', NULL, 'nurpur-butter-50-grams', 505, 80, 100.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:38:38'),
+	(2, 6, 1, 'Nurpur Butter 200 Grams', NULL, 'nurpur-butter-200-grams', 10, 240, 250.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:39:14'),
+	(3, 6, 5, 'Blueband Margarine 250 Grams', NULL, 'blueband-margaring-250-grams', 50, 205, 250.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:39:46'),
+	(4, 6, 5, 'Blueband Margarine 500 Grams', NULL, 'blueband-margarine-500-grams', 60, 150, 500.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:40:08'),
+	(5, 7, 2, 'Olpers 250 ML', NULL, 'olpers-250-ml', 50, 100, 110.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:43:28'),
+	(6, 7, 2, 'Olpers 1 Litre', NULL, 'olpers-1-litre', 200, 280, 300.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:44:15'),
+	(7, 7, 8, 'Milkpak Milk 250 ML', NULL, 'milkpak-milk-250-ml', 50, 60, 120.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:45:44'),
+	(8, 7, 8, 'Milkpak Milk 1 Litre', NULL, 'milkpak-milk-1-litre', 10, 310, 320.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:46:11'),
+	(9, 8, 3, 'Milkpack Cream 200 ML', NULL, 'milkpak-cream-200-ml', 0, 170, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:48:02'),
+	(10, 8, 2, 'Olpers Cream 200 ML', NULL, 'olpers-cream-200-ml', 65, 170, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:48:33'),
+	(11, 9, 7, 'Adams Cheese Slices 10 Pieces', NULL, 'adams-cheese-slices-10-pieces', 20, 350, 400.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:49:03'),
+	(12, 9, 7, 'Adams Cheddar Cheese 250 Grams', NULL, 'adams-cheddar-cheese-250-grams', 10, 250, 300.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:49:34'),
+	(13, 9, 7, 'Adams Mozzarella Cheese 500 Grams', NULL, 'adams-mozzarella-cheese-500-grams', 30, 405, 455.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:50:08'),
+	(14, 9, 6, 'Amul Cheese Slices 15 Pieces', NULL, 'amul-cheese-slices-15-pieces', 40, 350, 506.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:51:31'),
+	(16, 11, 8, 'Nestle Yogurt 500 Grams', NULL, 'nestle-yogurt-500-grams', 50, 240, 245.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:52:37'),
+	(17, 11, 8, 'Nestle Yogurt 125 Grams', NULL, 'nestle-yogurt-125-grams', 0, 50, 100.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:52:56'),
+	(18, 12, 11, 'Nido Powder 500 Grams', NULL, 'nido-powder-500-grams', 5000, 1235, 1500.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:55:04'),
+	(20, 10, 12, 'Eggs 1 Dozen', NULL, 'eggs-1-dozen', 1000, 160, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:56:48');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.promos
