@@ -14,5 +14,6 @@
     padding-bottom: 10px;
     border-bottom: 1px dashed red;
     margin-bottom: 20px;
+    max-width: 500px;
   }
 </style>

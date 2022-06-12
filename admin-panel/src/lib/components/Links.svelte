@@ -17,5 +17,10 @@
   }
   .links > *:hover {
     color: red;
+    box-shadow: var(--shadow);
+  }
+  .links b {
+    color: red;
+    /* font-weight: bold; */
   }
 </style>

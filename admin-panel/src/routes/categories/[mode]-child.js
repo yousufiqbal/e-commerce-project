@@ -12,7 +12,7 @@ export const get = async ({ url, params }) => {
       .unionAll(
         db.selectFrom('categories_cte')
           .innerJoin('categories', 'categories.parent_id', 'categories_cte.category_id')
-          .select(['categories.category_id', 'categories.name', sql`CONCAT(categories_cte.path, ' > ', categories.name)`]))
+          .select(['categories.category_id', 'categories.name', sql`CONCAT(categories_cte.path, '  →  ', categories.name)`]))
     ).selectFrom('categories_cte').selectAll().orderBy('path').execute()
 
   // Current path..

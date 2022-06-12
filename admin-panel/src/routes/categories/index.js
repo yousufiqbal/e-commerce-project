@@ -11,7 +11,7 @@ export const get = async () => {
       .unionAll(
         db.selectFrom('categories_cte')
           .innerJoin('categories', 'categories.parent_id', 'categories_cte.category_id')
-          .select(['categories.category_id', 'categories.name', 'categories.url_name', sql`CONCAT(categories_cte.path, ' &rarr; ', categories.name)`, 'categories.parent_id', 'categories_cte.root_id']))
+          .select(['categories.category_id', 'categories.name', 'categories.url_name', sql`CONCAT(categories_cte.path, ' &nbsp; &rarr; &nbsp; ', categories.name)`, 'categories.parent_id', 'categories_cte.root_id']))
     ).selectFrom('categories_cte').selectAll().orderBy('path').execute()
 
     const roots = categories.filter(category => category.parent_id == null)

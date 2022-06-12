@@ -2,6 +2,8 @@ import { dev } from '$app/env';
 import dayjs from 'dayjs';
 import redaxios from 'redaxios'
 
+export const stripTags = stringWithTags => stringWithTags.replace(/(<([^>]+)>)/gi, "");
+
 export let isSafari = () => {
   return /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
 }

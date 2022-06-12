@@ -1,6 +1,7 @@
 <script>
   import { onDestroy } from "svelte";
   import Icon from "./Icon.svelte";
+  import fuzzysort from 'fuzzysort'
 
   export let data = []
   export let searchColumn = 'name'
@@ -8,7 +9,7 @@
 
   let keyword = ''
   let original = [...data]
-
+  
   onDestroy(() => {
     data = [...original]
   })
@@ -17,7 +18,7 @@
     if (!keyword) {
       data = [...original]
     } else {
-      data = original.filter(record => record[searchColumn].toLowerCase().includes(keyword))
+      data = fuzzysort.go(keyword, original, {key: searchColumn}).map(d => ({ ...d.obj, [searchColumn]: fuzzysort.highlight(d, '<b>', '</b>') } ));
     }
   }
 </script>

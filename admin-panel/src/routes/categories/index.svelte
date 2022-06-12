@@ -19,7 +19,7 @@
 </ButtonGroup>
 
 <Text>
-  If your website is in production, then it is mandatory that you do not change or shift any parent or child category which contains children or products. If you do it, you may lose your SEO juice. 
+  If your website is in production and your URLs use actual category names instead of IDs, then it is mandatory that you do not change or shift any parent or child category which contains children or products. If you do it, you may lose your SEO juice. 
 </Text>
 
 <div class="mb40"></div>

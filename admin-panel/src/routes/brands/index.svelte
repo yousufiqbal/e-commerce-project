@@ -1,18 +1,12 @@
 <script>
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
+  import Nothing from "$lib/components/Nothing.svelte";
   import Table from "$lib/components/Table.svelte";
   import Title from "$lib/components/Title.svelte";
 
   // Dummy Data
-  export let brands = [
-    { brand_id: 1, name: 'Nokia' },
-    { brand_id: 2, name: 'Samsung' },
-    { brand_id: 3, name: 'Sony' },
-    { brand_id: 4, name: 'LG' },
-    { brand_id: 5, name: 'Microsoft' },
-    { brand_id: 6, name: 'Xiaomi' },
-  ]
+  export let brands = []
 </script>
 
 <Title title="Brands" />
@@ -37,5 +31,8 @@
   {/each}
 </Table>
 {:else}
-   <!-- else content here -->
+
+<Nothing>
+  No Brands
+</Nothing>
 {/if}

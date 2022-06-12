@@ -20,8 +20,30 @@ export const parentSchema = yup.object({
   name: yup.string().min(3).max(50).required(),
 }).noUnknown(true);
 
-// Parent
+// Child
 export const childSchema = yup.object({
   parent_id: yup.number().required(),
   name: yup.string().min(3).max(50).required(),
 }).noUnknown(true);
+
+// Brand
+export const brandSchema = yup.object({
+  name: yup.string().min(3).max(50).required(),
+}).noUnknown(true);
+
+// Product
+// let product = { category_id: '', brand_id: '', name: '', stock: 0, unit_cost: 0, price: 0, fair_quantity: 0, description: '' }
+
+export const makeProductSchema = (categories, brands) => {
+  return yup.object({
+    category_id: yup.number().oneOf(categories.map(category => category.category_id), 'Invalid Category').nullable().required(),
+    brand_id: yup.number().oneOf(brands.map(brand => brand.brand_id), 'Invalid Brand').nullable().required(),
+    name: yup.string().min(3).max(50).required(),
+    sku: yup.string().min(1).max(50).required(),
+    stock: yup.number().moreThan(1).required(),
+    unit_cost: yup.number().moreThan(1).required(),
+    price: yup.number().moreThan(1).required(),
+    fair_quantity: yup.number().moreThan(1).required(),
+    description: yup.string().min(1).required(),
+  }).noUnknown(true);
+}

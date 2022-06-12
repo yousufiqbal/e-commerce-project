@@ -7,41 +7,34 @@
   import Button from "$lib/components/Button.svelte";
   import Field from "$lib/components/Field.svelte";
   import Form from "$lib/components/Form.svelte";
-  import { extractYupErrors } from "$lib/others/schema";
-  import Text from "$lib/components/Text.svelte";
+  import { extractYupErrors, makeProductSchema } from "$lib/others/schema";
   import Modal from "$lib/components/Modal.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
-  import SearchBox from "$lib/components/SearchBox.svelte";
-  import Results from "$lib/components/Results.svelte";
+  import SmartFilter from "$lib/components/SmartFilter.svelte";
+  import Links from "$lib/components/Links.svelte";
+  import Table from "$lib/components/Table.svelte";
+  import { axios, stripTags } from "$lib/others/utils";
+  import { addToast } from "$lib/stores/toast";
 
-  let product = { unit_cost: 0, price: 0, stock: 0, fair_quantity: 10 }, touched = false, errors = {}
-  let margin = 25
+  export let categories = [], brands = []
+  // Extra props: category_path, brand_name
+  let product = { category_id: null, brand_id: null, name: '', stock: 0, unit_cost: 0, price: 0, fair_quantity: 0, description: '' }
+  let touched = false, errors = {}
+
   let categoryModal = false, brandModal = false
+  let productSchema = makeProductSchema(categories, brands)
 
-  let categoryResults = [
-    { id: 1, name: 'Dairy' },
-    { id: 2, name: 'Books' },
-    { id: 3, name: 'Electronics' },
-    { id: 4, name: 'Cellphones' },
-  ]
-
-  let brandResults = [
-    { id: 1, name: 'Nokia' },
-    { id: 2, name: 'Samsung' },
-    { id: 3, name: 'Sony' },
-    { id: 4, name: 'Xiaomi' },
-  ]
-
-  const mode = $page.params.mode
+  // Constants
+  const margin = 25, salesTax = 17
   const crumbs = [
     { name: 'Products', href: '/products', icon: 'listCheck' },
-    { name: 'Add Product', href: '/products/add-product' },
+    { name: `${startCase($page.params.mode)} Product`, href: `/products/${$page.params.mode}-product` },
   ]
 
   const validate = async () => {
     try {
       await productSchema.validate(product, { abortEarly: false })
-      error = {}
+      errors = {}
     } catch (error) {
       errors = extractYupErrors(error)
     }
@@ -49,8 +42,8 @@
 
   const submit = async () => {
     if (isEmpty(errors)) {
-      if (mode == 'add') await addProduct()
-      if (mode == 'edit') await editProduct()
+      if ($page.params.mode == 'add') await addProduct()
+      if ($page.params.mode == 'edit') await editProduct()
     } else {
       touched = true
     }
@@ -61,33 +54,51 @@
     brandModal = false
   }
 
-  const selectCategory = e => {
-    product.category_id = e.detail.id
-    product.category_name = e.detail.name
+  const selectCategory = (id, path) => {
+    product.category_id = id
+    product.category_path = stripTags(path)
     categoryModal = false
   }
 
-  const selectBrand = e => {
-    product.brand_id = e.detail.id
-    product.brand_name = e.detail.name
+  const selectBrand = (id, name) => {
+    product.brand_id = id
+    product.brand_name = stripTags(name)
     brandModal = false
   }
 
-  // Naming url_name..
-  $: if (product.name) product.url_name = kebabCase(product.name)
-  $: if (!product.name) product.url_name = ''
-  $: recommendedPrice = ((+product.unit_cost * (margin / 100)) + +product.unit_cost)
+  const addProduct = async () => {
+    try {
+      const response = await axios.post('/api/products', product)
+      addToast({ message: response.data.message })
+    } catch (error) {
+      addToast({ message: error.data.message || 'Cannot add product', type: 'error' })
+    }
+  }
+
+  $: if (product) validate()
+  $: recommendedPrice = ((+product.unit_cost * (margin / 100)) + +product.unit_cost + (+product.unit_cost * (salesTax / 100)))
 </script>
 
 <Breadcrumb {crumbs} />
 
-<Title back="/products" title="{startCase(mode)} Product" />
+<Title back="/products" title="{startCase($page.params.mode)} Product" />
 
+<Subtitle icon="listOrdered" subtitle="Main Image" />
+<ButtonGroup>
+  <Button icon="imageAdd" name="Add Image" />
+</ButtonGroup>
+
+<Subtitle icon="listOrdered" subtitle="Carousel" />
+<ButtonGroup>
+  <Button icon="imageAdd" name="Add Image" />
+</ButtonGroup>
+
+<Subtitle icon="listOrdered" subtitle="Details" />
 <Form>
-  <Field on:focus={e=>{categoryModal=true; e.target.blur()}} bind:value={product.category_name} label="Category" {touched} error={errors['category_id']} />
-  <Field on:focus={e=>{brandModal=true; e.target.blur()}} bind:value={product.brand_name} label="Brand" {touched} error={errors['brand_id']} placeholder="Optional" />
+  <Field on:focus={e=>{categoryModal=true; e.target.blur()}} value={product.category_path} label="Category" {touched} error={errors['category_id']} />
+  <Field on:focus={e=>{brandModal=true; e.target.blur()}} value={product.brand_name} label="Brand" {touched} error={errors['brand_id']} placeholder="Optional" />
   <Field bind:value={product.name} label="Name" {touched} error={errors['name']} />
-  <Field bind:value={product.url_name} label="URL Name" {touched} error={errors['url_name']} />
+  <Field bind:value={product.sku} label="SKU" placeholder="Barcode" {touched} error={errors['name']} />
   <Field bind:value={product.stock} label="Stock" {touched} error={errors['stock']} inputmode="numeric" />
   <Field bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} inputmode="numeric" />
   <Field bind:value={product.price} placeholder={recommendedPrice} label="Price" {touched} error={errors['price']} inputmode="numeric" />
@@ -96,9 +107,14 @@
 </Form>
 
 {#if recommendedPrice}
-<Text>
-  <div>Recommended price = Rs. {recommendedPrice} ({margin}% margin)</div>
-</Text>
+<Subtitle icon="lineChart" subtitle="Metrics" />
+
+<Table>
+  <tr>
+    <td>Recommended price ({margin}% Margin) & ({salesTax}% Sales Tax)</td>
+    <td>Rs. {recommendedPrice.toFixed(2)}</td>
+  </tr>
+</Table>
 {/if}
 
 <ButtonGroup>
@@ -106,19 +122,28 @@
   <Button href="/products" icon="close" name="Discard" />
 </ButtonGroup>
 
+
 {#if categoryModal || brandModal}
 <Modal on:close={close}>
 
   {#if categoryModal}
   <Subtitle subtitle="Choose Category" />
-  <SearchBox placeholder="Enter Category Name / ID" />
-  <Results results={categoryResults} on:select={selectCategory} />
+  <SmartFilter placeholder="Filter Categories" searchColumn="path" bind:data={categories} />
+  <Links>
+    {#each categories as { category_id, path } (category_id)}
+    <button on:click={()=>selectCategory(category_id, path)}>{@html path}</button>
+    {/each}
+  </Links>
   {/if}
   
   {#if brandModal}
   <Subtitle subtitle="Choose Brand" />
-  <SearchBox placeholder="Enter Brand Name / ID" />
-  <Results results={brandResults} on:select={selectBrand} />
+  <SmartFilter placeholder="Filter Brands" bind:data={brands} />
+  <Links>
+    {#each brands as { brand_id, name } (brand_id)}
+    <button on:click={()=>selectBrand(brand_id, name)}>{@html name}</button>
+    {/each}
+  </Links>
   {/if}
 
 </Modal>
