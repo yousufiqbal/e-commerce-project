@@ -13,7 +13,7 @@
     gap: 10px;
     padding-bottom: 10px;
     border-bottom: 1px dashed red;
-    margin-bottom: 20px;
+    margin-bottom: var(--margin-bottom, 20px);
     max-width: 500px;
   }
 </style>

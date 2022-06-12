@@ -15,11 +15,16 @@
   import Table from "$lib/components/Table.svelte";
   import { axios, stripTags } from "$lib/others/utils";
   import { addToast } from "$lib/stores/toast";
+  import ImageUpload from "$lib/components/ImageUpload.svelte";
+  import Layout from "$lib/components/Layout.svelte";
+  import MultipleImageUpload from "$lib/components/MultipleImageUpload.svelte";
+import Carousel from "$lib/components/Carousel.svelte";
 
   export let categories = [], brands = []
   // Extra props: category_path, brand_name
   let product = { category_id: null, brand_id: null, name: '', stock: 0, unit_cost: 0, price: 0, fair_quantity: 0, description: '' }
   let touched = false, errors = {}
+  let images = []
 
   let categoryModal = false, brandModal = false
   let productSchema = makeProductSchema(categories, brands)
@@ -76,6 +81,7 @@
   }
 
   $: if (product) validate()
+  $: console.log(images)
   $: recommendedPrice = ((+product.unit_cost * (margin / 100)) + +product.unit_cost + (+product.unit_cost * (salesTax / 100)))
 </script>
 
@@ -83,44 +89,49 @@
 
 <Title back="/products" title="{startCase($page.params.mode)} Product" />
 
-<Subtitle icon="listOrdered" subtitle="Main Image" />
-<ButtonGroup>
-  <Button icon="imageAdd" name="Add Image" />
-</ButtonGroup>
+<Layout columns="3fr 2fr">
 
-<Subtitle icon="listOrdered" subtitle="Carousel" />
-<ButtonGroup>
-  <Button icon="imageAdd" name="Add Image" />
-</ButtonGroup>
+  <div slot="main">
+    <Subtitle icon="listOrdered" subtitle="Details" />
+    <Form>
+      <Field on:focus={()=>{categoryModal=true}} value={product.category_path} label="Category" {touched} error={errors['category_id']} />
+      <Field on:focus={()=>{brandModal=true}} value={product.brand_name} label="Brand" {touched} error={errors['brand_id']} placeholder="Optional" />
+      <Field bind:value={product.name} label="Name" {touched} error={errors['name']} />
+      <Field bind:value={product.sku} label="SKU" placeholder="Barcode" {touched} error={errors['name']} />
+      <Field bind:value={product.stock} label="Stock" {touched} error={errors['stock']} inputmode="numeric" />
+      <Field bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} inputmode="numeric" />
+      <Field bind:value={product.price} placeholder={recommendedPrice} label="Price" {touched} error={errors['price']} inputmode="numeric" />
+      <Field bind:value={product.fair_quantity} label="Fair Quantity" {touched} error={errors['fair_quantity']} inputmode="numeric" />
+      <Field textarea bind:value={product.description} label="Description" {touched} error={errors['description']} />
+    </Form>
+    
+    {#if recommendedPrice}
+    <Subtitle icon="lineChart" subtitle="Metrics" />
+    
+    <Table>
+      <tr>
+        <td>Recommended price ({margin}% Margin) & ({salesTax}% Sales Tax)</td>
+        <td>Rs. {recommendedPrice.toFixed(2)}</td>
+      </tr>
+    </Table>
+    {/if}
+    
+    <ButtonGroup>
+      <Button on:click={submit} icon="save" name="Save" type="primary" />
+      <Button href="/products" icon="close" name="Discard" />
+    </ButtonGroup>
+  </div>
 
-<Subtitle icon="listOrdered" subtitle="Details" />
-<Form>
-  <Field on:focus={e=>{categoryModal=true; e.target.blur()}} value={product.category_path} label="Category" {touched} error={errors['category_id']} />
-  <Field on:focus={e=>{brandModal=true; e.target.blur()}} value={product.brand_name} label="Brand" {touched} error={errors['brand_id']} placeholder="Optional" />
-  <Field bind:value={product.name} label="Name" {touched} error={errors['name']} />
-  <Field bind:value={product.sku} label="SKU" placeholder="Barcode" {touched} error={errors['name']} />
-  <Field bind:value={product.stock} label="Stock" {touched} error={errors['stock']} inputmode="numeric" />
-  <Field bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} inputmode="numeric" />
-  <Field bind:value={product.price} placeholder={recommendedPrice} label="Price" {touched} error={errors['price']} inputmode="numeric" />
-  <Field bind:value={product.fair_quantity} label="Fair Quantity" {touched} error={errors['fair_quantity']} inputmode="numeric" />
-  <Field textarea bind:value={product.description} label="Description" {touched} error={errors['description']} />
-</Form>
+  <div slot="related">
+    <Subtitle icon="listOrdered" subtitle="Image" />
+    <ImageUpload />
+    
+    <Subtitle icon="listOrdered" subtitle="Carousel" />
+    <Carousel {images} />
+    <MultipleImageUpload bind:images />
+  </div>
 
-{#if recommendedPrice}
-<Subtitle icon="lineChart" subtitle="Metrics" />
-
-<Table>
-  <tr>
-    <td>Recommended price ({margin}% Margin) & ({salesTax}% Sales Tax)</td>
-    <td>Rs. {recommendedPrice.toFixed(2)}</td>
-  </tr>
-</Table>
-{/if}
-
-<ButtonGroup>
-  <Button on:click={submit} icon="save" name="Save" type="primary" />
-  <Button href="/products" icon="close" name="Discard" />
-</ButtonGroup>
+</Layout>
 
 
 {#if categoryModal || brandModal}
