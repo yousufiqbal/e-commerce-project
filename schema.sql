@@ -205,14 +205,15 @@ CREATE TABLE IF NOT EXISTS `constants` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`constant_id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.constants: ~3 rows (approximately)
 /*!40000 ALTER TABLE `constants` DISABLE KEYS */;
 INSERT INTO `constants` (`constant_id`, `name`, `value`, `created`) VALUES
-	(3, 'phone', '021-34554658', '2022-06-02 16:43:40'),
-	(5, 'asdf', 'asdasdf', '2022-06-13 01:04:49'),
-	(6, 'asdf222', 'asdfa222', '2022-06-13 01:05:15');
+	(7, 'margin', '20', '2022-06-13 12:21:31'),
+	(8, 'sales_tax', '17', '2022-06-13 12:21:39'),
+	(9, 'flat_off', '0', '2022-06-13 12:21:49'),
+	(10, 'delivery_charges', '200', '2022-06-13 12:21:57');
 /*!40000 ALTER TABLE `constants` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.guests
@@ -543,9 +544,9 @@ CREATE TABLE IF NOT EXISTS `products` (
   KEY `FK_products_brands` (`brand_id`),
   CONSTRAINT `FK_products_brands` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`brand_id`),
   CONSTRAINT `FK_products_categories` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.products: ~18 rows (approximately)
+-- Dumping data for table fast-ecommerce.products: ~0 rows (approximately)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`product_id`, `category_id`, `brand_id`, `name`, `sku`, `url_name`, `stock`, `unit_cost`, `price`, `fair_quantity`, `description`, `created`) VALUES
 	(1, 6, 1, 'Nurpur Butter 50 Grams', NULL, 'nurpur-butter-50-grams', 505, 80, 100.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:38:38'),
@@ -565,7 +566,10 @@ INSERT INTO `products` (`product_id`, `category_id`, `brand_id`, `name`, `sku`, 
 	(16, 11, 8, 'Nestle Yogurt 500 Grams', NULL, 'nestle-yogurt-500-grams', 50, 240, 245.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:52:37'),
 	(17, 11, 8, 'Nestle Yogurt 125 Grams', NULL, 'nestle-yogurt-125-grams', 0, 50, 100.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:52:56'),
 	(18, 12, 11, 'Nido Powder 500 Grams', NULL, 'nido-powder-500-grams', 5000, 1235, 1500.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:55:04'),
-	(20, 10, 12, 'Eggs 1 Dozen', NULL, 'eggs-1-dozen', 1000, 160, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:56:48');
+	(20, 10, 12, 'Eggs 1 Dozen', NULL, 'eggs-1-dozen', 1000, 160, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:56:48'),
+	(21, 14, 9, 'Nestle Lorem', '23234', 'nestle-lorem', 240, 240, 120.00, 100, '', '2022-06-13 16:06:24'),
+	(22, 14, 4, 'Good Milk 200 ML', '65464', 'good-milk-200-ml', 200, 120, 165.00, 10, '', '2022-06-13 16:14:29'),
+	(23, 4, 5, 'Blueband 200 g', '684654', 'blueband-200-g', 252, 120, 165.00, 10, '', '2022-06-13 16:15:35');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.promos
@@ -583,7 +587,7 @@ CREATE TABLE IF NOT EXISTS `promos` (
   CONSTRAINT `FK_promos_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.promos: ~11 rows (approximately)
+-- Dumping data for table fast-ecommerce.promos: ~0 rows (approximately)
 /*!40000 ALTER TABLE `promos` DISABLE KEYS */;
 INSERT INTO `promos` (`promo_id`, `user_id`, `code`, `validity`, `percentage`, `max_discount`, `status`, `created`) VALUES
 	(1, 9, 'BE202', '2022-06-02 01:42:26', 10, 200.00, 'available', '2022-06-02 01:42:30'),
@@ -608,7 +612,7 @@ CREATE TABLE IF NOT EXISTS `trials` (
   PRIMARY KEY (`trial_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.trials: ~6 rows (approximately)
+-- Dumping data for table fast-ecommerce.trials: ~0 rows (approximately)
 /*!40000 ALTER TABLE `trials` DISABLE KEYS */;
 INSERT INTO `trials` (`trial_id`, `user_id`, `for`, `created`) VALUES
 	(8, 9, 'promo', '2022-06-05 14:30:25'),
@@ -634,7 +638,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.users: ~27 rows (approximately)
+-- Dumping data for table fast-ecommerce.users: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `applied_promo_id`, `last_messages_read`, `last_orders_read`, `last_promos_read`, `last_wallets_read`, `created`) VALUES
 	(7, 'Yousuf', 'yosof@fast.com', '$2a$11$IFPP9EvJmPU73z9T8xhgeuFfqpxIbVxaSRRcZ6M40PQFhuBqyiJZi', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-05-31 10:17:06'),
@@ -695,7 +699,7 @@ CREATE TABLE IF NOT EXISTS `wallets` (
   CONSTRAINT `FK_wallets_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.wallets: ~4 rows (approximately)
+-- Dumping data for table fast-ecommerce.wallets: ~0 rows (approximately)
 /*!40000 ALTER TABLE `wallets` DISABLE KEYS */;
 INSERT INTO `wallets` (`wallet_id`, `user_id`, `in`, `out`, `created`) VALUES
 	(1, 9, 500.00, 0.00, '2022-06-02 14:26:43'),

@@ -2,9 +2,12 @@
   <slot></slot>
 </p>
 
-<style>
+<style global>
   .text {
     margin-bottom: 20px;
     max-width: 500px;
+  }
+  .text strong {
+    font-weight: bold;
   }
 </style>

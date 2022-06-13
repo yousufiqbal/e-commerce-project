@@ -2,11 +2,10 @@
   import { fileToBase64 } from "$lib/others/utils";
   import Button from "./Button.svelte";
   import ButtonGroup from "./ButtonGroup.svelte";
-
-  export let name = 'Upload Image'
+  
+  export let name = 'Choose Image'
   export let image = null
-  let filename
-  let fileInput
+  let filename, fileInput
 
   const removeImage = () => {
     fileInput.value = ''

@@ -16,6 +16,7 @@
   import { axios, stripTags } from "$lib/others/utils";
   import { addToast } from "$lib/stores/toast";
   import Layout from "$lib/components/Layout.svelte";
+import { goto } from "$app/navigation";
 
   export let categories = [], brands = [], constants = {}
   let product = { category_path: '', brand_name: '', category_id: null, brand_id: null, name: '', sku: null, stock: 0, unit_cost: 0, price: 0, fair_quantity: '0', description: '' }
@@ -69,6 +70,7 @@
     try {
       const response = await axios.post('/api/products', product)
       addToast({ message: response.data.message })
+      goto('/products/add-product-image?product_id='+response.data.product_id)
     } catch (error) {
       addToast({ message: error.data.message || 'Cannot add product', type: 'error' })
     }
@@ -82,7 +84,7 @@
 <Breadcrumb {crumbs} />
 <Title back="/products" title="{startCase($page.params.mode)} Product" />
 
-<Layout>
+<Layout columns="1fr 1fr">
 
 <div slot="main">
 

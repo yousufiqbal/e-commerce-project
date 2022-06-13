@@ -12,8 +12,8 @@ export const post = async ({ request }) => {
     const productSchema = makeProductSchema(categories, brands)
     const product = await productSchema.validate(body, { abortEarly: false })
     product.url_name = kebabCase(product.name)
-    await db.insertInto('products').values(product).execute()
-    return { body: { message: 'Product Added' }}
+    const { insertId } = await db.insertInto('products').values(product).executeTakeFirst()
+    return { body: { message: 'Product Added', product_id: Number(insertId) }}
   } catch (error) {
     return internalError(error)
   }
