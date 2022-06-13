@@ -133,19 +133,6 @@
   </tr>
 </Table>
 
-<!-- <Subtitle icon="image" subtitle="Image" />
-<ImageUpload bind:image={product.image} />
-{#if touched}
-<Error error={errors.image} />
-{/if}
-
-<Subtitle icon="gallery" subtitle="Carousel" />
-<Carousel images={product.images} />
-<MultipleImageUpload bind:images={product.images} />
-{#if touched}
-<Error error={errors.images} />
-{/if} -->
-
 </div>
 
 </Layout>
