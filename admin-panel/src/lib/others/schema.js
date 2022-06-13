@@ -20,6 +20,11 @@ export const parentSchema = yup.object({
   name: yup.string().min(3).max(50).required(),
 }).noUnknown(true);
 
+// Brand
+export const brandSchema = yup.object({
+  name: yup.string().min(3).max(50).required(),
+}).noUnknown(true);
+
 // Child
 export const childSchema = yup.object({
   parent_id: yup.number().required(),
@@ -33,10 +38,10 @@ export const constantSchema = yup.object({
 }).noUnknown(true);
 
 // Product
-// let product = { category_id: '', brand_id: '', name: '', stock: 0, unit_cost: 0, price: 0, fair_quantity: 0, description: '' }
-
 export const makeProductSchema = (categories, brands) => {
   return yup.object({
+    image: yup.mixed().required('Main image is required'),
+    images: yup.mixed().optional(),
     category_id: yup.number().oneOf(categories.map(category => category.category_id), 'Invalid Category').nullable().required(),
     brand_id: yup.number().oneOf(brands.map(brand => brand.brand_id), 'Invalid Brand').nullable().required(),
     name: yup.string().min(3).max(50).required(),

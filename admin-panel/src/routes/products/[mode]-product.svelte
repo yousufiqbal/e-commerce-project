@@ -19,12 +19,11 @@
   import Layout from "$lib/components/Layout.svelte";
   import MultipleImageUpload from "$lib/components/MultipleImageUpload.svelte";
   import Carousel from "$lib/components/Carousel.svelte";
+  import Error from "$lib/components/Error.svelte";
 
   export let categories = [], brands = [], constants = {}
-  $: console.log(constants)
-  let product = { category_id: null, brand_id: null, name: '', stock: '', unit_cost: '', price: '', fair_quantity: '0', description: '' }
+  let product = { image: '', images: [], category_path: '', brand_name: '', category_id: null, brand_id: null, name: '', stock: '', unit_cost: '', price: '', fair_quantity: '0', description: '' }
   let touched = false, errors = {}
-  let images = []
 
   let categoryModal = false, brandModal = false
   let productSchema = makeProductSchema(categories, brands)
@@ -83,74 +82,69 @@
 </script>
 
 <Breadcrumb {crumbs} />
-
 <Title back="/products" title="{startCase($page.params.mode)} Product" />
 
-<Layout columns="3fr 2fr">
+<!-- Image -->
+<Subtitle icon="image" subtitle="Image" />
+<ImageUpload bind:image={product.image} />
+<Error error={errors.image} />
 
-  <div slot="main">    
-    <Subtitle icon="listOrdered" subtitle="Details" />
-    <Form>
-      <Field on:focus={()=>{categoryModal=true}} value={product.category_path} label="Category" {touched} error={errors['category_id']} />
-      <Field on:focus={()=>{brandModal=true}} value={product.brand_name} label="Brand" {touched} error={errors['brand_id']} placeholder="Optional" />
-      <Field bind:value={product.name} label="Name" {touched} error={errors['name']} />
-      <Field bind:value={product.sku} label="SKU" placeholder="Barcode" {touched} error={errors['name']} />
-      <Field bind:value={product.stock} label="Stock" {touched} error={errors['stock']} inputmode="numeric" />
-      <Field bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} inputmode="numeric" />
-      <Field bind:value={product.price} placeholder={product.unit_cost && product.stock ? recommendedPrice : ''} label="Price" {touched} error={errors['price']} inputmode="numeric" />
-      <Field bind:value={product.fair_quantity} label="Fair Quantity" {touched} error={errors['fair_quantity']} inputmode="numeric" />
-      <Field textarea bind:value={product.description} label="Description" {touched} error={errors['description']} />
-    </Form>
+<!-- Carousel -->
+<Subtitle icon="gallery" subtitle="Carousel" />
+<Carousel bind:image={product.images} />
+<MultipleImageUpload bind:images={product.images} />
+<Error error={errors.image} />
 
-    <Subtitle icon="image" subtitle="Image" />
-    <ImageUpload />
+<!-- Details -->
+<Subtitle icon="listOrdered" subtitle="Details" />
+<Form>
+  <Field on:focus={()=>{categoryModal=true}} value={product.category_path} label="Category" {touched} error={errors['category_id']} />
+  <Field on:focus={()=>{brandModal=true}} value={product.brand_name} label="Brand" {touched} error={errors['brand_id']} placeholder="Optional" />
+  <Field bind:value={product.name} label="Name" {touched} error={errors['name']} />
+  <Field bind:value={product.sku} label="SKU" placeholder="Barcode" {touched} error={errors['name']} />
+  <Field bind:value={product.stock} label="Stock" {touched} error={errors['stock']} inputmode="numeric" />
+  <Field bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} inputmode="numeric" />
+  <Field bind:value={product.price} placeholder={product.unit_cost && product.stock ? recommendedPrice : ''} label="Price" {touched} error={errors['price']} inputmode="numeric" />
+  <Field bind:value={product.fair_quantity} label="Fair Quantity" {touched} error={errors['fair_quantity']} inputmode="numeric" />
+  <Field textarea bind:value={product.description} label="Description" {touched} error={errors['description']} />
+</Form>
     
-    <Subtitle icon="gallery" subtitle="Carousel" />
-    <Carousel {images} />
-    <MultipleImageUpload bind:images />
-    
-    <ButtonGroup>
-      <Button on:click={submit} icon="save" name="Save" type="primary" />
-      <Button href="/products" icon="close" name="Discard" />
-    </ButtonGroup>
-  </div>
+<!-- Calculations -->
+<Subtitle icon="calculator" subtitle="Calculations" />
+<Table>
+  <tr>
+    <td class="main">Actual Price</td>
+    <td>Rs. {product.unit_cost}</td>
+  </tr>
+  <tr>
+    <td>Margin ({constants.margin}%)</td>
+    <td>Rs. {(product.unit_cost * (constants.margin / 100)).toFixed(2)}</td>
+  </tr>
+  <tr>
+    <td>Delivery Charges</td>
+    <td>Rs. {constants.delivery_charges}</td>
+  </tr>
+  <tr>
+    <td>Sales Tax ({constants.sales_tax}%)</td>
+    <td>Rs. {(product.unit_cost * (constants.sales_tax / 100)).toFixed(2)}</td>
+  </tr>
+  <tr>
+    <td>Recommended Price</td>
+    <td>Rs. {recommendedPrice}</td>
+  </tr>
+</Table>
 
-  <div slot="related">   
-    <!-- {#if product.unit_cost && product.stock} -->
-    <Subtitle icon="calculator" subtitle="Calculations" />
-    
-    <Table>
-      <tr>
-        <td class="main">Actual Price</td>
-        <td>Rs. {product.unit_cost}</td>
-      </tr>
-      <tr>
-        <td>Margin ({constants.margin}%)</td>
-        <td>Rs. {(product.unit_cost * (constants.margin / 100)).toFixed(2)}</td>
-      </tr>
-      <tr>
-        <td>Delivery Charges</td>
-        <td>Rs. {constants.delivery_charges}</td>
-      </tr>
-      <tr>
-        <td>Sales Tax ({constants.sales_tax}%)</td>
-        <td>Rs. {(product.unit_cost * (constants.sales_tax / 100)).toFixed(2)}</td>
-      </tr>
-      <tr>
-        <td>Recommended Price</td>
-        <td>Rs. {recommendedPrice}</td>
-      </tr>
-    </Table>
-    <!-- {/if} -->
+<!-- Actions -->
+<ButtonGroup>
+  <Button on:click={submit} icon="save" name="Save" type="primary" />
+  <Button href="/products" icon="close" name="Discard" />
+</ButtonGroup>
 
-  </div>
-
-</Layout>
-
-
+<!-- Modals -->
 {#if categoryModal || brandModal}
 <Modal on:close={close}>
-
+  
+  <!-- Category Modal -->
   {#if categoryModal}
   <Subtitle subtitle="Choose Category" />
   <SmartFilter placeholder="Filter Categories" searchColumn="path" bind:data={categories} />
@@ -161,6 +155,7 @@
   </Links>
   {/if}
   
+  <!-- Brand Modal -->
   {#if brandModal}
   <Subtitle subtitle="Choose Brand" />
   <SmartFilter placeholder="Filter Brands" bind:data={brands} />
