@@ -11,5 +11,7 @@
 <style>
   .error {
     color: red;
+    margin-bottom: 20px;
+    text-transform: capitalize;
   }
 </style>

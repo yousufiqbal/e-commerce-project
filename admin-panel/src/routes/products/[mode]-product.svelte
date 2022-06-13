@@ -22,7 +22,7 @@
   import Error from "$lib/components/Error.svelte";
 
   export let categories = [], brands = [], constants = {}
-  let product = { image: '', images: [], category_path: '', brand_name: '', category_id: null, brand_id: null, name: '', stock: '', unit_cost: '', price: '', fair_quantity: '0', description: '' }
+  let product = { image: null, images: [], category_path: '', brand_name: '', category_id: null, brand_id: null, name: '', stock: '', unit_cost: '', price: '', fair_quantity: '0', description: '' }
   let touched = false, errors = {}
 
   let categoryModal = false, brandModal = false
@@ -39,6 +39,7 @@
       errors = {}
     } catch (error) {
       errors = extractYupErrors(error)
+      console.log(errors)
     }
   }
 
@@ -87,13 +88,17 @@
 <!-- Image -->
 <Subtitle icon="image" subtitle="Image" />
 <ImageUpload bind:image={product.image} />
+{#if touched}
 <Error error={errors.image} />
+{/if}
 
 <!-- Carousel -->
 <Subtitle icon="gallery" subtitle="Carousel" />
-<Carousel bind:image={product.images} />
+<Carousel images={product.images} />
 <MultipleImageUpload bind:images={product.images} />
-<Error error={errors.image} />
+{#if touched}
+<Error error={errors.images} />
+{/if}
 
 <!-- Details -->
 <Subtitle icon="listOrdered" subtitle="Details" />
