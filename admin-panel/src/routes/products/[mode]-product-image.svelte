@@ -1,4 +1,5 @@
 <script>
+  import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import Button from "$lib/components/Button.svelte";
@@ -7,10 +8,17 @@
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Text from "$lib/components/Text.svelte";
   import Title from "$lib/components/Title.svelte"; 
+  import { axios } from "$lib/others/utils";
+  import { addToast } from "$lib/stores/toast";
   import { startCase } from "lodash-es";
+  import { onMount } from 'svelte'
 
+  // Check if image exist
+  // If it does set it to image
+  export let imageExistance
+  console.log(imageExistance)
   export let product = { name: '' }
-  let image
+  let image = imageExistance ? `${product.url_name}.jpg` : null
 
   const crumbs = [
     { name: 'Products', href: '/products', icon: 'listCheck' },
@@ -23,6 +31,7 @@
       addToast({ message: response.data.message })
       goto('/products/add-product-carousel?product_id='+$page.url.searchParams.get('product_id'))
     } catch (error) {
+      console.log(error)
       addToast({ message: error.data.message || 'Cannot Upload Image', type: 'error' })
     }
   }

@@ -2,22 +2,14 @@
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import Nothing from "$lib/components/Nothing.svelte";
-import Subtitle from "$lib/components/Subtitle.svelte";
+import Pagination from "$lib/components/Pagination.svelte";
+  import Subtitle from "$lib/components/Subtitle.svelte";
   import Table from "$lib/components/Table.svelte";
   import Title from "$lib/components/Title.svelte";
 
   // Fake data
-  export let products = [
-    { product_id: 1, name: 'Nurpur Butter 100g', url_name: 'nupur-butter-100-g', price: 250, stock: 500, unit_cost: 220 },
-    { product_id: 2, name: 'Nurpur Butter 100g', url_name: 'nupur-butter-100-g', price: 250, stock: 500, unit_cost: 220 },
-    { product_id: 3, name: 'Nurpur Butter 100g', url_name: 'nupur-butter-100-g', price: 250, stock: 500, unit_cost: 220 },
-    { product_id: 4, name: 'Nurpur Butter 100g', url_name: 'nupur-butter-100-g', price: 250, stock: 500, unit_cost: 220 },
-    { product_id: 5, name: 'Nurpur Butter 100g', url_name: 'nupur-butter-100-g', price: 250, stock: 500, unit_cost: 220 },
-    { product_id: 6, name: 'Nurpur Butter 100g', url_name: 'nupur-butter-100-g', price: 250, stock: 500, unit_cost: 220 },
-    { product_id: 7, name: 'Nurpur Butter 100g', url_name: 'nupur-butter-100-g', price: 250, stock: 500, unit_cost: 220 },
-    { product_id: 8, name: 'Nurpur Butter 100g', url_name: 'nupur-butter-100-g', price: 250, stock: 500, unit_cost: 220 },
-    { product_id: 9, name: 'Nurpur Butter 100g', url_name: 'nupur-butter-100-g', price: 250, stock: 500, unit_cost: 220 },
-  ]
+  export let products = []
+  export let total = 0
 </script>
 
 <Title title="Products" />
@@ -42,6 +34,9 @@ import Subtitle from "$lib/components/Subtitle.svelte";
     <th>Price</th>
     <th>Stock</th>
     <th>Cost</th>
+    <th>Fair</th>
+    <th>SKU</th>
+    <th></th>
   </tr>
   {#each products as product, index (product.product_id)}
   <tr>
@@ -51,6 +46,9 @@ import Subtitle from "$lib/components/Subtitle.svelte";
     <td>{product.price}</td>
     <td>{product.stock}</td>
     <td>{product.unit_cost}</td>
+    <td>{product.fair_quantity}</td>
+    <td>{product.sku}</td>
+    <td><a href="/products/edit-product?product_id={product.product_id}">Edit</a></td>
   </tr>
   {/each}
 </Table>
@@ -60,3 +58,5 @@ import Subtitle from "$lib/components/Subtitle.svelte";
   No Products
 </Nothing>
 {/if}
+
+<Pagination {total} />

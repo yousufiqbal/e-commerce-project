@@ -36,7 +36,6 @@ import { goto } from "$app/navigation";
       errors = {}
     } catch (error) {
       errors = extractYupErrors(error)
-      console.log(errors)
     }
   }
 
@@ -89,17 +88,21 @@ import { goto } from "$app/navigation";
 <div slot="main">
 
 <!-- Details -->
-<Subtitle icon="listOrdered" subtitle="Details" />
+<Subtitle icon="listOrdered" subtitle="General Info" />
 <Form>
   <Field on:focus={()=>{categoryModal=true}} value={product.category_path} label="Category" {touched} error={errors['category_id']} />
-  <Field on:focus={()=>{brandModal=true}} value={product.brand_name} label="Brand" {touched} error={errors['brand_id']} placeholder="Optional" />
+  <Field on:focus={()=>{brandModal=true}} value={product.brand_name} label="Brand" {touched} error={errors['brand_id']} />
   <Field bind:value={product.name} label="Name" {touched} error={errors['name']} />
   <Field bind:value={product.sku} label="SKU" placeholder="Barcode" {touched} error={errors['name']} />
+  <Field textarea bind:value={product.description} label="Description" {touched} error={errors['description']} />
+</Form>
+
+<Subtitle icon="listOrdered" subtitle="Stock & Price" />
+<Form>
   <Field bind:value={product.stock} label="Stock" {touched} error={errors['stock']} inputmode="numeric" />
   <Field bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} inputmode="numeric" />
   <Field bind:value={product.price} placeholder={product.unit_cost && product.stock ? recommendedPrice : ''} label="Price" {touched} error={errors['price']} inputmode="numeric" />
   <Field bind:value={product.fair_quantity} label="Fair Quantity" {touched} error={errors['fair_quantity']} inputmode="numeric" />
-  <Field textarea bind:value={product.description} label="Description" {touched} error={errors['description']} />
 </Form>
 
 </div>

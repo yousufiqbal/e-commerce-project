@@ -41,6 +41,8 @@ export const internalError = error => {
   }
 }
 
+export const convertToBase64 = imageString => imageString.replace(/^data:image\/png;base64,/, "");
+
 export const beautifyDateTime = ISO8601 => {
   if (!ISO8601) return null
   return dayjs(ISO8601).format('MMM DD, YYYY hh:mm a')
