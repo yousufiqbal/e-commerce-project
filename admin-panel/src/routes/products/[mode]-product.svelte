@@ -1,6 +1,6 @@
 <script>
   import { page } from "$app/stores";
-  import { isEmpty, kebabCase, startCase } from 'lodash-es'
+  import { isEmpty, startCase } from 'lodash-es'
   import Title from "$lib/components/Title.svelte";
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
@@ -15,14 +15,10 @@
   import Table from "$lib/components/Table.svelte";
   import { axios, stripTags } from "$lib/others/utils";
   import { addToast } from "$lib/stores/toast";
-  import ImageUpload from "$lib/components/ImageUpload.svelte";
   import Layout from "$lib/components/Layout.svelte";
-  import MultipleImageUpload from "$lib/components/MultipleImageUpload.svelte";
-  import Carousel from "$lib/components/Carousel.svelte";
-  import Error from "$lib/components/Error.svelte";
 
   export let categories = [], brands = [], constants = {}
-  let product = { image: null, images: [], category_path: '', brand_name: '', category_id: null, brand_id: null, name: '', stock: '', unit_cost: '', price: '', fair_quantity: '0', description: '' }
+  let product = { category_path: '', brand_name: '', category_id: null, brand_id: null, name: '', sku: null, stock: 0, unit_cost: 0, price: 0, fair_quantity: '0', description: '' }
   let touched = false, errors = {}
 
   let categoryModal = false, brandModal = false
@@ -82,23 +78,13 @@
   $: recommendedPrice = ((+product.unit_cost) + (+constants.delivery_charges) + (+product.unit_cost * (constants.margin / 100)) + (+product.unit_cost * (constants.sales_tax / 100))).toFixed(2)
 </script>
 
+<!-- Top -->
 <Breadcrumb {crumbs} />
 <Title back="/products" title="{startCase($page.params.mode)} Product" />
 
-<!-- Image -->
-<Subtitle icon="image" subtitle="Image" />
-<ImageUpload bind:image={product.image} />
-{#if touched}
-<Error error={errors.image} />
-{/if}
+<Layout>
 
-<!-- Carousel -->
-<Subtitle icon="gallery" subtitle="Carousel" />
-<Carousel images={product.images} />
-<MultipleImageUpload bind:images={product.images} />
-{#if touched}
-<Error error={errors.images} />
-{/if}
+<div slot="main">
 
 <!-- Details -->
 <Subtitle icon="listOrdered" subtitle="Details" />
@@ -113,7 +99,11 @@
   <Field bind:value={product.fair_quantity} label="Fair Quantity" {touched} error={errors['fair_quantity']} inputmode="numeric" />
   <Field textarea bind:value={product.description} label="Description" {touched} error={errors['description']} />
 </Form>
-    
+
+</div>
+
+<div slot="related">
+      
 <!-- Calculations -->
 <Subtitle icon="calculator" subtitle="Calculations" />
 <Table>
@@ -134,10 +124,31 @@
     <td>Rs. {(product.unit_cost * (constants.sales_tax / 100)).toFixed(2)}</td>
   </tr>
   <tr>
-    <td>Recommended Price</td>
+    <td>Recommended Price with Delivery</td>
     <td>Rs. {recommendedPrice}</td>
   </tr>
+  <tr>
+    <td>Recommended Price without Delivery</td>
+    <td>Rs. {recommendedPrice - constants.delivery_charges}</td>
+  </tr>
 </Table>
+
+<!-- <Subtitle icon="image" subtitle="Image" />
+<ImageUpload bind:image={product.image} />
+{#if touched}
+<Error error={errors.image} />
+{/if}
+
+<Subtitle icon="gallery" subtitle="Carousel" />
+<Carousel images={product.images} />
+<MultipleImageUpload bind:images={product.images} />
+{#if touched}
+<Error error={errors.images} />
+{/if} -->
+
+</div>
+
+</Layout>
 
 <!-- Actions -->
 <ButtonGroup>

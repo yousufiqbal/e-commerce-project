@@ -1,5 +1,9 @@
 import { db } from '$lib/database/db'
+import { makeProductSchema } from '$lib/others/schema'
+import { internalError } from '$lib/others/utils'
 import { sql } from 'kysely'
+
+
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const get = async ({ url, params }) => {
@@ -28,3 +32,4 @@ export const get = async ({ url, params }) => {
   return { body: { categories, brands, constants }}
 
 }
+

@@ -1,5 +1,9 @@
+<script>
+  export let width = 'auto'
+</script>
+
 <div class="wrapper">
-  <table class="table">
+  <table style:max-width={width} class="table">
     <slot></slot>
   </table>
 </div>
@@ -16,7 +20,6 @@
     white-space: nowrap;
     border-collapse: collapse;
     margin-bottom: 10px;
-    /* max-width: 800px; */
   }
   .table th {
     font-weight: bold;

@@ -40,8 +40,6 @@ export const constantSchema = yup.object({
 // Product
 export const makeProductSchema = (categories, brands) => {
   return yup.object({
-    image: yup.mixed().required('Image Is Required'),
-    images: yup.mixed().optional(),
     category_id: yup.number().oneOf(categories.map(category => category.category_id), 'Invalid Category').nullable().required(),
     brand_id: yup.number().oneOf(brands.map(brand => brand.brand_id), 'Invalid Brand').nullable().required(),
     name: yup.string().min(3).max(50).required(),
@@ -50,6 +48,6 @@ export const makeProductSchema = (categories, brands) => {
     unit_cost: yup.number().moreThan(1).required(),
     price: yup.number().moreThan(1).required(),
     fair_quantity: yup.number().moreThan(1).required(),
-    description: yup.string().min(1).required(),
+    description: yup.string().optional(),
   }).noUnknown(true);
 }
