@@ -47,7 +47,7 @@
 <input multiple hidden type="file" bind:this={fileInput} on:change={addImages} accept=".jpeg, .jpg" name="carousel-upload">
 
 <ButtonGroup>
-  <Button on:click={()=>fileInput.click()} icon="imageAdd" {name} />
+  <Button on:click={()=>fileInput.click()} icon="add" {name} />
   {#if images.length == 0}
   <div style="border: 1px solid red; padding: var(--padding); color: red;">No images</div>
   {/if}

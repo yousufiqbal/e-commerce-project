@@ -18,6 +18,13 @@ export const get = async ({ url, params }) => {
   // Brands
   const brands = await db.selectFrom('brands').selectAll().orderBy('brands.name').execute()
 
-    return { body: { categories, brands }}
+  // Constants
+  const constantsRaw = await db.selectFrom('constants').selectAll().execute()
+  let constants = {}
+  for (const constant of constantsRaw) {
+    constants[constant.name] = constant.value
+  }
+  
+  return { body: { categories, brands, constants }}
 
 }

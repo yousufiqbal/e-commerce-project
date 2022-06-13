@@ -18,19 +18,17 @@
   import ImageUpload from "$lib/components/ImageUpload.svelte";
   import Layout from "$lib/components/Layout.svelte";
   import MultipleImageUpload from "$lib/components/MultipleImageUpload.svelte";
-import Carousel from "$lib/components/Carousel.svelte";
+  import Carousel from "$lib/components/Carousel.svelte";
 
-  export let categories = [], brands = []
-  // Extra props: category_path, brand_name
-  let product = { category_id: null, brand_id: null, name: '', stock: 0, unit_cost: 0, price: 0, fair_quantity: 0, description: '' }
+  export let categories = [], brands = [], constants = {}
+  $: console.log(constants)
+  let product = { category_id: null, brand_id: null, name: '', stock: '', unit_cost: '', price: '', fair_quantity: '0', description: '' }
   let touched = false, errors = {}
   let images = []
 
   let categoryModal = false, brandModal = false
   let productSchema = makeProductSchema(categories, brands)
 
-  // Constants
-  const margin = 25, salesTax = 17
   const crumbs = [
     { name: 'Products', href: '/products', icon: 'listCheck' },
     { name: `${startCase($page.params.mode)} Product`, href: `/products/${$page.params.mode}-product` },
@@ -81,8 +79,7 @@ import Carousel from "$lib/components/Carousel.svelte";
   }
 
   $: if (product) validate()
-  $: console.log(images)
-  $: recommendedPrice = ((+product.unit_cost * (margin / 100)) + +product.unit_cost + (+product.unit_cost * (salesTax / 100)))
+  $: recommendedPrice = ((+product.unit_cost) + (+constants.delivery_charges) + (+product.unit_cost * (constants.margin / 100)) + (+product.unit_cost * (constants.sales_tax / 100))).toFixed(2)
 </script>
 
 <Breadcrumb {crumbs} />
@@ -91,10 +88,7 @@ import Carousel from "$lib/components/Carousel.svelte";
 
 <Layout columns="3fr 2fr">
 
-  <div slot="main">
-    <Subtitle icon="listOrdered" subtitle="Image" />
-    <ImageUpload />
-    
+  <div slot="main">    
     <Subtitle icon="listOrdered" subtitle="Details" />
     <Form>
       <Field on:focus={()=>{categoryModal=true}} value={product.category_path} label="Category" {touched} error={errors['category_id']} />
@@ -103,21 +97,17 @@ import Carousel from "$lib/components/Carousel.svelte";
       <Field bind:value={product.sku} label="SKU" placeholder="Barcode" {touched} error={errors['name']} />
       <Field bind:value={product.stock} label="Stock" {touched} error={errors['stock']} inputmode="numeric" />
       <Field bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} inputmode="numeric" />
-      <Field bind:value={product.price} placeholder={recommendedPrice} label="Price" {touched} error={errors['price']} inputmode="numeric" />
+      <Field bind:value={product.price} placeholder={product.unit_cost && product.stock ? recommendedPrice : ''} label="Price" {touched} error={errors['price']} inputmode="numeric" />
       <Field bind:value={product.fair_quantity} label="Fair Quantity" {touched} error={errors['fair_quantity']} inputmode="numeric" />
       <Field textarea bind:value={product.description} label="Description" {touched} error={errors['description']} />
     </Form>
+
+    <Subtitle icon="image" subtitle="Image" />
+    <ImageUpload />
     
-    {#if recommendedPrice}
-    <Subtitle icon="lineChart" subtitle="Metrics" />
-    
-    <Table>
-      <tr>
-        <td>Recommended price ({margin}% Margin) & ({salesTax}% Sales Tax)</td>
-        <td>Rs. {recommendedPrice.toFixed(2)}</td>
-      </tr>
-    </Table>
-    {/if}
+    <Subtitle icon="gallery" subtitle="Carousel" />
+    <Carousel {images} />
+    <MultipleImageUpload bind:images />
     
     <ButtonGroup>
       <Button on:click={submit} icon="save" name="Save" type="primary" />
@@ -126,9 +116,33 @@ import Carousel from "$lib/components/Carousel.svelte";
   </div>
 
   <div slot="related">   
-    <Subtitle icon="listOrdered" subtitle="Carousel" />
-    <Carousel {images} />
-    <MultipleImageUpload bind:images />
+    <!-- {#if product.unit_cost && product.stock} -->
+    <Subtitle icon="calculator" subtitle="Calculations" />
+    
+    <Table>
+      <tr>
+        <td class="main">Actual Price</td>
+        <td>Rs. {product.unit_cost}</td>
+      </tr>
+      <tr>
+        <td>Margin ({constants.margin}%)</td>
+        <td>Rs. {(product.unit_cost * (constants.margin / 100)).toFixed(2)}</td>
+      </tr>
+      <tr>
+        <td>Delivery Charges</td>
+        <td>Rs. {constants.delivery_charges}</td>
+      </tr>
+      <tr>
+        <td>Sales Tax ({constants.sales_tax}%)</td>
+        <td>Rs. {(product.unit_cost * (constants.sales_tax / 100)).toFixed(2)}</td>
+      </tr>
+      <tr>
+        <td>Recommended Price</td>
+        <td>Rs. {recommendedPrice}</td>
+      </tr>
+    </Table>
+    <!-- {/if} -->
+
   </div>
 
 </Layout>

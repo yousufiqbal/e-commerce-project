@@ -37,7 +37,7 @@
   {#if image}
   <Button on:click={removeImage} icon="deleteBin" name="Remove Image" />
   {:else}
-  <Button on:click={()=>fileInput.click()} icon="imageAdd" {name} />
+  <Button on:click={()=>fileInput.click()} icon="add" {name} />
   <div style="border: 1px solid red; padding: var(--padding); color: red">No image</div>
   {/if}
 </ButtonGroup>
