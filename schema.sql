@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   CONSTRAINT `FK_addresses_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.addresses: ~16 rows (approximately)
+-- Dumping data for table fast-ecommerce.addresses: ~17 rows (approximately)
 /*!40000 ALTER TABLE `addresses` DISABLE KEYS */;
 INSERT INTO `addresses` (`address_id`, `user_id`, `label`, `city`, `address`, `default`, `created`) VALUES
 	(10, 9, 'office', 'Lahore', 'Anarkali Disco Chali', '1', '2022-06-01 20:22:05'),
@@ -92,9 +92,9 @@ CREATE TABLE IF NOT EXISTS `brands` (
   PRIMARY KEY (`brand_id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `url_name` (`url_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.brands: ~11 rows (approximately)
+-- Dumping data for table fast-ecommerce.brands: ~12 rows (approximately)
 /*!40000 ALTER TABLE `brands` DISABLE KEYS */;
 INSERT INTO `brands` (`brand_id`, `name`, `url_name`, `created`) VALUES
 	(1, 'Nurpur', 'nurpur', '2022-05-27 10:45:03'),
@@ -102,12 +102,13 @@ INSERT INTO `brands` (`brand_id`, `name`, `url_name`, `created`) VALUES
 	(3, 'Milkpak', 'milkpak', '2022-05-27 10:45:46'),
 	(4, 'Good Milk', 'good-milk', '2022-05-27 10:45:58'),
 	(5, 'Blue Band', 'blue-band', '2022-05-27 10:46:14'),
-	(6, 'Amul', 'amul', '2022-05-27 10:48:12'),
+	(6, 'AmulG', 'amul-g', '2022-05-27 10:48:12'),
 	(7, 'Adam\'s', 'adams', '2022-05-27 10:50:18'),
 	(8, 'Nestle', 'nestle', '2022-05-27 10:50:46'),
 	(9, 'Dayfresh', 'dayfresh', '2022-05-27 10:50:58'),
 	(11, 'Nido', 'nido', '2022-05-27 14:54:13'),
-	(12, 'Desi', 'desi', '2022-05-27 14:56:03');
+	(12, 'Desi', 'desi', '2022-05-27 14:56:03'),
+	(13, 'Samama', 'samama', '2022-06-12 10:00:04');
 /*!40000 ALTER TABLE `brands` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.cart_items
@@ -125,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `cart_items` (
   CONSTRAINT `FK_cart_items_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7497 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.cart_items: ~18 rows (approximately)
+-- Dumping data for table fast-ecommerce.cart_items: ~19 rows (approximately)
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
 INSERT INTO `cart_items` (`cart_item_id`, `user_id`, `product_id`, `quantity`, `created`) VALUES
 	(69, 13, 1, 10, '2022-06-01 11:03:15'),
@@ -152,21 +153,21 @@ INSERT INTO `cart_items` (`cart_item_id`, `user_id`, `product_id`, `quantity`, `
 -- Dumping structure for table fast-ecommerce.categories
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
+  `name` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
   `url_name` varchar(50) NOT NULL,
   `parent_id` int DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`category_id`),
-  UNIQUE KEY `name` (`name`),
   UNIQUE KEY `url_name` (`url_name`),
+  UNIQUE KEY `name` (`name`),
   KEY `FK_categories_categories` (`parent_id`),
   CONSTRAINT `FK_categories_categories` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.categories: ~17 rows (approximately)
+-- Dumping data for table fast-ecommerce.categories: ~28 rows (approximately)
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
 INSERT INTO `categories` (`category_id`, `name`, `url_name`, `parent_id`, `created`) VALUES
-	(3, 'Oil & Ghee', 'oil_and_ghee', NULL, '2022-05-27 09:05:27'),
+	(3, 'Oil & Ghee', 'oil-ghee', NULL, '2022-05-27 09:05:27'),
 	(4, 'Beverages', 'beverages', NULL, '2022-05-27 09:07:17'),
 	(5, 'Dairy', 'dairy', NULL, '2022-05-27 09:06:02'),
 	(6, 'Butter', 'butter', 5, '2022-05-26 23:58:46'),
@@ -176,32 +177,42 @@ INSERT INTO `categories` (`category_id`, `name`, `url_name`, `parent_id`, `creat
 	(10, 'Egg', 'egg', 5, '2022-05-26 23:59:42'),
 	(11, 'Yogurt', 'yogurt', 5, '2022-05-27 00:00:59'),
 	(12, 'Milk Powders', 'milk-powders', 5, '2022-05-27 00:01:15'),
-	(13, 'Soft Drinks', 'soft-drinks', 4, '2022-05-27 00:02:19'),
 	(14, 'Juices', 'juices', 4, '2022-05-27 00:02:37'),
 	(15, 'Mineral Water', 'mineral_water', 4, '2022-05-27 00:03:02'),
-	(16, 'Energy Drinks', 'energy-drinks', 4, '2022-05-27 00:03:18'),
 	(17, 'Cooking Oil', 'cooking-oil', 3, '2022-05-27 00:04:03'),
 	(18, 'Ghee', 'ghee', 3, '2022-05-27 00:04:15'),
-	(19, 'Organic Oil', 'organic-oil', 3, '2022-05-27 00:04:47');
+	(19, 'Organic Oil', 'organic-oil', 3, '2022-05-27 00:04:47'),
+	(25, 'Margarine', 'margarine', 5, '2022-06-10 16:32:59'),
+	(26, 'Books', 'books', NULL, '2022-06-10 19:45:43'),
+	(29, 'Liquids', 'liquids', 4, '2022-06-11 23:52:50'),
+	(32, 'Electronics', 'electronics', NULL, '2022-06-12 09:04:19'),
+	(33, 'Cellphones', 'cellphones', 32, '2022-06-12 09:05:05'),
+	(34, 'Air Conditioners', 'air-conditioners', 32, '2022-06-12 09:05:27'),
+	(35, 'Calculators', 'calculators', 32, '2022-06-12 09:05:40'),
+	(36, 'Mayonnaise', 'mayonnaise', 5, '2022-06-12 09:07:35'),
+	(37, '1212', '1212', 5, '2022-06-12 09:08:17'),
+	(38, '22222', '22222', 37, '2022-06-12 09:09:10'),
+	(39, '654654', '654654', 38, '2022-06-12 10:04:27'),
+	(40, 'fdhdfgh', 'fdhdfgh', 39, '2022-06-12 10:04:33'),
+	(41, 'sss', 'sss', 39, '2022-06-12 10:04:47');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.constants
 CREATE TABLE IF NOT EXISTS `constants` (
   `constant_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `value` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `value` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`constant_id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.constants: ~4 rows (approximately)
+-- Dumping data for table fast-ecommerce.constants: ~3 rows (approximately)
 /*!40000 ALTER TABLE `constants` DISABLE KEYS */;
 INSERT INTO `constants` (`constant_id`, `name`, `value`, `created`) VALUES
-	(1, 'whatsapp', '0333-3215469', '2022-06-02 16:43:13'),
-	(2, 'email', 'support@fast.com', '2022-06-02 16:43:31'),
 	(3, 'phone', '021-34554658', '2022-06-02 16:43:40'),
-	(4, 'timings', '9AM to 6PM everyday, except Sundays and Prayer timings', '2022-06-02 16:44:27');
+	(5, 'asdf', 'asdasdf', '2022-06-13 01:04:49'),
+	(6, 'asdf222', 'asdfa222', '2022-06-13 01:05:15');
 /*!40000 ALTER TABLE `constants` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.guests
@@ -211,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `guests` (
   PRIMARY KEY (`guest_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=508 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.guests: ~51 rows (approximately)
+-- Dumping data for table fast-ecommerce.guests: ~12 rows (approximately)
 /*!40000 ALTER TABLE `guests` DISABLE KEYS */;
 INSERT INTO `guests` (`guest_id`, `created`) VALUES
 	(495, '2022-06-05 11:46:54'),
@@ -242,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `guest_cart_items` (
   CONSTRAINT `guest_cart_items_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=348 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table fast-ecommerce.guest_cart_items: ~0 rows (approximately)
+-- Dumping data for table fast-ecommerce.guest_cart_items: ~9 rows (approximately)
 /*!40000 ALTER TABLE `guest_cart_items` DISABLE KEYS */;
 INSERT INTO `guest_cart_items` (`cart_item_id`, `user_id`, `product_id`, `quantity`, `created`) VALUES
 	(136, 495, 2, 6, '2022-06-05 11:47:55'),
@@ -267,7 +278,7 @@ CREATE TABLE IF NOT EXISTS `guest_trials` (
   PRIMARY KEY (`guest_trial_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.guest_trials: ~0 rows (approximately)
+-- Dumping data for table fast-ecommerce.guest_trials: ~4 rows (approximately)
 /*!40000 ALTER TABLE `guest_trials` DISABLE KEYS */;
 INSERT INTO `guest_trials` (`guest_trial_id`, `guest_id`, `for`, `ip`, `detail`, `created`) VALUES
 	(7, 498, 'login', '::ffff:192.168.0.50', '{"email":"asdf@ff.com","password":"654654asd"}', '2022-06-05 20:06:46'),
@@ -288,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   CONSTRAINT `FK_messages_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.messages: ~38 rows (approximately)
+-- Dumping data for table fast-ecommerce.messages: ~40 rows (approximately)
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
 INSERT INTO `messages` (`message_id`, `user_id`, `type`, `message`, `created`) VALUES
 	(1, 18, 'info', 'Cograts! on creating a new account on fast.pk. Here goes too many possibilities for better lorem ipsum dolor sit comet', '2022-06-01 21:35:38'),
@@ -348,7 +359,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   CONSTRAINT `FK_orders_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.orders: ~22 rows (approximately)
+-- Dumping data for table fast-ecommerce.orders: ~24 rows (approximately)
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 INSERT INTO `orders` (`order_id`, `user_id`, `promo_id`, `address`, `payment_method`, `created`) VALUES
 	(24, 9, 1, 'Fatimah Bae, Patel Para - Lahore', 'cod', '2022-06-03 09:12:29'),
@@ -392,7 +403,7 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   CONSTRAINT `FK_order_details_stocks` FOREIGN KEY (`product_id`) REFERENCES `stocks` (`stock_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.order_details: ~69 rows (approximately)
+-- Dumping data for table fast-ecommerce.order_details: ~74 rows (approximately)
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
 INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quantity`, `price`, `unit_cost`) VALUES
 	(48, 24, 1, 4, 100.00, 80.00),
@@ -483,7 +494,7 @@ CREATE TABLE IF NOT EXISTS `order_statuses` (
   CONSTRAINT `FK__orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.order_statuses: ~21 rows (approximately)
+-- Dumping data for table fast-ecommerce.order_statuses: ~23 rows (approximately)
 /*!40000 ALTER TABLE `order_statuses` DISABLE KEYS */;
 INSERT INTO `order_statuses` (`order_status_id`, `order_id`, `status`, `description`, `created`) VALUES
 	(1, 24, 'confirmed', NULL, '2022-06-03 09:12:29'),
@@ -517,6 +528,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `category_id` int NOT NULL,
   `brand_id` int NOT NULL,
   `name` varchar(50) NOT NULL,
+  `sku` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `url_name` varchar(50) NOT NULL,
   `stock` int NOT NULL DEFAULT '10',
   `unit_cost` int NOT NULL DEFAULT '10',
@@ -535,25 +547,25 @@ CREATE TABLE IF NOT EXISTS `products` (
 
 -- Dumping data for table fast-ecommerce.products: ~18 rows (approximately)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` (`product_id`, `category_id`, `brand_id`, `name`, `url_name`, `stock`, `unit_cost`, `price`, `fair_quantity`, `description`, `created`) VALUES
-	(1, 6, 1, 'Nurpur Butter 50 Grams', 'nurpur-butter-50-grams', 505, 80, 100.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:38:38'),
-	(2, 6, 1, 'Nurpur Butter 200 Grams', 'nurpur-butter-200-grams', 10, 240, 250.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:39:14'),
-	(3, 6, 5, 'Blueband Margarine 250 Grams', 'blueband-margaring-250-grams', 50, 205, 250.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:39:46'),
-	(4, 6, 5, 'Blueband Margarine 500 Grams', 'blueband-margarine-500-grams', 60, 150, 500.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:40:08'),
-	(5, 7, 2, 'Olpers 250 ML', 'olpers-250-ml', 50, 100, 110.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:43:28'),
-	(6, 7, 2, 'Olpers 1 Litre', 'olpers-1-litre', 200, 280, 300.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:44:15'),
-	(7, 7, 8, 'Milkpak Milk 250 ML', 'milkpak-milk-250-ml', 50, 60, 120.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:45:44'),
-	(8, 7, 8, 'Milkpak Milk 1 Litre', 'milkpak-milk-1-litre', 10, 310, 320.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:46:11'),
-	(9, 8, 3, 'Milkpack Cream 200 ML', 'milkpak-cream-200-ml', 0, 170, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:48:02'),
-	(10, 8, 2, 'Olpers Cream 200 ML', 'olpers-cream-200-ml', 65, 170, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:48:33'),
-	(11, 9, 7, 'Adams Cheese Slices 10 Pieces', 'adams-cheese-slices-10-pieces', 20, 350, 400.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:49:03'),
-	(12, 9, 7, 'Adams Cheddar Cheese 250 Grams', 'adams-cheddar-cheese-250-grams', 10, 250, 300.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:49:34'),
-	(13, 9, 7, 'Adams Mozzarella Cheese 500 Grams', 'adams-mozzarella-cheese-500-grams', 30, 405, 455.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:50:08'),
-	(14, 9, 6, 'Amul Cheese Slices 15 Pieces', 'amul-cheese-slices-15-pieces', 40, 350, 506.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:51:31'),
-	(16, 11, 8, 'Nestle Yogurt 500 Grams', 'nestle-yogurt-500-grams', 50, 240, 245.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:52:37'),
-	(17, 11, 8, 'Nestle Yogurt 125 Grams', 'nestle-yogurt-125-grams', 0, 50, 100.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:52:56'),
-	(18, 12, 11, 'Nido Powder 500 Grams', 'nido-powder-500-grams', 5000, 1235, 1500.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:55:04'),
-	(20, 10, 12, 'Eggs 1 Dozen', 'eggs-1-dozen', 1000, 160, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:56:48');
+INSERT INTO `products` (`product_id`, `category_id`, `brand_id`, `name`, `sku`, `url_name`, `stock`, `unit_cost`, `price`, `fair_quantity`, `description`, `created`) VALUES
+	(1, 6, 1, 'Nurpur Butter 50 Grams', NULL, 'nurpur-butter-50-grams', 505, 80, 100.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:38:38'),
+	(2, 6, 1, 'Nurpur Butter 200 Grams', NULL, 'nurpur-butter-200-grams', 10, 240, 250.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:39:14'),
+	(3, 6, 5, 'Blueband Margarine 250 Grams', NULL, 'blueband-margaring-250-grams', 50, 205, 250.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:39:46'),
+	(4, 6, 5, 'Blueband Margarine 500 Grams', NULL, 'blueband-margarine-500-grams', 60, 150, 500.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:40:08'),
+	(5, 7, 2, 'Olpers 250 ML', NULL, 'olpers-250-ml', 50, 100, 110.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:43:28'),
+	(6, 7, 2, 'Olpers 1 Litre', NULL, 'olpers-1-litre', 200, 280, 300.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:44:15'),
+	(7, 7, 8, 'Milkpak Milk 250 ML', NULL, 'milkpak-milk-250-ml', 50, 60, 120.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:45:44'),
+	(8, 7, 8, 'Milkpak Milk 1 Litre', NULL, 'milkpak-milk-1-litre', 10, 310, 320.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:46:11'),
+	(9, 8, 3, 'Milkpack Cream 200 ML', NULL, 'milkpak-cream-200-ml', 0, 170, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:48:02'),
+	(10, 8, 2, 'Olpers Cream 200 ML', NULL, 'olpers-cream-200-ml', 65, 170, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:48:33'),
+	(11, 9, 7, 'Adams Cheese Slices 10 Pieces', NULL, 'adams-cheese-slices-10-pieces', 20, 350, 400.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:49:03'),
+	(12, 9, 7, 'Adams Cheddar Cheese 250 Grams', NULL, 'adams-cheddar-cheese-250-grams', 10, 250, 300.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:49:34'),
+	(13, 9, 7, 'Adams Mozzarella Cheese 500 Grams', NULL, 'adams-mozzarella-cheese-500-grams', 30, 405, 455.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:50:08'),
+	(14, 9, 6, 'Amul Cheese Slices 15 Pieces', NULL, 'amul-cheese-slices-15-pieces', 40, 350, 506.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:51:31'),
+	(16, 11, 8, 'Nestle Yogurt 500 Grams', NULL, 'nestle-yogurt-500-grams', 50, 240, 245.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:52:37'),
+	(17, 11, 8, 'Nestle Yogurt 125 Grams', NULL, 'nestle-yogurt-125-grams', 0, 50, 100.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:52:56'),
+	(18, 12, 11, 'Nido Powder 500 Grams', NULL, 'nido-powder-500-grams', 5000, 1235, 1500.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:55:04'),
+	(20, 10, 12, 'Eggs 1 Dozen', NULL, 'eggs-1-dozen', 1000, 160, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:56:48');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.promos
@@ -571,7 +583,7 @@ CREATE TABLE IF NOT EXISTS `promos` (
   CONSTRAINT `FK_promos_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.promos: ~10 rows (approximately)
+-- Dumping data for table fast-ecommerce.promos: ~11 rows (approximately)
 /*!40000 ALTER TABLE `promos` DISABLE KEYS */;
 INSERT INTO `promos` (`promo_id`, `user_id`, `code`, `validity`, `percentage`, `max_discount`, `status`, `created`) VALUES
 	(1, 9, 'BE202', '2022-06-02 01:42:26', 10, 200.00, 'available', '2022-06-02 01:42:30'),
@@ -596,7 +608,7 @@ CREATE TABLE IF NOT EXISTS `trials` (
   PRIMARY KEY (`trial_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.trials: ~0 rows (approximately)
+-- Dumping data for table fast-ecommerce.trials: ~6 rows (approximately)
 /*!40000 ALTER TABLE `trials` DISABLE KEYS */;
 INSERT INTO `trials` (`trial_id`, `user_id`, `for`, `created`) VALUES
 	(8, 9, 'promo', '2022-06-05 14:30:25'),
@@ -622,7 +634,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.users: ~26 rows (approximately)
+-- Dumping data for table fast-ecommerce.users: ~27 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `applied_promo_id`, `last_messages_read`, `last_orders_read`, `last_promos_read`, `last_wallets_read`, `created`) VALUES
 	(7, 'Yousuf', 'yosof@fast.com', '$2a$11$IFPP9EvJmPU73z9T8xhgeuFfqpxIbVxaSRRcZ6M40PQFhuBqyiJZi', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-05-31 10:17:06'),
@@ -706,7 +718,7 @@ CREATE TABLE IF NOT EXISTS `wishlists` (
   CONSTRAINT `FK_wishlists_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.wishlists: ~1 rows (approximately)
+-- Dumping data for table fast-ecommerce.wishlists: ~0 rows (approximately)
 /*!40000 ALTER TABLE `wishlists` DISABLE KEYS */;
 INSERT INTO `wishlists` (`wishlist_id`, `user_id`, `product_id`, `created`) VALUES
 	(59, 9, 3, '2022-06-03 21:35:42');
