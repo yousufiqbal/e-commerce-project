@@ -1,11 +1,13 @@
 import { db } from '$lib/database/db'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export const get = async () => {
+export const get = async ({ url }) => {
 
-  // Temp
-  const product = await db.selectFrom('products').selectAll()
-    .where('products.product_id', '=', 27).executeTakeFirst()
+  const product_id = url.searchParams.get('product_id') || null
+
+  // Getting product if ID given as query param..
+  const product = product_id ? await db.selectFrom('products').selectAll()
+    .where('products.product_id', '=', product_id).executeTakeFirst() : {}
 
   // Constants
   const constantsRaw = await db.selectFrom('constants').selectAll().execute()

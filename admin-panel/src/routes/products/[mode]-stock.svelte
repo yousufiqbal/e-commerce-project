@@ -18,13 +18,18 @@
   import { addToast } from "$lib/stores/toast";
   import Layout from "$lib/components/Layout.svelte";
   import Text from "$lib/components/Text.svelte";
-import Spaced from "$lib/components/Spaced.svelte";
-import { goto } from "$app/navigation";
+  import Spaced from "$lib/components/Spaced.svelte";
+  import { goto } from "$app/navigation";
+import { onMount } from "svelte";
+
+  onMount(() => {
+    if (!isEmpty(product)) el.focus()
+  })
 
   export let products = []
   export let constants = {}
   export let product = {}
-  let newStock = { unit_cost: '', stock: '', price: '' }
+  let newStock = { unit_cost: 0, stock: 0, price: 0 }
   let touched = false, errors = {}
   let modal = { search: false, confirm: false }
   let el
@@ -145,6 +150,11 @@ import { goto } from "$app/navigation";
   <Button on:click={submit} shortcut="ctrl+enter" icon="save" name="Add Stock" type="primary" />
   <Button href="/products" icon="close" name="Discard" />
 </ButtonGroup>
+
+<Subtitle icon="listCheck" subtitle="Note" />
+<Text>
+  You can also set price other than recommended price, in accordance with market-value and other factors.
+</Text>
 {/if}
 
 </div> <!-- Left -->
@@ -196,11 +206,7 @@ import { goto } from "$app/navigation";
   </tr>
 </Table>
 
-<Subtitle icon="listCheck" subtitle="Instructions" />
-<Text>
-  Unit cost is averaged everytime you add new stock. In order to maintain its records, you should record it manually or in an accounting software.<br><br>
-  You can also set price other than recommended price, in accordance with market-value and other factors.
-</Text>
+
 
 {/if}
 </div> <!-- Right -->

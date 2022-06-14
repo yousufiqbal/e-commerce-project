@@ -25,11 +25,10 @@
     gap: 15px;
     margin-bottom: 15px;
     overflow-x: auto;
-    padding-bottom: 10px;
   }
   .pill {
     border: 1px solid var(--border);
-    padding: var(--padding);
+    padding: var(--padding-small);
     border-radius: 5px;
   }
   .active {

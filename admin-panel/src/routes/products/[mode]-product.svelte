@@ -19,7 +19,7 @@
   import { goto } from "$app/navigation";
 
   export let categories = [], brands = [], constants = {}
-  let product = { category_path: '', brand_name: '', category_id: null, brand_id: null, name: '', sku: null, stock: 0, unit_cost: 0, price: 0, fair_quantity: '0', description: '' }
+  export let product = { category_path: '', brand_name: '', category_id: null, brand_id: null, name: '', sku: null, stock: 0, unit_cost: 0, price: 0, fair_quantity: '0', description: '' }
   let touched = false, errors = {}
 
   let categoryModal = false, brandModal = false

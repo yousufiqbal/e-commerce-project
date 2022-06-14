@@ -14,41 +14,68 @@
 </script>
 
 <div class="pagination">
-  <a class:disabled={previousDisabled} href="{setQuery({ 'page': previousPage}, $page)}" class="prev">
-    <Icon size="1.2rem" icon="arrowLeftS" />
+  <div class="status">Page {currentPage} / {totalPages}</div>
+  {#if !previousDisabled}
+  <a sveltekit:noscroll class:disabled={previousDisabled} href="{setQuery({ 'page': previousPage}, $page)}" class="prev">
+    <button>
+      <Icon size="1.2rem" icon="arrowLeftS" />
+    </button>
     <span>Prev</span>
   </a>
-  <div class="status">Page {currentPage} of {totalPages}</div>
-  <a class:disabled={nextDisabled} href="{setQuery({ 'page': nextPage}, $page)}" class="next">
+  {/if}
+  {#if !nextDisabled}
+  <a sveltekit:noscroll class:disabled={nextDisabled} href="{setQuery({ 'page': nextPage}, $page)}" class="next">
     <span>Next</span>
-    <Icon size="1.2rem" icon="arrowRightS" />
+    <button>
+      <Icon size="1.2rem" icon="arrowRightS" />
+    </button>
   </a>
+  {/if}
 </div>
 
 <style>
   .pagination {
     /* border: 1px solid red; */
     display: flex;
-    gap: 25px;
+    gap: 15px;
     justify-content: end;
-    align-items: center;
+    /* align-items: center; */
     /* margin-bottom: 20px; */
   }
-  a {
+  a  {
+    color: blue;
     display: flex;
-    padding: var(--padding);
     border: 1px solid var(--border);
     border-radius: 5px;
-    gap: 7px;
-    transition: box-shadow 500ms;
+  }
+  .status {
+    padding: 6px 15px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+  }
+  a span {
+    padding: 6px 15px;
   }
   a:not(.disabled):hover {
     color: blue;
-    box-shadow: 0 0 5px 0 rgb(123, 123, 123);
+    box-shadow: var(--shadow);
   }
   a.disabled {
     cursor: not-allowed;
     opacity: 0.7;
     background-color: rgb(221, 221, 221);
+  }
+  button {
+    padding: 6px 5px;
+    display: flex;
+  }
+  button:first-child {
+    border-right: 1px solid var(--border);
+  }
+  button:last-child {
+    border-left: 1px solid var(--border);
+  }
+  a:hover > button {
+    color: red
   }
 </style>

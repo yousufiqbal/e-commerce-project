@@ -6,6 +6,16 @@
   export let placeholder
   let el
 
+  const handleShortcut = e => {
+    if (e.ctrlKey && e.keyCode == 75) {
+      e.preventDefault()
+      el.focus()
+    }
+    if (e.key == 'Escape') {
+      el.blur()
+    }
+  }
+
   onMount(() => {
     if (focused) el.focus()
   })
@@ -18,23 +28,26 @@
   <input bind:this={el} on:keyup {placeholder} >
 </div>
 
+<svelte:window on:keydown="{handleShortcut}" />
+
 <style>
   .search {
     display: flex;
     border: 1px solid var(--border);
-    border-radius: 5px;
-    box-shadow: var(--shadow);
+    border-radius: 4px;
+    /* box-shadow: var(--shadow); */
     overflow: hidden;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
+    flex: 1;
   }
   button {
-    padding: 10px;
+    padding: var(--padding-small);
     border-right: 1px solid var(--border);
     display: flex;
-    color: red;
+    /* color: red; */
   }
   input {
-    padding: 10px 18px;
+    padding: var(--padding-small);
     flex: 1;
   }
 </style>

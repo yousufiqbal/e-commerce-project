@@ -47,6 +47,6 @@
   }
   tr:hover {
     box-shadow: var(--shadow);
-    background-color: rgb(255, 244, 244);
+    background-color: rgb(255, 247, 225);
   }
 </style>

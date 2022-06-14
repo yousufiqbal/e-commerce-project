@@ -1,8 +1,13 @@
 <script>
+  import { beforeNavigate } from "$app/navigation";
   import { createEventDispatcher } from "svelte";
   import { fly } from "svelte/transition";
   import Card from "./Card.svelte";
   import Icon from "./Icon.svelte";
+
+  beforeNavigate(() => {
+    dispatch('close')
+  })
 
   export let close = true
 

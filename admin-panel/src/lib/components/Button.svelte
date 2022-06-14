@@ -36,7 +36,7 @@
   .button {
     display: flex;
     gap: 7px;
-    padding: 6px 12px;
+    padding: var(--padding-small);
     border: 1px solid var(--border);
     /* box-shadow: var(--shadow); */
     border-radius: 4px;
@@ -45,9 +45,8 @@
     color: red;
     box-shadow: var(--shadow);
   }
-  .button.primary:hover, .button.primary:hover > span {
-    background-color: white;
-    color: red;
+  .button.primary:hover {
+    background-color: rgb(71, 71, 71);
   }
   .primary {
     color: white;
