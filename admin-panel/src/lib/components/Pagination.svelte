@@ -14,7 +14,6 @@
 </script>
 
 <div class="pagination">
-  <div class="status">Page {currentPage} / {totalPages}</div>
   {#if !previousDisabled}
   <a sveltekit:noscroll class:disabled={previousDisabled} href="{setQuery({ 'page': previousPage}, $page)}" class="prev">
     <button>
@@ -23,6 +22,7 @@
     <span>Prev</span>
   </a>
   {/if}
+  <div class="status">Page {currentPage} / {totalPages}</div>
   {#if !nextDisabled}
   <a sveltekit:noscroll class:disabled={nextDisabled} href="{setQuery({ 'page': nextPage}, $page)}" class="next">
     <span>Next</span>
@@ -50,7 +50,7 @@
   }
   .status {
     padding: 6px 15px;
-    border: 1px solid var(--border);
+    border: 1px dashed var(--border);
     border-radius: 5px;
   }
   a span {

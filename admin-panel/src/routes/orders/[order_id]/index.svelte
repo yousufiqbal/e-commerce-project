@@ -52,7 +52,7 @@ import Modal from "$lib/components/Modal.svelte";
 <Title title="Order # {$page.params.order_id}" />
 
 <Layout>
-  <div slot="main">
+  <div slot="left">
 
     <Subtitle subtitle="Items" />
     <Items {items} />
@@ -129,7 +129,7 @@ import Modal from "$lib/components/Modal.svelte";
     
 
   </div>
-  <div slot="related">
+  <div slot="right">
 
     <Subtitle subtitle="Promo" />
     <Text>

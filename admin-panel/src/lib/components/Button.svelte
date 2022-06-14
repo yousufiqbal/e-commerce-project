@@ -46,7 +46,7 @@
     box-shadow: var(--shadow);
   }
   .button.primary:hover {
-    background-color: rgb(71, 71, 71);
+    background-color: rgb(0, 144, 74);
   }
   .primary {
     color: white;

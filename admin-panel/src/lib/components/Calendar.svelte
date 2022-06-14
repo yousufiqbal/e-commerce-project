@@ -45,6 +45,7 @@
   <button on:click={setThisWeek}>This Week</button>
   <button on:click={setThisMonth}>This Month</button>
   <button on:click={setPreviousMonth}>Previous Month</button>
+  <button>All Time</button>
 </div>
 
 
@@ -58,12 +59,12 @@
   input {
     /* color: white; */
     border: 1px solid var(--border);
-    padding: var(--padding);
+    padding: var(--padding-small);
     border-radius: 4px;
   }
   button {
     border: 1px solid var(--border);
-    padding: var(--padding);
+    padding: var(--padding-small);
     border-radius: 4px;
   }
   button {

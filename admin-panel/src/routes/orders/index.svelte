@@ -1,27 +1,26 @@
 <script>
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
+import Calendar from "$lib/components/Calendar.svelte";
   import Nothing from "$lib/components/Nothing.svelte";
   import Pagination from "$lib/components/Pagination.svelte";
-  import QueryTabs from "$lib/components/QueryTabs.svelte";
+  import Pills from "$lib/components/Pills.svelte";
+import Search from "$lib/components/Search.svelte";
   import Table from "$lib/components/Table.svelte";
   import Title from "$lib/components/Title.svelte";
+import { beautifyDateTime } from "$lib/others/utils";
 
   const types = [
     { name: 'Ordered', url_name: 'ordered' },
     { name: 'Confirmed', url_name: 'confirmed' },
     { name: 'Dispatched', url_name: 'dispatched' },
     { name: 'Received', url_name: 'received' },
+    { name: 'Cancelled', url_name: 'cancelled' },
+    { name: 'Returned', url_name: 'returned' },
   ]
 
   // Fake data
-  let orders = [
-    { order_id: 1, customer_name: 'Yousuf Iqbal', city: 'Karachi', contact: '03212503902', amount: '950' },
-    { order_id: 2, customer_name: 'Yousuf Iqbal', city: 'Karachi', contact: '03212503902', amount: '950' },
-    { order_id: 3, customer_name: 'Yousuf Iqbal', city: 'Karachi', contact: '03212503902', amount: '950' },
-    { order_id: 4, customer_name: 'Yousuf Iqbal', city: 'Karachi', contact: '03212503902', amount: '950' },
-    { order_id: 5, customer_name: 'Yousuf Iqbal', city: 'Karachi', contact: '03212503902', amount: '950' },
-  ]
+  export let orders = []
 </script>
 
 
@@ -30,12 +29,16 @@
 
 <ButtonGroup>
   <Button icon="add" name="New" type="primary" />
-  <Button icon="searchTwo" name="Search" href="/orders/search" />
-  <Button icon="searchTwo" name="Dispatch Multiple" href="/orders/dispatch-multiple" />
-  <Button icon="searchTwo" name="Receive Multiple" href="/orders/receive-multiple" />
+  <Button icon="truck" name="Dispatch Multiple" href="/orders/dispatch-multiple" />
+  <Button icon="handHeart" name="Receive Multiple" href="/orders/receive-multiple" />
+  <Search placeholder="Search Orders (Ctrl + K)" />
 </ButtonGroup>
 
-<QueryTabs items={types} />
+<ButtonGroup>
+  <Pills pills={types} />
+</ButtonGroup>
+
+<Calendar />
 
 {#if orders.length != 0}
 <Table>
@@ -43,18 +46,22 @@
     <th>Sr.</th>
     <th>ID</th>
     <th class="main">Name</th>
-    <th>City</th>
-    <th>Contact</th>
-    <th>Amount</th>
+    <th>Payment Method</th>
+    <th>Created</th>
+    <th>Items</th>
+    <th>Total Amount</th>
+    <th>Profit</th>
   </tr>
   {#each orders as order, index (order.order_id)}
   <tr>
     <td>{index + 1}</td>
     <td>{order.order_id}</td>
-    <td><a href="/orders/{order.order_id}">{order.customer_name}</a></td>
-    <td>{order.city}</td>
-    <td>{order.contact}</td>
-    <td>Rs. {order.amount}</td>
+    <td><a href="/orders/{order.order_id}">Name WIP</a></td>
+    <td>{order.payment_method}</td>
+    <td>{beautifyDateTime(order.created)}</td>
+    <td>{order.items}</td>
+    <td>{order.total_amount}</td>
+    <td>{order.profit}</td>
   </tr>
   {/each}
 </Table>
