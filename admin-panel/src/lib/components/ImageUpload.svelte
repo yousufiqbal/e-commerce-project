@@ -9,9 +9,9 @@
   let fileInput
 
   const checkImage = url => {
-    let imageTest = new Image();
-    imageTest.onerror = () => image = null
-    imageTest.src = url;
+    let img = new Image();
+    img.onerror = () => image = null
+    img.src = url;
   }
 
   onMount(() => {

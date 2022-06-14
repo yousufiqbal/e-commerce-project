@@ -13,7 +13,9 @@
   import Modal from "$lib/components/Modal.svelte";
   import SearchBox from "$lib/components/SearchBox.svelte";
   import Nothing from "$lib/components/Nothing.svelte";
+import Layout from "$lib/components/Layout.svelte";
 
+  export let constants = {}
   let product = { previousStock: 250, previousCost: 400 }, touched = false, errors = {}
   let margin = 25
   let modal = false
@@ -116,46 +118,85 @@
 
 <Title back="/products" title="{startCase(mode)} Stock" />
 
-<Form>
-  <Field on:focus={()=>modal=true} bind:value={product.name} label="Product" {touched} error={errors['product_id']} />
-  <Field bind:el bind:value={product.stock} label="Stock" {touched} error={errors['stock']} />
-  <Field bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} />
-  <Field bind:value={product.price} label="Price" {touched} error={errors['price']} />
-</Form>
+<Layout columns="1fr 1fr">
+  <div slot="left">
+    <Subtitle icon="listCheck" subtitle="Choose Product" />
+    <Form>
+      <Field bind:value={product.sku} label="SKU" {touched} error={errors['unit_cost']} />
+      <Field on:focus={()=>modal=true} bind:value={product.name} label="Product" {touched} error={errors['product_id']} />
+    </Form>
+    
+    <Subtitle icon="listCheck" subtitle="New Stock & Price" />
+    <Form>
+      <Field bind:el bind:value={product.stock} label="New Stock" {touched} error={errors['stock']} />
+      <Field bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} />
+      <Field bind:value={product.price} label="Price" {touched} error={errors['price']} />
+    </Form>
+    <ButtonGroup>
+      <Button on:click={submit} icon="save" name="Add Stock" type="primary" />
+      <Button href="/products" icon="close" name="Discard" />
+    </ButtonGroup>
+  </div>
+  <div slot="right">
+    <Subtitle icon="calculator" subtitle="Previous Stock & Price" />
+    <Table>
+      <tr>
+        <th class="main">Name</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Previous Stock Quanity</td>
+        <td>{product.previousStock}</td>
+      </tr>
+      <tr>
+        <td>Previous Stock Value / Unit</td>
+        <td>Rs. {product.previousCost}</td>
+      </tr>
+      {#if recommendedPrice}
+      <tr>
+        <td>Recommended price ({margin}% Margin)</td>
+        <td>Rs. {recommendedPrice.toFixed(2)}</td>
+      </tr>
+      {/if}
+      {#if postStockValue}
+      <tr>
+        <td>Post addition stock value / uni</td>
+        <td>Rs. {postStockValue.toFixed(2)}</td>
+      </tr>
+      {/if}
+    </Table>
+    
+    <!-- Calculations -->
+    <Subtitle icon="calculator" subtitle="Calculations" />
+    <Table>
+      <tr>
+        <td class="main">Actual Price</td>
+        <td>Rs. {product.unit_cost}</td>
+      </tr>
+      <tr>
+        <td>Margin ({constants.margin}%)</td>
+        <td>Rs. {(product.unit_cost * (constants.margin / 100)).toFixed(2)}</td>
+      </tr>
+      <tr>
+        <td>Delivery Charges</td>
+        <td>Rs. {constants.delivery_charges}</td>
+      </tr>
+      <tr>
+        <td>Sales Tax ({constants.sales_tax}%)</td>
+        <td>Rs. {(product.unit_cost * (constants.sales_tax / 100)).toFixed(2)}</td>
+      </tr>
+      <tr>
+        <td>Recommended Price with Delivery</td>
+        <td>Rs. {recommendedPrice}</td>
+      </tr>
+      <tr>
+        <td>Recommended Price without Delivery</td>
+        <td>Rs. {recommendedPrice - constants.delivery_charges}</td>
+      </tr>
+    </Table>
+  </div>
+</Layout>
 
-<Subtitle icon="lineChart" subtitle="Metrics" />
-
-<Table>
-  <tr>
-    <th>Value</th>
-    <th class="main">Name</th>
-  </tr>
-  <tr>
-    <td>{product.previousStock}</td>
-    <td>Previous Stock Quanity</td>
-  </tr>
-  <tr>
-    <td>Rs. {product.previousCost}</td>
-    <td>Previous Stock Value / Unit</td>
-  </tr>
-  {#if recommendedPrice}
-  <tr>
-    <td>Rs. {recommendedPrice.toFixed(2)}</td>
-    <td>Recommended price ({margin}% Margin)</td>
-  </tr>
-  {/if}
-  {#if postStockValue}
-  <tr>
-    <td>Rs. {postStockValue.toFixed(2)}</td>
-    <td>Post addition stock value / uni</td>
-  </tr>
-  {/if}
-</Table>
-
-<ButtonGroup>
-  <Button on:click={submit} icon="save" name="Add Stock" type="primary" />
-  <Button href="/products" icon="close" name="Discard" />
-</ButtonGroup>
 
 <style>
   .products {
@@ -183,9 +224,6 @@
     display: grid;
     /* align-items: start; */
     flex: 1;
-  }
-  .name {
-    /* border: 1px solid red; */
   }
   .product .detail {
     /* border: 1px solid red; */
