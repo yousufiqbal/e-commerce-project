@@ -498,29 +498,29 @@ CREATE TABLE IF NOT EXISTS `order_statuses` (
 -- Dumping data for table fast-ecommerce.order_statuses: ~23 rows (approximately)
 /*!40000 ALTER TABLE `order_statuses` DISABLE KEYS */;
 INSERT INTO `order_statuses` (`order_status_id`, `order_id`, `status`, `description`, `created`) VALUES
-	(1, 24, 'confirmed', NULL, '2022-06-03 09:12:29'),
-	(2, 25, 'confirmed', NULL, '2022-06-03 09:51:23'),
-	(3, 27, 'confirmed', NULL, '2022-06-03 10:03:51'),
-	(4, 28, 'confirmed', NULL, '2022-06-03 10:13:31'),
-	(5, 29, 'confirmed', NULL, '2022-06-03 10:32:30'),
-	(6, 30, 'confirmed', NULL, '2022-06-03 10:32:50'),
-	(7, 31, 'confirmed', NULL, '2022-06-03 11:13:09'),
-	(8, 32, 'confirmed', NULL, '2022-06-03 21:20:53'),
-	(9, 33, 'confirmed', NULL, '2022-06-03 21:25:58'),
-	(10, 34, 'confirmed', NULL, '2022-06-03 22:27:44'),
-	(13, 37, 'confirmed', NULL, '2022-06-04 09:39:16'),
-	(14, 38, 'confirmed', NULL, '2022-06-04 09:40:21'),
-	(15, 39, 'confirmed', NULL, '2022-06-04 12:05:37'),
-	(17, 41, 'confirmed', NULL, '2022-06-04 12:26:01'),
-	(18, 42, 'confirmed', NULL, '2022-06-04 12:42:45'),
-	(19, 43, 'confirmed', NULL, '2022-06-04 13:06:19'),
-	(20, 44, 'confirmed', NULL, '2022-06-04 13:23:52'),
-	(21, 45, 'confirmed', NULL, '2022-06-04 22:18:51'),
-	(22, 46, 'confirmed', NULL, '2022-06-04 23:06:42'),
-	(23, 47, 'confirmed', NULL, '2022-06-04 23:09:01'),
-	(24, 48, 'confirmed', NULL, '2022-06-04 23:23:50'),
-	(25, 49, 'confirmed', NULL, '2022-06-05 19:42:53'),
-	(26, 50, 'confirmed', NULL, '2022-06-05 21:07:40');
+	(1, 24, 'ordered', NULL, '2022-06-03 09:12:29'),
+	(2, 25, 'ordered', NULL, '2022-06-03 09:51:23'),
+	(3, 27, 'ordered', NULL, '2022-06-03 10:03:51'),
+	(4, 28, 'ordered', NULL, '2022-06-03 10:13:31'),
+	(5, 29, 'ordered', NULL, '2022-06-03 10:32:30'),
+	(6, 30, 'ordered', NULL, '2022-06-03 10:32:50'),
+	(7, 31, 'ordered', NULL, '2022-06-03 11:13:09'),
+	(8, 32, 'ordered', NULL, '2022-06-03 21:20:53'),
+	(9, 33, 'ordered', NULL, '2022-06-03 21:25:58'),
+	(10, 34, 'ordered', NULL, '2022-06-03 22:27:44'),
+	(13, 37, 'ordered', NULL, '2022-06-04 09:39:16'),
+	(14, 38, 'ordered', NULL, '2022-06-04 09:40:21'),
+	(15, 39, 'ordered', NULL, '2022-06-04 12:05:37'),
+	(17, 41, 'ordered', NULL, '2022-06-04 12:26:01'),
+	(18, 42, 'ordered', NULL, '2022-06-04 12:42:45'),
+	(19, 43, 'ordered', NULL, '2022-06-04 13:06:19'),
+	(20, 44, 'ordered', NULL, '2022-06-04 13:23:52'),
+	(21, 45, 'ordered', NULL, '2022-06-04 22:18:51'),
+	(22, 46, 'ordered', NULL, '2022-06-04 23:06:42'),
+	(23, 47, 'ordered', NULL, '2022-06-04 23:09:01'),
+	(24, 48, 'ordered', NULL, '2022-06-04 23:23:50'),
+	(25, 49, 'ordered', NULL, '2022-06-05 19:42:53'),
+	(26, 50, 'ordered', NULL, '2022-06-05 21:07:40');
 /*!40000 ALTER TABLE `order_statuses` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.products
@@ -546,7 +546,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   CONSTRAINT `FK_products_categories` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.products: ~24 rows (approximately)
+-- Dumping data for table fast-ecommerce.products: ~25 rows (approximately)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`product_id`, `category_id`, `brand_id`, `name`, `sku`, `url_name`, `stock`, `unit_cost`, `price`, `fair_quantity`, `description`, `created`) VALUES
 	(1, 6, 1, 'Nurpur Butter 50 Grams', NULL, 'nurpur-butter-50-grams', 505, 80, 100.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:38:38'),
@@ -558,7 +558,7 @@ INSERT INTO `products` (`product_id`, `category_id`, `brand_id`, `name`, `sku`, 
 	(7, 7, 8, 'Milkpak Milk 250 ML', NULL, 'milkpak-milk-250-ml', 50, 60, 120.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:45:44'),
 	(8, 7, 8, 'Milkpak Milk 1 Litre', NULL, 'milkpak-milk-1-litre', 10, 310, 320.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:46:11'),
 	(9, 8, 3, 'Milkpack Cream 200 ML', NULL, 'milkpak-cream-200-ml', 0, 170, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:48:02'),
-	(10, 8, 2, 'Olpers Cream 200 ML', NULL, 'olpers-cream-200-ml', 65, 170, 180.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:48:33'),
+	(10, 8, 2, 'Olpers Cream 200 ML', NULL, 'olpers-cream-200-ml', 165, 143, 200.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:48:33'),
 	(11, 9, 7, 'Adams Cheese Slices 10 Pieces', NULL, 'adams-cheese-slices-10-pieces', 20, 350, 400.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:49:03'),
 	(12, 9, 7, 'Adams Cheddar Cheese 250 Grams', NULL, 'adams-cheddar-cheese-250-grams', 10, 250, 300.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:49:34'),
 	(13, 9, 7, 'Adams Mozzarella Cheese 500 Grams', NULL, 'adams-mozzarella-cheese-500-grams', 30, 405, 455.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:50:08'),
