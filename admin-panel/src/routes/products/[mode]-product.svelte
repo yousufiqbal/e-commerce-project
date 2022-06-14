@@ -16,7 +16,7 @@
   import { axios, stripTags } from "$lib/others/utils";
   import { addToast } from "$lib/stores/toast";
   import Layout from "$lib/components/Layout.svelte";
-import { goto } from "$app/navigation";
+  import { goto } from "$app/navigation";
 
   export let categories = [], brands = [], constants = {}
   let product = { category_path: '', brand_name: '', category_id: null, brand_id: null, name: '', sku: null, stock: 0, unit_cost: 0, price: 0, fair_quantity: '0', description: '' }
@@ -85,7 +85,7 @@ import { goto } from "$app/navigation";
 
 <Layout columns="1fr 1fr">
 
-<div slot="main">
+<div slot="left">
 
 <!-- Fields -->
 <Subtitle icon="listOrdered" subtitle="General Info" />
@@ -107,34 +107,34 @@ import { goto } from "$app/navigation";
 
 </div>
 
-<div slot="related">
+<div slot="right">
       
 <!-- Calculations -->
 <Subtitle icon="calculator" subtitle="Calculations" />
 <Table>
   <tr>
-    <td class="main">Actual Price</td>
+    <td class="main">Unit Cost</td>
     <td>Rs. {product.unit_cost}</td>
   </tr>
   <tr>
-    <td>Margin ({constants.margin}%)</td>
+    <td>+ Margin ({constants.margin}%)</td>
     <td>Rs. {(product.unit_cost * (constants.margin / 100)).toFixed(2)}</td>
   </tr>
   <tr>
-    <td>Delivery Charges</td>
-    <td>Rs. {constants.delivery_charges}</td>
+    <td>+ Sales Tax ({constants.sales_tax}%)</td>
+    <td>Rs. {(product.unit_cost * (constants.sales_tax / 100)).toFixed(2)}</td>
+  </tr>
+  <tr class="strong">
+    <td>Recommended Price without Delivery</td>
+    <td>Rs. {(recommendedPrice - constants.delivery_charges).toFixed(2)}</td>
   </tr>
   <tr>
-    <td>Sales Tax ({constants.sales_tax}%)</td>
-    <td>Rs. {(product.unit_cost * (constants.sales_tax / 100)).toFixed(2)}</td>
+    <td>+ Delivery Charges</td>
+    <td>Rs. {constants.delivery_charges}</td>
   </tr>
   <tr>
     <td>Recommended Price with Delivery</td>
     <td>Rs. {recommendedPrice}</td>
-  </tr>
-  <tr>
-    <td>Recommended Price without Delivery</td>
-    <td>Rs. {recommendedPrice - constants.delivery_charges}</td>
   </tr>
 </Table>
 

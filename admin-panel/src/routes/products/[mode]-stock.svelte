@@ -7,25 +7,27 @@
   import Button from "$lib/components/Button.svelte";
   import Field from "$lib/components/Field.svelte";
   import Form from "$lib/components/Form.svelte";
-  import { extractYupErrors } from "$lib/others/schema";
+  import { extractYupErrors, stockSchema } from "$lib/others/schema";
   import Table from "$lib/components/Table.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Modal from "$lib/components/Modal.svelte";
   import Nothing from "$lib/components/Nothing.svelte";
-  import Layout from "$lib/components/Layout.svelte";
-  import SmartFilter from "$lib/components/SmartFilter.svelte";
   import Links from "$lib/components/Links.svelte";
-  import { stripTags } from "$lib/others/utils";
-
-  export let constants = {}
-  let product = { previousStock: 250, previousCost: 400 }
-  let touched = false, errors = {}
-  let modal = false
-  let el
+  import { axios } from "$lib/others/utils";
+  import Search from "$lib/components/Search.svelte";
+  import { addToast } from "$lib/stores/toast";
+  import Layout from "$lib/components/Layout.svelte";
+  import Text from "$lib/components/Text.svelte";
+import Spaced from "$lib/components/Spaced.svelte";
 
   export let products = []
+  export let constants = {}
+  export let product = {}
+  let newStock = { unit_cost: '', stock: '', price: '' }
+  let touched = false, errors = {}
+  let modal = { search: false, confirm: false }
+  let el
 
-  const mode = $page.params.mode
   const crumbs = [
     { name: 'Products', href: '/products', icon: 'listCheck' },
     { name: 'Add Stock', href: '/products/add-stock' },
@@ -33,7 +35,7 @@
 
   const validate = async () => {
     try {
-      await stockSchema.validate(stock, { abortEarly: false })
+      await stockSchema.validate(newStock, { abortEarly: false })
       errors = {}
     } catch (error) {
       errors = extractYupErrors(error)
@@ -45,37 +47,62 @@
       if (mode == 'add') await addStock()
       if (mode == 'edit') await editStock()
     } else {
+      modal.confirm = false
       touched = true
     }
   }
 
+  const addStock = async () => {
+    modal.confirm = false
+    try {
+      const response = await axios.post('/api/stocks?product_id='+product.product_id, newStock)
+      addToast({ message: response.data.message })
+    } catch (error) {
+      addToast({ message: error.data.message, type: 'error' })
+    }
+  }
+
   const selectProduct = pr => {
-    product.product_id = pr.product_id
-    product.name = stripTags(pr.name)
-    product.sku = pr.sku
-    modal = false
+    product = pr
+    modal.search = false
+  }
+
+  const search = async e => {
+    let keyword = e.currentTarget.value
+    if (!keyword) {
+      products = [];
+      return
+    } else {
+      try {
+        const response = await axios.get('/api/search/products?keyword='+keyword)
+        products = response.data
+      } catch (error) {
+        addToast({ message: 'Cannot get products', type: 'error'})
+      }
+    }
   }
 
   // TODO blur or close not working..
   const close = () => {
-    modal = false
+    modal.search = false
     el.blur()
   }
 
-  $: recommendedPrice = ((+product.unit_cost) + (+constants.delivery_charges) + (+product.unit_cost * (constants.margin / 100)) + (+product.unit_cost * (constants.sales_tax / 100))).toFixed(2)
-  // $: if (product) validate()
+  $: if (newStock) validate()
+  $: averageCost = ((product.unit_cost * product.stock) + (newStock.unit_cost * newStock.stock)) / (+product.stock + +newStock.stock)
+  $: recommendedPrice = product && ((averageCost) + (+constants.delivery_charges) + (averageCost * (constants.margin / 100)) + (averageCost * (constants.sales_tax / 100))).toFixed(2)
 </script>
 
-{#if modal}
+{#if modal.search}
 <Modal on:close={close}>
 
-  <Subtitle icon="searchTwo" subtitle="Search Product" />
-  <SmartFilter bind:data={products} focused placeholder="Enter Product Name / SKU" />
+  <Subtitle icon="listCheck" subtitle="Search Products" />
+  <Search focused on:keyup={search} />
 
   {#if products.length != 0}
   <Links>
     {#each products as product (product.product_id)}
-    <button on:click={()=>selectProduct(product)}>{@html product.name}</button>
+    <button on:click={()=>selectProduct(product)}>{product.name}</button>
     {/each}
   </Links>
 
@@ -89,72 +116,115 @@
 {/if}
 
 <Breadcrumb {crumbs} />
-<Title back="/products" title="{startCase(mode)} Stock" />
+<Title back="/products" title="{startCase($page.params.mode)} Stock" />
 
 <Layout columns="1fr 1fr">
-  <div slot="left">
-    <Subtitle icon="listCheck" subtitle="Choose Product" />
-    <Form>
-      <!-- <Field bind:value={product.sku} label="SKU" {touched} error={errors['unit_cost']} /> -->
-      <Field on:focus={()=>modal=true} value={product.name} label="Product" {touched} error={errors['product_id']} />
-    </Form>
-    
-    <Subtitle icon="listCheck" subtitle="New Stock & Price" />
-    <Form>
-      <Field bind:el bind:value={product.stock} label="New Stock" {touched} error={errors['stock']} />
-      <Field bind:value={product.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} />
-      <Field bind:value={product.price} label="Price" {touched} error={errors['price']} />
-    </Form>
-    <ButtonGroup>
-      <Button on:click={submit} icon="save" name="Add Stock" type="primary" />
-      <Button href="/products" icon="close" name="Discard" />
-    </ButtonGroup>
-  </div>
-  <div slot="right">
-    <!-- Calculations -->
-    <Subtitle icon="lineChart" subtitle="Current Stats" />
-    <Table>
-      <tr>
-        <td class="main">Current Stock Quanity</td>
-        <td>WIP</td>
-      </tr>
-      <tr>
-        <td>Current Stock Unit Cost</td>
-        <td>WIP</td>
-      </tr>
-      <tr>
-        <td>Current Price</td>
-        <td>WIP</td>
-      </tr>
-    </Table>
 
-    <!-- Calculations -->
-    <Subtitle icon="calculator" subtitle="Calculations" />
-    <Table>
-      <tr>
-        <td class="main">Actual Price</td>
-        <td>Rs. {product.unit_cost}</td>
-      </tr>
-      <tr>
-        <td>Margin ({constants.margin}%)</td>
-        <td>Rs. {(product.unit_cost * (constants.margin / 100)).toFixed(2)}</td>
-      </tr>
-      <tr>
-        <td>Delivery Charges</td>
-        <td>Rs. {constants.delivery_charges}</td>
-      </tr>
-      <tr>
-        <td>Sales Tax ({constants.sales_tax}%)</td>
-        <td>Rs. {(product.unit_cost * (constants.sales_tax / 100)).toFixed(2)}</td>
-      </tr>
-      <tr>
-        <td>Recommended Price with Delivery</td>
-        <td>Rs. {recommendedPrice}</td>
-      </tr>
-      <tr>
-        <td>Recommended Price without Delivery</td>
-        <td>Rs. {recommendedPrice - constants.delivery_charges}</td>
-      </tr>
-    </Table>
-  </div>
+<div slot="left">
+
+<Subtitle icon="listCheck" subtitle="Choose Product" />
+<Form>
+  <Field on:focus={()=>modal.search=true} value={product.name} label="Product" {touched} error={errors['product_id']} />
+</Form>
+
+{#if !isEmpty(product)}
+<Subtitle icon="listCheck" subtitle="New Stock & Price" />
+<Form>
+  <Field bind:el bind:value={newStock.stock} label="New Stock" {touched} error={errors['stock']} />
+  <Field bind:value={newStock.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} />
+  <Field bind:value={newStock.price} label="Price" {touched} error={errors['price']} />
+</Form>
+
+{#if newStock.price < newStock.unit_cost}
+<div class="message">
+  Price is less than cost by Rs. {(newStock.price - newStock.unit_cost).toFixed(2)}
+</div>
+{/if}
+
+<ButtonGroup>
+  <Button on:click={()=>modal.confirm=true} icon="save" name="Add Stock" type="primary" />
+  <Button href="/products" icon="close" name="Discard" />
+</ButtonGroup>
+{/if}
+
+</div> <!-- Left -->
+
+<div slot="right">
+{#if !isEmpty(product)}
+
+<Subtitle icon="lineChart" subtitle="Current Stats" />
+<Table>
+  <tr>
+    <td class="main">Current Stock Quanity</td>
+    <td>{product.stock} Items</td>
+  </tr>
+  <tr>
+    <td>Current Stock Value Per Unit</td>
+    <td>Rs. {product.unit_cost}</td>
+  </tr>
+  <tr>
+    <td>Current Price</td>
+    <td>Rs. {product.price}</td>
+  </tr>
+</Table>
+
+<Subtitle icon="calculator" subtitle="Calculations" />
+<Table>
+  <tr>
+    <td class="main">Average Cost</td>
+    <td>Rs. {averageCost.toFixed(2)}</td>
+  </tr>
+  <tr>
+    <td>+ Margin ({constants.margin}%)</td>
+    <td>Rs. {(averageCost * (constants.margin / 100)).toFixed(2)}</td>
+  </tr>
+  <tr>
+    <td>+ Sales Tax ({constants.sales_tax}%)</td>
+    <td>Rs. {(averageCost * (constants.sales_tax / 100)).toFixed(2)}</td>
+  </tr>
+  <tr class="strong">
+    <td>Recommended Price without Delivery</td>
+    <td>Rs. {(recommendedPrice - constants.delivery_charges).toFixed(2)}</td>
+  </tr>
+  <tr>
+    <td>+ Delivery Charges</td>
+    <td>Rs. {constants.delivery_charges}</td>
+  </tr>
+  <tr>
+    <td>Recommended Price with Delivery</td>
+    <td>Rs. {recommendedPrice}</td>
+  </tr>
+</Table>
+
+<Subtitle icon="listCheck" subtitle="Instructions" />
+<Text>
+  Unit cost is averaged everytime you add new stock. In order to maintain its records, you should record it manually or in an accounting software.<br><br>
+  You can also set price other than recommended price, in accordance with market-value and other factors.
+</Text>
+
+{/if}
+</div> <!-- Right -->
+
 </Layout>
+
+{#if modal.confirm}
+<Modal on:close={()=>modal.confirm=false}>
+  <Subtitle icon="errorWarning" subtitle="Confirm Stock Addition" />
+  <Text>
+    Stock addition mutates cost and hard-codes it. This action should be done with care. Are you sure you want to add this stock to <strong>{product.name}</strong>?
+  </Text>
+  <Spaced>
+    <Button on:click={submit} icon="check" name="Yes" />
+    <Button on:click={()=>modal.confirm=false} icon="close" name="No" type="primary" />
+  </Spaced>
+</Modal>
+{/if}
+
+<style>
+  .message {
+    padding: var(--padding);
+    border: 1px dashed var(--border);
+    background-color: rgb(255, 252, 242);
+    margin-bottom: 20px;
+  }
+</style>

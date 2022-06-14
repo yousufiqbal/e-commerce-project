@@ -31,6 +31,7 @@ import { startCase } from "lodash-es";
 <ButtonGroup>
   <Button icon="add" name="New Product" href="/products/add-product" />
   <Button icon="add" name="Add Stock" href="/products/add-stock" />
+  <Button icon="add" name="Remove / Return Stock" href="/products/remove-stock" />
   <Button icon="searchTwo" name="Search Products" href="/products/search" />
 </ButtonGroup>
 

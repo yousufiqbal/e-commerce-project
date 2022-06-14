@@ -3,11 +3,10 @@ import { db } from '$lib/database/db'
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const get = async () => {
 
-  // Products
-  const products = await db.selectFrom('products')
-    .select(['products.product_id','products.name', 'products.sku'])
-    .orderBy('products.name', 'asc').execute()
-  
+  // Temp
+  const product = await db.selectFrom('products').selectAll()
+    .where('products.product_id', '=', 27).executeTakeFirst()
+
   // Constants
   const constantsRaw = await db.selectFrom('constants').selectAll().execute()
   let constants = {}
@@ -15,6 +14,6 @@ export const get = async () => {
     constants[constant.name] = constant.value
   }
 
-  return { body: { products, constants }}
+  return { body: { constants, product }}
 
 }

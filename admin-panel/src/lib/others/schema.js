@@ -51,3 +51,10 @@ export const makeProductSchema = (categories, brands) => {
     description: yup.string().optional(),
   }).noUnknown(true);
 }
+
+// Stock Schema
+export const stockSchema = yup.object({
+  stock: yup.string().min(1).ne().required(),
+  unit_cost: yup.string().min(1).ne().required(),
+  price: yup.string().min(1).ne().required(),
+}).noUnknown(true);
