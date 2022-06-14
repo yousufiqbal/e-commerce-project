@@ -544,9 +544,9 @@ CREATE TABLE IF NOT EXISTS `products` (
   KEY `FK_products_brands` (`brand_id`),
   CONSTRAINT `FK_products_brands` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`brand_id`),
   CONSTRAINT `FK_products_categories` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.products: ~22 rows (approximately)
+-- Dumping data for table fast-ecommerce.products: ~24 rows (approximately)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`product_id`, `category_id`, `brand_id`, `name`, `sku`, `url_name`, `stock`, `unit_cost`, `price`, `fair_quantity`, `description`, `created`) VALUES
 	(1, 6, 1, 'Nurpur Butter 50 Grams', NULL, 'nurpur-butter-50-grams', 505, 80, 100.00, 10, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quasi praesentium sapiente nisi nobis debitis optio fugit rerum voluptates sed.', '2022-05-27 14:38:38'),
@@ -572,7 +572,8 @@ INSERT INTO `products` (`product_id`, `category_id`, `brand_id`, `name`, `sku`, 
 	(23, 4, 5, 'Blueband 200 g', '684654', 'blueband-200-g', 252, 120, 165.00, 10, '', '2022-06-13 16:15:35'),
 	(24, 6, 5, 'Blueband Margaring 250g', '65484', 'blueband-margaring-250-g', 100, 130, 180.00, 10, '', '2022-06-13 22:35:38'),
 	(25, 14, 8, 'Nestle Pakola Soda Drink 250 ML', '654654', 'nestle-pakola-soda-drink-250-ml', 100, 150, 206.00, 10, 'Lorem ipsul dolor sit comet', '2022-06-14 00:03:43'),
-	(26, 15, 8, 'Aquafina 500 ML', '654789', 'aquafina-500-ml', 100, 40, 55.00, 10, '', '2022-06-14 09:17:09');
+	(26, 15, 8, 'Aquafina 500 ML', '654789', 'aquafina-500-ml', 100, 40, 55.00, 10, '', '2022-06-14 09:17:09'),
+	(27, 14, 9, 'Slice 200 ML', '684684', 'slice-200-ml', 300, 46, 65.00, 10, '', '2022-06-14 15:17:21');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.promos
