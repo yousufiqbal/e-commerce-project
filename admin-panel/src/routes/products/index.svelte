@@ -41,10 +41,10 @@ import { startCase } from "lodash-es";
     <Subtitle icon="listCheck" subtitle="{startCase($page.url.searchParams.get('category'))}" />
     
     <ButtonGroup>
-      <Button icon="add" name="New Product" href="/products/add-product" />
-      <Button icon="add" name="Add Stock" href="/products/add-stock" />
-      <Button icon="add" name="Remove / Return Stock" href="/products/remove-stock" />
-      <Button icon="searchTwo" name="Search Products" href="/products/search" />
+      <Button type="primary" icon="add" name="New Product" href="/products/add-product" />
+      <Button icon="stock" name="Add Stock" href="/products/add-stock" />
+      <Button icon="deleteBin" name="Remove / Return Stock" href="/products/remove-stock" />
+      <Button icon="searchTwo" name="Search Products (Ctrl + K)" href="/products/search" />
     </ButtonGroup>
 
   <Pills pills={children} />

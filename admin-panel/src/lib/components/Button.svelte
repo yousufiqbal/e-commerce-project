@@ -41,9 +41,13 @@
     /* box-shadow: var(--shadow); */
     border-radius: 4px;
   }
-  .button:hover {
+  .button:not(.primary):hover {
     color: red;
     box-shadow: var(--shadow);
+  }
+  .button.primary:hover, .button.primary:hover > span {
+    background-color: white;
+    color: red;
   }
   .primary {
     color: white;
