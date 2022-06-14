@@ -32,6 +32,9 @@
 {/if}
 
 <style>
+  .message {
+    text-transform: capitalize;
+  }
   .border {
     position: absolute;
     width: 0%;

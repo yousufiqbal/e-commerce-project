@@ -19,6 +19,7 @@
   import Layout from "$lib/components/Layout.svelte";
   import Text from "$lib/components/Text.svelte";
 import Spaced from "$lib/components/Spaced.svelte";
+import { goto } from "$app/navigation";
 
   export let products = []
   export let constants = {}
@@ -44,10 +45,8 @@ import Spaced from "$lib/components/Spaced.svelte";
 
   const submit = async () => {
     if (isEmpty(errors)) {
-      if (mode == 'add') await addStock()
-      if (mode == 'edit') await editStock()
+      modal.confirm = true
     } else {
-      modal.confirm = false
       touched = true
     }
   }
@@ -57,8 +56,9 @@ import Spaced from "$lib/components/Spaced.svelte";
     try {
       const response = await axios.post('/api/stocks?product_id='+product.product_id, newStock)
       addToast({ message: response.data.message })
+      goto('/products')
     } catch (error) {
-      addToast({ message: error.data.message, type: 'error' })
+      addToast({ message: error.data.message || 'Cannot add stock', type: 'error' })
     }
   }
 
@@ -89,8 +89,8 @@ import Spaced from "$lib/components/Spaced.svelte";
   }
 
   $: if (newStock) validate()
-  $: averageCost = ((product.unit_cost * product.stock) + (newStock.unit_cost * newStock.stock)) / (+product.stock + +newStock.stock)
-  $: recommendedPrice = product && ((averageCost) + (+constants.delivery_charges) + (averageCost * (constants.margin / 100)) + (averageCost * (constants.sales_tax / 100))).toFixed(2)
+  $: averageCost = Math.ceil(((product.unit_cost * product.stock) + (newStock.unit_cost * newStock.stock)) / (+product.stock + +newStock.stock))
+  $: recommendedPrice = product && ((averageCost) + (averageCost * (constants.margin / 100)) + (averageCost * (constants.sales_tax / 100))).toFixed(2)
 </script>
 
 {#if modal.search}
@@ -132,7 +132,7 @@ import Spaced from "$lib/components/Spaced.svelte";
 <Form>
   <Field bind:el bind:value={newStock.stock} label="New Stock" {touched} error={errors['stock']} />
   <Field bind:value={newStock.unit_cost} label="Unit Cost" {touched} error={errors['unit_cost']} />
-  <Field bind:value={newStock.price} label="Price" {touched} error={errors['price']} />
+  <Field bind:value={newStock.price} placeholder={recommendedPrice} label="Price" {touched} error={errors['price']} />
 </Form>
 
 {#if newStock.price < newStock.unit_cost}
@@ -142,7 +142,7 @@ import Spaced from "$lib/components/Spaced.svelte";
 {/if}
 
 <ButtonGroup>
-  <Button on:click={()=>modal.confirm=true} icon="save" name="Add Stock" type="primary" />
+  <Button on:click={submit} shortcut="ctrl+enter" icon="save" name="Add Stock" type="primary" />
   <Button href="/products" icon="close" name="Discard" />
 </ButtonGroup>
 {/if}
@@ -184,7 +184,7 @@ import Spaced from "$lib/components/Spaced.svelte";
   </tr>
   <tr class="strong">
     <td>Recommended Price without Delivery</td>
-    <td>Rs. {(recommendedPrice - constants.delivery_charges).toFixed(2)}</td>
+    <td>Rs. {recommendedPrice}</td>
   </tr>
   <tr>
     <td>+ Delivery Charges</td>
@@ -192,7 +192,7 @@ import Spaced from "$lib/components/Spaced.svelte";
   </tr>
   <tr>
     <td>Recommended Price with Delivery</td>
-    <td>Rs. {recommendedPrice}</td>
+    <td>Rs. {(+recommendedPrice + +constants.delivery_charges).toFixed(2)}</td>
   </tr>
 </Table>
 
@@ -214,7 +214,7 @@ import Spaced from "$lib/components/Spaced.svelte";
     Stock addition mutates cost and hard-codes it. This action should be done with care. Are you sure you want to add this stock to <strong>{product.name}</strong>?
   </Text>
   <Spaced>
-    <Button on:click={submit} icon="check" name="Yes" />
+    <Button on:click={addStock} icon="check" name="Yes" />
     <Button on:click={()=>modal.confirm=false} icon="close" name="No" type="primary" />
   </Spaced>
 </Modal>

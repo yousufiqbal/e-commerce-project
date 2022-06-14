@@ -15,7 +15,7 @@ export const get = async ({ url }) => {
   
   const parents = await db.selectFrom('categories').where('categories.parent_id', 'is', null)
     .orderBy('categories.name').select(['categories.name', 'categories.url_name']).execute()
-  parents.unshift({ name: 'All Categories', url_name: 'all-categories'})
+  parents.unshift({ name: 'All Products', url_name: 'all-products'})
 
   return { body: { products, total, parents }}
 
