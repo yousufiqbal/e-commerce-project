@@ -11,24 +11,19 @@
   import Table from "$lib/components/Table.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Modal from "$lib/components/Modal.svelte";
-  import SearchBox from "$lib/components/SearchBox.svelte";
   import Nothing from "$lib/components/Nothing.svelte";
-import Layout from "$lib/components/Layout.svelte";
+  import Layout from "$lib/components/Layout.svelte";
+  import SmartFilter from "$lib/components/SmartFilter.svelte";
+  import Links from "$lib/components/Links.svelte";
+  import { stripTags } from "$lib/others/utils";
 
   export let constants = {}
-  let product = { previousStock: 250, previousCost: 400 }, touched = false, errors = {}
-  let margin = 25
+  let product = { previousStock: 250, previousCost: 400 }
+  let touched = false, errors = {}
   let modal = false
-  let keyword = ''
   let el
 
-  // Fake data
-  let results = [
-    { product_id: 1, name: 'Nurpur Butter 100g', url_name: 'nurpur-butter-100-g', price: 100, unit_cost: 80, stock: 100 },
-    { product_id: 2, name: 'Surf Excel 100g', url_name: 'nurpur-butter-100-g', price: 100, unit_cost: 80, stock: 100 },
-    { product_id: 3, name: 'Cheesey Potatoes 100g', url_name: 'nurpur-butter-100-g', price: 100, unit_cost: 80, stock: 100 },
-    { product_id: 4, name: 'Express Power 100g', url_name: 'nurpur-butter-100-g', price: 100, unit_cost: 80, stock: 100 },
-  ]
+  export let products = []
 
   const mode = $page.params.mode
   const crumbs = [
@@ -39,7 +34,7 @@ import Layout from "$lib/components/Layout.svelte";
   const validate = async () => {
     try {
       await stockSchema.validate(stock, { abortEarly: false })
-      error = {}
+      errors = {}
     } catch (error) {
       errors = extractYupErrors(error)
     }
@@ -54,22 +49,11 @@ import Layout from "$lib/components/Layout.svelte";
     }
   }
 
-  const selectProduct = (product_id, name) => {
-    product.product_id = product_id
-    product.name = name
+  const selectProduct = pr => {
+    product.product_id = pr.product_id
+    product.name = stripTags(pr.name)
+    product.sku = pr.sku
     modal = false
-  }
-
-  const search = async () => {
-    // if (!keyword) {
-    //   results = []
-    //   return
-    // }
-    // try {
-    //   const response = await a
-    // } catch (error) {
-      
-    // }
   }
 
   // TODO blur or close not working..
@@ -78,33 +62,23 @@ import Layout from "$lib/components/Layout.svelte";
     el.blur()
   }
 
-  $: postStockValue = ((+product.previousStock * +product.previousCost) + (+product.stock * +product.unit_cost)) / (+product.previousStock + +product.stock)
-  $: recommendedPrice = ((+postStockValue * (margin / 100)) + +postStockValue)
-  $: keyword && search()
+  $: recommendedPrice = ((+product.unit_cost) + (+constants.delivery_charges) + (+product.unit_cost * (constants.margin / 100)) + (+product.unit_cost * (constants.sales_tax / 100))).toFixed(2)
+  // $: if (product) validate()
 </script>
 
 {#if modal}
 <Modal on:close={close}>
 
-  <Subtitle subtitle="Choose Product" />
-  <SearchBox placeholder="Enter Product Name / ID" />
+  <Subtitle icon="searchTwo" subtitle="Search Product" />
+  <SmartFilter bind:data={products} focused placeholder="Enter Product Name / SKU" />
 
-  {#if results.length != 0}
-  <div class="products">
-
-    {#each results as product}
-    <button on:click={()=>selectProduct(product.product_id, product.name)} class="product">
-      <div class="left">
-        <img src="/products/nupur-butter-100-g.jpg" alt="">
-      </div>
-      <div class="right">
-        <div class="name">{product.name}</div>
-        <div class="detail">Price: {product.price}, Stock: {product.stock}, Cost: {product.unit_cost}</div>
-      </div>
-    </button>
+  {#if products.length != 0}
+  <Links>
+    {#each products as product (product.product_id)}
+    <button on:click={()=>selectProduct(product)}>{@html product.name}</button>
     {/each}
+  </Links>
 
-  </div>
   {:else}
   <Nothing>
     No Products
@@ -115,15 +89,14 @@ import Layout from "$lib/components/Layout.svelte";
 {/if}
 
 <Breadcrumb {crumbs} />
-
 <Title back="/products" title="{startCase(mode)} Stock" />
 
 <Layout columns="1fr 1fr">
   <div slot="left">
     <Subtitle icon="listCheck" subtitle="Choose Product" />
     <Form>
-      <Field bind:value={product.sku} label="SKU" {touched} error={errors['unit_cost']} />
-      <Field on:focus={()=>modal=true} bind:value={product.name} label="Product" {touched} error={errors['product_id']} />
+      <!-- <Field bind:value={product.sku} label="SKU" {touched} error={errors['unit_cost']} /> -->
+      <Field on:focus={()=>modal=true} value={product.name} label="Product" {touched} error={errors['product_id']} />
     </Form>
     
     <Subtitle icon="listCheck" subtitle="New Stock & Price" />
@@ -138,34 +111,23 @@ import Layout from "$lib/components/Layout.svelte";
     </ButtonGroup>
   </div>
   <div slot="right">
-    <Subtitle icon="calculator" subtitle="Previous Stock & Price" />
+    <!-- Calculations -->
+    <Subtitle icon="lineChart" subtitle="Current Stats" />
     <Table>
       <tr>
-        <th class="main">Name</th>
-        <th>Value</th>
+        <td class="main">Current Stock Quanity</td>
+        <td>WIP</td>
       </tr>
       <tr>
-        <td>Previous Stock Quanity</td>
-        <td>{product.previousStock}</td>
+        <td>Current Stock Unit Cost</td>
+        <td>WIP</td>
       </tr>
       <tr>
-        <td>Previous Stock Value / Unit</td>
-        <td>Rs. {product.previousCost}</td>
+        <td>Current Price</td>
+        <td>WIP</td>
       </tr>
-      {#if recommendedPrice}
-      <tr>
-        <td>Recommended price ({margin}% Margin)</td>
-        <td>Rs. {recommendedPrice.toFixed(2)}</td>
-      </tr>
-      {/if}
-      {#if postStockValue}
-      <tr>
-        <td>Post addition stock value / uni</td>
-        <td>Rs. {postStockValue.toFixed(2)}</td>
-      </tr>
-      {/if}
     </Table>
-    
+
     <!-- Calculations -->
     <Subtitle icon="calculator" subtitle="Calculations" />
     <Table>
@@ -196,38 +158,3 @@ import Layout from "$lib/components/Layout.svelte";
     </Table>
   </div>
 </Layout>
-
-
-<style>
-  .products {
-    /* border: 1px solid red; */
-    display: grid;
-    gap: 20px;
-  }
-  .product {
-    padding: 10px;
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: start;
-    border-radius: 5px;
-    gap: 10px;
-  }
-  .product:hover .name {
-    color: red;
-  }
-  .product > .left {
-    width: 70px;
-    /* border: 1px solid red; */
-  }
-  .product > .right {
-    /* border: 1px dashed blue; */
-    display: grid;
-    /* align-items: start; */
-    flex: 1;
-  }
-  .product .detail {
-    /* border: 1px solid red; */
-    justify-items: start;
-    color: gray;
-  }
-</style>

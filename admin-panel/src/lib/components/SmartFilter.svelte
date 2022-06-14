@@ -1,7 +1,14 @@
 <script>
-  import { onDestroy } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import Icon from "./Icon.svelte";
   import fuzzysort from 'fuzzysort'
+
+  let el = null
+  export let focused = false
+
+  onMount(() => {
+    if (focused) el.focus()
+  })
 
   export let data = []
   export let searchColumn = 'name'
@@ -27,7 +34,7 @@
   <button>
     <Icon icon="filterTwo" />
   </button>
-  <input  on:keyup={filter} bind:value={keyword} {placeholder}>
+  <input bind:this={el} on:keyup={filter} bind:value={keyword} {placeholder}>
 </div>
 
 <style>

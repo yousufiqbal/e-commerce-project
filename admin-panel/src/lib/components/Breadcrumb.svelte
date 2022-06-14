@@ -41,4 +41,7 @@
     gap: 8px;
     color: blue;
   }
+  a:hover {
+    color: red;
+  }
 </style>
