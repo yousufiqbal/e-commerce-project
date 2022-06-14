@@ -28,7 +28,13 @@ import { startCase } from "lodash-es";
 </script>
 
 <Title title="Products" />
+<ButtonGroup>
+  <Button icon="add" name="New Product" href="/products/add-product" />
+  <Button icon="add" name="Add Stock" href="/products/add-stock" />
+  <Button icon="searchTwo" name="Search Products" href="/products/search" />
+</ButtonGroup>
 
+<Subtitle icon="listCheck" subtitle="{startCase($page.url.searchParams.get('category'))}" />
 <Layout columns="1fr 5fr">
 
   <div slot="left">
@@ -37,13 +43,7 @@ import { startCase } from "lodash-es";
 
 <div slot="right">
 
-  <ButtonGroup>
-    <Button icon="add" name="New Product" href="/products/add-product" />
-    <Button icon="add" name="Add Stock" href="/products/add-stock" />
-    <Button icon="searchTwo" name="Search Products" href="/products/search" />
-  </ButtonGroup>
   
-  <Subtitle icon="listCheck" subtitle="{startCase($page.url.searchParams.get('category'))}" />
 
   <Pills pills={children} />
   
