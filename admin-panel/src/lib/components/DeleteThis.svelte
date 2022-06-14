@@ -7,29 +7,29 @@
   import { createEventDispatcher } from "svelte";
   
   const dispatch = createEventDispatcher()
-  let modal = false
+  let modal = { confirm: false }
 
   const handleClick = () => {
-    modal = false
+    modal.confirm = false
     dispatch('yes')
   }
 </script>
 
 <div class="wrapper">
-  <button on:click={()=>modal=true} class="delete-this">
+  <button on:click={()=>modal.confirm=true} class="delete-this">
     Delete this?
   </button>
 </div>
 
-{#if modal}
-<Modal on:close={()=>modal=false}>
+{#if modal.confirm}
+<Modal on:close={()=>modal.confirm=false}>
   <Subtitle subtitle="Confirm Delete" />
   <Text>
     Are you sure you want to delete this?
   </Text>
   <Spaced>
     <Button shortcut="ctrl+enter" on:click={handleClick} icon="check" name="Yes" />
-    <Button type="primary" icon="close" on:click={()=>modal=false} name="No" />
+    <Button type="primary" icon="close" on:click={()=>modal.confirm=false} name="No" />
   </Spaced>
 </Modal>
 {/if}

@@ -1,11 +1,22 @@
 <script>
   import { fileToBase64 } from "$lib/others/utils";
+  import { onMount } from "svelte";
   import Button from "./Button.svelte";
   import ButtonGroup from "./ButtonGroup.svelte";
   
   export let name = 'Choose Image'
   export let image = null
-  let filename, fileInput
+  let fileInput
+
+  const checkImage = url => {
+    let imageTest = new Image();
+    imageTest.onerror = () => image = null
+    imageTest.src = url;
+  }
+
+  onMount(() => {
+    checkImage(image)
+  })
 
   const removeImage = () => {
     fileInput.value = ''
@@ -14,7 +25,6 @@
 
   const previewImage = async e => {
     const [ file ] = e.target.files
-    filename = file.name
     image = await fileToBase64(file)
   }
 </script>
@@ -27,7 +37,6 @@
     <div class="frame">
       <img src="{image}" alt="">
     </div>
-    <div class="filename">{filename}</div>
   </div>
   {/if}
 </div>
@@ -55,5 +64,6 @@
   .product-image img {
     width: 100%;
     height: auto;
+    border: 1px dashed gray;
   }
 </style>

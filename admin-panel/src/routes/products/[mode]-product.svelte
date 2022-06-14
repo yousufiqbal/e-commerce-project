@@ -87,7 +87,7 @@ import { goto } from "$app/navigation";
 
 <div slot="main">
 
-<!-- Details -->
+<!-- Fields -->
 <Subtitle icon="listOrdered" subtitle="General Info" />
 <Form>
   <Field on:focus={()=>{categoryModal=true}} value={product.category_path} label="Category" {touched} error={errors['category_id']} />

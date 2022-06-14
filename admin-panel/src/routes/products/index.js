@@ -9,5 +9,7 @@ export const get = async ({ url }) => {
     .selectAll().execute()
   const { count } = db.fn
   const { total } = await db.selectFrom('products').select([count('products.product_id').as('total')]).executeTakeFirst()
-  return { body: { products, total }}
+  const parents = await db.selectFrom('categories').where('categories.parent_id', 'is', null)
+    .orderBy('categories.name').select(['categories.name', 'categories.url_name']).execute()
+  return { body: { products, total, parents }}
 }

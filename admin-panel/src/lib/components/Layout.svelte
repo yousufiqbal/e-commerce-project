@@ -3,11 +3,11 @@
 </script>
 
 <div style:grid-template-columns={columns} class="layout">
-  <div class="main">
-    <slot name="main"></slot>
+  <div class="left">
+    <slot name="left"></slot>
   </div>
-  <div class="related">
-    <slot name="related"></slot>
+  <div class="right">
+    <slot name="right"></slot>
   </div>
 </div>
 

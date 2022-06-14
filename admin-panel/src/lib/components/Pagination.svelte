@@ -29,9 +29,10 @@
   .pagination {
     /* border: 1px solid red; */
     display: flex;
-    justify-content: space-between;
+    gap: 25px;
+    justify-content: end;
     align-items: center;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
   }
   a {
     display: flex;

@@ -11,14 +11,9 @@
   import { axios } from "$lib/others/utils";
   import { addToast } from "$lib/stores/toast";
   import { startCase } from "lodash-es";
-  import { onMount } from 'svelte'
 
-  // Check if image exist
-  // If it does set it to image
-  export let imageExistance
-  console.log(imageExistance)
-  export let product = { name: '' }
-  let image = imageExistance ? `${product.url_name}.jpg` : null
+  export let product = { name: '', url_name: '' }
+  let image = `/products/${product.url_name}.jpg`
 
   const crumbs = [
     { name: 'Products', href: '/products', icon: 'listCheck' },
@@ -29,16 +24,32 @@
     try {
       const response = await axios.post('/api/products/images?product_id=' + $page.url.searchParams.get('product_id'), { image })
       addToast({ message: response.data.message })
-      goto('/products/add-product-carousel?product_id='+$page.url.searchParams.get('product_id'))
+      goto('/products')
     } catch (error) {
-      console.log(error)
       addToast({ message: error.data.message || 'Cannot Upload Image', type: 'error' })
     }
+  }
+  
+  const deleteImage = async () => {
+    try {
+      const response = await axios.delete('/api/products/images?product_id=' + $page.url.searchParams.get('product_id'))
+      addToast({ message: response.data.message, type: 'info' })
+      goto('/products')
+    } catch (error) {
+      addToast({ message: error.data.message || 'Cannot Remove Image', type: 'error' })
+    }
+  }
+
+  const submit = async () => {
+    if (image) await uploadImage()
+    if (!image) await deleteImage()
   }
 </script>
 
 <Breadcrumb {crumbs} />
 <Title back title="{product.name}" />
+
+<!-- Uploader -->
 <ImageUpload on:upload={uploadImage} bind:image />
 
 <!-- Instructions -->
@@ -51,6 +62,6 @@
 
 <Subtitle subtitle="Actions" icon="listOrdered" />
 <ButtonGroup> 
-  <Button on:click={uploadImage} icon="uploadCloud" type="primary" name="Upload Main Image" />
+  <Button on:click={submit} icon="save" type="primary" name="Save Changes" />
   <Button icon="close" name="Discard" />
 </ButtonGroup>

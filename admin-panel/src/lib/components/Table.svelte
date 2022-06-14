@@ -13,9 +13,6 @@
     overflow-x: auto;
     margin-bottom: 20px;
   }
-  .spaced {
-    padding: var(--padding-extra) !important;
-  }
   .table {
     white-space: nowrap;
     border-collapse: collapse;

@@ -8,8 +8,5 @@ export const get = async ({ url }) => {
     .select(['products.name', 'products.url_name'])
     .where('products.product_id', '=', product_id).executeTakeFirst()
 
-  // Check if image exist
-  const imageExistance = fs.existsSync( `${product.url_name}.jpg`)
-
-  return { body: { product, imageExistance }}
+  return { body: { product }}
 }
