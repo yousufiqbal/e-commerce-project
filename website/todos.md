@@ -1,3 +1,0 @@
-- Make wishlist, notify like cartSync
-- Set fair-limits for sign-in attemps
-- Show promo code only to logged-in users

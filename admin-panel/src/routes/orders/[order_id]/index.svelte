@@ -6,7 +6,7 @@
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import Certain from "$lib/components/Certain.svelte";
-import Divider from "$lib/components/Divider.svelte";
+  import Divider from "$lib/components/Divider.svelte";
   import Items from "$lib/components/Items.svelte";
   import Layout from "$lib/components/Layout.svelte";
   import Modal from "$lib/components/Modal.svelte";
@@ -37,7 +37,7 @@ import Divider from "$lib/components/Divider.svelte";
   }
 
   const crumbs = [
-    { name: 'Orders', href: '/orders' },
+    { name: 'Orders', href: '/orders', icon: 'listOrdered' },
     { name: `Order # ${$page.params.order_id}`, href: '/orders/' + $page.params.order_id },
   ]
 
@@ -52,7 +52,7 @@ import Divider from "$lib/components/Divider.svelte";
 </script>
 
 <Breadcrumb {crumbs} />
-<Title title="Order # {$page.params.order_id}" />
+<Title title="Order # {$page.params.order_id}"  />
 <ButtonGroup>
   <Button on:click={()=>modal.confirm=true} icon="check" name="Confirm Order" type="primary" />
   <Button icon="deleteBin" name="Cancel Order" on:click={()=>modal.cancel=true} />

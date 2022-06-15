@@ -45,7 +45,7 @@ interface CartItems {
 interface Categories {
   'category_id'?: number;
   'created'?: Date;
-  'name': string;
+  'name'?: string;
   'parent_id': number | null;
   'url_name': string;
 }
@@ -64,9 +64,11 @@ interface GuestCartItems {
 }
 interface GuestTrials {
   'created'?: Date;
+  'detail': string;
   'for': string;
   'guest_id': number;
   'guest_trial_id'?: number;
+  'ip': string;
 }
 interface Guests {
   'created'?: Date;
@@ -96,7 +98,10 @@ interface OrderStatuses {
 }
 interface Orders {
   'address': string;
+  'city': string | null;
+  'contact': string | null;
   'created'?: Date;
+  'name': string | null;
   'order_id'?: number;
   'payment_method': any;
   'promo_id': number | null;
@@ -111,6 +116,7 @@ interface Products {
   'name': string;
   'price'?: number;
   'product_id'?: number;
+  'sku': string | null;
   'stock'?: number;
   'unit_cost'?: number;
   'url_name': string;
@@ -128,8 +134,7 @@ interface Promos {
 interface Stocks {
   'created'?: Date;
   'product_id': number;
-  'quantity_came': number;
-  'quantity_remaining': number;
+  'quantity': number;
   'stock_id'?: number;
   'unit_cost': number;
 }
@@ -178,6 +183,7 @@ interface Wishlists {
   'user_id': number;
   'wishlist_id'?: number;
 }
+
 
 interface Database {
   activities: Activities

@@ -23,7 +23,7 @@ import { beautifyDateTime } from "$lib/others/utils";
   export let orders = []
 </script>
 
-<Title title="Orders" />
+<Title icon="listOrdered" title="Orders" />
 
 <ButtonGroup>
   <Button icon="add" name="New" type="primary" />

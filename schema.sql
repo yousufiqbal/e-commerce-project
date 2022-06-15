@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   `label` varchar(50) NOT NULL,
   `city` varchar(300) NOT NULL,
   `address` varchar(500) NOT NULL,
+  `contact` varchar(20) NOT NULL,
   `default` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`address_id`),
@@ -46,24 +47,9 @@ CREATE TABLE IF NOT EXISTS `addresses` (
 
 -- Dumping data for table fast-ecommerce.addresses: ~17 rows (approximately)
 /*!40000 ALTER TABLE `addresses` DISABLE KEYS */;
-INSERT INTO `addresses` (`address_id`, `user_id`, `label`, `city`, `address`, `default`, `created`) VALUES
-	(10, 9, 'office', 'Lahore', 'Anarkali Disco Chali', '1', '2022-06-01 20:22:05'),
-	(11, 18, 'home', 'Lahore', 'C9, Saleeema Arcade', '0', '2022-06-01 21:24:12'),
-	(12, 18, 'office', 'Karachi', 'Daryalal Street, Jodia', '1', '2022-06-01 21:25:11'),
-	(13, 22, 'Home', 'Lahore', 'Anarkali Bazar', '1', '2022-06-02 22:33:48'),
-	(14, 23, 'Home', 'Lahore', 'C26, Jauhar', '1', '2022-06-02 22:35:45'),
-	(15, 24, 'Home', 'Karachi', 'C26, block 14, jauhar', '1', '2022-06-03 09:46:54'),
-	(16, 25, 'Home', 'Karachi', 'C26, block 14, Jauhar', '1', '2022-06-03 10:03:44'),
-	(17, 26, 'Home', 'Kathi', 'Haroon Royal City', '1', '2022-06-03 11:13:02'),
-	(19, 9, 'office', 'Rawalpindi', 'Satellite Town', '0', '2022-06-03 20:46:12'),
-	(20, 27, 'Home', 'Karachi', 'C26, Jauhar', '1', '2022-06-03 22:27:35'),
-	(21, 28, 'Home', 'Karachi', 'Chakiwara', '1', '2022-06-04 09:28:39'),
-	(22, 29, 'Home', 'Karachi', 'Gulshan-e-Iqbal', '1', '2022-06-04 09:40:02'),
-	(23, 30, 'Home', 'Islamabad', 'Star Line', '1', '2022-06-04 12:25:05'),
-	(24, 20, 'home', 'Karachi', 'Jauhareeeh', '1', '2022-06-04 13:06:11'),
-	(25, 31, 'Home', 'Karachi', 'Nathia Gali', '1', '2022-06-04 13:22:51'),
-	(26, 32, 'Home', 'Multan', 'Patoki me know', '1', '2022-06-04 23:23:25'),
-	(27, 33, 'Home', 'Lahore', 'Anarkali Bazaar', '1', '2022-06-05 21:07:37');
+INSERT INTO `addresses` (`address_id`, `user_id`, `label`, `city`, `address`, `contact`, `default`, `created`) VALUES
+	(10, 9, 'office', 'Lahore', 'Anarkali Disco Chali', '03212503902', '1', '2022-06-01 20:22:05'),
+	(19, 9, 'office', 'Rawalpindi', 'Satellite Town', '03333419363', '0', '2022-06-03 20:46:12');
 /*!40000 ALTER TABLE `addresses` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.admins
@@ -124,30 +110,10 @@ CREATE TABLE IF NOT EXISTS `cart_items` (
   KEY `FK_cart_items_products` (`product_id`),
   CONSTRAINT `FK_cart_items_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
   CONSTRAINT `FK_cart_items_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7497 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7504 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.cart_items: ~19 rows (approximately)
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
-INSERT INTO `cart_items` (`cart_item_id`, `user_id`, `product_id`, `quantity`, `created`) VALUES
-	(69, 13, 1, 10, '2022-06-01 11:03:15'),
-	(70, 13, 2, 6, '2022-06-01 11:03:19'),
-	(71, 15, 1, 10, '2022-06-01 11:03:15'),
-	(72, 15, 2, 6, '2022-06-01 11:03:19'),
-	(73, 16, 1, 3, '2022-06-01 18:50:34'),
-	(74, 16, 2, 3, '2022-06-01 18:51:05'),
-	(75, 16, 3, 10, '2022-06-01 18:51:09'),
-	(76, 17, 1, 3, '2022-06-01 19:34:58'),
-	(77, 17, 2, 3, '2022-06-01 19:34:59'),
-	(78, 18, 1, 9, '2022-06-01 21:17:37'),
-	(79, 18, 2, 6, '2022-06-01 21:17:37'),
-	(80, 18, 3, 8, '2022-06-01 21:17:40'),
-	(87, 22, 1, 3, '2022-06-02 22:33:59'),
-	(88, 22, 2, 3, '2022-06-02 22:34:00'),
-	(7487, 29, 12, 1, '2022-06-05 16:12:16'),
-	(7488, 29, 3, 4, '2022-06-05 16:12:16'),
-	(7489, 29, 4, 6, '2022-06-05 16:12:16'),
-	(7490, 29, 2, 5, '2022-06-05 16:12:16'),
-	(7491, 29, 1, 1, '2022-06-05 16:12:16');
 /*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.categories
@@ -221,23 +187,249 @@ CREATE TABLE IF NOT EXISTS `guests` (
   `guest_id` int NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`guest_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=508 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=746 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.guests: ~12 rows (approximately)
 /*!40000 ALTER TABLE `guests` DISABLE KEYS */;
 INSERT INTO `guests` (`guest_id`, `created`) VALUES
-	(495, '2022-06-05 11:46:54'),
-	(496, '2022-06-05 15:16:59'),
-	(497, '2022-06-05 15:17:00'),
-	(498, '2022-06-05 15:17:00'),
-	(499, '2022-06-05 15:30:31'),
-	(500, '2022-06-05 15:30:31'),
-	(501, '2022-06-05 15:30:31'),
-	(502, '2022-06-05 19:52:42'),
-	(503, '2022-06-05 19:52:42'),
-	(505, '2022-06-05 23:08:30'),
-	(506, '2022-06-05 23:08:30'),
-	(507, '2022-06-05 23:08:30');
+	(508, '2022-06-15 13:19:21'),
+	(509, '2022-06-15 13:19:21'),
+	(510, '2022-06-15 13:19:21'),
+	(511, '2022-06-15 13:19:21'),
+	(512, '2022-06-15 13:19:21'),
+	(513, '2022-06-15 13:19:21'),
+	(514, '2022-06-15 13:19:21'),
+	(515, '2022-06-15 13:19:21'),
+	(516, '2022-06-15 13:19:21'),
+	(517, '2022-06-15 13:19:21'),
+	(518, '2022-06-15 13:19:22'),
+	(519, '2022-06-15 13:19:22'),
+	(520, '2022-06-15 13:19:22'),
+	(521, '2022-06-15 13:19:22'),
+	(522, '2022-06-15 13:19:22'),
+	(523, '2022-06-15 13:19:22'),
+	(524, '2022-06-15 13:19:22'),
+	(525, '2022-06-15 13:19:22'),
+	(526, '2022-06-15 13:19:22'),
+	(527, '2022-06-15 13:19:22'),
+	(528, '2022-06-15 13:19:22'),
+	(529, '2022-06-15 13:19:22'),
+	(530, '2022-06-15 13:19:22'),
+	(531, '2022-06-15 13:19:22'),
+	(532, '2022-06-15 13:19:22'),
+	(533, '2022-06-15 13:19:22'),
+	(534, '2022-06-15 13:19:22'),
+	(535, '2022-06-15 13:19:22'),
+	(536, '2022-06-15 13:19:22'),
+	(537, '2022-06-15 13:19:22'),
+	(538, '2022-06-15 13:19:23'),
+	(539, '2022-06-15 13:19:23'),
+	(540, '2022-06-15 13:19:23'),
+	(541, '2022-06-15 13:19:23'),
+	(542, '2022-06-15 13:19:23'),
+	(543, '2022-06-15 13:19:23'),
+	(544, '2022-06-15 13:19:23'),
+	(545, '2022-06-15 13:19:23'),
+	(546, '2022-06-15 13:19:23'),
+	(547, '2022-06-15 13:19:23'),
+	(548, '2022-06-15 13:19:23'),
+	(549, '2022-06-15 13:19:23'),
+	(550, '2022-06-15 13:19:23'),
+	(551, '2022-06-15 13:19:23'),
+	(552, '2022-06-15 13:19:23'),
+	(553, '2022-06-15 13:19:23'),
+	(554, '2022-06-15 13:19:23'),
+	(555, '2022-06-15 13:19:23'),
+	(556, '2022-06-15 13:19:23'),
+	(557, '2022-06-15 13:19:24'),
+	(558, '2022-06-15 13:19:24'),
+	(559, '2022-06-15 13:19:24'),
+	(560, '2022-06-15 13:19:24'),
+	(561, '2022-06-15 13:19:24'),
+	(562, '2022-06-15 13:19:24'),
+	(563, '2022-06-15 13:19:24'),
+	(564, '2022-06-15 13:19:24'),
+	(565, '2022-06-15 13:19:24'),
+	(566, '2022-06-15 13:19:24'),
+	(567, '2022-06-15 13:19:24'),
+	(568, '2022-06-15 13:19:24'),
+	(569, '2022-06-15 13:19:24'),
+	(570, '2022-06-15 13:19:24'),
+	(571, '2022-06-15 13:19:24'),
+	(572, '2022-06-15 13:19:24'),
+	(573, '2022-06-15 13:19:24'),
+	(574, '2022-06-15 13:19:24'),
+	(575, '2022-06-15 13:19:24'),
+	(576, '2022-06-15 13:19:24'),
+	(577, '2022-06-15 13:19:24'),
+	(578, '2022-06-15 13:19:24'),
+	(579, '2022-06-15 13:19:25'),
+	(580, '2022-06-15 13:19:25'),
+	(581, '2022-06-15 13:19:25'),
+	(582, '2022-06-15 13:19:25'),
+	(583, '2022-06-15 13:19:25'),
+	(584, '2022-06-15 13:19:25'),
+	(585, '2022-06-15 13:19:25'),
+	(586, '2022-06-15 13:19:25'),
+	(587, '2022-06-15 13:19:25'),
+	(588, '2022-06-15 13:19:25'),
+	(589, '2022-06-15 13:19:25'),
+	(590, '2022-06-15 13:19:25'),
+	(591, '2022-06-15 13:19:25'),
+	(592, '2022-06-15 13:19:25'),
+	(593, '2022-06-15 13:19:25'),
+	(594, '2022-06-15 13:19:25'),
+	(595, '2022-06-15 13:19:25'),
+	(596, '2022-06-15 13:19:25'),
+	(597, '2022-06-15 13:19:25'),
+	(598, '2022-06-15 13:19:25'),
+	(599, '2022-06-15 13:19:26'),
+	(600, '2022-06-15 13:19:26'),
+	(601, '2022-06-15 13:19:26'),
+	(602, '2022-06-15 13:19:26'),
+	(603, '2022-06-15 13:19:26'),
+	(604, '2022-06-15 13:19:26'),
+	(605, '2022-06-15 13:19:26'),
+	(606, '2022-06-15 13:19:26'),
+	(607, '2022-06-15 13:19:26'),
+	(608, '2022-06-15 13:19:26'),
+	(609, '2022-06-15 13:19:26'),
+	(610, '2022-06-15 13:19:26'),
+	(611, '2022-06-15 13:19:26'),
+	(612, '2022-06-15 13:19:26'),
+	(613, '2022-06-15 13:19:26'),
+	(614, '2022-06-15 13:19:26'),
+	(615, '2022-06-15 13:19:26'),
+	(616, '2022-06-15 13:19:26'),
+	(617, '2022-06-15 13:19:26'),
+	(618, '2022-06-15 13:19:26'),
+	(619, '2022-06-15 13:19:26'),
+	(620, '2022-06-15 13:19:27'),
+	(621, '2022-06-15 13:19:27'),
+	(622, '2022-06-15 13:19:27'),
+	(623, '2022-06-15 13:19:27'),
+	(624, '2022-06-15 13:19:27'),
+	(625, '2022-06-15 13:19:27'),
+	(626, '2022-06-15 13:19:27'),
+	(627, '2022-06-15 13:19:27'),
+	(628, '2022-06-15 13:19:27'),
+	(629, '2022-06-15 13:19:27'),
+	(630, '2022-06-15 13:19:27'),
+	(631, '2022-06-15 13:19:27'),
+	(632, '2022-06-15 13:19:27'),
+	(633, '2022-06-15 13:19:27'),
+	(634, '2022-06-15 13:19:27'),
+	(635, '2022-06-15 13:19:27'),
+	(636, '2022-06-15 13:19:27'),
+	(637, '2022-06-15 13:19:27'),
+	(638, '2022-06-15 13:19:27'),
+	(639, '2022-06-15 13:19:27'),
+	(640, '2022-06-15 13:19:27'),
+	(641, '2022-06-15 13:19:27'),
+	(642, '2022-06-15 13:19:27'),
+	(643, '2022-06-15 13:19:28'),
+	(644, '2022-06-15 13:19:28'),
+	(645, '2022-06-15 13:19:28'),
+	(646, '2022-06-15 13:19:28'),
+	(647, '2022-06-15 13:19:28'),
+	(648, '2022-06-15 13:19:28'),
+	(649, '2022-06-15 13:19:28'),
+	(650, '2022-06-15 13:19:28'),
+	(651, '2022-06-15 13:19:28'),
+	(652, '2022-06-15 13:19:28'),
+	(653, '2022-06-15 13:19:28'),
+	(654, '2022-06-15 13:19:28'),
+	(655, '2022-06-15 13:19:28'),
+	(656, '2022-06-15 13:19:28'),
+	(657, '2022-06-15 13:19:28'),
+	(658, '2022-06-15 13:19:28'),
+	(659, '2022-06-15 13:19:28'),
+	(660, '2022-06-15 13:19:28'),
+	(661, '2022-06-15 13:19:28'),
+	(662, '2022-06-15 13:19:28'),
+	(663, '2022-06-15 13:19:28'),
+	(664, '2022-06-15 13:19:28'),
+	(665, '2022-06-15 13:19:29'),
+	(666, '2022-06-15 13:19:29'),
+	(667, '2022-06-15 13:19:29'),
+	(668, '2022-06-15 13:19:29'),
+	(669, '2022-06-15 13:19:29'),
+	(670, '2022-06-15 13:19:29'),
+	(671, '2022-06-15 13:19:29'),
+	(672, '2022-06-15 13:19:29'),
+	(673, '2022-06-15 13:19:29'),
+	(674, '2022-06-15 13:19:29'),
+	(675, '2022-06-15 13:19:29'),
+	(676, '2022-06-15 13:19:29'),
+	(677, '2022-06-15 13:19:29'),
+	(678, '2022-06-15 13:19:29'),
+	(679, '2022-06-15 13:19:29'),
+	(680, '2022-06-15 13:19:29'),
+	(681, '2022-06-15 13:19:29'),
+	(682, '2022-06-15 13:19:29'),
+	(683, '2022-06-15 13:19:29'),
+	(684, '2022-06-15 13:19:29'),
+	(685, '2022-06-15 13:19:29'),
+	(686, '2022-06-15 13:19:29'),
+	(687, '2022-06-15 13:19:30'),
+	(688, '2022-06-15 13:19:30'),
+	(689, '2022-06-15 13:19:30'),
+	(690, '2022-06-15 13:19:30'),
+	(691, '2022-06-15 13:19:30'),
+	(692, '2022-06-15 13:19:30'),
+	(693, '2022-06-15 13:19:30'),
+	(694, '2022-06-15 13:19:30'),
+	(695, '2022-06-15 13:19:30'),
+	(696, '2022-06-15 13:19:30'),
+	(697, '2022-06-15 13:19:30'),
+	(698, '2022-06-15 13:19:30'),
+	(699, '2022-06-15 13:19:30'),
+	(700, '2022-06-15 13:19:30'),
+	(701, '2022-06-15 13:19:30'),
+	(702, '2022-06-15 13:19:30'),
+	(703, '2022-06-15 13:19:30'),
+	(704, '2022-06-15 13:19:30'),
+	(705, '2022-06-15 13:19:30'),
+	(706, '2022-06-15 13:19:30'),
+	(707, '2022-06-15 13:19:30'),
+	(708, '2022-06-15 13:19:30'),
+	(709, '2022-06-15 13:19:30'),
+	(710, '2022-06-15 13:19:31'),
+	(711, '2022-06-15 13:19:31'),
+	(712, '2022-06-15 13:19:31'),
+	(713, '2022-06-15 13:19:31'),
+	(714, '2022-06-15 13:19:31'),
+	(715, '2022-06-15 13:19:31'),
+	(716, '2022-06-15 13:19:31'),
+	(717, '2022-06-15 13:19:31'),
+	(718, '2022-06-15 13:19:31'),
+	(719, '2022-06-15 13:19:31'),
+	(720, '2022-06-15 13:19:31'),
+	(721, '2022-06-15 13:19:31'),
+	(722, '2022-06-15 13:19:31'),
+	(723, '2022-06-15 13:19:31'),
+	(724, '2022-06-15 13:19:31'),
+	(725, '2022-06-15 13:19:31'),
+	(726, '2022-06-15 13:19:31'),
+	(727, '2022-06-15 13:19:31'),
+	(728, '2022-06-15 13:19:31'),
+	(729, '2022-06-15 13:19:31'),
+	(730, '2022-06-15 13:19:32'),
+	(731, '2022-06-15 13:19:32'),
+	(732, '2022-06-15 13:19:32'),
+	(733, '2022-06-15 13:19:32'),
+	(734, '2022-06-15 13:19:32'),
+	(735, '2022-06-15 13:19:32'),
+	(736, '2022-06-15 13:19:32'),
+	(737, '2022-06-15 13:19:32'),
+	(738, '2022-06-15 13:19:32'),
+	(739, '2022-06-15 13:19:32'),
+	(740, '2022-06-15 13:19:32'),
+	(741, '2022-06-15 13:19:32'),
+	(742, '2022-06-15 13:19:32'),
+	(743, '2022-06-15 13:20:22'),
+	(744, '2022-06-15 13:20:43'),
+	(745, '2022-06-15 13:21:28');
 /*!40000 ALTER TABLE `guests` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.guest_cart_items
@@ -256,16 +448,6 @@ CREATE TABLE IF NOT EXISTS `guest_cart_items` (
 
 -- Dumping data for table fast-ecommerce.guest_cart_items: ~9 rows (approximately)
 /*!40000 ALTER TABLE `guest_cart_items` DISABLE KEYS */;
-INSERT INTO `guest_cart_items` (`cart_item_id`, `user_id`, `product_id`, `quantity`, `created`) VALUES
-	(136, 495, 2, 6, '2022-06-05 11:47:55'),
-	(137, 495, 1, 1, '2022-06-05 11:47:55'),
-	(338, 501, 3, 15, '2022-06-05 15:55:55'),
-	(339, 501, 2, 2, '2022-06-05 15:55:55'),
-	(340, 501, 1, 2, '2022-06-05 15:55:55'),
-	(344, 498, 3, 1, '2022-06-05 23:29:55'),
-	(345, 498, 4, 6, '2022-06-05 23:29:55'),
-	(346, 498, 2, 1, '2022-06-05 23:29:55'),
-	(347, 498, 1, 7, '2022-06-05 23:29:55');
 /*!40000 ALTER TABLE `guest_cart_items` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.guest_trials
@@ -277,15 +459,12 @@ CREATE TABLE IF NOT EXISTS `guest_trials` (
   `detail` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`guest_trial_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.guest_trials: ~4 rows (approximately)
 /*!40000 ALTER TABLE `guest_trials` DISABLE KEYS */;
 INSERT INTO `guest_trials` (`guest_trial_id`, `guest_id`, `for`, `ip`, `detail`, `created`) VALUES
-	(7, 498, 'login', '::ffff:192.168.0.50', '{"email":"asdf@ff.com","password":"654654asd"}', '2022-06-05 20:06:46'),
-	(8, 507, 'login', '::1', '{"email":"sdfs@g.com","password":"654654654"}', '2022-06-05 23:08:44'),
-	(9, 507, 'login', '::1', '{"email":"sdfs@g.com","password":"654654654"}', '2022-06-05 23:08:45'),
-	(10, 507, 'login', '::1', '{"email":"sdfs@g.com","password":"654654654"}', '2022-06-05 23:08:45');
+	(11, 745, 'login', '::ffff:192.168.10.4', '{"email":"sajid@fast.com","password":"12345678"}', '2022-06-15 13:21:44');
 /*!40000 ALTER TABLE `guest_trials` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.messages
@@ -298,51 +477,12 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`message_id`),
   KEY `FK_messages_users` (`user_id`),
   CONSTRAINT `FK_messages_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.messages: ~40 rows (approximately)
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
 INSERT INTO `messages` (`message_id`, `user_id`, `type`, `message`, `created`) VALUES
-	(1, 18, 'info', 'Cograts! on creating a new account on fast.pk. Here goes too many possibilities for better lorem ipsum dolor sit comet', '2022-06-01 21:35:38'),
-	(2, 18, 'info', 'Cograts! on creating a new account on fast.pk. Here goes too many possibilities for better lorem ipsum dolor sit comet', '2022-06-01 21:35:38'),
-	(3, 18, 'info', 'Cograts! on creating a new account on fast.pk. Here goes too many possibilities for better lorem ipsum dolor sit comet', '2022-06-01 21:35:38'),
-	(4, 18, 'ehe', 'We love you Sami! lorem ipsum dolor sit comet..', '2022-06-01 21:58:42'),
-	(5, 18, 'ehe', 'We love you Sami! lorem ipsum dolor sit comet..', '2022-06-01 21:58:42'),
-	(6, 18, 'ehe', 'We love you Sami! lorem ipsum dolor sit comet..', '2022-06-01 21:58:42'),
-	(7, 18, 'as', 'Aha', '2022-06-01 22:09:47'),
-	(8, 18, 'sdf', 'asdfasdf', '2022-06-01 22:11:16'),
-	(9, 18, 'asd', 'asdfasdfasdfasdf', '2022-06-01 22:14:57'),
-	(10, 18, 'asdf', 'asdfasdf', '2022-06-01 22:15:20'),
-	(11, 18, 'asd', 'sadfasd', '2022-06-01 22:21:23'),
-	(12, 9, 'asdf', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, voluptates?', '2022-06-02 00:43:01'),
-	(13, 9, 'asdf', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, voluptates?', '2022-06-02 00:43:08'),
-	(14, 9, 'sd', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, voluptates?', '2022-06-02 00:44:47'),
-	(15, 9, 'info', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, voluptates?', '2022-06-02 08:23:04'),
-	(16, 9, 'asd', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, voluptates?', '2022-06-02 08:50:40'),
-	(17, 9, 'asf', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, voluptates?', '2022-06-02 09:02:50'),
-	(18, 9, 'asd', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, voluptates?', '2022-06-02 09:05:30'),
-	(19, 9, 'asdf', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, voluptates?', '2022-06-02 09:07:07'),
-	(20, 9, 'adf', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, voluptates?', '2022-06-02 09:08:10'),
-	(21, 9, '965', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, voluptates?', '2022-06-02 09:12:28'),
-	(22, 9, '45', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, voluptates?', '2022-06-02 09:14:49'),
-	(23, 9, '4', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, voluptates?', '2022-06-02 09:17:09'),
-	(24, 9, 'asd', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, voluptates?', '2022-06-02 09:17:50'),
-	(25, 9, 'asdf', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, voluptates?', '2022-06-02 09:19:06'),
-	(26, 30, 'order', 'You order: 41 has been placed. You will (in-sha-Allah) receive it by Jun 09, 2022', '2022-06-04 12:26:01'),
-	(27, 30, 'order', 'You order: 41 has been placed. You will (in-sha-Allah) receive it by Jun 09, 2022', '2022-06-04 12:26:01'),
-	(28, 30, 'order', 'You order: 41 has been placed. You will (in-sha-Allah) receive it by Jun 09, 2022', '2022-06-03 12:26:01'),
-	(29, 30, 'order', 'You order: 41 has been placed. You will (in-sha-Allah) receive it by Jun 09, 2022', '2022-06-03 12:26:01'),
-	(30, 30, 'order', 'You order: 41 has been placed. You will (in-sha-Allah) receive it by Jun 09, 2022', '2022-06-02 12:26:01'),
-	(31, 30, 'order', 'You order: 41 has been placed. You will (in-sha-Allah) receive it by Jun 09, 2022', '2022-06-02 12:26:01'),
-	(32, 30, 'order', 'You order: 42 has been placed. You will (in-sha-Allah) receive it by Jun 09, 2022', '2022-06-04 12:42:45'),
-	(33, 20, 'order', 'You order: 43 has been placed. You will (in-sha-Allah) receive it by Jun 09, 2022', '2022-06-04 13:06:19'),
-	(34, 31, 'order', 'You order: 44 has been placed. You will (in-sha-Allah) receive it by Jun 09, 2022', '2022-06-04 13:23:52'),
-	(35, 29, 'order', 'You order: 45 has been placed. You will (in-sha-Allah) receive it by Jun 09, 2022', '2022-06-04 22:18:51'),
-	(36, 9, 'order', 'You order: 46 has been placed. You will (in-sha-Allah) receive it by Jun 09, 2022', '2022-06-04 23:06:42'),
-	(37, 30, 'order', 'You order: 47 has been placed. You will (in-sha-Allah) receive it by Jun 09, 2022', '2022-06-04 23:09:01'),
-	(38, 32, 'order', 'You order: 48 has been placed. You will (in-sha-Allah) receive it by Jun 09, 2022', '2022-06-04 23:23:50'),
-	(39, 9, 'order', 'You Order No. 49 has been placed. You will (in-sha-Allah) receive it by Jun 10, 2022', '2022-06-05 19:42:53'),
-	(40, 33, 'order', 'You Order No. 50 has been placed. You will (in-sha-Allah) receive it by Jun 10, 2022', '2022-06-05 21:07:40');
+	(1, 9, 'order', 'You Order No. 54 has been placed. You will (in-sha-Allah) receive it by Jun 20, 2022', '2022-06-15 13:27:00');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.orders
@@ -350,46 +490,23 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `order_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `promo_id` int DEFAULT NULL,
-  `city` varchar(500) DEFAULT NULL,
+  `name` varchar(500) DEFAULT NULL,
   `contact` varchar(500) DEFAULT NULL,
+  `city` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `address` varchar(500) NOT NULL,
   `payment_method` enum('card','cod') NOT NULL,
-  `Column 6` enum('card','cod') NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_id`),
   KEY `FK_orders_users` (`user_id`),
   KEY `FK_orders_promos` (`promo_id`),
   CONSTRAINT `FK_orders_promos` FOREIGN KEY (`promo_id`) REFERENCES `promos` (`promo_id`),
   CONSTRAINT `FK_orders_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.orders: ~24 rows (approximately)
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` (`order_id`, `user_id`, `promo_id`, `city`, `contact`, `address`, `payment_method`, `Column 6`, `created`) VALUES
-	(24, 9, 1, NULL, NULL, 'Fatimah Bae, Patel Para - Lahore', 'cod', 'card', '2022-06-03 09:12:29'),
-	(25, 24, NULL, NULL, NULL, 'C26, block 14, jauhar - Karachi', 'cod', 'card', '2022-06-03 09:51:23'),
-	(27, 25, NULL, NULL, NULL, 'C26, block 14, Jauhar - Karachi', 'cod', 'card', '2022-06-03 10:03:51'),
-	(28, 24, 4, NULL, NULL, 'C26, block 14, jauhar - Karachi', 'cod', 'card', '2022-06-03 10:13:31'),
-	(29, 25, NULL, NULL, NULL, 'C26, block 14, Jauhar - Karachi', 'cod', 'card', '2022-06-03 10:32:30'),
-	(30, 25, NULL, NULL, NULL, 'C26, block 14, Jauhar - Karachi', 'cod', 'card', '2022-06-03 10:32:50'),
-	(31, 26, NULL, NULL, NULL, 'Haroon Royal City - Kathi', 'cod', 'card', '2022-06-03 11:13:09'),
-	(32, 9, NULL, NULL, NULL, 'Anarkali Disco Chali - Lahore', 'cod', 'card', '2022-06-03 21:20:53'),
-	(33, 9, 1, NULL, NULL, 'Anarkali Disco Chali - Lahore', 'cod', 'card', '2022-06-03 21:25:58'),
-	(34, 27, NULL, NULL, NULL, 'C26, Jauhar - Karachi', 'cod', 'card', '2022-06-03 22:27:44'),
-	(36, 28, NULL, NULL, NULL, 'Chakiwara - Karachi', 'cod', 'card', '2022-06-04 09:35:33'),
-	(37, 28, NULL, NULL, NULL, 'Chakiwara - Karachi', 'cod', 'card', '2022-06-04 09:39:16'),
-	(38, 29, NULL, NULL, NULL, 'Gulshan-e-Iqbal - Karachi', 'cod', 'card', '2022-06-04 09:40:21'),
-	(39, 9, NULL, NULL, NULL, 'Anarkali Disco Chali - Lahore', 'cod', 'card', '2022-06-04 12:05:37'),
-	(41, 30, NULL, NULL, NULL, 'Star Line - Islamabad', 'cod', 'card', '2022-06-04 12:26:01'),
-	(42, 30, NULL, NULL, NULL, 'Star Line - Islamabad', 'cod', 'card', '2022-06-04 12:42:45'),
-	(43, 20, NULL, NULL, NULL, 'Jauhareeeh - Karachi', 'cod', 'card', '2022-06-04 13:06:19'),
-	(44, 31, NULL, NULL, NULL, 'Nathia Gali - Karachi', 'cod', 'card', '2022-06-04 13:23:52'),
-	(45, 29, NULL, NULL, NULL, 'Gulshan-e-Iqbal - Karachi', 'cod', 'card', '2022-06-04 22:18:51'),
-	(46, 9, NULL, NULL, NULL, 'Anarkali Disco Chali - Lahore', 'cod', 'card', '2022-06-04 23:06:42'),
-	(47, 30, NULL, NULL, NULL, 'Star Line - Islamabad', 'cod', 'card', '2022-06-04 23:09:01'),
-	(48, 32, NULL, NULL, NULL, 'Patoki me know - Multan', 'cod', 'card', '2022-06-04 23:23:50'),
-	(49, 9, NULL, NULL, NULL, 'Anarkali Disco Chali - Lahore', 'cod', 'card', '2022-06-05 19:42:53'),
-	(50, 33, NULL, NULL, NULL, 'Anarkali Bazaar - Lahore', 'cod', 'card', '2022-06-05 21:07:40');
+INSERT INTO `orders` (`order_id`, `user_id`, `promo_id`, `name`, `contact`, `city`, `address`, `payment_method`, `created`) VALUES
+	(54, 9, NULL, NULL, NULL, NULL, 'Anarkali Disco Chali - Lahore', 'cod', '2022-06-15 13:27:00');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.order_details
@@ -404,86 +521,16 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   KEY `FK_order_details_orders` (`order_id`),
   KEY `FK_order_details_stocks` (`product_id`) USING BTREE,
   CONSTRAINT `FK_order_details_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-  CONSTRAINT `FK_order_details_stocks` FOREIGN KEY (`product_id`) REFERENCES `stocks` (`stock_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `FK_order_details_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.order_details: ~74 rows (approximately)
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
 INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quantity`, `price`, `unit_cost`) VALUES
-	(48, 24, 1, 4, 100.00, 80.00),
-	(49, 24, 2, 4, 250.00, 240.00),
-	(50, 25, 1, 3, 100.00, 80.00),
-	(51, 25, 3, 4, 250.00, 205.00),
-	(52, 25, 11, 2, 400.00, 350.00),
-	(53, 25, 12, 1, 300.00, 250.00),
-	(54, 27, 1, 3, 100.00, 80.00),
-	(55, 27, 2, 3, 250.00, 240.00),
-	(56, 27, 3, 4, 250.00, 205.00),
-	(57, 27, 4, 3, 500.00, 150.00),
-	(58, 27, 5, 2, 110.00, 100.00),
-	(61, 29, 1, 3, 100.00, 80.00),
-	(62, 29, 2, 10, 250.00, 240.00),
-	(63, 29, 3, 4, 250.00, 205.00),
-	(64, 29, 4, 5, 500.00, 150.00),
-	(65, 30, 1, 2, 100.00, 80.00),
-	(66, 30, 2, 2, 250.00, 240.00),
-	(67, 31, 3, 2, 250.00, 205.00),
-	(68, 31, 4, 2, 500.00, 150.00),
-	(69, 31, 6, 2, 300.00, 280.00),
-	(70, 32, 1, 2, 100.00, 80.00),
-	(71, 33, 1, 2, 100.00, 80.00),
-	(72, 33, 2, 2, 250.00, 240.00),
-	(73, 33, 3, 2, 250.00, 205.00),
-	(74, 33, 4, 2, 500.00, 150.00),
-	(75, 33, 5, 1, 110.00, 100.00),
-	(76, 33, 6, 1, 300.00, 280.00),
-	(77, 34, 1, 9, 100.00, 80.00),
-	(78, 34, 2, 5, 250.00, 240.00),
-	(79, 34, 3, 8, 250.00, 205.00),
-	(80, 34, 4, 4, 500.00, 150.00),
-	(86, 37, 1, 2, 100.00, 80.00),
-	(87, 37, 2, 2, 250.00, 240.00),
-	(88, 37, 3, 2, 250.00, 205.00),
-	(89, 37, 4, 2, 500.00, 150.00),
-	(90, 38, 1, 2, 100.00, 80.00),
-	(91, 38, 2, 2, 250.00, 240.00),
-	(92, 38, 3, 2, 250.00, 205.00),
-	(93, 39, 1, 6, 100.00, 80.00),
-	(94, 39, 2, 5, 250.00, 240.00),
-	(95, 39, 3, 3, 250.00, 205.00),
-	(96, 39, 4, 3, 500.00, 150.00),
-	(100, 41, 1, 3, 100.00, 80.00),
-	(101, 41, 2, 2, 250.00, 240.00),
-	(102, 41, 5, 2, 110.00, 100.00),
-	(103, 42, 1, 3, 100.00, 80.00),
-	(104, 42, 2, 4, 250.00, 240.00),
-	(105, 42, 3, 1, 250.00, 205.00),
-	(106, 43, 1, 2, 100.00, 80.00),
-	(107, 43, 2, 2, 250.00, 240.00),
-	(108, 44, 1, 2, 100.00, 80.00),
-	(109, 44, 2, 2, 250.00, 240.00),
-	(110, 44, 3, 3, 250.00, 205.00),
-	(111, 44, 4, 3, 500.00, 150.00),
-	(112, 44, 5, 2, 110.00, 100.00),
-	(113, 44, 6, 2, 300.00, 280.00),
-	(114, 44, 7, 4, 120.00, 60.00),
-	(115, 44, 8, 2, 320.00, 310.00),
-	(116, 45, 1, 1, 100.00, 80.00),
-	(117, 45, 2, 5, 250.00, 240.00),
-	(118, 45, 3, 4, 250.00, 205.00),
-	(119, 45, 4, 14, 500.00, 150.00),
-	(120, 45, 6, 11, 300.00, 280.00),
-	(121, 46, 1, 18, 100.00, 80.00),
-	(122, 46, 3, 22, 250.00, 205.00),
-	(123, 47, 1, 14, 100.00, 80.00),
-	(124, 48, 1, 2, 100.00, 80.00),
-	(125, 48, 2, 2, 250.00, 240.00),
-	(126, 48, 3, 4, 250.00, 205.00),
-	(127, 49, 1, 7, 100.00, 80.00),
-	(128, 49, 2, 10, 250.00, 240.00),
-	(129, 50, 1, 3, 100.00, 80.00),
-	(130, 50, 2, 2, 250.00, 240.00),
-	(131, 50, 4, 3, 500.00, 150.00);
+	(13, 54, 3, 2, 250.00, 205.00),
+	(14, 54, 4, 2, 500.00, 150.00),
+	(15, 54, 8, 2, 320.00, 310.00),
+	(16, 54, 2, 2, 250.00, 240.00);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.order_statuses
@@ -496,39 +543,12 @@ CREATE TABLE IF NOT EXISTS `order_statuses` (
   PRIMARY KEY (`order_status_id`),
   KEY `FK__orders` (`order_id`),
   CONSTRAINT `FK__orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table fast-ecommerce.order_statuses: ~23 rows (approximately)
+-- Dumping data for table fast-ecommerce.order_statuses: ~28 rows (approximately)
 /*!40000 ALTER TABLE `order_statuses` DISABLE KEYS */;
 INSERT INTO `order_statuses` (`order_status_id`, `order_id`, `status`, `description`, `created`) VALUES
-	(1, 24, 'ordered', NULL, '2022-06-03 09:12:29'),
-	(2, 25, 'ordered', NULL, '2022-06-03 09:51:23'),
-	(3, 27, 'ordered', NULL, '2022-06-03 10:03:51'),
-	(4, 28, 'ordered', NULL, '2022-06-03 10:13:31'),
-	(5, 29, 'ordered', NULL, '2022-06-03 10:32:30'),
-	(6, 30, 'ordered', NULL, '2022-06-03 10:32:50'),
-	(7, 31, 'ordered', NULL, '2022-06-03 11:13:09'),
-	(8, 32, 'ordered', NULL, '2022-06-03 21:20:53'),
-	(9, 33, 'ordered', NULL, '2022-06-03 21:25:58'),
-	(10, 34, 'ordered', NULL, '2022-06-03 22:27:44'),
-	(13, 37, 'ordered', NULL, '2022-06-04 09:39:16'),
-	(14, 38, 'ordered', NULL, '2022-06-04 09:40:21'),
-	(15, 39, 'ordered', NULL, '2022-06-04 12:05:37'),
-	(17, 41, 'ordered', NULL, '2022-06-04 12:26:01'),
-	(18, 42, 'ordered', NULL, '2022-06-04 12:42:45'),
-	(19, 43, 'ordered', NULL, '2022-06-04 13:06:19'),
-	(20, 44, 'ordered', NULL, '2022-06-04 13:23:52'),
-	(21, 45, 'ordered', NULL, '2022-06-04 22:18:51'),
-	(22, 46, 'ordered', NULL, '2022-06-04 23:06:42'),
-	(23, 47, 'ordered', NULL, '2022-06-04 23:09:01'),
-	(24, 48, 'ordered', NULL, '2022-06-04 23:23:50'),
-	(25, 49, 'ordered', NULL, '2022-06-05 19:42:53'),
-	(26, 50, 'ordered', NULL, '2022-06-05 21:07:40'),
-	(27, 50, 'confirmed', NULL, '2022-07-06 21:07:40'),
-	(28, 49, 'confirmed', NULL, '2022-07-06 21:07:40'),
-	(29, 46, 'confirmed', NULL, '2022-06-06 21:07:40'),
-	(30, 48, 'confirmed', NULL, '2022-07-06 21:07:40'),
-	(31, 47, 'confirmed', NULL, '2022-07-06 21:07:40');
+	(1, 54, 'confirmed', NULL, '2022-06-15 13:27:00');
 /*!40000 ALTER TABLE `order_statuses` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.products
@@ -597,22 +617,12 @@ CREATE TABLE IF NOT EXISTS `promos` (
   PRIMARY KEY (`promo_id`),
   UNIQUE KEY `user_id_code` (`user_id`,`code`),
   CONSTRAINT `FK_promos_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.promos: ~11 rows (approximately)
 /*!40000 ALTER TABLE `promos` DISABLE KEYS */;
 INSERT INTO `promos` (`promo_id`, `user_id`, `code`, `validity`, `percentage`, `max_discount`, `status`, `created`) VALUES
-	(1, 9, 'BE202', '2022-06-02 01:42:26', 10, 200.00, 'available', '2022-06-02 01:42:30'),
-	(2, 9, 'GKMN', '2022-06-02 01:42:26', 10, 200.00, 'consumed', '2022-06-02 01:42:30'),
-	(3, 9, 'VFX52', '2022-05-02 01:42:26', 10, 200.00, 'expired', '2022-06-02 01:42:30'),
-	(4, 24, 'SB123', '2022-06-03 09:52:57', 10, 400.00, 'available', '2022-06-03 09:53:05'),
-	(6, 28, 'b5vo9', '2022-07-04 09:35:33', 10, 100.00, 'available', '2022-06-04 09:35:33'),
-	(7, 29, 'DEJAO', '2022-07-04 09:40:21', 10, 100.00, 'available', '2022-06-04 09:40:21'),
-	(9, 30, 'AWZWG', '2022-07-04 12:26:01', 10, 100.00, 'available', '2022-06-04 12:26:01'),
-	(10, 20, 'DDK7J', '2022-07-04 13:06:19', 10, 100.00, 'available', '2022-06-04 13:06:19'),
-	(11, 31, '8ET7S', '2022-07-04 13:23:52', 10, 100.00, 'available', '2022-06-04 13:23:52'),
-	(12, 32, 'CHQEB', '2022-07-04 23:23:50', 10, 100.00, 'available', '2022-06-04 23:23:50'),
-	(13, 33, 'GNXWN', '2022-07-05 21:07:40', 10, 100.00, 'available', '2022-06-05 21:07:40');
+	(17, 9, 'EH6W3', '2022-07-15 13:27:00', 10, 100.00, 'available', '2022-06-15 13:27:00');
 /*!40000 ALTER TABLE `promos` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.stocks
@@ -642,13 +652,6 @@ CREATE TABLE IF NOT EXISTS `trials` (
 
 -- Dumping data for table fast-ecommerce.trials: ~6 rows (approximately)
 /*!40000 ALTER TABLE `trials` DISABLE KEYS */;
-INSERT INTO `trials` (`trial_id`, `user_id`, `for`, `created`) VALUES
-	(8, 9, 'promo', '2022-06-05 14:30:25'),
-	(9, 9, 'promo', '2022-06-05 14:30:25'),
-	(10, 9, 'promo', '2022-06-05 14:30:26'),
-	(11, 9, 'promo', '2022-06-05 14:30:30'),
-	(12, 9, 'promo', '2022-06-05 14:30:32'),
-	(13, 9, 'promo', '2022-06-05 14:30:33');
 /*!40000 ALTER TABLE `trials` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.users
@@ -669,33 +672,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table fast-ecommerce.users: ~27 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `applied_promo_id`, `last_messages_read`, `last_orders_read`, `last_promos_read`, `last_wallets_read`, `created`) VALUES
-	(7, 'Yousuf', 'yosof@fast.com', '$2a$11$IFPP9EvJmPU73z9T8xhgeuFfqpxIbVxaSRRcZ6M40PQFhuBqyiJZi', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-05-31 10:17:06'),
-	(8, 'Fahad Alam', 'fahadalam@gmail.com', '$2a$11$ob4PfS8vnC3VSkiSpTNFKeC66wRJOGrLputlONT8zKP.OIUcJlM0C', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-05-31 10:24:30'),
-	(9, 'Sajid', 'sajid@fast.com', '$2a$11$Jxvj93ZgzOlbATBcM02fFOM7jjBV3/D4EFHXj3bpHADdThAxp1oIC', NULL, '2022-06-05 19:42:39', '2022-06-05 14:13:15', '2022-06-02 17:02:35', '2022-06-02 22:26:32', '2022-05-31 10:31:42'),
-	(10, 'nasir', 'nasir@fast.com', '$2a$11$dwA/ydACTGCXquf6oeQdAOUpre7.ePJi4J.RuGgCRn/p9ULldxXwK', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 11:08:14'),
-	(11, 'nasir', 'nasir2@fast.com', '$2a$11$EAPeNfoMjDE4NhhPv9j1uO9ho5gZ8lP9En4RzlLX0zKh.rFRUOM2a', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 11:08:49'),
-	(12, 'nasir', 'nasir3@fast.com', '$2a$11$mVIrHKce1HCcHZlspjpXxuth4v3NkubfYsGK4ljYZXqIMOqEzk2kG', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 11:09:22'),
-	(13, 'saleem', 'saleem@fast.com', '$2a$11$xd9ivmjUWLw4cW6ErNKDpecBlvUOB4CLO5uC1TKsZ1Hb2BVO4gozC', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 11:11:06'),
-	(14, 'naeem', 'naeem@fast.com', '$2a$11$Wx8Od0lz6G3cLU3vPkf.de/KdeF5xklNRUvSXoOxHi7fzBKJ2F5c.', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 11:11:34'),
-	(15, 'shahid', 'shahid@fast.com', '$2a$11$ebsBbhvmUpatVcbP22Lo0e0VfD4H2L.2JmKfXj/8OfKkkwueV.uz.', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 11:13:24'),
-	(16, 'habib', 'habib@fast.com', '$2a$11$8nJljXLXPCOUZ/3TJjKMFeyd0h.tLzr5mUh2V6KSZ.jFlFnb5de8K', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 18:51:45'),
-	(17, 'Furqan', 'furqan@fast.com', '$2a$11$MjysB0KBx.9sLlFlRrOtSuR36RhcTuR3Tj66OpWgB3wEcQCztBS2e', NULL, '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 19:35:25'),
-	(18, 'Sami', 'sami@gmail.com', '$2a$11$Uf62x.4U3pXTxhijB/qqQe79tB5hvOUYx0b0UZlaM6l/V/LZv7Y5O', NULL, '2022-06-01 22:44:44', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:43:30', '2022-06-01 21:18:38'),
-	(19, 'Javed', 'javed@mm.com', '$2a$11$UKeI2ss87SnO2R0KUHW4ausOggINzJs2uqMl0YWkTXWLvaLCwL70S', NULL, '2022-06-02 17:08:37', '2022-06-02 17:08:37', '2022-06-02 17:08:37', '2022-06-02 17:08:37', '2022-06-02 17:08:37'),
-	(20, 'Fahad', 'fahad@ss.com', '$2a$11$6mbuZUy7vwXP4hPoeP9yZOXv2psutS0miYtDvbv5amjj1kyE6r2H2', NULL, '2022-06-04 13:08:26', '2022-06-04 13:07:38', '2022-06-04 13:07:11', '2022-06-02 17:10:48', '2022-06-02 17:10:48'),
-	(21, 'Naseem', 'naseem@abc.com', '$2a$11$2Psh/L07QDEldtDMlJ8K1eYVh34dc9erMRR7xnXZZ.diZnKpbtCCG', NULL, '2022-06-02 22:33:15', '2022-06-02 22:33:15', '2022-06-02 22:33:15', '2022-06-02 22:33:15', '2022-06-02 22:33:15'),
-	(22, 'Naseem', 'naseem@gmail.com', '$2a$11$T7vH6tuARnocECFbK15DBuw4mB65ANuBIRPwR5Uolz0ZDtAFCGUZK', NULL, '2022-06-02 22:33:48', '2022-06-02 22:33:48', '2022-06-02 22:33:48', '2022-06-02 22:33:48', '2022-06-02 22:33:48'),
-	(23, 'Jameel Iqbal Khan', 'jameel@gmail.com', '$2a$11$PG8QUsdlCVPKwRTCVSJ96eiJRsCM21usarNpJVvfUzcbotL322nrm', NULL, '2022-06-02 22:35:45', '2022-06-02 22:35:45', '2022-06-02 22:35:45', '2022-06-02 22:35:45', '2022-06-02 22:35:45'),
-	(24, 'Shoaib', 'shoaib@zz.com', '$2a$11$e9NG4bFmlrgoUBfgN/wnfeTtDskHdfax.49jUruuOFWksZcaKTJHe', NULL, '2022-06-03 09:46:54', '2022-06-03 09:55:22', '2022-06-03 09:55:08', '2022-06-03 09:46:54', '2022-06-03 09:46:54'),
-	(25, 'Ayesha', 'ayesha@ff.com', '$2a$11$ghH2MUfmQpzCfQFPYbRVTevoavZoTyJ5dCoN4f2MKej.4.jtD5qsy', NULL, '2022-06-03 10:04:46', '2022-06-03 10:32:55', '2022-06-03 10:04:59', '2022-06-03 10:04:56', '2022-06-03 10:03:44'),
-	(26, 'Shahid', 'shahid@ff.com', '$2a$11$0RqkV20NmRDr2OzcW1or2.z0gfABp0S5nNT3qdBPHY0WNsxAl6lPe', NULL, '2022-06-03 11:13:02', '2022-06-03 22:23:13', '2022-06-03 11:13:02', '2022-06-03 11:13:02', '2022-06-03 11:13:02'),
-	(27, 'Fahad', 'fahad@ssq.com', '$2a$11$XvL1NOOcQGHAu9FPf4xLGOOYiIeh18N87YwGLDKkAbWh4hhf/UL1y', NULL, '2022-06-03 22:27:35', '2022-06-03 22:27:56', '2022-06-03 22:27:35', '2022-06-03 22:27:35', '2022-06-03 22:27:35'),
-	(28, 'Nasreen', 'nasreen@ff.com', '$2a$11$fGZ8S05bknUu1Yc/lMeeDeyW2TwTDYlqqRE/foQGMgmuunceUx7vS', NULL, '2022-06-04 09:28:39', '2022-06-04 09:28:39', '2022-06-04 09:28:39', '2022-06-04 09:28:39', '2022-06-04 09:28:39'),
-	(29, 'Suleman', 'suleman@ff.com', '$2a$11$zVqQtZKAtt4B9/42BAWM4.SQIvuSGnKvMsMCYVEM8I8y7jvqj3qWu', NULL, '2022-06-04 09:40:02', '2022-06-04 09:41:56', '2022-06-04 09:40:47', '2022-06-04 09:40:02', '2022-06-04 09:40:02'),
-	(30, 'Faheem', 'faheem@ff.com', '$2a$11$2EcF/apl.nDGRrg24jblfOPPZ12VueUKy95b0.sSxug3TwviMboV2', NULL, '2022-06-04 23:09:11', '2022-06-04 15:57:51', '2022-06-04 13:31:07', '2022-06-04 13:10:29', '2022-06-04 12:25:05'),
-	(31, 'Naeem', 'naeem@mm.com', '$2a$11$3Ng8gtZV3f4qUzeyP8W7LuSsewgJp0Zco/S0wn4Dzn1NExGgnoInO', NULL, '2022-06-04 13:24:56', '2022-06-04 13:24:58', '2022-06-04 13:24:46', '2022-06-04 13:24:48', '2022-06-04 13:22:51'),
-	(32, 'Balti', 'balti@gg.com', '$2a$11$CjYHdUcDD7gV/4Mb/nTVuOU2LkZqKX/i4Wyt2sExeUncA4TQmbz3.', NULL, '2022-06-04 23:23:25', '2022-06-04 23:23:25', '2022-06-04 23:23:25', '2022-06-04 23:23:25', '2022-06-04 23:23:25'),
-	(33, 'saleem', 'saleem@gmail.com', '$2a$11$WBw/wM/K1q1QYCrzn1FSYOiCAxlr9QsUzotx792hRzlc4k.yVZpd.', NULL, '2022-06-05 21:08:04', '2022-06-05 21:08:11', '2022-06-05 21:07:55', '2022-06-05 21:07:37', '2022-06-05 21:07:37');
+	(9, 'Sajid', 'sajid@fast.com', '$2a$11$Jxvj93ZgzOlbATBcM02fFOM7jjBV3/D4EFHXj3bpHADdThAxp1oIC', NULL, '2022-06-05 19:42:39', '2022-06-05 14:13:15', '2022-06-02 17:02:35', '2022-06-02 22:26:32', '2022-05-31 10:31:42');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.validations
@@ -729,11 +706,6 @@ CREATE TABLE IF NOT EXISTS `wallets` (
 
 -- Dumping data for table fast-ecommerce.wallets: ~4 rows (approximately)
 /*!40000 ALTER TABLE `wallets` DISABLE KEYS */;
-INSERT INTO `wallets` (`wallet_id`, `user_id`, `in`, `out`, `created`) VALUES
-	(1, 9, 500.00, 0.00, '2022-06-02 14:26:43'),
-	(2, 9, 0.00, 250.00, '2022-06-02 14:26:50'),
-	(3, 9, 1250.00, 0.00, '2022-06-02 14:27:02'),
-	(4, 9, 0.00, 850.00, '2022-06-02 14:27:10');
 /*!40000 ALTER TABLE `wallets` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.wishlists
@@ -752,8 +724,6 @@ CREATE TABLE IF NOT EXISTS `wishlists` (
 
 -- Dumping data for table fast-ecommerce.wishlists: ~0 rows (approximately)
 /*!40000 ALTER TABLE `wishlists` DISABLE KEYS */;
-INSERT INTO `wishlists` (`wishlist_id`, `user_id`, `product_id`, `created`) VALUES
-	(59, 9, 3, '2022-06-03 21:35:42');
 /*!40000 ALTER TABLE `wishlists` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -8,14 +8,14 @@ export const post = async ({ request, locals }) => {
   const { address_id, payment_method } = await request.json()
   
   const address = await db.selectFrom('addresses')
-    .select(['addresses.label', 'addresses.address', 'addresses.city'])
+    .selectAll()
     .where('addresses.address_id', '=', address_id)
     .where('addresses.user_id', '=', locals.user_id)
     .executeTakeFirst()
 
   const completeAddress = address.address + ' - ' + address.city
 
-  const user = await db.selectFrom('users').select('users.applied_promo_id')
+  const user = await db.selectFrom('users').select(['users.applied_promo_id', 'users.name'])
     .where('users.user_id', '=', locals.user_id)
     .executeTakeFirst()
 
@@ -45,6 +45,10 @@ export const post = async ({ request, locals }) => {
     
       // Adding main order..
       const { insertId } = await trx.insertInto('orders').values({
+        name: user.name,
+        contact: address.contact,
+        // TODO implement this.^^
+        city: address.city,
         address: completeAddress,
         payment_method,
         promo_id: user.applied_promo_id || null,
