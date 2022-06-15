@@ -12,7 +12,7 @@
   ]
 </script>
 
-<Title title="Users" />
+<Title title="Users" icon="userThree" />
 
 <ButtonGroup>
   <Button icon="add" name="New User" />

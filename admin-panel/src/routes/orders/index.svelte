@@ -28,7 +28,7 @@ import { beautifyDateTime } from "$lib/others/utils";
 
 <ButtonGroup>
   <Button icon="add" name="New Order" type="primary" />
-  <Button shortcut="ctrl+k" icon="searchTwo" name="Search Orders"/>
+  <Button shortcut="ctrl+k" icon="searchTwo" name="Search Orders" href="/orders/search" />
   <Button icon="truck" name="Dispatch Multiple" href="/orders/dispatch-multiple" />
   <Button icon="handHeart" name="Receive Multiple" href="/orders/receive-multiple" />
   <!-- <Search placeholder="Search Orders (Ctrl + K)" /> -->

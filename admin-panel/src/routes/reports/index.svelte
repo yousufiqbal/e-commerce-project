@@ -3,7 +3,7 @@
   import Title from "$lib/components/Title.svelte";
 </script>
 
-<Title title="Reports" />
+<Title title="Reports" icon="lineChart" />
 
 <div class="wrapper">
   <div class="links2">

@@ -14,7 +14,7 @@
   ]
 </script>
 
-<Title title="Backups" />
+<Title title="Backups" icon="databaseTwo" />
 
 <ButtonGroup>
   <Button icon="add" name="New Backup" href="/backups/add-backup" />

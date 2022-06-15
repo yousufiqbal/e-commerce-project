@@ -9,7 +9,7 @@
   export let brands = []
 </script>
 
-<Title title="Brands" />
+<Title title="Brands" icon="priceTagThree" />
 
 <ButtonGroup>
   <Button icon="add" name="New Brand" href="/brands/add-brand" />

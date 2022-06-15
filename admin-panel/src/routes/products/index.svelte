@@ -30,13 +30,13 @@
   }
 </script>
 
-<Title title="Products" />
+<Title title="Products" icon="listCheck" />
 
 <ButtonGroup>
   <Button type="primary" icon="add" name="New Product" href="/products/add-product" />
   <Button icon="stock" name="Add Stock" href="/products/add-stock" />
   <Button shortcut="ctrl+k" icon="searchTwo" name="Search Products" href="/products/search" />
-  <Button icon="deleteBin" name="Remove / Return Stock" href="/products/remove-stock" />
+  <!-- <Button icon="deleteBin" name="Remove / Return Stock" href="/products/remove-stock" /> -->
 </ButtonGroup>
 
 <ButtonGroup>
