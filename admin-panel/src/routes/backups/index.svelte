@@ -24,7 +24,7 @@
 <Table>
   <tr>
     <th>Sr.</th>
-    <th>Filename</th>
+    <th class="main">Filename</th>
     <th>Size</th>
     <th>Created</th>
   </tr>

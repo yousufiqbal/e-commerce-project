@@ -5,17 +5,18 @@
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
-import Certain from "$lib/components/Certain.svelte";
+  import Certain from "$lib/components/Certain.svelte";
+import Divider from "$lib/components/Divider.svelte";
   import Items from "$lib/components/Items.svelte";
   import Layout from "$lib/components/Layout.svelte";
   import Modal from "$lib/components/Modal.svelte";
-import Spaced from "$lib/components/Spaced.svelte";
+  import Spaced from "$lib/components/Spaced.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Table from "$lib/components/Table.svelte";
   import Text from "$lib/components/Text.svelte";
   import Title from "$lib/components/Title.svelte";
 
-  let modal = { confirm: false, cancel: true }
+  let modal = { confirm: false, cancel: false }
   let certain = ''
 
   const items = [
@@ -56,6 +57,8 @@ import Spaced from "$lib/components/Spaced.svelte";
   <Button on:click={()=>modal.confirm=true} icon="check" name="Confirm Order" type="primary" />
   <Button icon="deleteBin" name="Cancel Order" on:click={()=>modal.cancel=true} />
 </ButtonGroup>
+
+<Divider />
 
 <Layout columns="repeat(3, 1fr)">
 

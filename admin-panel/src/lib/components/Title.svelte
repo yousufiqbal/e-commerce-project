@@ -1,4 +1,5 @@
 <script>
+  import { fly } from "svelte/transition";
   import Icon from "./Icon.svelte";
   import Seo from "./Seo.svelte";
 
@@ -16,7 +17,7 @@
     {#if icon}
     <Icon size="1.5rem" {icon} />
     {/if}
-    <h1>{title}</h1>
+    <h1 in:fly={{x: -20, duration: 150}}>{title}</h1>
   </div>
 
   <div class="right">

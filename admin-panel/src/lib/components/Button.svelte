@@ -14,6 +14,10 @@
         el.click()
       }
     }
+    if (shortcut == 'escape' && e.key == 'Escape') {
+      e.preventDefault()
+      el.click()
+    }
   }
 </script>
 
