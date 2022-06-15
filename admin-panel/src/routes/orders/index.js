@@ -22,7 +22,7 @@ export const get = async ({ url }) => {
     .leftJoin('last_statuses', 'last_statuses.order_id', 'orders.order_id')
     .if(type, qb => qb.where('last_statuses.status', '=', type))
     .groupBy('orders.order_id').orderBy('orders.created', 'desc')
-    .select(['orders.order_id', 'orders.payment_method', 'orders.created', sql`SUM(order_details.quantity) items, SUM(order_details.quantity * order_details.price) total_amount,
+    .select(['orders.order_id', 'orders.city', 'orders.address', 'orders.payment_method', 'orders.created', sql`SUM(order_details.quantity) items, SUM(order_details.quantity * order_details.price) total_amount,
     (SUM(order_details.quantity * order_details.price) - SUM(order_details.quantity * order_details.unit_cost)) as profit`, 'users.name'])
     .execute()
 

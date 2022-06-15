@@ -15,6 +15,7 @@ interface Addresses {
   'address': string;
   'address_id'?: number;
   'city': string;
+  'contact': string;
   'created'?: Date;
   'default'?: any;
   'label': string;
@@ -99,7 +100,10 @@ interface OrderStatuses {
 }
 interface Orders {
   'address': string;
+  'city': string | null;
+  'contact': string | null;
   'created'?: Date;
+  'name': string | null;
   'order_id'?: number;
   'payment_method': any;
   'promo_id': number | null;
@@ -155,11 +159,6 @@ interface Users {
   'user_id'?: number;
 }
 
-/** Admin Validations
-
-Each validation belongs to one admin 1:1
-
- */
 interface Validations {
   'admin_id': number;
   'created'?: Date;
@@ -181,7 +180,6 @@ interface Wishlists {
   'user_id': number;
   'wishlist_id'?: number;
 }
-
 
 interface Database {
   activities: Activities

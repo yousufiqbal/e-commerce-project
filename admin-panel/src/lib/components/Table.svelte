@@ -19,6 +19,10 @@
     margin-bottom: 10px;
     width: 100%;
   }
+  .table > tr:first-child {
+    background-color: rgb(255, 247, 225);
+    box-shadow: var(--shadow);
+  }
   .table th {
     font-weight: bold;
   }

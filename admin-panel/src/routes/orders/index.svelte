@@ -49,22 +49,26 @@ import { beautifyDateTime } from "$lib/others/utils";
     <th>({orders.length})</th>
     <th>ID</th>
     <th class="main">Name</th>
+    <th>City</th>
+    <th>Address</th>
     <th>Payment</th>
-    <th>Created</th>
     <th>Items</th>
     <th>Total Amount</th>
     <th>G.P.</th>
+    <th>Created</th>
   </tr>
   {#each orders as order, index (order.order_id)}
   <tr>
     <td>{index + 1}</td>
     <td>{order.order_id}</td>
     <td><a href="/orders/{order.order_id}">{order.name}</a></td>
+    <td>{order.city}</td>
+    <td>{order.address}</td>
     <td>{order.payment_method}</td>
-    <td>{beautifyDateTime(order.created)}</td>
     <td>{order.items}</td>
     <td>{order.total_amount}</td>
     <td>{order.profit}</td>
+    <td>{beautifyDateTime(order.created)}</td>
   </tr>
   {/each}
 </Table>
