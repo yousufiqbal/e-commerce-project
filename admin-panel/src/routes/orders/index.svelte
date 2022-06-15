@@ -43,10 +43,10 @@ import { beautifyDateTime } from "$lib/others/utils";
 {#if orders.length != 0}
 <Table>
   <tr>
-    <th>Sr.</th>
+    <th>({orders.length})</th>
     <th>ID</th>
     <th class="main">Name</th>
-    <th>Payment Method</th>
+    <th>Payment</th>
     <th>Created</th>
     <th>Items</th>
     <th>Total Amount</th>
@@ -56,7 +56,7 @@ import { beautifyDateTime } from "$lib/others/utils";
   <tr>
     <td>{index + 1}</td>
     <td>{order.order_id}</td>
-    <td><a href="/orders/{order.order_id}">Name WIP</a></td>
+    <td><a href="/orders/{order.order_id}">{order.name}</a></td>
     <td>{order.payment_method}</td>
     <td>{beautifyDateTime(order.created)}</td>
     <td>{order.items}</td>

@@ -46,7 +46,7 @@ interface CartItems {
 interface Categories {
   'category_id'?: number;
   'created'?: Date;
-  'name': string;
+  'name'?: string;
   'parent_id': number | null;
   'url_name': string;
 }
@@ -99,7 +99,6 @@ interface OrderStatuses {
 }
 interface Orders {
   'address': string;
-  'confirmed': Date | null;
   'created'?: Date;
   'order_id'?: number;
   'payment_method': any;
@@ -115,6 +114,7 @@ interface Products {
   'name': string;
   'price'?: number;
   'product_id'?: number;
+  'sku': string | null;
   'stock'?: number;
   'unit_cost'?: number;
   'url_name': string;
@@ -128,6 +128,13 @@ interface Promos {
   'status'?: any;
   'user_id': number;
   'validity': Date;
+}
+interface Stocks {
+  'created'?: Date;
+  'product_id': number;
+  'quantity': number;
+  'stock_id'?: number;
+  'unit_cost': number;
 }
 interface Trials {
   'created'?: Date;
@@ -175,6 +182,7 @@ interface Wishlists {
   'wishlist_id'?: number;
 }
 
+
 interface Database {
   activities: Activities
   addresses: Addresses
@@ -192,6 +200,7 @@ interface Database {
   orders: Orders
   products: Products
   promos: Promos
+  stocks: Stocks
   trials: Trials
   users: Users
   validations: Validations

@@ -350,8 +350,11 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `order_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `promo_id` int DEFAULT NULL,
+  `city` varchar(500) DEFAULT NULL,
+  `contact` varchar(500) DEFAULT NULL,
   `address` varchar(500) NOT NULL,
   `payment_method` enum('card','cod') NOT NULL,
+  `Column 6` enum('card','cod') NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_id`),
   KEY `FK_orders_users` (`user_id`),
@@ -362,31 +365,31 @@ CREATE TABLE IF NOT EXISTS `orders` (
 
 -- Dumping data for table fast-ecommerce.orders: ~24 rows (approximately)
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` (`order_id`, `user_id`, `promo_id`, `address`, `payment_method`, `created`) VALUES
-	(24, 9, 1, 'Fatimah Bae, Patel Para - Lahore', 'cod', '2022-06-03 09:12:29'),
-	(25, 24, NULL, 'C26, block 14, jauhar - Karachi', 'cod', '2022-06-03 09:51:23'),
-	(27, 25, NULL, 'C26, block 14, Jauhar - Karachi', 'cod', '2022-06-03 10:03:51'),
-	(28, 24, 4, 'C26, block 14, jauhar - Karachi', 'cod', '2022-06-03 10:13:31'),
-	(29, 25, NULL, 'C26, block 14, Jauhar - Karachi', 'cod', '2022-06-03 10:32:30'),
-	(30, 25, NULL, 'C26, block 14, Jauhar - Karachi', 'cod', '2022-06-03 10:32:50'),
-	(31, 26, NULL, 'Haroon Royal City - Kathi', 'cod', '2022-06-03 11:13:09'),
-	(32, 9, NULL, 'Anarkali Disco Chali - Lahore', 'cod', '2022-06-03 21:20:53'),
-	(33, 9, 1, 'Anarkali Disco Chali - Lahore', 'cod', '2022-06-03 21:25:58'),
-	(34, 27, NULL, 'C26, Jauhar - Karachi', 'cod', '2022-06-03 22:27:44'),
-	(36, 28, NULL, 'Chakiwara - Karachi', 'cod', '2022-06-04 09:35:33'),
-	(37, 28, NULL, 'Chakiwara - Karachi', 'cod', '2022-06-04 09:39:16'),
-	(38, 29, NULL, 'Gulshan-e-Iqbal - Karachi', 'cod', '2022-06-04 09:40:21'),
-	(39, 9, NULL, 'Anarkali Disco Chali - Lahore', 'cod', '2022-06-04 12:05:37'),
-	(41, 30, NULL, 'Star Line - Islamabad', 'cod', '2022-06-04 12:26:01'),
-	(42, 30, NULL, 'Star Line - Islamabad', 'cod', '2022-06-04 12:42:45'),
-	(43, 20, NULL, 'Jauhareeeh - Karachi', 'cod', '2022-06-04 13:06:19'),
-	(44, 31, NULL, 'Nathia Gali - Karachi', 'cod', '2022-06-04 13:23:52'),
-	(45, 29, NULL, 'Gulshan-e-Iqbal - Karachi', 'cod', '2022-06-04 22:18:51'),
-	(46, 9, NULL, 'Anarkali Disco Chali - Lahore', 'cod', '2022-06-04 23:06:42'),
-	(47, 30, NULL, 'Star Line - Islamabad', 'cod', '2022-06-04 23:09:01'),
-	(48, 32, NULL, 'Patoki me know - Multan', 'cod', '2022-06-04 23:23:50'),
-	(49, 9, NULL, 'Anarkali Disco Chali - Lahore', 'cod', '2022-06-05 19:42:53'),
-	(50, 33, NULL, 'Anarkali Bazaar - Lahore', 'cod', '2022-06-05 21:07:40');
+INSERT INTO `orders` (`order_id`, `user_id`, `promo_id`, `city`, `contact`, `address`, `payment_method`, `Column 6`, `created`) VALUES
+	(24, 9, 1, NULL, NULL, 'Fatimah Bae, Patel Para - Lahore', 'cod', 'card', '2022-06-03 09:12:29'),
+	(25, 24, NULL, NULL, NULL, 'C26, block 14, jauhar - Karachi', 'cod', 'card', '2022-06-03 09:51:23'),
+	(27, 25, NULL, NULL, NULL, 'C26, block 14, Jauhar - Karachi', 'cod', 'card', '2022-06-03 10:03:51'),
+	(28, 24, 4, NULL, NULL, 'C26, block 14, jauhar - Karachi', 'cod', 'card', '2022-06-03 10:13:31'),
+	(29, 25, NULL, NULL, NULL, 'C26, block 14, Jauhar - Karachi', 'cod', 'card', '2022-06-03 10:32:30'),
+	(30, 25, NULL, NULL, NULL, 'C26, block 14, Jauhar - Karachi', 'cod', 'card', '2022-06-03 10:32:50'),
+	(31, 26, NULL, NULL, NULL, 'Haroon Royal City - Kathi', 'cod', 'card', '2022-06-03 11:13:09'),
+	(32, 9, NULL, NULL, NULL, 'Anarkali Disco Chali - Lahore', 'cod', 'card', '2022-06-03 21:20:53'),
+	(33, 9, 1, NULL, NULL, 'Anarkali Disco Chali - Lahore', 'cod', 'card', '2022-06-03 21:25:58'),
+	(34, 27, NULL, NULL, NULL, 'C26, Jauhar - Karachi', 'cod', 'card', '2022-06-03 22:27:44'),
+	(36, 28, NULL, NULL, NULL, 'Chakiwara - Karachi', 'cod', 'card', '2022-06-04 09:35:33'),
+	(37, 28, NULL, NULL, NULL, 'Chakiwara - Karachi', 'cod', 'card', '2022-06-04 09:39:16'),
+	(38, 29, NULL, NULL, NULL, 'Gulshan-e-Iqbal - Karachi', 'cod', 'card', '2022-06-04 09:40:21'),
+	(39, 9, NULL, NULL, NULL, 'Anarkali Disco Chali - Lahore', 'cod', 'card', '2022-06-04 12:05:37'),
+	(41, 30, NULL, NULL, NULL, 'Star Line - Islamabad', 'cod', 'card', '2022-06-04 12:26:01'),
+	(42, 30, NULL, NULL, NULL, 'Star Line - Islamabad', 'cod', 'card', '2022-06-04 12:42:45'),
+	(43, 20, NULL, NULL, NULL, 'Jauhareeeh - Karachi', 'cod', 'card', '2022-06-04 13:06:19'),
+	(44, 31, NULL, NULL, NULL, 'Nathia Gali - Karachi', 'cod', 'card', '2022-06-04 13:23:52'),
+	(45, 29, NULL, NULL, NULL, 'Gulshan-e-Iqbal - Karachi', 'cod', 'card', '2022-06-04 22:18:51'),
+	(46, 9, NULL, NULL, NULL, 'Anarkali Disco Chali - Lahore', 'cod', 'card', '2022-06-04 23:06:42'),
+	(47, 30, NULL, NULL, NULL, 'Star Line - Islamabad', 'cod', 'card', '2022-06-04 23:09:01'),
+	(48, 32, NULL, NULL, NULL, 'Patoki me know - Multan', 'cod', 'card', '2022-06-04 23:23:50'),
+	(49, 9, NULL, NULL, NULL, 'Anarkali Disco Chali - Lahore', 'cod', 'card', '2022-06-05 19:42:53'),
+	(50, 33, NULL, NULL, NULL, 'Anarkali Bazaar - Lahore', 'cod', 'card', '2022-06-05 21:07:40');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.order_details
@@ -493,7 +496,7 @@ CREATE TABLE IF NOT EXISTS `order_statuses` (
   PRIMARY KEY (`order_status_id`),
   KEY `FK__orders` (`order_id`),
   CONSTRAINT `FK__orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table fast-ecommerce.order_statuses: ~23 rows (approximately)
 /*!40000 ALTER TABLE `order_statuses` DISABLE KEYS */;
@@ -520,7 +523,12 @@ INSERT INTO `order_statuses` (`order_status_id`, `order_id`, `status`, `descript
 	(23, 47, 'ordered', NULL, '2022-06-04 23:09:01'),
 	(24, 48, 'ordered', NULL, '2022-06-04 23:23:50'),
 	(25, 49, 'ordered', NULL, '2022-06-05 19:42:53'),
-	(26, 50, 'ordered', NULL, '2022-06-05 21:07:40');
+	(26, 50, 'ordered', NULL, '2022-06-05 21:07:40'),
+	(27, 50, 'confirmed', NULL, '2022-07-06 21:07:40'),
+	(28, 49, 'confirmed', NULL, '2022-07-06 21:07:40'),
+	(29, 46, 'confirmed', NULL, '2022-06-06 21:07:40'),
+	(30, 48, 'confirmed', NULL, '2022-07-06 21:07:40'),
+	(31, 47, 'confirmed', NULL, '2022-07-06 21:07:40');
 /*!40000 ALTER TABLE `order_statuses` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.products
@@ -606,6 +614,22 @@ INSERT INTO `promos` (`promo_id`, `user_id`, `code`, `validity`, `percentage`, `
 	(12, 32, 'CHQEB', '2022-07-04 23:23:50', 10, 100.00, 'available', '2022-06-04 23:23:50'),
 	(13, 33, 'GNXWN', '2022-07-05 21:07:40', 10, 100.00, 'available', '2022-06-05 21:07:40');
 /*!40000 ALTER TABLE `promos` ENABLE KEYS */;
+
+-- Dumping structure for table fast-ecommerce.stocks
+CREATE TABLE IF NOT EXISTS `stocks` (
+  `stock_id` int NOT NULL AUTO_INCREMENT,
+  `product_id` int NOT NULL,
+  `quantity` int NOT NULL,
+  `unit_cost` decimal(20,2) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`stock_id`),
+  KEY `FK_stocks_products` (`product_id`),
+  CONSTRAINT `FK_stocks_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table fast-ecommerce.stocks: ~0 rows (approximately)
+/*!40000 ALTER TABLE `stocks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `stocks` ENABLE KEYS */;
 
 -- Dumping structure for table fast-ecommerce.trials
 CREATE TABLE IF NOT EXISTS `trials` (
