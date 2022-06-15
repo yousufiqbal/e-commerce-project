@@ -27,10 +27,10 @@ import { beautifyDateTime } from "$lib/others/utils";
 <Title icon="listOrdered" title="Orders" />
 
 <ButtonGroup>
-  <Button icon="add" name="New" type="primary" />
-  <Button icon="searchTwo" name="Search Orders"/>
-  <!-- <Button icon="truck" name="Dispatch Multiple" href="/orders/dispatch-multiple" /> -->
-  <!-- <Button icon="handHeart" name="Receive Multiple" href="/orders/receive-multiple" /> -->
+  <Button icon="add" name="New Order" type="primary" />
+  <Button shortcut="ctrl+k" icon="searchTwo" name="Search Orders"/>
+  <Button icon="truck" name="Dispatch Multiple" href="/orders/dispatch-multiple" />
+  <Button icon="handHeart" name="Receive Multiple" href="/orders/receive-multiple" />
   <!-- <Search placeholder="Search Orders (Ctrl + K)" /> -->
 </ButtonGroup>
 

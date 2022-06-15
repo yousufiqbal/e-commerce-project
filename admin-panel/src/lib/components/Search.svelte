@@ -37,17 +37,17 @@
     border-radius: 4px;
     /* box-shadow: var(--shadow); */
     overflow: hidden;
-    /* margin-bottom: 20px; */
+    margin-bottom: 20px;
     flex: 1;
   }
   button {
-    padding: var(--padding-small);
+    padding: var(--padding);
     border-right: 1px solid var(--border);
     display: flex;
     /* color: red; */
   }
   input {
-    padding: var(--padding-small);
+    padding: var(--padding);
     flex: 1;
   }
 </style>

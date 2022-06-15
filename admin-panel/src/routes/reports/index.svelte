@@ -6,7 +6,7 @@
 <Title title="Reports" />
 
 <div class="wrapper">
-  <div class="links">
+  <div class="links2">
     <a href="/reports/profit-and-loss">Profit & Loss</a>
     <a href="/reports/user-registrations">Users Registration</a>
     <a href="/reports/orders-and-statuses">Orders & Statuses</a>
@@ -17,7 +17,7 @@
 </div>
 
 <style>
-  .links {
+  .links2 {
     display: inline-grid;
     gap: 8px;;
   }

@@ -1,7 +1,7 @@
 <script>
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
-import Table from "$lib/components/Table.svelte";
+  import Table from "$lib/components/Table.svelte";
   import Title from "$lib/components/Title.svelte";
 
   let users = [
@@ -15,8 +15,8 @@ import Table from "$lib/components/Table.svelte";
 <Title title="Users" />
 
 <ButtonGroup>
-  <Button icon="add" name="New" />
-  <Button icon="searchTwo" name="Search" href="/users/search" />
+  <Button icon="add" name="New User" />
+  <Button shortcut="ctrl+k" icon="searchTwo" name="Search Users" href="/users/search" />
 </ButtonGroup>
 
 <Table>

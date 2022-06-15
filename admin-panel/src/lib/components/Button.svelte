@@ -9,10 +9,12 @@
   const handleShortcut = e => {
     if (!shortcut) return
     if (shortcut == 'ctrl+enter' && e.ctrlKey && e.key == 'Enter') {
-      if (el) {
         e.preventDefault()
         el.click()
-      }
+    }
+    if (shortcut == 'ctrl+k' && e.ctrlKey && e.keyCode == 75) {
+        e.preventDefault()
+        el.click()
     }
     if (shortcut == 'escape' && e.key == 'Escape') {
       e.preventDefault()
