@@ -38,7 +38,7 @@
     /* border: 1px solid red; */
     display: flex;
     gap: 15px;
-    justify-content: end;
+    justify-content: start;
     /* align-items: center; */
     /* margin-bottom: 20px; */
   }

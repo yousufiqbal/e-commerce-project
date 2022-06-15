@@ -3,9 +3,9 @@
 
   export let name = 'type'
   export let pills = []
-  export let label = 'Order Type'
+  export let label = null
 
-  $: current = $page.url.searchParams.get(name)
+  $: current = $page.url.searchParams.get(name) || pills[0].url_name
 </script>
 
 {#if pills.length != 0}

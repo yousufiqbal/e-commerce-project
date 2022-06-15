@@ -4,7 +4,7 @@ import { sql } from 'kysely'
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const get = async ({ url }) => {
 
-  const type = url.searchParams.get('type') || null
+  const type = url.searchParams.get('type') || 'ordered'
 
   const { max } = db.fn
 

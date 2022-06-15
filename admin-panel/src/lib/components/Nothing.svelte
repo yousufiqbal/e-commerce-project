@@ -12,8 +12,9 @@
     display: flex;
     gap: 10px;
     padding-bottom: 10px;
-    border-bottom: 1px dashed red;
+    /* border-bottom: 1px dashed red; */
     margin-bottom: var(--margin-bottom, 20px);
     max-width: 500px;
+    color: red;
   }
 </style>

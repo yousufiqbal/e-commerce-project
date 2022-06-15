@@ -95,7 +95,7 @@ export const post = async ({ request, locals }) => {
       // Seting order status to confirmed..
       await trx.insertInto('order_statuses').values({
         order_id,
-        status: 'confirmed',
+        status: 'ordered',
       }).execute()
 
       // Sending messsage..

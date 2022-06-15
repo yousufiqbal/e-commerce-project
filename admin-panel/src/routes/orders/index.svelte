@@ -2,6 +2,7 @@
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
 import Calendar from "$lib/components/Calendar.svelte";
+import Divider from "$lib/components/Divider.svelte";
   import Nothing from "$lib/components/Nothing.svelte";
   import Pagination from "$lib/components/Pagination.svelte";
   import Pills from "$lib/components/Pills.svelte";
@@ -27,16 +28,20 @@ import { beautifyDateTime } from "$lib/others/utils";
 
 <ButtonGroup>
   <Button icon="add" name="New" type="primary" />
-  <Button icon="truck" name="Dispatch Multiple" href="/orders/dispatch-multiple" />
-  <Button icon="handHeart" name="Receive Multiple" href="/orders/receive-multiple" />
-  <Search placeholder="Search Orders (Ctrl + K)" />
+  <Button icon="searchTwo" name="Search Orders"/>
+  <!-- <Button icon="truck" name="Dispatch Multiple" href="/orders/dispatch-multiple" /> -->
+  <!-- <Button icon="handHeart" name="Receive Multiple" href="/orders/receive-multiple" /> -->
+  <!-- <Search placeholder="Search Orders (Ctrl + K)" /> -->
 </ButtonGroup>
 
 <ButtonGroup>
   <Pills pills={types} />
 </ButtonGroup>
 
-<Calendar />
+<div class="mb30"></div>
+<!-- <Divider /> -->
+
+<!-- <Calendar /> -->
 
 {#if orders.length != 0}
 <Table>
@@ -48,7 +53,7 @@ import { beautifyDateTime } from "$lib/others/utils";
     <th>Created</th>
     <th>Items</th>
     <th>Total Amount</th>
-    <th>Profit</th>
+    <th>G.P.</th>
   </tr>
   {#each orders as order, index (order.order_id)}
   <tr>

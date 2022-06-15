@@ -14,9 +14,9 @@
   import { addToast } from "$lib/others/toast";
   import { axios } from "$lib/others/utils";
 
-  let payment_method = 'cod'
+  let payment_method = 'COD'
   export let address = {}
-  export let promo = {}
+  export let promo = {
 
   $: console.log(address)
 
