@@ -35,13 +35,17 @@
 <ButtonGroup>
   <Button type="primary" icon="add" name="New Product" href="/products/add-product" />
   <Button icon="stock" name="Add Stock" href="/products/add-stock" />
+  <Button icon="searchTwo" name="Search Products" href="/products/search" />
   <Button icon="deleteBin" name="Remove / Return Stock" href="/products/remove-stock" />
 </ButtonGroup>
 
 <ButtonGroup>
   <Button icon="folders" name="Choose Category" on:click={()=>categoryModal=true} />
   <Button icon="folders" name="Choose Brand" on:click={()=>brandModal=true} />
-  <Search placeholder="Search Products (Ctrl + K)" />
+  <!-- <Search placeholder="Search Products (Ctrl + K)" /> -->
+</ButtonGroup>
+
+<ButtonGroup>
   <Pagination {total} />
 </ButtonGroup>
 

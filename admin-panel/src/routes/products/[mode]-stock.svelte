@@ -20,10 +20,10 @@
   import Text from "$lib/components/Text.svelte";
   import Spaced from "$lib/components/Spaced.svelte";
   import { goto } from "$app/navigation";
-import { onMount } from "svelte";
+  import { onMount } from "svelte";
 
   onMount(() => {
-    if (!isEmpty(product)) el.focus()
+    if (!isEmpty(product)) el && el.focus()
   })
 
   export let products = []
@@ -125,7 +125,7 @@ import { onMount } from "svelte";
 
 <Layout columns="1fr 1fr">
 
-<div slot="left">
+<div class="left">
 
 <Subtitle icon="listCheck" subtitle="Choose Product" />
 <Form>
@@ -159,7 +159,7 @@ import { onMount } from "svelte";
 
 </div> <!-- Left -->
 
-<div slot="right">
+<div class="right">
 {#if !isEmpty(product)}
 
 <Subtitle icon="lineChart" subtitle="Current Stats" />
