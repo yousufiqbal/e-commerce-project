@@ -1,20 +1,22 @@
 <script>
-import { goto } from "$app/navigation";
-
+  import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import BillSummary from "$lib/components/BillSummary.svelte";
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import Button from "$lib/components/Button.svelte";
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
+import Certain from "$lib/components/Certain.svelte";
   import Items from "$lib/components/Items.svelte";
-import Layout from "$lib/components/Layout.svelte";
-import Modal from "$lib/components/Modal.svelte";
+  import Layout from "$lib/components/Layout.svelte";
+  import Modal from "$lib/components/Modal.svelte";
+import Spaced from "$lib/components/Spaced.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
   import Table from "$lib/components/Table.svelte";
   import Text from "$lib/components/Text.svelte";
   import Title from "$lib/components/Title.svelte";
 
-  let modalConfirm = false, modalCancel = false
+  let modal = { confirm: false, cancel: true }
+  let certain = ''
 
   const items = [
     { product_id: 1, name: 'Nurpur Butter', url_name: 'nurpur-butter', quantity: '3', price: 200 },
@@ -39,8 +41,8 @@ import Modal from "$lib/components/Modal.svelte";
   ]
 
   const close = () => {
-    modalConfirm = false
-    modalCalcel = false
+    modal.confirm = false
+    modal.cancel = false
   }
   
   const confirmOrder = () => {
@@ -50,54 +52,16 @@ import Modal from "$lib/components/Modal.svelte";
 
 <Breadcrumb {crumbs} />
 <Title title="Order # {$page.params.order_id}" />
+<ButtonGroup>
+  <Button on:click={()=>modal.confirm=true} icon="check" name="Confirm Order" type="primary" />
+  <Button icon="deleteBin" name="Cancel Order" on:click={()=>modal.cancel=true} />
+</ButtonGroup>
 
-<Layout>
-  <div slot="left">
+<Layout columns="repeat(3, 1fr)">
 
-    <Subtitle subtitle="Items" />
+  <div class="left">
+    <Subtitle icon="listCheck" subtitle="Items" />
     <Items {items} />
-
-    <Subtitle subtitle="Customer Information" />
-    
-    <Table>
-      <tr>
-        <th>Name</th>
-        <td>{info.name}</td>
-      </tr>
-      <tr>
-        <th>Contact</th>
-        <td>{info.contact}</td>
-      </tr>
-      <tr>
-        <th>City</th>
-        <td>{info.city}</td>
-      </tr>
-      <tr>
-        <th>Address</th>
-        <td>{info.address}</td>
-      </tr>
-      <tr>
-        <th>Payment</th>
-        <td>{info.payment_method}</td>
-      </tr>
-    </Table>
-    
-    <Subtitle subtitle="Customer History" />
-    <Table>
-      <tr>
-        <th>Ordered</th>
-        <th>Cancelled</th>
-        <th>Returned</th>
-        <th>Others</th>
-      </tr>
-      <tr>
-        <td>20</td>
-        <td>5</td>
-        <td>0</td>
-        <td>15</td>
-      </tr>
-    </Table>
-    
     <Subtitle subtitle="Order Statuses" />
     <Table>
       <tr>
@@ -125,49 +89,98 @@ import Modal from "$lib/components/Modal.svelte";
         <td>Pending..</td>
       </tr>
     </Table>
+  </div>
+
+  <div class="middle">
+
+    <Subtitle icon="userThree" subtitle="Customer Information" />
+    <Table>
+      <tr>
+        <th>Name</th>
+        <td class="main">{info.name}</td>
+      </tr>
+      <tr>
+        <th>Contact</th>
+        <td>{info.contact}</td>
+      </tr>
+      <tr>
+        <th>City</th>
+        <td>{info.city}</td>
+      </tr>
+      <tr>
+        <th>Address</th>
+        <td>{info.address}</td>
+      </tr>
+      <tr>
+        <th>Payment</th>
+        <td>{info.payment_method}</td>
+      </tr>
+    </Table>
     
-    
+    <Subtitle icon="history" subtitle="Customer History" />
+    <Table>
+      <tr>
+        <th>Ordered</th>
+        <th>Cancelled</th>
+        <th>Returned</th>
+        <th>Others</th>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>5</td>
+        <td>0</td>
+        <td>15</td>
+      </tr>
+    </Table>
 
   </div>
-  <div slot="right">
 
-    <Subtitle subtitle="Promo" />
+  <div class="right">
+    <Subtitle icon="coupon" subtitle="Promo" />
     <Text>
       No Promo Used
     </Text>
-    
-    
-    <Subtitle subtitle="Bill Summary" />
-    
+    <Subtitle icon="bill" subtitle="Bill Summary" />
     <BillSummary {items} />
-    
-    <Subtitle subtitle="Actions" />
-    
-    <ButtonGroup>
-      <Button on:click={()=>modalConfirm=true} icon="check" name="Confirm Order" type="primary" />
-      <Button icon="close" name="Cancel Order" type="danger" />
-    </ButtonGroup>
   </div>
+
 </Layout>
 
 
-{#if modalConfirm || modalCancel}
+{#if modal.confirm || modal.cancel}
 <Modal on:close={close}>
 
-  {#if modalConfirm}
-  <Subtitle subtitle="Confirm" />
+  {#if modal.confirm}
+  <Subtitle icon="errorWarning" subtitle="Confirm" />
 
   <Text>
     Do you want to confirm order no. {$page.params.order_id} of {info.name}?
   </Text>
 
-  <ButtonGroup>
+  <Spaced>
+    <Button icon="check" type="primary"  name="Yes (Confirm)" on:click={confirmOrder}  />
+    <Button icon="close" name="No" on:click={close}  />
+  </Spaced>
+  {/if}
+  
+  {#if modal.cancel}
+  <Subtitle icon="errorWarning" subtitle="Confirm Cancellation" />
+  
+  <Text>
+    Do you want to CANCEL order no. {$page.params.order_id} of {info.name}?
+  </Text>
+
+  <Certain bind:certain placeholder="Type 'cancel' here" />
+
+  {#if certain.toLowerCase() == 'cancel'}
+  <Spaced>
     <Button icon="check" type="primary" name="Yes" on:click={confirmOrder}  />
     <Button icon="close" name="No" on:click={close}  />
-  </ButtonGroup>
+  </Spaced>
   {/if}
 
-
+  {/if}
 
 </Modal>
 {/if}
+

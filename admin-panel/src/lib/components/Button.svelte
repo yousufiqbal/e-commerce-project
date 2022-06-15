@@ -46,11 +46,12 @@
     box-shadow: var(--shadow);
   }
   .button.primary:hover {
-    background-color: rgb(0, 144, 74);
+    background-color: var(--green);
   }
   .primary {
     color: white;
     background-color: var(--secondary);
+    transition: background-color 500ms;
   }
   .primary span {
     color: white;

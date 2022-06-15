@@ -17,6 +17,7 @@
     white-space: nowrap;
     border-collapse: collapse;
     margin-bottom: 10px;
+    width: 100%;
   }
   .table th {
     font-weight: bold;

@@ -13,6 +13,7 @@
   --primary: rgb(175, 0, 0);
   --secondary: rgb(0, 153, 219);
   --border: gray;
+  --green: rgb(0, 144, 74);
 
   /* Shadows */
   --shadow: 0 0 5px 0 lightgray;
