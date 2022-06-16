@@ -5,16 +5,25 @@
 
   export let name = 'name'
   export let items = []
+  export let type
 
   $: current = $page.url.searchParams.get(name)
 </script>
 
 <div class="standalone-menu">
   {#each items as item}
+  {#if type == 'query'}
   <a class:active={current==item.url_name} href="{setQuery({ [name]: item.url_name }, $page)}">
     <span>{item.name}</span>
     <Icon icon="arrowRightS" />
   </a>
+  {/if}
+  {#if type == 'link'}
+  <a class:active={$page.url.pathname==item.href} href="{item.href}">
+    <span>{item.name}</span>
+    <Icon icon="arrowRightS" />
+  </a>
+  {/if}
   {/each}
 </div>
 

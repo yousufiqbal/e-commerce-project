@@ -3,45 +3,42 @@
   export const load = async ({ fetch, params }) => {
     const response = await fetch('/api/users/info?user_id='+params.user_id)
     const user = await response.json()
+    console.log(user)
     return { props: { user }}
   }
 </script>
 <script>
   import { page } from "$app/stores";
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
+import Layout from "$lib/components/Layout.svelte";
   import LinkTabs from "$lib/components/LinkTabs.svelte";
+import StandaloneMenu from "$lib/components/StandaloneMenu.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
-import Text from "$lib/components/Text.svelte";
+  import Text from "$lib/components/Text.svelte";
   import Title from "$lib/components/Title.svelte";
-import { beautifyDate, beautifyDateTime } from "$lib/others/utils";
+  import {  beautifyDateTime } from "$lib/others/utils";
   import { startCase } from "lodash-es";
 
   const tabs = [
-    { name: 'Orders', href: '/users/1/orders' },
-    { name: 'Promos', href: '/users/1/promos' },
-    { name: 'Wallet', href: '/users/1/wallet' },
-    { name: 'Wishlist', href: '/users/1/wishlist' },
-    { name: 'Promos', href: '/users/1/promos' },
-    { name: 'Messages', href: '/users/1/messages' },
-    { name: 'Settings', href: '/users/1/settings' },
-  ]
-
-  const crumbs = [
-    { name: 'Users', href: '/users', icon: 'userThree' },
-    // { name: 'ID', href: '/' },
+    { name: `About`, href: `/users/${$page.params.user_id}` },
+    { name: `Orders`, href: `/users/${$page.params.user_id}/orders` },
+    { name: `Promos`, href: `/users/${$page.params.user_id}/promos` },
+    { name: `Wallet`, href: `/users/${$page.params.user_id}/wallet` },
+    { name: `Wishlist`, href: `/users/${$page.params.user_id}/wishlist` },
+    { name: `Messages`, href: `/users/${$page.params.user_id}/messages` },
+    { name: `Settings`, href: `/users/${$page.params.user_id}/settings` },
   ]
 
   export let user = {}
 </script>
 
-<Breadcrumb {crumbs} />
-<Title back title="{startCase(user.name)} # {$page.params.user_id}" />
-<Text>
-  Email: {user.email}<br>
-  Joined: {beautifyDateTime(user.created)}
-</Text>
-<LinkTabs items={tabs} />
+<Title below="{user.email}" back title="{startCase(user.name)} # {$page.params.user_id}" />
 
-<Subtitle subtitle="{startCase($page.url.searchParams.get('tab'))}"  />
-
-<slot></slot>
+<Layout columns="1fr 5fr">
+  <div>
+    <StandaloneMenu type="link" items={tabs} />
+  </div>
+  <div>
+    <slot {user}></slot>
+  </div>
+</Layout>
