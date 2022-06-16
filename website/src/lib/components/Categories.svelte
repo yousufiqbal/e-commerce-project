@@ -1,14 +1,12 @@
 <script>
-  const Categories = [
-    { name: '', url_name: '' }
-  ]
+  import Nothing from "./Nothing.svelte"
 
-  /** @type {Categories} */
   export let categories = []
 </script>
 
+{#if categories.length != 0}
 <div class="categories">
-
+  
   {#each categories as category}
   <a href="/categories/{category.url_name}" class="category">
     <div class="image">
@@ -17,8 +15,14 @@
     <div class="name">{category.name}</div>
   </a>
   {/each}
-
+  
 </div>
+
+{:else}
+<Nothing>
+  No Categories
+</Nothing>
+{/if}
 
 <style>
   .category {

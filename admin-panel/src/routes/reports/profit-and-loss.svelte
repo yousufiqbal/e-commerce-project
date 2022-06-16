@@ -1,9 +1,9 @@
 <script>
   import Breadcrumb from "$lib/components/Breadcrumb.svelte";
   import Calendar from "$lib/components/Calendar.svelte";
-import Checkboxes from "$lib/components/Checkboxes.svelte";
+  import Checkboxes from "$lib/components/Checkboxes.svelte";
   import Subtitle from "$lib/components/Subtitle.svelte";
-import Table from "$lib/components/Table.svelte";
+  import Table from "$lib/components/Table.svelte";
   import Title from "$lib/components/Title.svelte";
 
   const crumbs = [
