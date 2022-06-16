@@ -4,6 +4,7 @@
   import Seo from "./Seo.svelte";
 
   export let title, back = null, description = title, icon  = null
+  export let below = null
 </script>
 
 <div class="title">
@@ -17,7 +18,12 @@
     {#if icon}
     <Icon size="1.5rem" {icon} />
     {/if}
-    <h1 in:fly={{x: -20, duration: 150}}>{title}</h1>
+    <div>
+      <h1 in:fly={{x: -20, duration: 150}}>{title}</h1>
+      {#if below}
+      <div class="below">{@html below}</div>
+      {/if}
+    </div>
   </div>
 
   <div class="right">
@@ -31,7 +37,7 @@
 <style>
   .title {
     display: flex;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     /* border: 1px solid red; */
   }
   a {

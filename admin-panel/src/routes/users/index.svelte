@@ -3,8 +3,9 @@
   import ButtonGroup from "$lib/components/ButtonGroup.svelte";
   import Table from "$lib/components/Table.svelte";
   import Title from "$lib/components/Title.svelte";
+import { beautifyDateTime } from "$lib/others/utils";
 
-  let users = [
+  export let users = [
     { user_id: 1, name: 'Farhan Meva', city: 'Karachi', address: 'C26, Block-14 Gulistan-e-Jauhar' },
     { user_id: 2, name: 'Farhan Meva', city: 'Karachi', address: 'C26, Block-14 Gulistan-e-Jauhar' },
     { user_id: 3, name: 'Farhan Meva', city: 'Karachi', address: 'C26, Block-14 Gulistan-e-Jauhar' },
@@ -23,17 +24,17 @@
   <tr>
     <th>Sr.</th>
     <th>ID</th>
-    <th>Name</th>
-    <th>City</th>
-    <th class="main">Address</th>
+    <th class="main">Name</th>
+    <th>Email</th>
+    <th class="main">Joined</th>
   </tr>
   {#each users as user, index (user.user_id)}
   <tr>
     <td>{index+1}</td>
     <td>{user.user_id}</td>
     <td><a href="/users/{user.user_id}">{user.name}</a></td>
-    <td>{user.city}</td>
-    <td>{user.address}</td>
+    <td>{user.email}</td>
+    <td>{beautifyDateTime(user.created)}</td>
   </tr>
   {/each}
 </Table>
