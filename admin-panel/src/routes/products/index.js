@@ -29,6 +29,15 @@ export const get = async ({ url }) => {
   const { count } = db.fn
   const { total } = await db.selectFrom('products').select([count('products.product_id').as('total')]).executeTakeFirst()
   
-  return { body: { products, total, categories, brands }}
+  // Getting parents..
+  const parents = await db.selectFrom('categories')
+      .where('categories.parent_id', 'is', null)
+      .selectAll().execute()
+
+  // Getting current category
+  const category_id = url.searchParams.get('category_id') || null
+  const category = categories.filter(category => category.category_id == category_id)[0] || 'No Category Selected'
+
+  return { body: { products, total, categories, brands, parents, category }}
 
 }

@@ -7,13 +7,13 @@ import Table from "$lib/components/Table.svelte";
   import Title from "$lib/components/Title.svelte";
 
   const crumbs = [
-    { name: 'Reports', href: '/reports', icon: 'lineChart' },
+    { name: 'Reports', href: '/reports' },
     { name: 'Profit & Loss', href: '/reports/profit-and-loss' },
   ]
 </script>
   
 <Breadcrumb {crumbs} />
-<Title title="Profit & Loss" back="/reports" />
+<Title title="Profit & Loss" />
 <Calendar />
 
 <Subtitle subtitle="Visual" icon="lineChart" />

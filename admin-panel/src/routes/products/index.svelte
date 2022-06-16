@@ -12,6 +12,7 @@
 
   // Fake data
   export let products = []
+  export let category = {}
   export let total = 0
   export let categories = [], brands = []
   let categoryModal = false, brandModal = false
@@ -48,7 +49,7 @@
   <Pagination {total} />
 </ButtonGroup>
 
-<Subtitle icon="folders" subtitle="All Categories" />
+<Subtitle icon="folders" subtitle="{category.path || 'All Categories'}" />
 <Products {products} />
 
 <!-- Modals -->
