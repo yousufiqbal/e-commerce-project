@@ -34,7 +34,7 @@ import StandaloneMenu from "$lib/components/StandaloneMenu.svelte";
 
 <Title below="{user.email}" back title="{startCase(user.name)} # {$page.params.user_id}" />
 
-<Layout columns="1fr 5fr">
+<Layout columns="2fr 5fr">
   <div>
     <StandaloneMenu type="link" items={tabs} />
   </div>

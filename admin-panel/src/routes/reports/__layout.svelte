@@ -15,7 +15,7 @@
 
 <Title title="Reports" icon="lineChart" />
 
-<Layout columns="1fr 5fr">
+<Layout columns="1.52fr 5fr">
   <div>
     <StandaloneMenu type="link" items={reports} />
   </div>
