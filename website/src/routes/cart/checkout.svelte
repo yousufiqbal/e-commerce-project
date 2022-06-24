@@ -16,9 +16,7 @@
 
   let payment_method = 'COD'
   export let address = {}
-  export let promo = {
-
-  $: console.log(address)
+  export let promo = {}
 
   const crumbs = [
     { name: 'Cart', href: '/cart' },

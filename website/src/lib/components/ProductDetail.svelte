@@ -1,5 +1,5 @@
 <script>
-  import Carousel from "./Carousel.svelte";
+  import Carousel from "./Carousel.2svelte";
   export let product = {}
 </script>
 

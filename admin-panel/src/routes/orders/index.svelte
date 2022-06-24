@@ -9,7 +9,7 @@ import Divider from "$lib/components/Divider.svelte";
 import Search from "$lib/components/Search.svelte";
   import Table from "$lib/components/Table.svelte";
   import Title from "$lib/components/Title.svelte";
-import { beautifyDateTime } from "$lib/others/utils";
+  import { beautifyDateTime } from "$lib/others/utils";
 
   const types = [
     { name: 'Ordered', url_name: 'ordered' },

@@ -78,7 +78,7 @@
   </div>
 
   <div class="middle">
-    <Subtitle subtitle="Order Statuses" />
+    <Subtitle subtitle="Previous Statuses" icon="listCheck" />
     <Table>
       {#each statuses as status}
       <tr>

@@ -51,7 +51,7 @@
     box-shadow: var(--shadow);
   }
   .active {
-    background-color: rgb(79, 79, 79);
+    background-color: var(--active-bg);
     color: white;
   }
 </style>
